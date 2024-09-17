@@ -8,6 +8,7 @@
 
         <class>entities.Carrera</class>
         <class>entities.Estudiante</class>
+        <class>entities.Inscripcion</class>
 
         <properties>
             <!-- Propiedades de configuración de JDBC para MySQL -->

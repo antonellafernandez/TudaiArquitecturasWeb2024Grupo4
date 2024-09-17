@@ -1,5 +1,6 @@
 package daos;
 
+import daos.interfaces.DAO;
 import entities.Estudiante;
 
 import javax.persistence.EntityManager;
@@ -7,13 +8,14 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import java.util.List;
 
-public class JpaEstudianteDAO {
+public class JpaEstudianteDAO implements DAO<Estudiante> {
     private EntityManager em;
 
     public JpaEstudianteDAO(EntityManager em) {
         this.em = em;
     }
 
+    @Override
     // a) Dar de alta un estudiante
     public void insert(Estudiante estudiante) {
         EntityTransaction transaction = em.getTransaction();
@@ -29,6 +31,42 @@ public class JpaEstudianteDAO {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public Estudiante selectById(int id) {
+        try {
+            return em.createQuery("SELECT e FROM Estudiante e WHERE e.id = :id", Estudiante.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (PersistenceException e) {
+            System.out.println("Error al obtener estudiante por id! " + e.getMessage());
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public List<Estudiante> selectAll() {
+        try {
+            return em.createQuery("SELECT e FROM Estudiante e", Estudiante.class).getResultList();
+        } catch (PersistenceException e) {
+            System.out.println("Error al obtener estudiantes! " + e.getMessage());
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public boolean update(Estudiante estudiante) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
     }
 
     // b) Matricular un estudiante en una carrera (Consulta implementada en InscripcionDAO)
