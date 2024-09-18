@@ -27,8 +27,6 @@ public class JpaCarreraDAO implements DAO<Carrera> {
             transaction.rollback();
             System.out.println("Error al insertar carrera! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -41,8 +39,6 @@ public class JpaCarreraDAO implements DAO<Carrera> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener carrera por id! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -53,8 +49,6 @@ public class JpaCarreraDAO implements DAO<Carrera> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener carreras! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 

@@ -28,8 +28,6 @@ public class JpaEstudianteDAO implements DAO<Estudiante> {
             transaction.rollback();
             System.out.println("Error al insertar estudiante! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -42,8 +40,6 @@ public class JpaEstudianteDAO implements DAO<Estudiante> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener estudiante por id! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -54,8 +50,6 @@ public class JpaEstudianteDAO implements DAO<Estudiante> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener estudiantes! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -78,8 +72,6 @@ public class JpaEstudianteDAO implements DAO<Estudiante> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener estudiantes ordenados por nombre! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -92,8 +84,6 @@ public class JpaEstudianteDAO implements DAO<Estudiante> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener estudiante por lu! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -106,8 +96,6 @@ public class JpaEstudianteDAO implements DAO<Estudiante> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener estudiante por lu! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 

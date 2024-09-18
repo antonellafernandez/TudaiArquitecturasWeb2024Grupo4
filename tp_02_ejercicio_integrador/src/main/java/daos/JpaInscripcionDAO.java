@@ -29,8 +29,6 @@ public class JpaInscripcionDAO implements DAO<Inscripcion> {
             transaction.rollback();
             System.out.println("Error al insertar inscripción! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -43,8 +41,6 @@ public class JpaInscripcionDAO implements DAO<Inscripcion> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener inscripcion por id! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -55,8 +51,6 @@ public class JpaInscripcionDAO implements DAO<Inscripcion> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener inscripciones! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -83,8 +77,6 @@ public class JpaInscripcionDAO implements DAO<Inscripcion> {
             transaction.rollback();
             System.out.println("Error al matricular estudiante! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -99,8 +91,6 @@ public class JpaInscripcionDAO implements DAO<Inscripcion> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener estudiantes por carrera y residencia! " + e.getMessage());
             throw e;
-        } finally {
-            em.close();
         }
     }
 }

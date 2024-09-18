@@ -23,7 +23,7 @@ public class Estudiante {
     private String genero;
 
     @Column
-    private String dni;
+    private int dni;
 
     @Column
     private String ciudadResidencia;
@@ -40,7 +40,7 @@ public class Estudiante {
         this.inscripciones = new ArrayList<Inscripcion>();
     }
 
-    public Estudiante(String nombres, String apellido, int edad, String genero, String dni, String ciudadResidencia, long lu) {
+    public Estudiante(String nombres, String apellido, int edad, String genero, int dni, String ciudadResidencia, long lu) {
         this.nombres = nombres;
         this.apellido = apellido;
         this.edad = edad;
@@ -88,11 +88,11 @@ public class Estudiante {
         this.genero = genero;
     }
 
-    public String getDni() {
+    public int getDni() {
         return dni;
     }
 
-    public void setDni(String dni) {
+    public void setDni(int dni) {
         this.dni = dni;
     }
 
