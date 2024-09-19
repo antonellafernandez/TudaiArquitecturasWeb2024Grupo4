@@ -12,6 +12,12 @@ public class Inscripcion {
     private int antiguedad;
 
     @Column
+    private int anioInscripcion;
+
+    @Column
+    private Integer anioEgreso; // Usar Integer para permitir valores null
+
+    @Column
     private boolean graduado;
 
     // Relación muchos a uno con Carrera
@@ -29,8 +35,10 @@ public class Inscripcion {
 
     }
 
-    public Inscripcion(int antiguedad, boolean graduado, Carrera carrera, Estudiante estudiante) {
+    public Inscripcion(int antiguedad, int anioInscripcion, Integer anioEgreso, boolean graduado, Carrera carrera, Estudiante estudiante) {
         this.antiguedad = antiguedad;
+        this.anioInscripcion = anioInscripcion;
+        this.anioEgreso = anioEgreso;
         this.graduado = graduado;
         this.carrera = carrera;
         this.estudiante = estudiante;
@@ -47,6 +55,22 @@ public class Inscripcion {
 
     public void setAntiguedad(int antiguedad) {
         this.antiguedad = antiguedad;
+    }
+
+    public int getAnioInscripcion() {
+        return anioInscripcion;
+    }
+
+    public void setAnioInscripcion(int anioInscripcion) {
+        this.anioInscripcion = anioInscripcion;
+    }
+
+    public Integer getAnioEgreso() {
+        return anioEgreso;
+    }
+
+    public void setAnioEgreso(Integer anioEgreso) {
+        this.anioEgreso = anioEgreso;
     }
 
     public boolean isGraduado() {
@@ -78,6 +102,8 @@ public class Inscripcion {
         return "Inscripcion{" +
                 "id=" + id +
                 ", antiguedad=" + antiguedad +
+                ", anioInscripcion=" + anioInscripcion +
+                ", anioEgreso=" + anioEgreso +
                 ", graduado=" + graduado +
                 ", carrera=" + carrera +
                 ", estudiante=" + estudiante +

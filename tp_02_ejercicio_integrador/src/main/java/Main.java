@@ -1,9 +1,12 @@
 import daos.interfaces.DAO;
+import dtos.ReporteCarreraDTO;
 import entities.Carrera;
 import entities.Estudiante;
 import entities.Inscripcion;
 import factories.DAOFactory;
 import factories.JpaMySqlDAOFactory;
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -83,16 +86,16 @@ public class Main {
         Carrera c4 = new Carrera("Carrera4");
         Carrera c5 = new Carrera("Carrera5");
 
-        Inscripcion i1 = new Inscripcion(12, true, c1, e1);
-        Inscripcion i2 = new Inscripcion(12, true, c1, e2);
-        Inscripcion i3 = new Inscripcion(12, false, c1, e3);
-        Inscripcion i4 = new Inscripcion(12, true, c2, e4);
-        Inscripcion i5 = new Inscripcion(12, true, c2, e5);
-        Inscripcion i6 = new Inscripcion(12, false, c4, e6);
-        Inscripcion i7 = new Inscripcion(12, true, c4, e7);
-        Inscripcion i8 = new Inscripcion(12, false, c4, e8);
-        Inscripcion i9 = new Inscripcion(12, false, c4, e9);
-        Inscripcion i10 = new Inscripcion(12, false, c5, e10);
+        Inscripcion i1 = new Inscripcion(12, 2010, 2022, true, c1, e1);
+        Inscripcion i2 = new Inscripcion(12, 2011, 2023, true, c1, e2);
+        Inscripcion i3 = new Inscripcion(12, 2012, null, false, c1, e3);
+        Inscripcion i4 = new Inscripcion(12, 2011, 2023, true, c2, e4);
+        Inscripcion i5 = new Inscripcion(12, 2011, 2023, true, c2, e5);
+        Inscripcion i6 = new Inscripcion(12, 2012, null, false, c4, e6);
+        Inscripcion i7 = new Inscripcion(12, 2008, 2020, true, c4, e7);
+        Inscripcion i8 = new Inscripcion(12, 2012, null, false, c4, e8);
+        Inscripcion i9 = new Inscripcion(12, 2012, null, false, c4, e9);
+        Inscripcion i10 = new Inscripcion(12, 2012, null, false, c5, e10);
 
         DAOFactory mySqlDAO1 = JpaMySqlDAOFactory.getDAOFactory(1);
         DAOFactory mySqlDAO2 = JpaMySqlDAOFactory.getDAOFactory(1);
@@ -128,5 +131,14 @@ public class Main {
         jpaInscripcionDAO.insert(i9);
         jpaInscripcionDAO.insert(i10);
 
+        // Generar e imprimir el reporte de carreras
+        List<ReporteCarreraDTO> reporte = jpaCarreraDAO.generarReporteCarreras();
+        if (reporte != null) {
+            for (ReporteCarreraDTO dto : reporte) {
+                System.out.println(dto);
+            }
+        } else {
+            System.out.println("No se pudo generar el reporte.");
+        }
     }
 }

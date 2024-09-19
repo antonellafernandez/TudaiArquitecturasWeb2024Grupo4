@@ -1,38 +1,76 @@
 package dtos;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 public class ReporteCarreraDTO implements Serializable {
-
-    private EntityManager em;
-
-    private Long idCarrera;
     private String nombreCarrera;
-    private String descripcionCarrera;
-    private Long idEstudiante;
-    private String nombreEstudiante;
-    private String generoEstudiante;
-    private boolean isGraduado;
-    private Date fecha;
+    private int anioInscripcion;
+    private int anioEgreso;
+    private long cantidadInscriptos;
+    private long cantidadEgresados;
 
-    public ReporteCarreraDTO() {}
-    public ReporteCarreraDTO(EntityManager em) {this.em = em;}
+    // Constructores
+    public ReporteCarreraDTO() {
 
-    public List<ReporteCarreraDTO> getReporte(){
-        try{
-            String jpql = "SELECT e " +
-                            "FROM Estudiante e JOIN e.inscripciones i JOIN i.carrera c " +
-                            "ORDER BY c.nombre";
-            TypedQuery<ReporteCarreraDTO> query = em.createQuery(jpql, ReporteCarreraDTO.class);
-            //query.setParameter();
-            return query.getResultList();
-        }catch (Exception e){
+    }
 
-        }
-        return null;
+    public ReporteCarreraDTO(String nombreCarrera, int anioInscripcion, int anioEgreso, long cantidadInscriptos, long cantidadEgresados) {
+        this.nombreCarrera = nombreCarrera;
+        this.anioInscripcion = anioInscripcion;
+        this.anioEgreso = anioEgreso;
+        this.cantidadInscriptos = cantidadInscriptos;
+        this.cantidadEgresados = cantidadEgresados;
+    }
+
+    // Getters y Setters
+    public String getNombreCarrera() {
+        return nombreCarrera;
+    }
+
+    public void setNombreCarrera(String nombreCarrera) {
+        this.nombreCarrera = nombreCarrera;
+    }
+
+    public int getAnioInscripcion() {
+        return anioInscripcion;
+    }
+
+    public void setAnioInscripcion(int anioInscripcion) {
+        this.anioInscripcion = anioInscripcion;
+    }
+
+    public int getAnioEgreso() {
+        return anioEgreso;
+    }
+
+    public void setAnioEgreso(int anioEgreso) {
+        this.anioEgreso = anioEgreso;
+    }
+
+    public long getCantidadInscriptos() {
+        return cantidadInscriptos;
+    }
+
+    public void setCantidadInscriptos(long cantidadInscriptos) {
+        this.cantidadInscriptos = cantidadInscriptos;
+    }
+
+    public long getCantidadEgresados() {
+        return cantidadEgresados;
+    }
+
+    public void setCantidadEgresados(long cantidadEgresados) {
+        this.cantidadEgresados = cantidadEgresados;
+    }
+
+    @Override
+    public String toString() {
+        return "ReporteCarreraDTO{" +
+                "nombreCarrera='" + nombreCarrera + '\'' +
+                ", anioInscripcion=" + anioInscripcion +
+                ", anioEgreso=" + anioEgreso +
+                ", cantidadInscriptos=" + cantidadInscriptos +
+                ", cantidadEgresados=" + cantidadEgresados +
+                '}';
     }
 }

@@ -1,13 +1,14 @@
 package daos;
 
 import daos.interfaces.DAO;
+import dtos.ReporteCarreraDTO;
 import entities.Carrera;
-import entities.Estudiante;
 import entities.Inscripcion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class JpaCarreraDAO implements DAO<Carrera> {
@@ -127,6 +128,26 @@ public class JpaCarreraDAO implements DAO<Carrera> {
             transaction.rollback();
             System.out.println("Error al eliminar carrera! " + e.getMessage());
             return false;
+        }
+    }
+
+    public List<ReporteCarreraDTO> generarReporteCarreras() {
+        try {
+            String jpql = "SELECT new dtos.ReporteCarreraDTO(c.nombre, " +
+                    "i.anioInscripcion, " +
+                    "i.anioEgreso, " +
+                    "COUNT(CASE WHEN i.anioEgreso IS NULL THEN 1 END), " + // Inscripciones sin egreso
+                    "COUNT(CASE WHEN i.anioEgreso IS NOT NULL THEN 1 END)) " + // Inscripciones con egreso
+                    "FROM Inscripcion i " +
+                    "JOIN i.carrera c " +
+                    "GROUP BY c.nombre, i.anioInscripcion, i.anioEgreso " +
+                    "ORDER BY c.nombre ASC, i.anioInscripcion ASC, i.anioEgreso ASC";
+
+            TypedQuery<ReporteCarreraDTO> query = em.createQuery(jpql, ReporteCarreraDTO.class);
+            return query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Error al generar reporte de carreras: " + e.getMessage());
+            return null;
         }
     }
 }

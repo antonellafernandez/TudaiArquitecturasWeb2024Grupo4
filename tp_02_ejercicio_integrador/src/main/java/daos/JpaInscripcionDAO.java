@@ -66,6 +66,8 @@ public class JpaInscripcionDAO implements DAO<Inscripcion> {
             if (inscripcionExistente != null) {
                 // Actualizar los campos necesarios
                 inscripcionExistente.setAntiguedad(inscripcion.getAntiguedad());
+                inscripcionExistente.setAnioInscripcion(inscripcion.getAnioInscripcion());
+                inscripcionExistente.setAnioEgreso(inscripcion.getAnioEgreso());
                 inscripcionExistente.setGraduado(inscripcion.isGraduado());
                 inscripcionExistente.setCarrera(inscripcion.getCarrera());
                 inscripcionExistente.setEstudiante(inscripcion.getEstudiante());
@@ -113,8 +115,8 @@ public class JpaInscripcionDAO implements DAO<Inscripcion> {
     }
 
     // b) Matricular un estudiante en una carrera
-    public void matricularEstudianteEnCarrera(Estudiante estudiante, Carrera carrera, int antiguedad, boolean graduado) {
-        Inscripcion inscripcion = new Inscripcion(antiguedad, graduado, carrera, estudiante);
+    public void matricularEstudianteEnCarrera(Estudiante estudiante, Carrera carrera, int antiguedad, int anioInscripcion, Integer anioEgreso, boolean graduado) {
+        Inscripcion inscripcion = new Inscripcion(antiguedad, anioInscripcion, anioEgreso, graduado, carrera, estudiante);
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
