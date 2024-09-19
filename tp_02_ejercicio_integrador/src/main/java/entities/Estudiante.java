@@ -116,11 +116,19 @@ public class Estudiante {
         return new ArrayList<>(inscripciones);
     }
 
-    /*
-    public void setInscripciones(List<Inscripcion> inscripciones) {
-        this.inscripciones = inscripciones;
+    public void addInscripcion(Inscripcion inscripcion) {
+        if (!inscripciones.contains(inscripcion)) {
+            inscripciones.add(inscripcion);
+            inscripcion.setEstudiante(this); // Mantener la relación bidireccional
+        }
     }
-    */
+
+    public void removeInscripcion(Inscripcion inscripcion) {
+        if (inscripciones.contains(inscripcion)) {
+            inscripciones.remove(inscripcion);
+            inscripcion.setEstudiante(null); // Mantener la relación bidireccional
+        }
+    }
 
     @Override
     public String toString() {

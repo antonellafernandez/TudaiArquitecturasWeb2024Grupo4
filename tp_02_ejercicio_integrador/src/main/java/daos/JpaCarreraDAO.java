@@ -2,6 +2,8 @@ package daos;
 
 import daos.interfaces.DAO;
 import entities.Carrera;
+import entities.Estudiante;
+import entities.Inscripcion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -15,6 +17,8 @@ public class JpaCarreraDAO implements DAO<Carrera> {
         this.em = em;
     }
 
+    // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Carrera
+    // (insertar, actualizar, eliminar) también afectará automáticamente a las entidades relacionadas
     @Override
     public void insert(Carrera carrera) {
         EntityTransaction transaction = em.getTransaction();
@@ -52,13 +56,77 @@ public class JpaCarreraDAO implements DAO<Carrera> {
         }
     }
 
+    // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Carrera
+    // (insertar, actualizar, eliminar) también afectará automáticamente a las entidades relacionadas
     @Override
     public boolean update(Carrera carrera) {
-        return false;
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        try {
+            // Buscar si la carrera existe
+            Carrera carreraExistente = em.find(Carrera.class, carrera.getId());
+
+            if (carreraExistente != null) {
+                // Actualizar los campos necesarios
+                carreraExistente.setNombre(carrera.getNombre());
+
+                // Actualizar la lista de inscripciones
+                // Eliminar las inscripciones antiguas que no están en la nueva lista
+                List<Inscripcion> inscripcionesExistentes = carreraExistente.getInscripciones();
+
+                for (Inscripcion inscripcion : inscripcionesExistentes) {
+                    if (!carrera.getInscripciones().contains(inscripcion)) {
+                        carreraExistente.removeInscripcion(inscripcion);
+                    }
+                }
+
+                // Agregar nuevas inscripciones que no están en la lista existente
+                for (Inscripcion inscripcion : carrera.getInscripciones()) {
+                    if (!inscripcionesExistentes.contains(inscripcion)) {
+                        carreraExistente.addInscripcion(inscripcion);
+                    }
+                }
+
+                // Persistir los cambios
+                em.merge(carreraExistente);
+                transaction.commit();
+                return true;
+            } else {
+                transaction.rollback();
+                System.out.println("Carrera no encontrada para actualizar!");
+                return false;
+            }
+        } catch (PersistenceException e) {
+            transaction.rollback();
+            System.out.println("Error al actualizar carrera! " + e.getMessage());
+            return false; // Retornar false en caso de error
+        }
     }
 
+    // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Carrera
+    // (insertar, actualizar, eliminar) también afectará automáticamente a las entidades relacionadas
     @Override
     public boolean delete(int id) {
-        return false;
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        try {
+            Carrera carrera = em.find(Carrera.class, id);
+
+            if (carrera != null) {
+                em.remove(carrera);
+                transaction.commit();
+                return true;
+            } else {
+                transaction.rollback();
+                System.out.println("La carrera con id=" + id + " no existe!");
+                return false;
+            }
+        } catch (PersistenceException e) {
+            transaction.rollback();
+            System.out.println("Error al eliminar carrera! " + e.getMessage());
+            return false;
+        }
     }
 }

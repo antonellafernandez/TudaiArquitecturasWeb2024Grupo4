@@ -2,6 +2,7 @@ package daos;
 
 import daos.interfaces.DAO;
 import entities.Estudiante;
+import entities.Inscripcion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -15,6 +16,8 @@ public class JpaEstudianteDAO implements DAO<Estudiante> {
         this.em = em;
     }
 
+    // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Estudiante
+    // (insertar, actualizar, eliminar) también afectará automáticamente a las entidades relacionadas
     @Override
     // a) Dar de alta un estudiante
     public void insert(Estudiante estudiante) {
@@ -53,17 +56,87 @@ public class JpaEstudianteDAO implements DAO<Estudiante> {
         }
     }
 
+    // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Estudiante
+    // (insertar, actualizar, eliminar) también afectará automáticamente a las entidades relacionadas
     @Override
     public boolean update(Estudiante estudiante) {
-        return false;
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        try {
+            // Buscar si el estudiante existe
+            Estudiante estudianteExistente = em.find(Estudiante.class, estudiante.getId());
+
+            if (estudianteExistente != null) {
+                // Actualizar los campos necesarios
+                estudianteExistente.setNombres(estudiante.getNombres());
+                estudianteExistente.setApellido(estudiante.getApellido());
+                estudianteExistente.setEdad(estudiante.getEdad());
+                estudianteExistente.setGenero(estudiante.getGenero());
+                estudianteExistente.setDni(estudiante.getDni());
+                estudianteExistente.setCiudadResidencia(estudiante.getCiudadResidencia());
+                estudianteExistente.setLu(estudiante.getLu());
+
+                // Actualizar la lista de inscripciones
+                // Eliminar las inscripciones antiguas que no están en la nueva lista
+                List<Inscripcion> inscripcionesExistentes = estudianteExistente.getInscripciones();
+
+                for (Inscripcion inscripcion : inscripcionesExistentes) {
+                    if (!estudiante.getInscripciones().contains(inscripcion)) {
+                        estudianteExistente.removeInscripcion(inscripcion);
+                    }
+                }
+
+                // Agregar nuevas inscripciones que no están en la lista existente
+                for (Inscripcion inscripcion : estudiante.getInscripciones()) {
+                    if (!inscripcionesExistentes.contains(inscripcion)) {
+                        estudianteExistente.addInscripcion(inscripcion);
+                    }
+                }
+
+                // Persistir los cambios
+                em.merge(estudianteExistente);
+                transaction.commit();
+                return true;
+            } else {
+                transaction.rollback();
+                System.out.println("Estudiante no encontrado para actualizar!");
+                return false;
+            }
+        } catch (PersistenceException e) {
+            transaction.rollback();
+            System.out.println("Error al actualizar estudiante! " + e.getMessage());
+            return false;
+        }
     }
 
+    // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Estudiante
+    // (insertar, actualizar, eliminar) también afectará automáticamente a las entidades relacionadas
     @Override
     public boolean delete(int id) {
-        return false;
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        try {
+            Estudiante estudiante = em.find(Estudiante.class, id);
+
+            if (estudiante != null) {
+                em.remove(estudiante);
+                transaction.commit();
+                return true;
+            } else {
+                transaction.rollback();
+                System.out.println("El estudiante con id=" + id + " no existe!");
+                return false;
+            }
+        } catch (PersistenceException e) {
+            transaction.rollback();
+            System.out.println("Error al eliminar estudiante! " + e.getMessage());
+            return false;
+        }
     }
 
-    // b) Matricular un estudiante en una carrera (Consulta implementada en InscripcionDAO)
+    // b) Matricular un estudiante en una carrera (Consulta implementada en JpaInscripcionDAO)
 
     // c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple -> Por nombre
     public List<Estudiante> obtenerEstudiantesOrdenadosPorNombre() {
@@ -99,7 +172,7 @@ public class JpaEstudianteDAO implements DAO<Estudiante> {
         }
     }
 
-    // f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos (Consulta implementada en CarreraDAO)
+    // f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos (Consulta implementada en JpaInscripcionDAO)
 
-    // g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia (Consulta implementada en InscripcionDAO)
+    // g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia (Consulta implementada en JpaInscripcionDAO)
 }

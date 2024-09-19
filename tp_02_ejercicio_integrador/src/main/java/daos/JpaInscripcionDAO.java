@@ -56,12 +56,60 @@ public class JpaInscripcionDAO implements DAO<Inscripcion> {
 
     @Override
     public boolean update(Inscripcion inscripcion) {
-        return false;
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        try {
+            // Buscar si la inscripción existe
+            Inscripcion inscripcionExistente = em.find(Inscripcion.class, inscripcion.getId());
+
+            if (inscripcionExistente != null) {
+                // Actualizar los campos necesarios
+                inscripcionExistente.setAntiguedad(inscripcion.getAntiguedad());
+                inscripcionExistente.setGraduado(inscripcion.isGraduado());
+                inscripcionExistente.setCarrera(inscripcion.getCarrera());
+                inscripcionExistente.setEstudiante(inscripcion.getEstudiante());
+
+                // Persistir los cambios
+                em.merge(inscripcionExistente);
+                transaction.commit();
+                return true;
+            } else {
+                transaction.rollback();
+                System.out.println("Inscripción no encontrada para actualizar!");
+                return false;
+            }
+        } catch (PersistenceException e) {
+            transaction.rollback();
+            System.out.println("Error al actualizar inscripción! " + e.getMessage());
+            return false;
+        }
     }
 
     @Override
     public boolean delete(int id) {
-        return false;
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        try {
+            // Buscar la inscripción por ID
+            Inscripcion inscripcion = em.find(Inscripcion.class, id);
+
+            if (inscripcion != null) {
+                // Eliminar la inscripción
+                em.remove(inscripcion);
+                transaction.commit();
+                return true;
+            } else {
+                transaction.rollback();
+                System.out.println("La inscripción con id=" + id + " no existe!");
+                return false;
+            }
+        } catch (PersistenceException e) {
+            transaction.rollback();
+            System.out.println("Error al eliminar inscripción! " + e.getMessage());
+            return false;
+        }
     }
 
     // b) Matricular un estudiante en una carrera
@@ -76,6 +124,22 @@ public class JpaInscripcionDAO implements DAO<Inscripcion> {
         } catch (PersistenceException e) {
             transaction.rollback();
             System.out.println("Error al matricular estudiante! " + e.getMessage());
+            throw e;
+        }
+    }
+
+    // f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos
+    public List<Object[]> recuperarCarrerasOrdenadasPorCantidadInscriptos() {
+        try {
+            return em.createQuery(
+                            "SELECT i.carrera.nombre, COUNT(i) AS inscriptos " +
+                                    "FROM Inscripcion i " +
+                                    "GROUP BY i.carrera.nombre " +
+                                    "HAVING COUNT(i) > 0 " + // Solo incluir carreras con al menos un inscripto
+                                    "ORDER BY COUNT(i) DESC", Object[].class)
+                    .getResultList();
+        } catch (PersistenceException e) {
+            System.out.println("Error al obtener carreras con inscriptos! " + e.getMessage());
             throw e;
         }
     }
