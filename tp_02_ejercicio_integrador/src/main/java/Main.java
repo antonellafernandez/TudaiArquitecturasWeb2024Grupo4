@@ -24,7 +24,5 @@ public class Main {
         } else {
             System.out.println("No se pudo generar el reporte.");
         }*/
-
-
     }
 }

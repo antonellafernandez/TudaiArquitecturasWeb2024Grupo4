@@ -1,20 +1,20 @@
 package dtos;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class ReporteCarreraDTO implements Serializable {
     private String nombreCarrera;
-    private int anioInscripcion;
-    private int anioEgreso;
+    private LocalDate anioInscripcion;
+    private LocalDate anioEgreso;
     private long cantidadInscriptos;
     private long cantidadEgresados;
+    private EstudianteDTO estudiante;
 
     // Constructores
-    public ReporteCarreraDTO() {
+    public ReporteCarreraDTO() {}
 
-    }
-
-    public ReporteCarreraDTO(String nombreCarrera, int anioInscripcion, int anioEgreso, long cantidadInscriptos, long cantidadEgresados) {
+    public ReporteCarreraDTO(String nombreCarrera, LocalDate anioInscripcion, LocalDate anioEgreso, long cantidadInscriptos, long cantidadEgresados) {
         this.nombreCarrera = nombreCarrera;
         this.anioInscripcion = anioInscripcion;
         this.anioEgreso = anioEgreso;
@@ -31,19 +31,19 @@ public class ReporteCarreraDTO implements Serializable {
         this.nombreCarrera = nombreCarrera;
     }
 
-    public int getAnioInscripcion() {
+    public LocalDate getAnioInscripcion() {
         return anioInscripcion;
     }
 
-    public void setAnioInscripcion(int anioInscripcion) {
+    public void setAnioInscripcion(LocalDate anioInscripcion) {
         this.anioInscripcion = anioInscripcion;
     }
 
-    public int getAnioEgreso() {
+    public LocalDate getAnioEgreso() {
         return anioEgreso;
     }
 
-    public void setAnioEgreso(int anioEgreso) {
+    public void setAnioEgreso(LocalDate anioEgreso) {
         this.anioEgreso = anioEgreso;
     }
 
