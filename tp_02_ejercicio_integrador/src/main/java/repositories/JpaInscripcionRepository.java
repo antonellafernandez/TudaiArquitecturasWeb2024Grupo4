@@ -1,5 +1,6 @@
 package repositories;
 
+import dtos.CarreraConCantInscriptosDTO;
 import repositories.interfaces.Repository;
 import entities.Carrera;
 import entities.Estudiante;
@@ -116,14 +117,14 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
     }
 
     // f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos
-    public List<Object[]> recuperarCarrerasOrdenadasPorCantidadInscriptos() {
+    public List<CarreraConCantInscriptosDTO[]> recuperarCarrerasOrdenadasPorCantidadInscriptos() {
         try {
             return em.createQuery(
-                            "SELECT i.carrera.nombre, COUNT(i) AS inscriptos " +
+                            "SELECT i.carrera.nombre, COUNT(i) AS cantInscriptos " +
                                     "FROM Inscripcion i " +
                                     "GROUP BY i.carrera.nombre " +
                                     "HAVING COUNT(i) > 0 " + // Solo incluir carreras con al menos un inscripto
-                                    "ORDER BY COUNT(i) DESC", Object[].class)
+                                    "ORDER BY COUNT(i) DESC", CarreraConCantInscriptosDTO[].class)
                     .getResultList();
         } catch (PersistenceException e) {
             System.out.println("Error al obtener carreras con inscriptos! " + e.getMessage());
