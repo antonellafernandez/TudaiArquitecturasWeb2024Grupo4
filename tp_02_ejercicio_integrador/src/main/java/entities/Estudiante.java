@@ -29,7 +29,7 @@ public class Estudiante {
     private String ciudadResidencia;
 
     @Column
-    private long lu;
+    private Long lu;
 
     // Relación uno a muchos con la entidad Inscripcion
     @OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // CascadeType.ALL significa que todas las operaciones de cascada se aplicarán a las entidades relacionadas
@@ -40,7 +40,7 @@ public class Estudiante {
         this.inscripciones = new ArrayList<Inscripcion>();
     }
 
-    public Estudiante(String nombres, String apellido, int edad, String genero, int dni, String ciudadResidencia, long lu) {
+    public Estudiante(String nombres, String apellido, int edad, String genero, int dni, String ciudadResidencia, Long lu) {
         this.nombres = nombres;
         this.apellido = apellido;
         this.edad = edad;
@@ -104,11 +104,11 @@ public class Estudiante {
         this.ciudadResidencia = ciudadResidencia;
     }
 
-    public long getLu() {
+    public Long getLu() {
         return lu;
     }
 
-    public void setLu(long lu) {
+    public void setLu(Long lu) {
         this.lu = lu;
     }
 

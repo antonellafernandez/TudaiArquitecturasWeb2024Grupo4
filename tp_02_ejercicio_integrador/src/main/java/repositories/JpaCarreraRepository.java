@@ -115,11 +115,10 @@ public class JpaCarreraRepository implements Repository<Carrera> {
                     "FROM Inscripcion i " +
                     "JOIN i.carrera c " +
                     "JOIN i.estudiante e " +
-                    "GROUP BY c.nombre, YEAR(i.anioInscripcion), YEAR(i.anioEgreso), e.id " +
+                    //"GROUP BY c.nombre, YEAR(i.anioInscripcion), YEAR(i.anioEgreso), e.id " +
                     "ORDER BY c.nombre ASC, YEAR(i.anioInscripcion) ASC, YEAR(i.anioEgreso) ASC";
 
-            TypedQuery<ReporteCarreraDTO> query = em.createQuery(jpql, ReporteCarreraDTO.class);
-            return query.getResultList();
+            return em.createQuery(jpql, ReporteCarreraDTO.class).getResultList();
         } catch (Exception e) {
             System.out.println("Error al generar reporte de carreras: " + e.getMessage());
             return null;

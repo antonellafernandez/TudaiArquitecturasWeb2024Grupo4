@@ -2,9 +2,12 @@ package dtos;
 
 public class CarreraConCantInscriptosDTO {
     private String nombre;
-    private int cantInscriptos;
+    private long cantInscriptos;
     public CarreraConCantInscriptosDTO() {}
-    public CarreraConCantInscriptosDTO(String nombre, int cantInscriptos) {}
+    public CarreraConCantInscriptosDTO(String nombre, long cantInscriptos) {
+        this.nombre = nombre;
+        this.cantInscriptos = cantInscriptos;
+    }
 
     public String getNombre() { return nombre; }
 
@@ -12,11 +15,11 @@ public class CarreraConCantInscriptosDTO {
         this.nombre = nombre;
     }
 
-    public int getCantInscriptos() {
+    public long getCantInscriptos() {
         return cantInscriptos;
     }
 
-    public void setCantInscriptos(int cantInscriptos) {
+    public void setCantInscriptos(long cantInscriptos) {
         this.cantInscriptos = cantInscriptos;
     }
 

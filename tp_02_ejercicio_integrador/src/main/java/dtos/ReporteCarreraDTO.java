@@ -12,16 +12,16 @@ import java.time.LocalDate;
 
 public class ReporteCarreraDTO implements Serializable {
     private String nombreCarrera;
-    private int anioInscripcion;
-    private int anioEgreso;
-    private long cantidadInscriptos;
-    private long cantidadEgresados;
+    private Integer anioInscripcion;
+    private Integer anioEgreso;
+    private Long cantidadInscriptos;
+    private Long cantidadEgresados;
     private EstudianteDTO estudiante;
 
     // Constructores
     public ReporteCarreraDTO() {}
 
-    public ReporteCarreraDTO(String nombreCarrera, int anioInscripcion, int anioEgreso, long cantidadInscriptos, long cantidadEgresados, int idEstudiante) {
+    public ReporteCarreraDTO(String nombreCarrera, Integer anioInscripcion, Integer anioEgreso, Long cantidadInscriptos, Long cantidadEgresados, int idEstudiante) {
         this.nombreCarrera = nombreCarrera;
         this.anioInscripcion = anioInscripcion;
         this.anioEgreso = anioEgreso;
