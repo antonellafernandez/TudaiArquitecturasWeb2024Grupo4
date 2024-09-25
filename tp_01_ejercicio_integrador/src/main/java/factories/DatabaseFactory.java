@@ -1,9 +1,9 @@
 package factories;
 
-import daos.ClienteDAO;
-import daos.FacturaDAO;
-import daos.FacturaProductoDAO;
-import daos.ProductoDAO;
+import repositories.ClienteDAO;
+import repositories.FacturaDAO;
+import repositories.FacturaProductoDAO;
+import repositories.ProductoDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;

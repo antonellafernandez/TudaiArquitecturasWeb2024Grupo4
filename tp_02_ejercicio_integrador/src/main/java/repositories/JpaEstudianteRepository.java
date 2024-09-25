@@ -1,18 +1,17 @@
-package daos;
+package repositories;
 
-import daos.interfaces.DAO;
+import repositories.interfaces.Repository;
 import entities.Estudiante;
-import entities.Inscripcion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import java.util.List;
 
-public class JpaEstudianteDAO implements DAO<Estudiante> {
+public class JpaEstudianteRepository implements Repository<Estudiante> {
     private EntityManager em;
 
-    public JpaEstudianteDAO(EntityManager em) {
+    public JpaEstudianteRepository(EntityManager em) {
         this.em = em;
     }
 
@@ -20,17 +19,29 @@ public class JpaEstudianteDAO implements DAO<Estudiante> {
     // (insertar, actualizar, eliminar) también afectará automáticamente a las entidades relacionadas
     @Override
     // a) Dar de alta un estudiante
-    public void insert(Estudiante estudiante) {
+    public void save(Estudiante estudiante) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        try {
-            em.persist(estudiante);
-            transaction.commit();
-        } catch (PersistenceException e) {
-            transaction.rollback();
-            System.out.println("Error al insertar estudiante! " + e.getMessage());
-            throw e;
+        if(estudiante.getId() == 0){
+            try {
+                em.persist(estudiante);
+                transaction.commit();
+            } catch (PersistenceException e) {
+                transaction.rollback();
+                System.out.println("Error al insertar estudiante! " + e.getMessage());
+                throw e;
+            }
+        }
+        else{
+            try {
+                em.merge(estudiante);
+                transaction.commit();
+            } catch (PersistenceException e) {
+                transaction.rollback();
+                System.out.println("Error al actualizar estudiante! " + e.getMessage());
+                throw e;
+            }
         }
     }
 
@@ -53,60 +64,6 @@ public class JpaEstudianteDAO implements DAO<Estudiante> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener estudiantes! " + e.getMessage());
             throw e;
-        }
-    }
-
-    // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Estudiante
-    // (insertar, actualizar, eliminar) también afectará automáticamente a las entidades relacionadas
-    @Override
-    public boolean update(Estudiante estudiante) {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-
-        try {
-            // Buscar si el estudiante existe
-            Estudiante estudianteExistente = em.find(Estudiante.class, estudiante.getId());
-
-            if (estudianteExistente != null) {
-                // Actualizar los campos necesarios
-                estudianteExistente.setNombres(estudiante.getNombres());
-                estudianteExistente.setApellido(estudiante.getApellido());
-                estudianteExistente.setEdad(estudiante.getEdad());
-                estudianteExistente.setGenero(estudiante.getGenero());
-                estudianteExistente.setDni(estudiante.getDni());
-                estudianteExistente.setCiudadResidencia(estudiante.getCiudadResidencia());
-                estudianteExistente.setLu(estudiante.getLu());
-
-                // Actualizar la lista de inscripciones
-                // Eliminar las inscripciones antiguas que no están en la nueva lista
-                List<Inscripcion> inscripcionesExistentes = estudianteExistente.getInscripciones();
-
-                for (Inscripcion inscripcion : inscripcionesExistentes) {
-                    if (!estudiante.getInscripciones().contains(inscripcion)) {
-                        estudianteExistente.removeInscripcion(inscripcion);
-                    }
-                }
-
-                // Agregar nuevas inscripciones que no están en la lista existente
-                for (Inscripcion inscripcion : estudiante.getInscripciones()) {
-                    if (!inscripcionesExistentes.contains(inscripcion)) {
-                        estudianteExistente.addInscripcion(inscripcion);
-                    }
-                }
-
-                // Persistir los cambios
-                em.merge(estudianteExistente);
-                transaction.commit();
-                return true;
-            } else {
-                transaction.rollback();
-                System.out.println("Estudiante no encontrado para actualizar!");
-                return false;
-            }
-        } catch (PersistenceException e) {
-            transaction.rollback();
-            System.out.println("Error al actualizar estudiante! " + e.getMessage());
-            return false;
         }
     }
 

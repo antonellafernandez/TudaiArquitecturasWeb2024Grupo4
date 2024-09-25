@@ -18,6 +18,9 @@
             <property name="javax.persistence.jdbc.password" value="password" />
 
             <!-- Propiedad para la generación automática del esquema de base de datos -->
+            <!--
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            -->
             <property name="hibernate.hbm2ddl.auto" value="update" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
             <property name="show_sql" value="true" />

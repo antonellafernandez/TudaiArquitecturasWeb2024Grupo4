@@ -1,15 +1,13 @@
-package daos.interfaces;
+package repositories.interfaces;
 
 import java.util.List;
 
-public interface DAO<T> {
-    void insert(T t);
+public interface Repository<T> {
+    void save(T t);
 
     T selectById(int id);
 
     List<T> selectAll();
-
-    boolean update(T t);
 
     boolean delete(int id);
 }

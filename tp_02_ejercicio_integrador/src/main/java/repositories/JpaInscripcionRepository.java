@@ -1,6 +1,6 @@
-package daos;
+package repositories;
 
-import daos.interfaces.DAO;
+import repositories.interfaces.Repository;
 import entities.Carrera;
 import entities.Estudiante;
 import entities.Inscripcion;
@@ -10,25 +10,36 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import java.util.List;
 
-public class JpaInscripcionDAO implements DAO<Inscripcion> {
+public class JpaInscripcionRepository implements Repository<Inscripcion> {
     private EntityManager em;
 
-    public JpaInscripcionDAO(EntityManager em) {
+    public JpaInscripcionRepository(EntityManager em) {
         this.em = em;
     }
 
     @Override
-    public void insert(Inscripcion inscripcion) {
+    public void save(Inscripcion inscripcion) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-
-        try {
-            em.persist(inscripcion);
-            transaction.commit();
-        } catch (PersistenceException e) {
-            transaction.rollback();
-            System.out.println("Error al insertar inscripción! " + e.getMessage());
-            throw e;
+        if(inscripcion.getId() == 0){
+            try {
+                em.persist(inscripcion);
+                transaction.commit();
+            } catch (PersistenceException e) {
+                transaction.rollback();
+                System.out.println("Error al insertar inscripcion! " + e.getMessage());
+                throw e;
+            }
+        }
+        else{
+            try {
+                em.merge(inscripcion);
+                transaction.commit();
+            } catch (PersistenceException e) {
+                transaction.rollback();
+                System.out.println("Error al actualizar inscripcion! " + e.getMessage());
+                throw e;
+            }
         }
     }
 
@@ -51,40 +62,6 @@ public class JpaInscripcionDAO implements DAO<Inscripcion> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener inscripciones! " + e.getMessage());
             throw e;
-        }
-    }
-
-    @Override
-    public boolean update(Inscripcion inscripcion) {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-
-        try {
-            // Buscar si la inscripción existe
-            Inscripcion inscripcionExistente = em.find(Inscripcion.class, inscripcion.getId());
-
-            if (inscripcionExistente != null) {
-                // Actualizar los campos necesarios
-                inscripcionExistente.setAntiguedad(inscripcion.getAntiguedad());
-                inscripcionExistente.setAnioInscripcion(inscripcion.getAnioInscripcion());
-                inscripcionExistente.setAnioEgreso(inscripcion.getAnioEgreso());
-                inscripcionExistente.setGraduado(inscripcion.isGraduado());
-                inscripcionExistente.setCarrera(inscripcion.getCarrera());
-                inscripcionExistente.setEstudiante(inscripcion.getEstudiante());
-
-                // Persistir los cambios
-                em.merge(inscripcionExistente);
-                transaction.commit();
-                return true;
-            } else {
-                transaction.rollback();
-                System.out.println("Inscripción no encontrada para actualizar!");
-                return false;
-            }
-        } catch (PersistenceException e) {
-            transaction.rollback();
-            System.out.println("Error al actualizar inscripción! " + e.getMessage());
-            return false;
         }
     }
 

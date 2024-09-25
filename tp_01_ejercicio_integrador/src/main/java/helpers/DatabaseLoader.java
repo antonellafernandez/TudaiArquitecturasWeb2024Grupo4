@@ -1,7 +1,7 @@
 package helpers;
 
-import daos.*;
-import daos.interfaces.DAO;
+import repositories.*;
+import repositories.interfaces.DAO;
 import entities.Cliente;
 import entities.Factura;
 import entities.FacturaProducto;

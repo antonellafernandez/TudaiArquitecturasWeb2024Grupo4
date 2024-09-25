@@ -1,6 +1,6 @@
-package daos;
+package repositories;
 
-import daos.interfaces.DAO;
+import repositories.interfaces.DAO;
 import entities.Factura;
 import entities.FacturaProducto;
 import factories.MySqlConnectionFactory;

@@ -1,25 +1,25 @@
 package factories;
 
-import daos.interfaces.DAO;
+import repositories.interfaces.Repository;
 
 // Combinación de AbstractFactory y FactoryMethod
 // Permite gestionar distintos tipos de persistencia
 // Hay que definir la inicialización de cada una de las bases de datos
 
-public abstract class DAOFactory {
+public abstract class RepositoryFactory {
     public static final int MYSQL_JDBC = 1;
     public static final int DERBY_JDBC = 2;
 
-    public abstract DAO getCarreraDAO();
-    public abstract DAO getEstudianteDAO();
-    public abstract DAO getInscripcionDAO();
+    public abstract Repository getCarreraDAO();
+    public abstract Repository getEstudianteDAO();
+    public abstract Repository getInscripcionDAO();
 
-    public static DAOFactory getDAOFactory(int whichFactory) {
+    public static RepositoryFactory getDAOFactory(int whichFactory) {
         switch (whichFactory) {
             case MYSQL_JDBC:
-                return new JpaMySqlDAOFactory();
+                return new JpaMySqlRepositoryFactory();
             case DERBY_JDBC:
-                return new JpaDerbyDAOFactory();
+                return new JpaDerbyRepositoryFactory();
             default:
                 return null;
         }

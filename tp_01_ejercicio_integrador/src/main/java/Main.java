@@ -1,7 +1,7 @@
 import helpers.CSVreader;
 import helpers.DatabaseLoader;
-import daos.ClienteDAO;
-import daos.ProductoDAO;
+import repositories.ClienteDAO;
+import repositories.ProductoDAO;
 import dtos.ClienteConFacturacionDTO;
 import dtos.ProductoMayorRecaudacionDTO;
 

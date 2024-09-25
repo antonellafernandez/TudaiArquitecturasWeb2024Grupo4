@@ -1,12 +1,9 @@
-import daos.interfaces.DAO;
-import dtos.ReporteCarreraDTO;
+import repositories.interfaces.Repository;
 import entities.Carrera;
 import entities.Estudiante;
 import entities.Inscripcion;
-import factories.DAOFactory;
-import factories.JpaMySqlDAOFactory;
-
-import java.util.List;
+import factories.RepositoryFactory;
+import factories.JpaMySqlRepositoryFactory;
 
 public class Main {
     public static void main(String[] args) {
@@ -97,48 +94,53 @@ public class Main {
         Inscripcion i9 = new Inscripcion(12, 2012, null, false, c4, e9);
         Inscripcion i10 = new Inscripcion(12, 2012, null, false, c5, e10);
 
-        DAOFactory mySqlDAO1 = JpaMySqlDAOFactory.getDAOFactory(1);
-        DAOFactory mySqlDAO2 = JpaMySqlDAOFactory.getDAOFactory(1);
-        DAOFactory mySqlDAO3 = JpaMySqlDAOFactory.getDAOFactory(1);
-        DAO<Estudiante> jpaEstudianteDAO = mySqlDAO1.getEstudianteDAO();
-        DAO<Carrera> jpaCarreraDAO = mySqlDAO2.getCarreraDAO();
-        DAO<Inscripcion> jpaInscripcionDAO = mySqlDAO3.getInscripcionDAO();
+        RepositoryFactory mySqlRepository1 = JpaMySqlRepositoryFactory.getDAOFactory(1);
+        RepositoryFactory mySqlRepository2 = JpaMySqlRepositoryFactory.getDAOFactory(1);
+        RepositoryFactory mySqlRepository3 = JpaMySqlRepositoryFactory.getDAOFactory(1);
+        Repository<Estudiante> jpaEstudianteRepository = mySqlRepository1.getEstudianteDAO();
+        Repository<Carrera> jpaCarreraRepository = mySqlRepository2.getCarreraDAO();
+        Repository<Inscripcion> jpaInscripcionRepository = mySqlRepository3.getInscripcionDAO();
+/*
+        jpaEstudianteRepository.save(e1);
+        jpaEstudianteRepository.save(e2);
+        jpaEstudianteRepository.save(e3);
+        jpaEstudianteRepository.save(e4);
+        jpaEstudianteRepository.save(e5);
+        jpaEstudianteRepository.save(e6);
+        jpaEstudianteRepository.save(e7);
+        jpaEstudianteRepository.save(e8);
+        jpaEstudianteRepository.save(e9);
+        jpaEstudianteRepository.save(e10);
 
-        jpaEstudianteDAO.insert(e1);
-        jpaEstudianteDAO.insert(e2);
-        jpaEstudianteDAO.insert(e3);
-        jpaEstudianteDAO.insert(e4);
-        jpaEstudianteDAO.insert(e5);
-        jpaEstudianteDAO.insert(e6);
-        jpaEstudianteDAO.insert(e7);
-        jpaEstudianteDAO.insert(e8);
-        jpaEstudianteDAO.insert(e9);
-        jpaEstudianteDAO.insert(e10);
+        jpaCarreraRepository.save(c1);
+        jpaCarreraRepository.save(c2);
+        jpaCarreraRepository.save(c4);
+        jpaCarreraRepository.save(c5);
 
-        jpaCarreraDAO.insert(c1);
-        jpaCarreraDAO.insert(c2);
-        jpaCarreraDAO.insert(c4);
-        jpaCarreraDAO.insert(c5);
+        jpaInscripcionRepository.save(i1);
+        jpaInscripcionRepository.save(i2);
+        jpaInscripcionRepository.save(i3);
+        jpaInscripcionRepository.save(i4);
+        jpaInscripcionRepository.save(i5);
+        jpaInscripcionRepository.save(i6);
+        jpaInscripcionRepository.save(i7);
+        jpaInscripcionRepository.save(i8);
+        jpaInscripcionRepository.save(i9);
+        jpaInscripcionRepository.save(i10);
+*/
 
-        jpaInscripcionDAO.insert(i1);
-        jpaInscripcionDAO.insert(i2);
-        jpaInscripcionDAO.insert(i3);
-        jpaInscripcionDAO.insert(i4);
-        jpaInscripcionDAO.insert(i5);
-        jpaInscripcionDAO.insert(i6);
-        jpaInscripcionDAO.insert(i7);
-        jpaInscripcionDAO.insert(i8);
-        jpaInscripcionDAO.insert(i9);
-        jpaInscripcionDAO.insert(i10);
+        Estudiante e = jpaEstudianteRepository.selectById(1);
+        e.setApellido("R");
+        jpaEstudianteRepository.save(e);
 
         // Generar e imprimir el reporte de carreras
-        List<ReporteCarreraDTO> reporte = jpaCarreraDAO.generarReporteCarreras();
+        /*List<ReporteCarreraDTO> reporte = jpaCarreraRepository.generarReporteCarreras();
         if (reporte != null) {
             for (ReporteCarreraDTO dto : reporte) {
                 System.out.println(dto);
             }
         } else {
             System.out.println("No se pudo generar el reporte.");
-        }
+        }*/
     }
 }

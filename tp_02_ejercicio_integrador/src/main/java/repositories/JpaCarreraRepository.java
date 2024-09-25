@@ -1,6 +1,6 @@
-package daos;
+package repositories;
 
-import daos.interfaces.DAO;
+import repositories.interfaces.Repository;
 import dtos.ReporteCarreraDTO;
 import entities.Carrera;
 import entities.Inscripcion;
@@ -11,36 +11,49 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class JpaCarreraDAO implements DAO<Carrera> {
+public class JpaCarreraRepository implements Repository<Carrera> {
     private EntityManager em;
 
-    public JpaCarreraDAO(EntityManager em) {
+    public JpaCarreraRepository(EntityManager em) {
         this.em = em;
     }
 
     // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Carrera
     // (insertar, actualizar, eliminar) también afectará automáticamente a las entidades relacionadas
     @Override
-    public void insert(Carrera carrera) {
+    public void save(Carrera carrera) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        try {
-            em.persist(carrera);
-            transaction.commit();
-        } catch (PersistenceException e) {
-            transaction.rollback();
-            System.out.println("Error al insertar carrera! " + e.getMessage());
-            throw e;
+        if(carrera.getId() == 0){
+            try {
+                em.persist(carrera);
+                transaction.commit();
+            } catch (PersistenceException e) {
+                transaction.rollback();
+                System.out.println("Error al insertar carrera! " + e.getMessage());
+                throw e;
+            }
+        }
+        else{
+            try {
+                em.merge(carrera);
+                transaction.commit();
+            } catch (PersistenceException e) {
+                transaction.rollback();
+                System.out.println("Error al actualizar carrera! " + e.getMessage());
+                throw e;
+            }
         }
     }
 
     @Override
     public Carrera selectById(int id) {
         try {
-            return em.createQuery("SELECT c FROM Carrera c WHERE c.id = :id", Carrera.class)
-                    .setParameter("id", id)
-                    .getSingleResult();
+            TypedQuery<Carrera> query = em.createQuery("SELECT c FROM Carrera c WHERE c.id = :id", Carrera.class);
+            query.setParameter("id", id);
+            System.out.println(query.getSingleResult());
+            return query.getSingleResult();
         } catch (PersistenceException e) {
             System.out.println("Error al obtener carrera por id! " + e.getMessage());
             throw e;
@@ -54,54 +67,6 @@ public class JpaCarreraDAO implements DAO<Carrera> {
         } catch (PersistenceException e) {
             System.out.println("Error al obtener carreras! " + e.getMessage());
             throw e;
-        }
-    }
-
-    // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Carrera
-    // (insertar, actualizar, eliminar) también afectará automáticamente a las entidades relacionadas
-    @Override
-    public boolean update(Carrera carrera) {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-
-        try {
-            // Buscar si la carrera existe
-            Carrera carreraExistente = em.find(Carrera.class, carrera.getId());
-
-            if (carreraExistente != null) {
-                // Actualizar los campos necesarios
-                carreraExistente.setNombre(carrera.getNombre());
-
-                // Actualizar la lista de inscripciones
-                // Eliminar las inscripciones antiguas que no están en la nueva lista
-                List<Inscripcion> inscripcionesExistentes = carreraExistente.getInscripciones();
-
-                for (Inscripcion inscripcion : inscripcionesExistentes) {
-                    if (!carrera.getInscripciones().contains(inscripcion)) {
-                        carreraExistente.removeInscripcion(inscripcion);
-                    }
-                }
-
-                // Agregar nuevas inscripciones que no están en la lista existente
-                for (Inscripcion inscripcion : carrera.getInscripciones()) {
-                    if (!inscripcionesExistentes.contains(inscripcion)) {
-                        carreraExistente.addInscripcion(inscripcion);
-                    }
-                }
-
-                // Persistir los cambios
-                em.merge(carreraExistente);
-                transaction.commit();
-                return true;
-            } else {
-                transaction.rollback();
-                System.out.println("Carrera no encontrada para actualizar!");
-                return false;
-            }
-        } catch (PersistenceException e) {
-            transaction.rollback();
-            System.out.println("Error al actualizar carrera! " + e.getMessage());
-            return false; // Retornar false en caso de error
         }
     }
 
