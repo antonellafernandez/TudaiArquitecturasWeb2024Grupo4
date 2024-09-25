@@ -18,8 +18,8 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
 
     public static JpaEstudianteRepository getInstance(EntityManager em) {
         if(instance != null)
-            return instance;
-        return new JpaEstudianteRepository(em);
+            instance = new JpaEstudianteRepository(em);
+        return instance;
     }
 
     // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Estudiante

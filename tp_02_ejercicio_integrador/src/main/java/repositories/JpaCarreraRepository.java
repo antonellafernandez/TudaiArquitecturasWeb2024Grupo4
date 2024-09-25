@@ -21,8 +21,8 @@ public class JpaCarreraRepository implements Repository<Carrera> {
 
     public static JpaCarreraRepository getInstance(EntityManager em) {
         if(instance != null)
-            return instance;
-        return new JpaCarreraRepository(em);
+            instance = new JpaCarreraRepository(em);
+        return instance;
     }
 
     // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Carrera

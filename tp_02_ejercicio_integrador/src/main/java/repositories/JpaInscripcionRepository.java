@@ -20,8 +20,8 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
 
     public static JpaInscripcionRepository getInstance(EntityManager em) {
         if(instance != null)
-            return instance;
-        return new JpaInscripcionRepository(em);
+            instance = new JpaInscripcionRepository(em);
+        return instance;
     }
 
     @Override
