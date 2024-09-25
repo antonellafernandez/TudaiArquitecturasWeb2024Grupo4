@@ -10,9 +10,9 @@ public abstract class RepositoryFactory {
     public static final int MYSQL_JDBC = 1;
     public static final int DERBY_JDBC = 2;
 
-    public abstract Repository getCarreraDAO();
-    public abstract Repository getEstudianteDAO();
-    public abstract Repository getInscripcionDAO();
+    public abstract Repository getCarreraRepository();
+    public abstract Repository getEstudianteRepository();
+    public abstract Repository getInscripcionRepository();
 
     public static RepositoryFactory getDAOFactory(int whichFactory) {
         switch (whichFactory) {

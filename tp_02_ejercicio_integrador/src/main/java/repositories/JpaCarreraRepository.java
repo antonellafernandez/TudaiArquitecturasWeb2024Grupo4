@@ -13,9 +13,16 @@ import java.util.List;
 
 public class JpaCarreraRepository implements Repository<Carrera> {
     private EntityManager em;
+    private static JpaCarreraRepository instance;
 
-    public JpaCarreraRepository(EntityManager em) {
+    private JpaCarreraRepository(EntityManager em) {
         this.em = em;
+    }
+
+    public static JpaCarreraRepository getInstance(EntityManager em) {
+        if(instance != null)
+            return instance;
+        return new JpaCarreraRepository(em);
     }
 
     // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Carrera

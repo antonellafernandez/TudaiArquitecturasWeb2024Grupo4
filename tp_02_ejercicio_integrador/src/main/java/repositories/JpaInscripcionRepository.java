@@ -12,9 +12,16 @@ import java.util.List;
 
 public class JpaInscripcionRepository implements Repository<Inscripcion> {
     private EntityManager em;
+    private static JpaInscripcionRepository instance;
 
-    public JpaInscripcionRepository(EntityManager em) {
+    private JpaInscripcionRepository(EntityManager em) {
         this.em = em;
+    }
+
+    public static JpaInscripcionRepository getInstance(EntityManager em) {
+        if(instance != null)
+            return instance;
+        return new JpaInscripcionRepository(em);
     }
 
     @Override

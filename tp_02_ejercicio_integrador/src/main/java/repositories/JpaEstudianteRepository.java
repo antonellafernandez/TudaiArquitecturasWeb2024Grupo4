@@ -10,9 +10,16 @@ import java.util.List;
 
 public class JpaEstudianteRepository implements Repository<Estudiante> {
     private EntityManager em;
+    private static JpaEstudianteRepository instance;
 
-    public JpaEstudianteRepository(EntityManager em) {
+    private JpaEstudianteRepository(EntityManager em) {
         this.em = em;
+    }
+
+    public static JpaEstudianteRepository getInstance(EntityManager em) {
+        if(instance != null)
+            return instance;
+        return new JpaEstudianteRepository(em);
     }
 
     // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Estudiante

@@ -13,23 +13,23 @@ public class JpaDerbyRepositoryFactory extends RepositoryFactory {
     private static final String PERSISTENCE_UNIT_NAME = "Example";
 
     @Override
-    public Repository getCarreraDAO() {
+    public Repository getCarreraRepository() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager em = emf.createEntityManager();
-        return new JpaCarreraRepository(em);
+        return JpaCarreraRepository.getInstance(em);
     }
 
     @Override
-    public Repository getEstudianteDAO() {
+    public Repository getEstudianteRepository() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager em = emf.createEntityManager();
-        return new JpaEstudianteRepository(em);
+        return JpaEstudianteRepository.getInstance(em);
     }
 
     @Override
-    public Repository getInscripcionDAO() {
+    public Repository getInscripcionRepository() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager em = emf.createEntityManager();
-        return new JpaInscripcionRepository(em);
+        return JpaInscripcionRepository.getInstance(em);
     }
 }

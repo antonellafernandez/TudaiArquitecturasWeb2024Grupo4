@@ -94,13 +94,11 @@ public class Main {
         Inscripcion i9 = new Inscripcion(12, 2012, null, false, c4, e9);
         Inscripcion i10 = new Inscripcion(12, 2012, null, false, c5, e10);
 
-        RepositoryFactory mySqlRepository1 = JpaMySqlRepositoryFactory.getDAOFactory(1);
-        RepositoryFactory mySqlRepository2 = JpaMySqlRepositoryFactory.getDAOFactory(1);
-        RepositoryFactory mySqlRepository3 = JpaMySqlRepositoryFactory.getDAOFactory(1);
-        Repository<Estudiante> jpaEstudianteRepository = mySqlRepository1.getEstudianteDAO();
-        Repository<Carrera> jpaCarreraRepository = mySqlRepository2.getCarreraDAO();
-        Repository<Inscripcion> jpaInscripcionRepository = mySqlRepository3.getInscripcionDAO();
-/*
+        RepositoryFactory mySqlRepository = JpaMySqlRepositoryFactory.getDAOFactory(1);
+        Repository<Estudiante> jpaEstudianteRepository = mySqlRepository.getEstudianteRepository();
+        Repository<Carrera> jpaCarreraRepository = mySqlRepository.getCarreraRepository();
+        Repository<Inscripcion> jpaInscripcionRepository = mySqlRepository.getInscripcionRepository();
+
         jpaEstudianteRepository.save(e1);
         jpaEstudianteRepository.save(e2);
         jpaEstudianteRepository.save(e3);
@@ -127,11 +125,11 @@ public class Main {
         jpaInscripcionRepository.save(i8);
         jpaInscripcionRepository.save(i9);
         jpaInscripcionRepository.save(i10);
-*/
 
-        Estudiante e = jpaEstudianteRepository.selectById(1);
-        e.setApellido("R");
-        jpaEstudianteRepository.save(e);
+
+        //Estudiante e = jpaEstudianteRepository.selectById(1);
+        //e.setApellido("R");
+        //jpaEstudianteRepository.save(e);
 
         // Generar e imprimir el reporte de carreras
         /*List<ReporteCarreraDTO> reporte = jpaCarreraRepository.generarReporteCarreras();
@@ -142,5 +140,7 @@ public class Main {
         } else {
             System.out.println("No se pudo generar el reporte.");
         }*/
+
+
     }
 }
