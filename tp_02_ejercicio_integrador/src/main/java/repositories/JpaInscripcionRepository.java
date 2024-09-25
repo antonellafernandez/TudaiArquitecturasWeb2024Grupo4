@@ -8,6 +8,7 @@ import entities.Inscripcion;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class JpaInscripcionRepository implements Repository<Inscripcion> {
@@ -19,7 +20,7 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
     }
 
     public static JpaInscripcionRepository getInstance(EntityManager em) {
-        if(instance != null)
+        if(instance == null)
             instance = new JpaInscripcionRepository(em);
         return instance;
     }
@@ -99,7 +100,7 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
     }
 
     // b) Matricular un estudiante en una carrera
-    public void matricularEstudianteEnCarrera(Estudiante estudiante, Carrera carrera, int antiguedad, int anioInscripcion, Integer anioEgreso, boolean graduado) {
+    public void matricularEstudianteEnCarrera(Estudiante estudiante, Carrera carrera, int antiguedad, LocalDate anioInscripcion, LocalDate anioEgreso, boolean graduado) {
         Inscripcion inscripcion = new Inscripcion(antiguedad, anioInscripcion, anioEgreso, graduado, carrera, estudiante);
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();

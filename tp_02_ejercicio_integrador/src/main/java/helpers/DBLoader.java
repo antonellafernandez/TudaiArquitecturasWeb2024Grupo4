@@ -7,6 +7,8 @@ import factories.JpaMySqlRepositoryFactory;
 import factories.RepositoryFactory;
 import repositories.interfaces.Repository;
 
+import java.time.LocalDate;
+
 public class DBLoader {
 
     public static void load(){
@@ -86,16 +88,23 @@ public class DBLoader {
         Carrera c4 = new Carrera("Carrera4");
         Carrera c5 = new Carrera("Carrera5");
 
-        Inscripcion i1 = new Inscripcion(12, 2010, 2022, true, c1, e1);
-        Inscripcion i2 = new Inscripcion(12, 2011, 2023, true, c1, e2);
-        Inscripcion i3 = new Inscripcion(12, 2012, null, false, c1, e3);
-        Inscripcion i4 = new Inscripcion(12, 2011, 2023, true, c2, e4);
-        Inscripcion i5 = new Inscripcion(12, 2011, 2023, true, c2, e5);
-        Inscripcion i6 = new Inscripcion(12, 2012, null, false, c4, e6);
-        Inscripcion i7 = new Inscripcion(12, 2008, 2020, true, c4, e7);
-        Inscripcion i8 = new Inscripcion(12, 2012, null, false, c4, e8);
-        Inscripcion i9 = new Inscripcion(12, 2012, null, false, c4, e9);
-        Inscripcion i10 = new Inscripcion(12, 2012, null, false, c5, e10);
+        LocalDate ld1 = LocalDate.of(2010, 05, 03);
+        LocalDate ld2 = LocalDate.of(2011, 05, 03);
+        LocalDate ld3 = LocalDate.of(2012, 05, 03);
+        LocalDate ld4 = LocalDate.of(2023, 05, 03);
+        LocalDate ld5 = LocalDate.of(2022, 05, 03);
+        LocalDate ld6 = LocalDate.of(2020, 05, 03);
+
+        Inscripcion i1 = new Inscripcion(12, ld1, ld5, true, c1, e1);
+        Inscripcion i2 = new Inscripcion(12, ld2, ld4, true, c1, e2);
+        Inscripcion i3 = new Inscripcion(12, ld3, null, false, c1, e3);
+        Inscripcion i4 = new Inscripcion(12, ld2, ld4, true, c2, e4);
+        Inscripcion i5 = new Inscripcion(12, ld2, ld4, true, c2, e5);
+        Inscripcion i6 = new Inscripcion(12, ld3, null, false, c4, e6);
+        Inscripcion i7 = new Inscripcion(12, ld1, ld6, true, c4, e7);
+        Inscripcion i8 = new Inscripcion(12, ld3, null, false, c4, e8);
+        Inscripcion i9 = new Inscripcion(12, ld3, null, false, c4, e9);
+        Inscripcion i10 = new Inscripcion(12, ld3, null, false, c5, e10);
 
         RepositoryFactory mySqlFactory = JpaMySqlRepositoryFactory.getDAOFactory(1);
         Repository<Estudiante> jpaEstudianteRepository = mySqlFactory.getEstudianteRepository();

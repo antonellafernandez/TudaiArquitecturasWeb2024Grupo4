@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class Inscripcion {
@@ -11,13 +12,11 @@ public class Inscripcion {
     @Column
     private int antiguedad;
 
-    @Column
-    private int anioInscripcion;
+    @Column(nullable = false)
+    private LocalDate anioInscripcion;
 
-    @Column
-    private Integer anioEgreso; // Usar Integer para permitir valores null
+    private LocalDate anioEgreso;
 
-    @Column
     private boolean graduado;
 
     // Relación muchos a uno con Carrera
@@ -35,7 +34,7 @@ public class Inscripcion {
 
     }
 
-    public Inscripcion(int antiguedad, int anioInscripcion, Integer anioEgreso, boolean graduado, Carrera carrera, Estudiante estudiante) {
+    public Inscripcion(int antiguedad, LocalDate anioInscripcion, LocalDate anioEgreso, boolean graduado, Carrera carrera, Estudiante estudiante) {
         this.antiguedad = antiguedad;
         this.anioInscripcion = anioInscripcion;
         this.anioEgreso = anioEgreso;
@@ -57,19 +56,19 @@ public class Inscripcion {
         this.antiguedad = antiguedad;
     }
 
-    public int getAnioInscripcion() {
+    public LocalDate getAnioInscripcion() {
         return anioInscripcion;
     }
 
-    public void setAnioInscripcion(int anioInscripcion) {
+    public void setAnioInscripcion(LocalDate anioInscripcion) {
         this.anioInscripcion = anioInscripcion;
     }
 
-    public Integer getAnioEgreso() {
+    public LocalDate getAnioEgreso() {
         return anioEgreso;
     }
 
-    public void setAnioEgreso(Integer anioEgreso) {
+    public void setAnioEgreso(LocalDate anioEgreso) {
         this.anioEgreso = anioEgreso;
     }
 

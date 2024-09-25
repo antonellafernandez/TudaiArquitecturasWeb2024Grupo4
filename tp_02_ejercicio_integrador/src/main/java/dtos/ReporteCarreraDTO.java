@@ -1,12 +1,19 @@
 package dtos;
 
+import entities.Carrera;
+import entities.Estudiante;
+import factories.JpaMySqlRepositoryFactory;
+import factories.RepositoryFactory;
+import repositories.interfaces.Repository;
+
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class ReporteCarreraDTO implements Serializable {
     private String nombreCarrera;
-    private LocalDate anioInscripcion;
-    private LocalDate anioEgreso;
+    private int anioInscripcion;
+    private int anioEgreso;
     private long cantidadInscriptos;
     private long cantidadEgresados;
     private EstudianteDTO estudiante;
@@ -14,14 +21,26 @@ public class ReporteCarreraDTO implements Serializable {
     // Constructores
     public ReporteCarreraDTO() {}
 
-    public ReporteCarreraDTO(String nombreCarrera, LocalDate anioInscripcion, LocalDate anioEgreso, long cantidadInscriptos, long cantidadEgresados) {
+    public ReporteCarreraDTO(String nombreCarrera, int anioInscripcion, int anioEgreso, long cantidadInscriptos, long cantidadEgresados, int idEstudiante) {
         this.nombreCarrera = nombreCarrera;
         this.anioInscripcion = anioInscripcion;
         this.anioEgreso = anioEgreso;
         this.cantidadInscriptos = cantidadInscriptos;
         this.cantidadEgresados = cantidadEgresados;
+        this.setEstudiante(idEstudiante);
     }
 
+    private void setEstudiante(int idEstudiante) {
+        RepositoryFactory mySqlFactory = JpaMySqlRepositoryFactory.getDAOFactory(1);
+        Repository<Estudiante> jpaEstudianteRepository = mySqlFactory.getEstudianteRepository();
+        Estudiante estudiante = jpaEstudianteRepository.selectById(idEstudiante);
+        if (estudiante != null) {
+            EstudianteDTO eDTO = new EstudianteDTO(estudiante.getNombres(), estudiante.getApellido(), estudiante.getEdad(), estudiante.getGenero(), estudiante.getDni(), estudiante.getCiudadResidencia(), estudiante.getLu());
+            this.estudiante = eDTO;
+        }
+        else
+            System.out.println("Estudiante no encontrado");
+    }
     // Getters y Setters
     public String getNombreCarrera() {
         return nombreCarrera;
@@ -31,19 +50,19 @@ public class ReporteCarreraDTO implements Serializable {
         this.nombreCarrera = nombreCarrera;
     }
 
-    public LocalDate getAnioInscripcion() {
+    public int getAnioInscripcion() {
         return anioInscripcion;
     }
 
-    public void setAnioInscripcion(LocalDate anioInscripcion) {
+    public void setAnioInscripcion(int anioInscripcion) {
         this.anioInscripcion = anioInscripcion;
     }
 
-    public LocalDate getAnioEgreso() {
+    public int getAnioEgreso() {
         return anioEgreso;
     }
 
-    public void setAnioEgreso(LocalDate anioEgreso) {
+    public void setAnioEgreso(int anioEgreso) {
         this.anioEgreso = anioEgreso;
     }
 
@@ -71,6 +90,7 @@ public class ReporteCarreraDTO implements Serializable {
                 ", anioEgreso=" + anioEgreso +
                 ", cantidadInscriptos=" + cantidadInscriptos +
                 ", cantidadEgresados=" + cantidadEgresados +
+                ", estudiante=" + estudiante +
                 '}';
     }
 }

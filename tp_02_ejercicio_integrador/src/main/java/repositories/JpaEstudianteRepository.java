@@ -17,7 +17,7 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
     }
 
     public static JpaEstudianteRepository getInstance(EntityManager em) {
-        if(instance != null)
+        if(instance == null)
             instance = new JpaEstudianteRepository(em);
         return instance;
     }
