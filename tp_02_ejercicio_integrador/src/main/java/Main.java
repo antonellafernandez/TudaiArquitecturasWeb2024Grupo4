@@ -1,3 +1,4 @@
+import helpers.DBLoader;
 import repositories.interfaces.Repository;
 import entities.Carrera;
 import entities.Estudiante;
@@ -7,9 +8,8 @@ import factories.JpaMySqlRepositoryFactory;
 
 public class Main {
     public static void main(String[] args) {
-/*
 
-*/
+        //DBLoader.load();
 
         //Estudiante e = jpaEstudianteRepository.selectById(1);
         //e.setApellido("R");
