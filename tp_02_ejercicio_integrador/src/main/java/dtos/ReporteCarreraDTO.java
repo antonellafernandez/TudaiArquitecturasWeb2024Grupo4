@@ -37,10 +37,11 @@ public class ReporteCarreraDTO implements Serializable {
         if (estudiante != null) {
             EstudianteDTO eDTO = new EstudianteDTO(estudiante.getNombres(), estudiante.getApellido(), estudiante.getEdad(), estudiante.getGenero(), estudiante.getDni(), estudiante.getCiudadResidencia(), estudiante.getLu());
             this.estudiante = eDTO;
-        }
-        else
+        } else {
             System.out.println("Estudiante no encontrado");
+        }
     }
+
     // Getters y Setters
     public String getNombreCarrera() {
         return nombreCarrera;

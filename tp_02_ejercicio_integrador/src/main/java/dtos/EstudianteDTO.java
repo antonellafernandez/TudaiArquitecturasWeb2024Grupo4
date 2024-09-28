@@ -10,6 +10,8 @@ public class EstudianteDTO {
     private String ciudadResidencia;
     private long lu;
 
+    public EstudianteDTO() {}
+
     public EstudianteDTO(String nombres, String apellido, int edad, String genero, int dni, String ciudadResidencia, long lu) {
         this.nombres = nombres;
         this.apellido = apellido;

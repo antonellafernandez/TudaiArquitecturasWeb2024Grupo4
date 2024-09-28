@@ -10,7 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class JpaMySqlRepositoryFactory extends RepositoryFactory {
-    private static final String PERSISTENCE_UNIT_NAME = "Example";
+    private static final String PERSISTENCE_UNIT_NAME = "Integrador 2";
 
     @Override
     public Repository getCarreraRepository() {

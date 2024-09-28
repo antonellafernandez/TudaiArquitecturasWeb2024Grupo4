@@ -12,6 +12,7 @@ import javax.persistence.PersistenceException;
 import java.time.LocalDate;
 import java.util.List;
 
+// Singleton
 public class JpaInscripcionRepository implements Repository<Inscripcion> {
     private EntityManager em;
     private static JpaInscripcionRepository instance;
@@ -26,11 +27,19 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
         return instance;
     }
 
+    // Método para cerrar el EntityManager
+    public void close() {
+        if (em != null && em.isOpen()) {
+            em.close();
+        }
+    }
+
     @Override
     public void save(Inscripcion inscripcion) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        if(inscripcion.getId() == 0){
+
+        if (inscripcion.getId() == 0){
             try {
                 em.persist(inscripcion);
                 transaction.commit();
@@ -39,8 +48,7 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
                 System.out.println("Error al insertar inscripcion! " + e.getMessage());
                 throw e;
             }
-        }
-        else{
+        } else { // Si la inscripción ya existe, hace update
             try {
                 em.merge(inscripcion);
                 transaction.commit();

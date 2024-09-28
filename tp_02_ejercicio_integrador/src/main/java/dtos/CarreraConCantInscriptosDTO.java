@@ -3,7 +3,9 @@ package dtos;
 public class CarreraConCantInscriptosDTO {
     private String nombre;
     private long cantInscriptos;
+
     public CarreraConCantInscriptosDTO() {}
+
     public CarreraConCantInscriptosDTO(String nombre, long cantInscriptos) {
         this.nombre = nombre;
         this.cantInscriptos = cantInscriptos;

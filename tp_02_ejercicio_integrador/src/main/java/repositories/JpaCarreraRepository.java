@@ -11,6 +11,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+// Singleton
 public class JpaCarreraRepository implements Repository<Carrera> {
     private EntityManager em;
     private static JpaCarreraRepository instance;
@@ -23,6 +24,13 @@ public class JpaCarreraRepository implements Repository<Carrera> {
         if(instance == null)
             instance = new JpaCarreraRepository(em);
         return instance;
+    }
+
+    // Método para cerrar el EntityManager
+    public void close() {
+        if (em != null && em.isOpen()) {
+            em.close();
+        }
     }
 
     // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Carrera
@@ -41,8 +49,7 @@ public class JpaCarreraRepository implements Repository<Carrera> {
                 System.out.println("Error al insertar carrera! " + e.getMessage());
                 throw e;
             }
-        }
-        else{
+        } else { // Si la carrera ya existe, hace update
             try {
                 em.merge(carrera);
                 transaction.commit();
@@ -109,13 +116,11 @@ public class JpaCarreraRepository implements Repository<Carrera> {
                     "YEAR(i.anioInscripcion), " +
                     "YEAR(i.anioEgreso), " +
                     "(SELECT COUNT(i1) FROM Inscripcion i1 WHERE i1.anioEgreso IS NULL AND i1.carrera = c), " + // Inscripciones sin egreso
-                    // *Segun chatGPT no se podia hacer el count con el case*
                     "(SELECT COUNT(i2) FROM Inscripcion i2 WHERE i2.anioEgreso IS NOT NULL AND i2.carrera = c), " + // Inscripciones con egreso
                     "e.id) " +
                     "FROM Inscripcion i " +
                     "JOIN i.carrera c " +
                     "JOIN i.estudiante e " +
-                    //"GROUP BY c.nombre, YEAR(i.anioInscripcion), YEAR(i.anioEgreso), e.id " +
                     "ORDER BY c.nombre ASC, YEAR(i.anioInscripcion) ASC, YEAR(i.anioEgreso) ASC";
 
             return em.createQuery(jpql, ReporteCarreraDTO.class).getResultList();

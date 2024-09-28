@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import java.util.List;
 
+// Singleton
 public class JpaEstudianteRepository implements Repository<Estudiante> {
     private EntityManager em;
     private static JpaEstudianteRepository instance;
@@ -22,6 +23,13 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
         return instance;
     }
 
+    // Método para cerrar el EntityManager
+    public void close() {
+        if (em != null && em.isOpen()) {
+            em.close();
+        }
+    }
+
     // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Estudiante
     // (insertar, actualizar, eliminar) también afectará automáticamente a las entidades relacionadas
     @Override
@@ -30,7 +38,7 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        if(estudiante.getId() == 0){
+        if (estudiante.getId() == 0){
             try {
                 em.persist(estudiante);
                 transaction.commit();
@@ -39,8 +47,7 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
                 System.out.println("Error al insertar estudiante! " + e.getMessage());
                 throw e;
             }
-        }
-        else{
+        } else { // Si el estudiante ya existe, hace update
             try {
                 em.merge(estudiante);
                 transaction.commit();

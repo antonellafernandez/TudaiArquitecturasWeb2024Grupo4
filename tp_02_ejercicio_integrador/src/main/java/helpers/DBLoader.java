@@ -18,70 +18,70 @@ public class DBLoader {
                 "X",
                 28563588,
                 "Ciudad1",
-                20);
+                20L);
         Estudiante e2 = new Estudiante("Nombre2",
                 "Apellido2",
                 21,
                 "Y",
                 28563444,
                 "Ciudad2",
-                21);
+                21L);
         Estudiante e3 = new Estudiante("Nombre3",
                 "Apellido3",
                 23,
                 "Z",
                 28555588,
                 "Ciudad1",
-                22);
+                22L);
         Estudiante e4 = new Estudiante("Nombre4",
                 "Apellido4",
                 24,
                 "X",
                 28222588,
                 "Ciudad4",
-                24);
+                24L);
         Estudiante e5 = new Estudiante("Nombre5",
                 "Apellido5",
                 25,
                 "Y",
                 28563998,
                 "Ciudad5",
-                25);
+                25L);
         Estudiante e6 = new Estudiante("Nombre6",
                 "Apellido6",
                 26,
                 "Z",
                 29863588,
                 "Ciudad6",
-                26);
+                26L);
         Estudiante e7 = new Estudiante("Nombre7",
                 "Apellido7",
                 27,
                 "X",
                 28563587,
                 "Ciudad7",
-                27);
+                27L);
         Estudiante e8 = new Estudiante("Nombre8",
                 "Apellido8",
                 28,
                 "X",
                 28583588,
                 "Ciudad2",
-                28);
+                28L);
         Estudiante e9 = new Estudiante("Nombre9",
                 "Apellido9",
                 29,
                 "X",
                 28963588,
                 "Ciudad2",
-                29);
+                29L);
         Estudiante e10 = new Estudiante("Nombre10",
                 "Apellido10",
                 30,
                 "X",
                 28563580,
                 "Ciudad3",
-                30);
+                30L);
 
         Carrera c1 = new Carrera("Carrera1");
         Carrera c2 = new Carrera("Carrera2");

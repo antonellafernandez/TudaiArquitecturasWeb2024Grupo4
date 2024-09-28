@@ -1,0 +1,29 @@
+<DERExt>
+ <Entity subtype="0" y="-114" width="70" x="42" name="Estudiante" isAssociative="0">
+  <Simple pk="1" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="id" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="nombres" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="apellido" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="edad" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="genero" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="dni" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="ciudadResidencia" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="lu" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="1" optionSQL="1" type="integer" name="inscripciones" mult="1" cant1="20"/>
+ </Entity>
+ <Entity subtype="0" y="-112" width="55" x="-250" name="Carrera" isAssociative="0">
+  <Simple pk="1" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="id" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="nombre" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="1" optionSQL="1" type="integer" name="inscripciones" mult="1" cant1="20"/>
+ </Entity>
+ <Entity subtype="0" y="15" width="75" x="-112" name="Inscripcion" isAssociative="0">
+  <Simple pk="1" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="id" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="antiguedad" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="anioInscripcion" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="1" optionSQL="1" type="integer" name="anioEgreso" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="graduado" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="id_carrera" mult="0" cant1="20"/>
+  <Simple pk="0" sk="0" cant3="2" cant2="0" parent="" null="0" optionSQL="1" type="integer" name="id_estudiante" mult="0" cant1="20"/>
+ </Entity>
+ <RBinary max0="N" match1="simple" rolename="" name="Tiene" max1="N" onDelete0="restrict" dep="0" min1="1" x="76" name1="Inscripcion" onDelete1="restrict" onUpdate1="restrict" onUpdate0="restrict" match0="simple" min0="1" y="34" name0="Estudiante" firstWeak="0" width="40"/>
+ <RBinary max0="N" match1="simple" rolename="" name="Contiene" max1="N" onDelete0="restrict" dep="0" min1="1" x="-224" name1="Inscripcion" onDelete1="restrict" onUpdate1="restrict" onUpdate0="restrict" match0="simple" min0="1" y="34" name0="Carrera" firstWeak="0" width="40"/>
+</DERExt>
