@@ -1,14 +1,10 @@
 package dtos;
 
-import entities.Carrera;
 import entities.Estudiante;
 import factories.JpaMySqlRepositoryFactory;
 import factories.RepositoryFactory;
 import repositories.interfaces.Repository;
-
 import java.io.Serializable;
-import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class ReporteCarreraDTO implements Serializable {
     private String nombreCarrera;
@@ -34,6 +30,7 @@ public class ReporteCarreraDTO implements Serializable {
         RepositoryFactory mySqlFactory = JpaMySqlRepositoryFactory.getDAOFactory(1);
         Repository<Estudiante> jpaEstudianteRepository = mySqlFactory.getEstudianteRepository();
         Estudiante estudiante = jpaEstudianteRepository.selectById(idEstudiante);
+
         if (estudiante != null) {
             EstudianteDTO eDTO = new EstudianteDTO(estudiante.getNombres(), estudiante.getApellido(), estudiante.getEdad(), estudiante.getGenero(), estudiante.getDni(), estudiante.getCiudadResidencia(), estudiante.getLu());
             this.estudiante = eDTO;
@@ -51,35 +48,35 @@ public class ReporteCarreraDTO implements Serializable {
         this.nombreCarrera = nombreCarrera;
     }
 
-    public int getAnioInscripcion() {
+    public Integer getAnioInscripcion() {
         return anioInscripcion;
     }
 
-    public void setAnioInscripcion(int anioInscripcion) {
+    public void setAnioInscripcion(Integer anioInscripcion) {
         this.anioInscripcion = anioInscripcion;
     }
 
-    public int getAnioEgreso() {
+    public Integer getAnioEgreso() {
         return anioEgreso;
     }
 
-    public void setAnioEgreso(int anioEgreso) {
+    public void setAnioEgreso(Integer anioEgreso) {
         this.anioEgreso = anioEgreso;
     }
 
-    public long getCantidadInscriptos() {
+    public Long getCantidadInscriptos() {
         return cantidadInscriptos;
     }
 
-    public void setCantidadInscriptos(long cantidadInscriptos) {
+    public void setCantidadInscriptos(Long cantidadInscriptos) {
         this.cantidadInscriptos = cantidadInscriptos;
     }
 
-    public long getCantidadEgresados() {
+    public Long getCantidadEgresados() {
         return cantidadEgresados;
     }
 
-    public void setCantidadEgresados(long cantidadEgresados) {
+    public void setCantidadEgresados(Long cantidadEgresados) {
         this.cantidadEgresados = cantidadEgresados;
     }
 
