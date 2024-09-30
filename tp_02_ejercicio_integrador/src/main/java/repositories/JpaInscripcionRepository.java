@@ -1,6 +1,7 @@
 package repositories;
 
 import dtos.CarreraConCantInscriptosDTO;
+import dtos.EstudianteDTO;
 import repositories.interfaces.Repository;
 import entities.Carrera;
 import entities.Estudiante;
@@ -141,10 +142,15 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
     }
 
     // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
-    public List<Estudiante> recuperarEstudiantesPorCarreraYCiudad(Carrera carrera, String ciudadResidencia) {
+    public List<EstudianteDTO> recuperarEstudiantesPorCarreraYCiudad(Carrera carrera, String ciudadResidencia) {
         try {
             return em.createQuery(
-                            "SELECT e FROM Inscripcion i JOIN i.estudiante e WHERE i.carrera = :carrera AND e.ciudadResidencia = :ciudad", Estudiante.class)
+                            "SELECT new dtos.EstudianteDTO(e.id, e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
+                                    "FROM Inscripcion i " +
+                                    "JOIN i.estudiante e " +
+                                    "WHERE i.carrera = :carrera " +
+                                    "AND e.ciudadResidencia = :ciudad"
+                            , EstudianteDTO.class)
                     .setParameter("carrera", carrera)
                     .setParameter("ciudad", ciudadResidencia)
                     .getResultList();
