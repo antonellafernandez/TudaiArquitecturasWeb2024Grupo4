@@ -108,7 +108,7 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
         }
     }
 
-    // b) Matricular un estudiante en una carrera
+    // 2b) Matricular un estudiante en una carrera
     public void matricularEstudianteEnCarrera(Estudiante estudiante, Carrera carrera, int antiguedad, LocalDate anioInscripcion, LocalDate anioEgreso, boolean graduado) {
         Inscripcion inscripcion = new Inscripcion(antiguedad, anioInscripcion, anioEgreso, graduado, carrera, estudiante);
         EntityTransaction transaction = em.getTransaction();
@@ -124,7 +124,7 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
         }
     }
 
-    // f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos
+    // 2f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos
     public List<CarreraConCantInscriptosDTO> recuperarCarrerasOrdenadasPorCantidadInscriptos() {
         try {
             return em.createQuery(
@@ -140,7 +140,7 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
         }
     }
 
-    // g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
+    // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
     public List<Estudiante> recuperarEstudiantesPorCarreraYCiudad(Carrera carrera, String ciudadResidencia) {
         try {
             return em.createQuery(

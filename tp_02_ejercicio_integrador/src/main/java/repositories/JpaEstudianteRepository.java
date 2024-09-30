@@ -33,7 +33,7 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
     // Al tener cascade = CascadeType.ALL, cualquier operación realizada en la entidad Estudiante
     // (insertar, actualizar, eliminar) también afectará automáticamente a las entidades relacionadas
     @Override
-    // a) Dar de alta un estudiante
+    // 2a) Dar de alta un estudiante
     public void save(Estudiante estudiante) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
@@ -107,9 +107,9 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
         }
     }
 
-    // b) Matricular un estudiante en una carrera (Consulta implementada en JpaInscripcionDAO)
+    // 2b) Matricular un estudiante en una carrera (Consulta implementada en JpaInscripcionDAO)
 
-    // c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple -> Por nombre
+    // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple -> Por nombre
     public List<Estudiante> obtenerEstudiantesOrdenadosPorNombre() {
         try {
             return em.createQuery("SELECT e FROM Estudiante e ORDER BY e.nombres", Estudiante.class).getResultList();
@@ -119,7 +119,7 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
         }
     }
 
-    // d) Recuperar un estudiante en base a su número de libreta universitaria
+    // 2d) Recuperar un estudiante en base a su número de libreta universitaria
     public Estudiante obtenerEstudiantePorLu(long lu) {
         try {
             return em.createQuery("SELECT e FROM Estudiante e WHERE e.lu = :lu", Estudiante.class)
@@ -131,7 +131,7 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
         }
     }
 
-    // e) Recuperar todos los estudiantes en base a su género
+    // 2e) Recuperar todos los estudiantes en base a su género
     public List<Estudiante> obtenerEstudiantesPorGenero(String genero) {
         try {
             return em.createQuery("SELECT e FROM Estudiante e WHERE e.genero = :genero", Estudiante.class)
@@ -143,7 +143,7 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
         }
     }
 
-    // f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos (Consulta implementada en JpaInscripcionDAO)
+    // 2f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos (Consulta implementada en JpaInscripcionDAO)
 
-    // g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia (Consulta implementada en JpaInscripcionDAO)
+    // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia (Consulta implementada en JpaInscripcionDAO)
 }
