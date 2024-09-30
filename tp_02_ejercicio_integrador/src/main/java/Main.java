@@ -2,17 +2,14 @@ import dtos.CarreraConCantInscriptosDTO;
 import dtos.EstudianteDTO;
 import dtos.ReporteCarreraDTO;
 import entities.Estudiante;
-<<<<<<< HEAD
 import helpers.DBLoader;
 import repositories.JpaCarreraRepository;
 import repositories.JpaEstudianteRepository;
-=======
 import entities.Inscripcion;
 import helpers.DBLoader;
 import repositories.JpaCarreraRepository;
 import repositories.JpaEstudianteRepository;
 import repositories.JpaInscripcionRepository;
->>>>>>> 2302d6d3220996f16e7450764d8b77a152bf5811
 import repositories.interfaces.Repository;
 import entities.Carrera;
 import factories.RepositoryFactory;
@@ -23,80 +20,85 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        //DBLoader.load();
+        // DBLoader.load();
 
         RepositoryFactory mySqlFactory = JpaMySqlRepositoryFactory.getDAOFactory(1);
-        //2.C
+
+        // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple -> Por nombre
         Repository<Estudiante> jpaEstudianteRepository = mySqlFactory.getEstudianteRepository();
         JpaEstudianteRepository repoEstudiante = (JpaEstudianteRepository) jpaEstudianteRepository;
         List<EstudianteDTO> estudiantesOrdenadosPorNombre = repoEstudiante.obtenerEstudiantesOrdenadosPorNombre();
 
-<<<<<<< HEAD
-        // 3) Generar e imprimir el reporte de carreras
-        Repository<Carrera> jpaCarreraRepository = mySqlFactory.getCarreraRepository();
-        JpaCarreraRepository repoCarrera = (JpaCarreraRepository) jpaCarreraRepository;
+        System.out.println("===============================================================================================================================" +
+                " Estudiantes ordenados por nombre " +
+                "===============================================================================================================================");
 
-        List<ReporteCarreraDTO> reporte = repoCarrera.generarReporteCarreras();
-=======
-        //2.D
+        for(EstudianteDTO estudianteDTO : estudiantesOrdenadosPorNombre) {
+            System.out.println(estudianteDTO);
+        }
+
+        System.out.println();
+
+        // 2d) Recuperar un estudiante en base a su número de libreta universitaria
         EstudianteDTO estudiantePorLu = repoEstudiante.obtenerEstudiantePorLu(28L);
 
-        //2.E
+        System.out.println("===============================================================================================================================" +
+                " Estudiante obtenido por lu " +
+                "===============================================================================================================================");
+        System.out.println("Estudiante obtenido por LU = 28:" + estudiantePorLu);
+
+        System.out.println();
+
+        // 2e) Recuperar todos los estudiantes en base a su género
         List<EstudianteDTO> estudiantesPorGenero = repoEstudiante.obtenerEstudiantesPorGenero("X");
 
-        //2.F
+        System.out.println("===============================================================================================================================" +
+                " Estudiantes obtenidos por género " +
+                "===============================================================================================================================");
+
+        for (EstudianteDTO estudianteDTO : estudiantesPorGenero) {
+            System.out.println(estudianteDTO);
+        }
+
+        System.out.println();
+
+        // 2f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos
         Repository<Inscripcion> jpaInscripcionRepository = mySqlFactory.getInscripcionRepository();
         JpaInscripcionRepository repoInscriptos = (JpaInscripcionRepository) jpaInscripcionRepository;
         List<CarreraConCantInscriptosDTO> listCarrerasConCantInscriptos = repoInscriptos.recuperarCarrerasOrdenadasPorCantidadInscriptos();
 
-        //2.G
+        System.out.println("===============================================================================================================================" +
+                " Carreras obtenidas con estudiantes inscriptos y ordenadas por la cantidad de ellos " +
+                "===============================================================================================================================");
+
+        for (CarreraConCantInscriptosDTO carrera : listCarrerasConCantInscriptos) {
+            System.out.println(carrera);
+        }
+
+        System.out.println();
+
+        // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
         Repository<Carrera> jpaCarreraRepository = mySqlFactory.getCarreraRepository();
         JpaCarreraRepository repoCarrera = (JpaCarreraRepository) jpaCarreraRepository;
         Carrera carreraElegida = repoCarrera.selectById(12);
         String ciudadElegida = "Ciudad2";
         List<EstudianteDTO> listEstudiantesDeCarreraPorCiudad = repoInscriptos.recuperarEstudiantesPorCarreraYCiudad(carreraElegida, ciudadElegida);
->>>>>>> 2302d6d3220996f16e7450764d8b77a152bf5811
 
-        //3.
-        List<ReporteCarreraDTO> reporteCarreraDTO = repoCarrera.generarReporteCarreras();
+        System.out.println("===============================================================================================================================" +
+                " Estudiantes obtenidos por carrera y ciudad " +
+                "===============================================================================================================================");
 
-
-        //2.C.recuperar todos los estudiantes por nombre
-        System.out.println("------- Estudiantes ordenados por nombre -------");
-        for(EstudianteDTO estudianteDTO : estudiantesOrdenadosPorNombre) {
-            System.out.println(estudianteDTO);
-        }
-        System.out.println("------------------------------------------------");
-
-
-        //2.D.recuperar un estudiante, en base a su número de libreta universitaria.
-        System.out.println("------- Estudiante obtenido por lu -------");
-        System.out.println("Estudiante obtenido por LU = 28:" + estudiantePorLu);
-        System.out.println("------------------------------------------------");
-
-        //2.E  recuperar todos los estudiantes, en base a su género.
-        System.out.println("------- Estudiantes obtenidos por genero -------");
-        for(EstudianteDTO estudianteDTO : estudiantesPorGenero) {
-            System.out.println(estudianteDTO);
-        }
-        System.out.println("------------------------------------------------");
-
-        //2.F. recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos
-
-        System.out.println("------- Carreras obtenidas con estudiantes inscriptos y ordenadas por la cantidad de ellos -------");
-        for(CarreraConCantInscriptosDTO carrera : listCarrerasConCantInscriptos) {
-            System.out.println(carrera);
-        }
-        System.out.println("------------------------------------------------");
-
-        //2.G. recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
-        System.out.println("------- Estudiantes obtenidos por carrera y ciudad -------");
-        for(EstudianteDTO estudiante : listEstudiantesDeCarreraPorCiudad) {
+        for (EstudianteDTO estudiante : listEstudiantesDeCarreraPorCiudad) {
             System.out.println(estudiante); //Por algun extraño motivo se imprime antes que los sout planos
         }
-        System.out.println("------------------------------------------------");
 
-        //3. Generar e imprimir el reporte de carreras
+        System.out.println();
+
+        // 3) Generar un reporte de las carreras, que para cada carrera incluya información de los
+        // inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar
+        // los años de manera cronológica
+        List<ReporteCarreraDTO> reporteCarreraDTO = repoCarrera.generarReporteCarreras();
+
         if (reporteCarreraDTO != null) {
             System.out.println("===============================================================================================================================" +
                     " Reporte de Carreras " +
@@ -110,5 +112,7 @@ public class Main {
 
         // Cerrar los EntityManager
         repoCarrera.close();
+        repoEstudiante.close();
+        repoInscriptos.close();
     }
 }
