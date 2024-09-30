@@ -61,9 +61,13 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
     }
 
     @Override
-    public Estudiante selectById(int id) {
+    public EstudianteDTO selectById(int id) {
         try {
-            return em.createQuery("SELECT e FROM Estudiante e WHERE e.id = :id", Estudiante.class)
+            return em.createQuery(
+                            "SELECT new dtos.EstudianteDTO(e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
+                                    "FROM Estudiante e " +
+                                    "WHERE e.id = :id"
+                            , EstudianteDTO.class)
                     .setParameter("id", id)
                     .getSingleResult();
         } catch (PersistenceException e) {
@@ -73,9 +77,14 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
     }
 
     @Override
-    public List<Estudiante> selectAll() {
+    public List<EstudianteDTO> selectAll() {
         try {
-            return em.createQuery("SELECT e FROM Estudiante e", Estudiante.class).getResultList();
+            return em.createQuery(
+                            "SELECT new dtos.EstudianteDTO(e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
+
+                                    "FROM Estudiante e"
+                        , EstudianteDTO.class)
+                    .getResultList();
         } catch (PersistenceException e) {
             System.out.println("Error al obtener estudiantes! " + e.getMessage());
             throw e;
@@ -114,7 +123,7 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
     public List<EstudianteDTO> obtenerEstudiantesOrdenadosPorNombre() {
         try {
             return em.createQuery(
-                    "SELECT new dtos.EstudianteDTO(e.id, e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
+                    "SELECT new dtos.EstudianteDTO(e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
                             "FROM Estudiante e " +
                             "ORDER BY e.nombres"
                     , EstudianteDTO.class).getResultList();
@@ -128,7 +137,7 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
     public EstudianteDTO obtenerEstudiantePorLu(long lu) {
         try {
             return em.createQuery(
-                        "SELECT new dtos.EstudianteDTO(e.id, e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
+                        "SELECT new dtos.EstudianteDTO(e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
                                 "FROM Estudiante e " +
                                 "WHERE e.lu = :lu"
                             , EstudianteDTO.class)
@@ -144,7 +153,7 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
     public List<EstudianteDTO> obtenerEstudiantesPorGenero(String genero) {
         try {
             return em.createQuery(
-                            "SELECT new dtos.EstudianteDTO(e.id, e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
+                            "SELECT new dtos.EstudianteDTO(e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
                                     "FROM Estudiante e " +
                                     "WHERE e.genero = :genero"
                             , EstudianteDTO.class)
