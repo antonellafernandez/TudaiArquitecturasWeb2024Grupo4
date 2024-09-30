@@ -1,5 +1,6 @@
 package repositories;
 
+import dtos.EstudianteDTO;
 import repositories.interfaces.Repository;
 import entities.Estudiante;
 
@@ -110,9 +111,13 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
     // 2b) Matricular un estudiante en una carrera (Consulta implementada en JpaInscripcionDAO)
 
     // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple -> Por nombre
-    public List<Estudiante> obtenerEstudiantesOrdenadosPorNombre() {
+    public List<EstudianteDTO> obtenerEstudiantesOrdenadosPorNombre() {
         try {
-            return em.createQuery("SELECT e FROM Estudiante e ORDER BY e.nombres", Estudiante.class).getResultList();
+            return em.createQuery(
+                    "SELECT new dtos.EstudianteDTO(e.id, e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
+                            "FROM Estudiante e " +
+                            "ORDER BY e.nombres"
+                    , EstudianteDTO.class).getResultList();
         } catch (PersistenceException e) {
             System.out.println("Error al obtener estudiantes ordenados por nombre! " + e.getMessage());
             throw e;
@@ -120,9 +125,13 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
     }
 
     // 2d) Recuperar un estudiante en base a su número de libreta universitaria
-    public Estudiante obtenerEstudiantePorLu(long lu) {
+    public EstudianteDTO obtenerEstudiantePorLu(long lu) {
         try {
-            return em.createQuery("SELECT e FROM Estudiante e WHERE e.lu = :lu", Estudiante.class)
+            return em.createQuery(
+                        "SELECT new dtos.EstudianteDTO(e.id, e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
+                                "FROM Estudiante e " +
+                                "WHERE e.lu = :lu"
+                            , EstudianteDTO.class)
                     .setParameter("lu", lu)
                     .getSingleResult();
         } catch (PersistenceException e) {
@@ -132,9 +141,13 @@ public class JpaEstudianteRepository implements Repository<Estudiante> {
     }
 
     // 2e) Recuperar todos los estudiantes en base a su género
-    public List<Estudiante> obtenerEstudiantesPorGenero(String genero) {
+    public List<EstudianteDTO> obtenerEstudiantesPorGenero(String genero) {
         try {
-            return em.createQuery("SELECT e FROM Estudiante e WHERE e.genero = :genero", Estudiante.class)
+            return em.createQuery(
+                            "SELECT new dtos.EstudianteDTO(e.id, e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
+                                    "FROM Estudiante e " +
+                                    "WHERE e.genero = :genero"
+                            , EstudianteDTO.class)
                     .setParameter("genero", genero)
                     .getResultList();
         } catch (PersistenceException e) {
