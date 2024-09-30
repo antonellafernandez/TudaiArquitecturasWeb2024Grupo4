@@ -111,6 +111,7 @@ public class DBLoader {
         Repository<Carrera> jpaCarreraRepository = mySqlFactory.getCarreraRepository();
         Repository<Inscripcion> jpaInscripcionRepository = mySqlFactory.getInscripcionRepository();
 
+        // 2a) Dar de alta un estudiante
         jpaEstudianteRepository.save(e1);
         jpaEstudianteRepository.save(e2);
         jpaEstudianteRepository.save(e3);
