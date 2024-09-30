@@ -1,6 +1,8 @@
 import dtos.ReporteCarreraDTO;
+import entities.Estudiante;
 import helpers.DBLoader;
 import repositories.JpaCarreraRepository;
+import repositories.JpaEstudianteRepository;
 import repositories.interfaces.Repository;
 import entities.Carrera;
 import factories.RepositoryFactory;
@@ -15,9 +17,10 @@ public class Main {
 
         RepositoryFactory mySqlFactory = JpaMySqlRepositoryFactory.getDAOFactory(1);
 
-        // Generar e imprimir el reporte de carreras
+        // 3) Generar e imprimir el reporte de carreras
         Repository<Carrera> jpaCarreraRepository = mySqlFactory.getCarreraRepository();
         JpaCarreraRepository repoCarrera = (JpaCarreraRepository) jpaCarreraRepository;
+
         List<ReporteCarreraDTO> reporte = repoCarrera.generarReporteCarreras();
 
         if (reporte != null) {
@@ -31,7 +34,7 @@ public class Main {
             System.out.println("No se pudo generar el reporte.");
         }
 
-        // Cerrar el EntityManager de Carrera
+        // Cerrar los EntityManager
         repoCarrera.close();
     }
 }
