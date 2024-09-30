@@ -12,7 +12,8 @@ public class EstudianteDTO {
 
     public EstudianteDTO() {}
 
-    public EstudianteDTO(String nombres, String apellido, int edad, String genero, int dni, String ciudadResidencia, long lu) {
+    public EstudianteDTO(int id, String nombres, String apellido, int edad, String genero, int dni, String ciudadResidencia, long lu) {
+        this.id = id;
         this.nombres = nombres;
         this.apellido = apellido;
         this.edad = edad;

@@ -32,7 +32,7 @@ public class ReporteCarreraDTO implements Serializable {
         Estudiante estudiante = jpaEstudianteRepository.selectById(idEstudiante);
 
         if (estudiante != null) {
-            EstudianteDTO eDTO = new EstudianteDTO(estudiante.getNombres(), estudiante.getApellido(), estudiante.getEdad(), estudiante.getGenero(), estudiante.getDni(), estudiante.getCiudadResidencia(), estudiante.getLu());
+            EstudianteDTO eDTO = new EstudianteDTO(estudiante.getId(), estudiante.getNombres(), estudiante.getApellido(), estudiante.getEdad(), estudiante.getGenero(), estudiante.getDni(), estudiante.getCiudadResidencia(), estudiante.getLu());
             this.estudiante = eDTO;
         } else {
             System.out.println("Estudiante no encontrado");
