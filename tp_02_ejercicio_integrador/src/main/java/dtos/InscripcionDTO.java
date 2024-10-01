@@ -2,6 +2,12 @@ package dtos;
 
 import entities.Carrera;
 import entities.Estudiante;
+import factories.JpaMySqlRepositoryFactory;
+import factories.RepositoryFactory;
+import repositories.JpaCarreraRepository;
+import repositories.JpaEstudianteRepository;
+import repositories.interfaces.RepositoryCarrera;
+import repositories.interfaces.RepositoryEstudiante;
 
 import java.time.LocalDate;
 
@@ -10,18 +16,18 @@ public class InscripcionDTO {
     private LocalDate anioInscripcion;
     private LocalDate anioEgreso;
     private boolean graduado;
-    private Carrera carrera;
-    private Estudiante estudiante;
+    private String nombreCarrera;
+    private EstudianteDTO estudiante;
 
     public InscripcionDTO() {}
 
-    public InscripcionDTO(int antiguedad, LocalDate anioInscripcion, LocalDate anioEgreso, boolean graduado, Carrera carrera, Estudiante estudiante) {
+    public InscripcionDTO(int antiguedad, LocalDate anioInscripcion, LocalDate anioEgreso, boolean graduado, String nombreCarrera, Long luEstudiante) {
         this.antiguedad = antiguedad;
         this.anioInscripcion = anioInscripcion;
         this.anioEgreso = anioEgreso;
         this.graduado = graduado;
-        this.carrera = carrera;
-        this.estudiante = estudiante;
+        this.nombreCarrera = nombreCarrera;
+        this.setEstudiante(luEstudiante);
     }
 
     public int getAntiguedad() {
@@ -56,20 +62,20 @@ public class InscripcionDTO {
         this.graduado = graduado;
     }
 
-    public Carrera getCarrera() {
-        return carrera;
+    public String getCarrera() {
+        return nombreCarrera;
     }
 
-    public void setCarrera(Carrera carrera) {
-        this.carrera = carrera;
-    }
+    public void setCarrera(String nombreCarrera) { this.nombreCarrera = nombreCarrera; }
 
-    public Estudiante getEstudiante() {
-        return estudiante;
-    }
+    public EstudianteDTO getEstudiante() { return estudiante; }
 
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
+    public void setEstudiante(Long luEstudiante) {
+        RepositoryFactory mySqlFactory = JpaMySqlRepositoryFactory.getDAOFactory(1);
+        RepositoryEstudiante jpaEstudianteRepository = mySqlFactory.getEstudianteRepository();
+        JpaEstudianteRepository repoEstudiante = (JpaEstudianteRepository) jpaEstudianteRepository;
+
+        this.estudiante = repoEstudiante.obtenerEstudiantePorLu(luEstudiante);
     }
 
     @Override
@@ -79,7 +85,7 @@ public class InscripcionDTO {
                 ", anioInscripcion=" + anioInscripcion +
                 ", anioEgreso=" + anioEgreso +
                 ", graduado=" + graduado +
-                ", carrera=" + carrera +
+                ", carrera=" + nombreCarrera +
                 ", estudiante=" + estudiante +
                 '}';
     }

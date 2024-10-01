@@ -104,8 +104,8 @@ public class Inscripcion {
                 ", anioInscripcion=" + anioInscripcion +
                 ", anioEgreso=" + anioEgreso +
                 ", graduado=" + graduado +
-                //", carrera=" + carrera +
-                //", estudiante=" + estudiante +
+                ", carrera=" + carrera.getNombre() +
+                ", LU del estudiante=" + estudiante.getLu() +
                 '}';
     }
 }

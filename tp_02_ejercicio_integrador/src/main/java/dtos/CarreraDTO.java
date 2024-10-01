@@ -35,9 +35,7 @@ public class CarreraDTO {
     }
 
     public void removeInscripcion(Inscripcion inscripcion) {
-        if (inscripciones.contains(inscripcion)) {
-            inscripciones.remove(inscripcion);
-        }
+        inscripciones.remove(inscripcion);
     }
 
     @Override

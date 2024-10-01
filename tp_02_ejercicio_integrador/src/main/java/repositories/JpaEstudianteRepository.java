@@ -1,8 +1,8 @@
 package repositories;
 
 import dtos.EstudianteDTO;
-import repositories.interfaces.Repository;
 import entities.Estudiante;
+import repositories.interfaces.RepositoryEstudiante;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -10,7 +10,7 @@ import javax.persistence.PersistenceException;
 import java.util.List;
 
 // Singleton
-public class JpaEstudianteRepository implements Repository<Estudiante> {
+public class JpaEstudianteRepository implements RepositoryEstudiante {
     private EntityManager em;
     private static JpaEstudianteRepository instance;
 

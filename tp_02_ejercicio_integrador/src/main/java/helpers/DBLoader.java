@@ -5,7 +5,9 @@ import entities.Estudiante;
 import entities.Inscripcion;
 import factories.JpaMySqlRepositoryFactory;
 import factories.RepositoryFactory;
-import repositories.interfaces.Repository;
+import repositories.interfaces.RepositoryCarrera;
+import repositories.interfaces.RepositoryEstudiante;
+import repositories.interfaces.RepositoryInscripcion;
 
 import java.time.LocalDate;
 
@@ -107,9 +109,9 @@ public class DBLoader {
         Inscripcion i10 = new Inscripcion(12, ld3, null, false, c5, e10);
 
         RepositoryFactory mySqlFactory = JpaMySqlRepositoryFactory.getDAOFactory(1);
-        Repository<Estudiante> jpaEstudianteRepository = mySqlFactory.getEstudianteRepository();
-        Repository<Carrera> jpaCarreraRepository = mySqlFactory.getCarreraRepository();
-        Repository<Inscripcion> jpaInscripcionRepository = mySqlFactory.getInscripcionRepository();
+        RepositoryEstudiante jpaEstudianteRepository = mySqlFactory.getEstudianteRepository();
+        RepositoryCarrera jpaCarreraRepository = mySqlFactory.getCarreraRepository();
+        RepositoryInscripcion jpaInscripcionRepository = mySqlFactory.getInscripcionRepository();
 
         // 2a) Dar de alta un estudiante
         jpaEstudianteRepository.save(e1);

@@ -3,7 +3,9 @@ package dtos;
 import entities.Estudiante;
 import factories.JpaMySqlRepositoryFactory;
 import factories.RepositoryFactory;
-import repositories.interfaces.Repository;
+import repositories.interfaces.RepositoryCarrera;
+import repositories.interfaces.RepositoryEstudiante;
+
 import java.io.Serializable;
 
 public class ReporteCarreraDTO implements Serializable {
@@ -28,11 +30,11 @@ public class ReporteCarreraDTO implements Serializable {
 
     private void setEstudiante(int idEstudiante) {
         RepositoryFactory mySqlFactory = JpaMySqlRepositoryFactory.getDAOFactory(1);
-        Repository<Estudiante> jpaEstudianteRepository = mySqlFactory.getEstudianteRepository();
-        Estudiante estudiante = jpaEstudianteRepository.selectById(idEstudiante);
+        RepositoryEstudiante jpaEstudianteRepository = mySqlFactory.getEstudianteRepository();
+        EstudianteDTO estudiante = jpaEstudianteRepository.selectById(idEstudiante);
 
         if (estudiante != null) {
-            EstudianteDTO eDTO = new EstudianteDTO(estudiante.getId(), estudiante.getNombres(), estudiante.getApellido(), estudiante.getEdad(), estudiante.getGenero(), estudiante.getDni(), estudiante.getCiudadResidencia(), estudiante.getLu());
+            EstudianteDTO eDTO = new EstudianteDTO(estudiante.getNombres(), estudiante.getApellido(), estudiante.getEdad(), estudiante.getGenero(), estudiante.getDni(), estudiante.getCiudadResidencia(), estudiante.getLu());
             this.estudiante = eDTO;
         } else {
             System.out.println("Estudiante no encontrado");

@@ -1,9 +1,9 @@
 package repositories;
 
-import repositories.interfaces.Repository;
+import dtos.CarreraDTO;
+import repositories.interfaces.RepositoryCarrera;
 import dtos.ReporteCarreraDTO;
 import entities.Carrera;
-import entities.Inscripcion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -12,7 +12,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 // Singleton
-public class JpaCarreraRepository implements Repository<Carrera> {
+public class JpaCarreraRepository implements RepositoryCarrera {
     private EntityManager em;
     private static JpaCarreraRepository instance;
 
@@ -62,11 +62,14 @@ public class JpaCarreraRepository implements Repository<Carrera> {
     }
 
     @Override
-    public Carrera selectById(int id) {
+    public CarreraDTO selectById(int id) {
         try {
-            TypedQuery<Carrera> query = em.createQuery("SELECT c FROM Carrera c WHERE c.id = :id", Carrera.class);
+            TypedQuery<CarreraDTO> query = em.createQuery(
+                    "SELECT new dtos.CarreraDTO(c.nombre) " +
+                            "FROM Carrera c " +
+                            "WHERE c.id = :id"
+                    , CarreraDTO.class);
             query.setParameter("id", id);
-            System.out.println(query.getSingleResult());
             return query.getSingleResult();
         } catch (PersistenceException e) {
             System.out.println("Error al obtener carrera por id! " + e.getMessage());
@@ -75,9 +78,12 @@ public class JpaCarreraRepository implements Repository<Carrera> {
     }
 
     @Override
-    public List<Carrera> selectAll() {
+    public List<CarreraDTO> selectAll() {
         try {
-            return em.createQuery("SELECT c FROM Carrera c", Carrera.class).getResultList();
+            return em.createQuery(
+                    "SELECT new dtos.CarreraDTO(c.nombre) " +
+                            "FROM Carrera c"
+                    , CarreraDTO.class).getResultList();
         } catch (PersistenceException e) {
             System.out.println("Error al obtener carreras! " + e.getMessage());
             throw e;

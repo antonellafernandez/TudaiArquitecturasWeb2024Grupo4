@@ -2,10 +2,11 @@ package repositories;
 
 import dtos.CarreraConCantInscriptosDTO;
 import dtos.EstudianteDTO;
-import repositories.interfaces.Repository;
+import dtos.InscripcionDTO;
 import entities.Carrera;
 import entities.Estudiante;
 import entities.Inscripcion;
+import repositories.interfaces.RepositoryInscripcion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 // Singleton
-public class JpaInscripcionRepository implements Repository<Inscripcion> {
+public class JpaInscripcionRepository implements RepositoryInscripcion {
     private EntityManager em;
     private static JpaInscripcionRepository instance;
 
@@ -62,9 +63,15 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
     }
 
     @Override
-    public Inscripcion selectById(int id) {
+    public InscripcionDTO selectById(int id) {
         try {
-            return em.createQuery("SELECT i FROM Inscripcion i WHERE i.id = :id", Inscripcion.class)
+            return em.createQuery(
+                    "SELECT new dtos.InscripcionDTO(i.antiguedad, i.anioInscripcion, i.anioEgreso, i.graduado, c.nombre, e.lu) " +
+                            "FROM Inscripcion i " +
+                            "JOIN i.carrera c " +
+                            "JOIN i.estudiante e " +
+                            "WHERE i.id = :id"
+                            , InscripcionDTO.class)
                     .setParameter("id", id)
                     .getSingleResult();
         } catch (PersistenceException e) {
@@ -74,9 +81,14 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
     }
 
     @Override
-    public List<Inscripcion> selectAll() {
+    public List<InscripcionDTO> selectAll() {
         try {
-            return em.createQuery("SELECT i FROM Inscripcion i", Inscripcion.class).getResultList();
+            return em.createQuery(
+                            "SELECT new dtos.InscripcionDTO(i.antiguedad, i.anioInscripcion, i.anioEgreso, i.graduado, c.nombre, e.lu) " +
+                                    "FROM Inscripcion i " +
+                                    "JOIN i.carrera c " +
+                                    "JOIN i.estudiante e"
+                            , InscripcionDTO.class).getResultList();
         } catch (PersistenceException e) {
             System.out.println("Error al obtener inscripciones! " + e.getMessage());
             throw e;
@@ -142,13 +154,13 @@ public class JpaInscripcionRepository implements Repository<Inscripcion> {
     }
 
     // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
-    public List<EstudianteDTO> recuperarEstudiantesPorCarreraYCiudad(Carrera carrera, String ciudadResidencia) {
+    public List<EstudianteDTO> recuperarEstudiantesPorCarreraYCiudad(String carrera, String ciudadResidencia) {
         try {
             return em.createQuery(
-                            "SELECT new dtos.EstudianteDTO(e.id, e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
+                            "SELECT new dtos.EstudianteDTO(e.nombres, e.apellido, e.edad, e.genero, e.dni, e.ciudadResidencia, e.lu) " +
                                     "FROM Inscripcion i " +
                                     "JOIN i.estudiante e " +
-                                    "WHERE i.carrera = :carrera " +
+                                    "WHERE i.carrera.nombre= :carrera " +
                                     "AND e.ciudadResidencia = :ciudad"
                             , EstudianteDTO.class)
                     .setParameter("carrera", carrera)

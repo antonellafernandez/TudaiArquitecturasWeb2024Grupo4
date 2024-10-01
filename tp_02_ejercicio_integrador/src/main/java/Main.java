@@ -1,19 +1,18 @@
 import dtos.CarreraConCantInscriptosDTO;
+import dtos.CarreraDTO;
 import dtos.EstudianteDTO;
 import dtos.ReporteCarreraDTO;
 import entities.Estudiante;
-import helpers.DBLoader;
 import repositories.JpaCarreraRepository;
 import repositories.JpaEstudianteRepository;
 import entities.Inscripcion;
-import helpers.DBLoader;
-import repositories.JpaCarreraRepository;
-import repositories.JpaEstudianteRepository;
 import repositories.JpaInscripcionRepository;
-import repositories.interfaces.Repository;
+import repositories.interfaces.RepositoryCarrera;
 import entities.Carrera;
 import factories.RepositoryFactory;
 import factories.JpaMySqlRepositoryFactory;
+import repositories.interfaces.RepositoryEstudiante;
+import repositories.interfaces.RepositoryInscripcion;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class Main {
         RepositoryFactory mySqlFactory = JpaMySqlRepositoryFactory.getDAOFactory(1);
 
         // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple -> Por nombre
-        Repository<Estudiante> jpaEstudianteRepository = mySqlFactory.getEstudianteRepository();
+        RepositoryEstudiante jpaEstudianteRepository = mySqlFactory.getEstudianteRepository();
         JpaEstudianteRepository repoEstudiante = (JpaEstudianteRepository) jpaEstudianteRepository;
         List<EstudianteDTO> estudiantesOrdenadosPorNombre = repoEstudiante.obtenerEstudiantesOrdenadosPorNombre();
 
@@ -63,7 +62,7 @@ public class Main {
         System.out.println();
 
         // 2f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos
-        Repository<Inscripcion> jpaInscripcionRepository = mySqlFactory.getInscripcionRepository();
+        RepositoryInscripcion jpaInscripcionRepository = mySqlFactory.getInscripcionRepository();
         JpaInscripcionRepository repoInscriptos = (JpaInscripcionRepository) jpaInscripcionRepository;
         List<CarreraConCantInscriptosDTO> listCarrerasConCantInscriptos = repoInscriptos.recuperarCarrerasOrdenadasPorCantidadInscriptos();
 
@@ -78,10 +77,10 @@ public class Main {
         System.out.println();
 
         // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
-        Repository<Carrera> jpaCarreraRepository = mySqlFactory.getCarreraRepository();
+        RepositoryCarrera jpaCarreraRepository = mySqlFactory.getCarreraRepository();
         JpaCarreraRepository repoCarrera = (JpaCarreraRepository) jpaCarreraRepository;
-        Carrera carreraElegida = repoCarrera.selectById(12);
-        String ciudadElegida = "Ciudad2";
+        String carreraElegida = "Carrera2";
+        String ciudadElegida = "Ciudad4";
         List<EstudianteDTO> listEstudiantesDeCarreraPorCiudad = repoInscriptos.recuperarEstudiantesPorCarreraYCiudad(carreraElegida, ciudadElegida);
 
         System.out.println("===============================================================================================================================" +
@@ -89,7 +88,7 @@ public class Main {
                 "===============================================================================================================================");
 
         for (EstudianteDTO estudiante : listEstudiantesDeCarreraPorCiudad) {
-            System.out.println(estudiante); //Por algun extraño motivo se imprime antes que los sout planos
+            System.out.println(estudiante);
         }
 
         System.out.println();
