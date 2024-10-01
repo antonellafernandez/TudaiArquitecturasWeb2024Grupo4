@@ -1,12 +1,8 @@
 package dtos;
 
-import entities.Carrera;
-import entities.Estudiante;
 import factories.JpaMySqlRepositoryFactory;
 import factories.RepositoryFactory;
-import repositories.JpaCarreraRepository;
 import repositories.JpaEstudianteRepository;
-import repositories.interfaces.RepositoryCarrera;
 import repositories.interfaces.RepositoryEstudiante;
 
 import java.time.LocalDate;

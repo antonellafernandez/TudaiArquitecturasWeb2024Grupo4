@@ -1,9 +1,7 @@
 package dtos;
 
-import entities.Estudiante;
 import factories.JpaMySqlRepositoryFactory;
 import factories.RepositoryFactory;
-import repositories.interfaces.RepositoryCarrera;
 import repositories.interfaces.RepositoryEstudiante;
 
 import java.io.Serializable;

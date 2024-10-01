@@ -1,14 +1,11 @@
 import dtos.CarreraConCantInscriptosDTO;
-import dtos.CarreraDTO;
 import dtos.EstudianteDTO;
 import dtos.ReporteCarreraDTO;
-import entities.Estudiante;
+import helpers.DBLoader;
 import repositories.JpaCarreraRepository;
 import repositories.JpaEstudianteRepository;
-import entities.Inscripcion;
 import repositories.JpaInscripcionRepository;
 import repositories.interfaces.RepositoryCarrera;
-import entities.Carrera;
 import factories.RepositoryFactory;
 import factories.JpaMySqlRepositoryFactory;
 import repositories.interfaces.RepositoryEstudiante;
@@ -19,7 +16,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        // DBLoader.load();
+        DBLoader.load();
 
         RepositoryFactory mySqlFactory = JpaMySqlRepositoryFactory.getDAOFactory(1);
 
