@@ -9,19 +9,19 @@ import java.util.List;
 @Repository("RepoEstudiante")
 public interface RepoEstudiante extends RepoBase<Estudiante, Long> {
 
-    //2.C
+    // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple. -> Por APELLIDO
     @Query("SELECT e FROM Estudiante e WHERE e.apellido = :apellido")
     List<Estudiante> getEstudiantesByApellido(String apellido);
 
-    //2.D
+    // 2d) Eecuperar un estudiante, en base a su número de libreta universitaria.
     @Query("SELECT e FROM Estudiante e WHERE e.lu = :lu")
     List<Estudiante> getEstudianteByLu(String lu);
 
-    //2.E
+    // 2e) Recuperar todos los estudiantes, en base a su género.
     @Query("SELECT e FROM Estudiante e WHERE e.genero = :genero")
     List<Estudiante> getEstudianteByGenero(String genero);
 
-    //2.G
+    // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
     @Query("SELECT e " +
             "FROM Estudiante e " +
             "JOIN e.carrera c " +
