@@ -1,17 +1,17 @@
 package com.example.tp_03_ejercicio_integrador.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Estudiante {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int dni;
 
     @Column
-    private String nombres;
+    private String nombre;
 
     @Column
     private String apellido;
@@ -23,9 +23,6 @@ public class Estudiante {
     private String genero;
 
     @Column
-    private int dni;
-
-    @Column
     private String ciudadResidencia;
 
     @Column
@@ -33,35 +30,34 @@ public class Estudiante {
 
     // Relación uno a muchos con la entidad Inscripcion
     @OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // CascadeType.ALL significa que todas las operaciones de cascada se aplicarán a las entidades relacionadas
-    private List<Inscripcion> inscripciones;
+    private List<EstudianteCarrera> inscripciones;
 
-    // Constructores
     public Estudiante() {
-        this.inscripciones = new ArrayList<Inscripcion>();
+        this.inscripciones = new ArrayList<EstudianteCarrera>();
     }
 
-    public Estudiante(String nombres, String apellido, int edad, String genero, int dni, String ciudadResidencia, Long lu) {
-        this.nombres = nombres;
+    public Estudiante(int dni, String nombre, String apellido, int edad, String genero,
+                      String ciudadResidencia, Long lu) {
+        this.dni = dni;
+        this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
         this.genero = genero;
-        this.dni = dni;
         this.ciudadResidencia = ciudadResidencia;
         this.lu = lu;
-        this.inscripciones = new ArrayList<Inscripcion>();
+        this.inscripciones = new ArrayList<EstudianteCarrera>();
     }
 
-    // Getters y Setters
-    public int getId() {
-        return id;
+    public int getDni() {
+        return dni;
     }
 
-    public String getNombres() {
-        return nombres;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getApellido() {
@@ -88,14 +84,6 @@ public class Estudiante {
         this.genero = genero;
     }
 
-    public int getDni() {
-        return dni;
-    }
-
-    public void setDni(int dni) {
-        this.dni = dni;
-    }
-
     public String getCiudadResidencia() {
         return ciudadResidencia;
     }
@@ -112,33 +100,32 @@ public class Estudiante {
         this.lu = lu;
     }
 
-    public List<Inscripcion> getInscripciones() {
+    public List<EstudianteCarrera> getInscripciones() {
         return new ArrayList<>(inscripciones);
     }
 
-    public void addInscripcion(Inscripcion inscripcion) {
-        if (!inscripciones.contains(inscripcion)) {
-            inscripciones.add(inscripcion);
-            inscripcion.setEstudiante(this); // Mantener la relación bidireccional
+    public void addInscripcion(EstudianteCarrera estudianteCarrera) {
+        if (!inscripciones.contains(estudianteCarrera)) {
+            inscripciones.add(estudianteCarrera);
+            estudianteCarrera.setEstudiante(this); // Mantener la relación bidireccional
         }
     }
 
-    public void removeInscripcion(Inscripcion inscripcion) {
-        if (inscripciones.contains(inscripcion)) {
-            inscripciones.remove(inscripcion);
-            inscripcion.setEstudiante(null); // Mantener la relación bidireccional
+    public void removeInscripcion(EstudianteCarrera estudianteCarrera) {
+        if (inscripciones.contains(estudianteCarrera)) {
+            inscripciones.remove(estudianteCarrera);
+            estudianteCarrera.setEstudiante(null); // Mantener la relación bidireccional
         }
     }
 
     @Override
     public String toString() {
         return "Estudiante{" +
-                "id=" + id +
-                ", nombres='" + nombres + '\'' +
+                "dni=" + dni +
+                ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", edad=" + edad +
                 ", genero='" + genero + '\'' +
-                ", dni='" + dni + '\'' +
                 ", ciudadResidencia='" + ciudadResidencia + '\'' +
                 ", lu=" + lu +
                 ", inscripciones=" + inscripciones +
