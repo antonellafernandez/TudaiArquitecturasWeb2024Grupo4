@@ -1,6 +1,7 @@
 package com.example.tp_03_ejercicio_integrador.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
 @Entity
