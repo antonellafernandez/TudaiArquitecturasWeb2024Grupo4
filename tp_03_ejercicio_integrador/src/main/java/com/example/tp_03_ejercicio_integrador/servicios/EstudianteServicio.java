@@ -1,9 +1,10 @@
-package springboot.app.servicios;
+package com.example.tp_03_ejercicio_integrador.servicios;
 
+import com.example.tp_03_ejercicio_integrador.model.Estudiante;
+import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudiante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springboot.app.modelos.Estudiante;
-import springboot.app.repositorios.RepoEstudiante;
+
 
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -71,5 +72,9 @@ public class EstudianteServicio {
         } catch (Exception e) {
             throw new Exception("Error al eliminar estudiante: " + e.getMessage());
         }
+    }
+
+    public EstudianteDTO altaEstudiante(EstudianteDTO estudianteDTO) {
+
     }
 }

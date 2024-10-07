@@ -1,14 +1,15 @@
-package springboot.app.servicios;
+package com.example.tp_03_ejercicio_integrador.servicios;
 
+import com.example.tp_03_ejercicio_integrador.model.Carrera;
+import com.example.tp_03_ejercicio_integrador.model.Estudiante;
+import com.example.tp_03_ejercicio_integrador.model.EstudianteCarrera;
+import com.example.tp_03_ejercicio_integrador.repositorios.RepoCarrera;
+import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudiante;
+import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudianteCarrera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.app.dtos.EstudianteCarreraDTO;
-import springboot.app.modelos.Carrera;
-import springboot.app.modelos.Estudiante;
-import springboot.app.modelos.EstudianteCarrera;
-import springboot.app.repositorios.RepoCarrera;
-import springboot.app.repositorios.RepoEstudiante;
-import springboot.app.repositorios.RepoEstudianteCarrera;
+
 
 import jakarta.transaction.Transactional;
 import java.util.List;

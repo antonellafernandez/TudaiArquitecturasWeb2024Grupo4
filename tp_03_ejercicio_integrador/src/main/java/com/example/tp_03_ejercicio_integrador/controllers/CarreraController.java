@@ -1,14 +1,13 @@
-package springboot.app.controladores;
+package com.example.tp_03_ejercicio_integrador.controllers;
 
+import com.example.tp_03_ejercicio_integrador.model.Carrera;
+import com.example.tp_03_ejercicio_integrador.servicios.CarreraServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import springboot.app.dtos.CarreraConCantInscriptosDTO;
-import springboot.app.dtos.ReporteCarreraDTO;
-import springboot.app.modelos.Carrera;
-import springboot.app.servicios.CarreraServicio;
+
 
 import java.util.List;
 

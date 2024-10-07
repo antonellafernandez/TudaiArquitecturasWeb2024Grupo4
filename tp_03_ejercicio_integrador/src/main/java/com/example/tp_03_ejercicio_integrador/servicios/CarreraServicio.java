@@ -1,9 +1,10 @@
-package springboot.app.servicios;
+package com.example.tp_03_ejercicio_integrador.servicios;
 
+import com.example.tp_03_ejercicio_integrador.model.Carrera;
+import com.example.tp_03_ejercicio_integrador.repositorios.RepoCarrera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springboot.app.modelos.Carrera;
-import springboot.app.repositorios.RepoCarrera;
+
 
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -72,5 +73,8 @@ public class CarreraServicio {
         } catch (Exception e) {
             throw new Exception("Error al eliminar carrera: " + e.getMessage());
         }
+    }
+
+    public Carrera save(Carrera carrera) {
     }
 }

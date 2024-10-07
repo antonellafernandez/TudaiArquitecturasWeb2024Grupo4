@@ -1,4 +1,4 @@
-package springboot.app.dtos;
+package com.example.tp_03_ejercicio_integrador.dtos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,13 +1,12 @@
-package springboot.app.controladores;
+package com.example.tp_03_ejercicio_integrador.controllers;
 
+import com.example.tp_03_ejercicio_integrador.model.EstudianteCarrera;
+import com.example.tp_03_ejercicio_integrador.servicios.MatriculacionServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import springboot.app.dtos.EstudianteCarreraDTO; // Cambiar aquí
-import springboot.app.modelos.EstudianteCarrera;
-import springboot.app.servicios.MatriculacionServicio;
 
 import java.util.List;
 
