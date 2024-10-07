@@ -27,8 +27,8 @@ public interface RepoCarrera extends JpaRepository<Carrera, Integer> {
     @Query("SELECT new com.example.tp_03_ejercicio_integrador.dtos.ReporteCarreraDTO(c.nombre, " +
             "YEAR(ec.anioInscripcion), " +
             "YEAR(ec.anioEgreso), " +
-            "(SELECT COUNT(ec1) FROM EstudianteCarrera ec1 WHERE ec1.anioEgreso = 0 ec1.carrera = c), " + // Inscripciones sin egreso
-            "(SELECT COUNT(ec2) FROM EstudianteCarrera ec2 WHERE ec2.anioEgreso != 0 AND ec2.carrera = c), " + // Inscripciones con egreso
+            "(SUM(CASE WHEN ec.anioEgreso = 0 THEN 1 ELSE 0 END)), " + // Inscripciones sin egreso
+            "(SUM(CASE WHEN ec.anioEgreso != 0 THEN 1 ELSE 0 END)), " + // Inscripciones con egreso
             "e.dni) " +
             "FROM EstudianteCarrera ec " +
             "JOIN ec.carrera c " +
