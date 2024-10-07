@@ -1,6 +1,6 @@
 package com.example.tp_03_ejercicio_integrador.controllers;
 
-import com.example.tp_03_ejercicio_integrador.model.EstudianteCarrera;
+import com.example.tp_03_ejercicio_integrador.modelos.EstudianteCarrera;
 import com.example.tp_03_ejercicio_integrador.servicios.MatriculacionServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
 package com.example.tp_03_ejercicio_integrador.servicios;
 
-import com.example.tp_03_ejercicio_integrador.model.Carrera;
+import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoCarrera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CarreraServicio {

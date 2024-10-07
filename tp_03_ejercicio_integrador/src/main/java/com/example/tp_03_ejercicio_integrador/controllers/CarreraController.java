@@ -1,6 +1,6 @@
 package com.example.tp_03_ejercicio_integrador.controllers;
 
-import com.example.tp_03_ejercicio_integrador.model.Carrera;
+import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
 import com.example.tp_03_ejercicio_integrador.servicios.CarreraServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

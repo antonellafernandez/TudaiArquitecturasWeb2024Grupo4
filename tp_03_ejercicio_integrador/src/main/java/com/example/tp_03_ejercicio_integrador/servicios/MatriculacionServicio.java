@@ -1,8 +1,8 @@
 package com.example.tp_03_ejercicio_integrador.servicios;
 
-import com.example.tp_03_ejercicio_integrador.model.Carrera;
-import com.example.tp_03_ejercicio_integrador.model.Estudiante;
-import com.example.tp_03_ejercicio_integrador.model.EstudianteCarrera;
+import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
+import com.example.tp_03_ejercicio_integrador.modelos.Estudiante;
+import com.example.tp_03_ejercicio_integrador.modelos.EstudianteCarrera;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoCarrera;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudiante;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudianteCarrera;

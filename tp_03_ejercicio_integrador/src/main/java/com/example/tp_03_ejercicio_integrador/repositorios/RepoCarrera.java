@@ -1,6 +1,6 @@
 package com.example.tp_03_ejercicio_integrador.repositorios;
 
-import com.example.tp_03_ejercicio_integrador.model.Carrera;
+import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
 import com.example.tp_03_ejercicio_integrador.dtos.ReporteCarreraDTO;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

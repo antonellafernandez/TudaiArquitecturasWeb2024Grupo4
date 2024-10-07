@@ -1,4 +1,4 @@
-package com.example.tp_03_ejercicio_integrador.model;
+package com.example.tp_03_ejercicio_integrador.modelos;
 
 import jakarta.persistence.*;
 
