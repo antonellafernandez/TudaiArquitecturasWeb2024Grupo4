@@ -4,9 +4,9 @@ import com.example.tp_03_ejercicio_integrador.model.Carrera;
 import com.example.tp_03_ejercicio_integrador.model.Estudiante;
 import com.example.tp_03_ejercicio_integrador.model.EstudianteCarrera;
 
-import com.example.tp_03_ejercicio_integrador.repository.RepoCarrera;
-import com.example.tp_03_ejercicio_integrador.repository.RepoEstudiante;
-import com.example.tp_03_ejercicio_integrador.repository.RepoEstudianteCarrera;
+import com.example.tp_03_ejercicio_integrador.repositorios.RepoCarrera;
+import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudiante;
+import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudianteCarrera;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,8 +18,6 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class CargaDeDatos {
@@ -41,7 +39,7 @@ public class CargaDeDatos {
         File estudianteCarreraCSV = ResourceUtils.getFile("src/main/java/com.example.tp_03_ejercicio_integrador/csv/estudianteCarrera.csv");
 
         try (FileReader readerCarreras = new FileReader(carrerasCSV);
-            CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(readerCarreras)) {
+             CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(readerCarreras)) {
 
             for (CSVRecord csvRecord : csvParser) {
                 Carrera carrera = new Carrera(Integer.parseInt(csvRecord.get("id_carrera")), csvRecord.get("nombre"));
@@ -60,7 +58,7 @@ public class CargaDeDatos {
             }
         }
 
-        try (FileReader readerEstudianteCarrera = new FileReader(estudiantesCSV);
+        try (FileReader readerEstudianteCarrera = new FileReader(estudianteCarreraCSV);
              CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(readerEstudianteCarrera)) {
 
             for (CSVRecord csvRecord : csvParser) { // PREGUNTAR en lugar de id_estudiante debería recibir Estudiante
@@ -72,5 +70,4 @@ public class CargaDeDatos {
             }
         }
     }
-
 }

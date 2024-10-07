@@ -1,8 +1,7 @@
 package com.example.tp_03_ejercicio_integrador.repositorios;
 
 import com.example.tp_03_ejercicio_integrador.model.Carrera;
-import com.example.tp_03_ejercicio_integrador.model.Estudiante;
-import dtos.ReporteCarreraDTO;
+import com.example.tp_03_ejercicio_integrador.dtos.ReporteCarreraDTO;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -25,5 +24,4 @@ public interface RepoCarrera extends RepoBase<Carrera, Long> {
             "JOIN ec.estudiante e " +
             "ORDER BY c.nombre ASC, YEAR(ec.anioInscripcion) ASC, YEAR(ec.anioEgreso) ASC")
     List<ReporteCarreraDTO> getReporteCarreras();
-
 }
