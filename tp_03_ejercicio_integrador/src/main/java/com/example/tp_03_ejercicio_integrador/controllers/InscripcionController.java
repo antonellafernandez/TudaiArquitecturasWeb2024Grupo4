@@ -49,4 +49,7 @@ public class InscripcionController {
             EstudianteCarrera inscripcion = matriculacionServicio.findById(id);
             return ResponseEntity.status(HttpStatus.OK).body(inscripcion);
         } catch (Exception e) {
-            return ResponseEntity.status(H
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"error\":\"" + e.getMessage() + "\"}");
+        }
+    }
