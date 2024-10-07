@@ -1,5 +1,6 @@
 package com.example.tp_03_ejercicio_integrador.servicios;
 
+import com.example.tp_03_ejercicio_integrador.dtos.CarreraConCantInscriptosDTO;
 import com.example.tp_03_ejercicio_integrador.dtos.CarreraDTO;
 import com.example.tp_03_ejercicio_integrador.dtos.ReporteCarreraDTO;
 import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
@@ -95,5 +96,9 @@ public class CarreraServicio implements BaseService<Carrera> {
 
     public List<ReporteCarreraDTO> generarReporteCarreras(){
         return repoCarrera.getReporteCarreras();
+    }
+
+    public List<CarreraConCantInscriptosDTO> getCarrerasConCantInscriptos(){
+        return repoCarrera.getCarrerasConEstudiantesOrdenadas();
     }
 }

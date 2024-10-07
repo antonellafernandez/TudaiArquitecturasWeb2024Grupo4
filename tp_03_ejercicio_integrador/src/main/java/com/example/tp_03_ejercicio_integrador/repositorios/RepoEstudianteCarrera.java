@@ -9,12 +9,5 @@ import java.util.List;
 
 public interface RepoEstudianteCarrera extends JpaRepository<EstudianteCarrera, Integer> {
 
-    // 2f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
-    @Query("SELECT ec, COUNT(ec.id_estudiante) AS cantidad_inscriptos " +
-            "FROM Carrera c " +
-            "JOIN c.estudianteCarrera ec " +
-            "GROUP BY c " +
-            "ORDER BY cantidad_inscriptos DESC"
-    )
-    List<Carrera> getCarrerasConEstudiantesOrdenadas();
+
 }
