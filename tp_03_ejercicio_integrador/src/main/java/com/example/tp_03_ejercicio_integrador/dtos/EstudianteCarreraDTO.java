@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MatriculacionDTO {
+public class EstudianteCarreraDTO {
     private Long idEstudiante;
     private Long idCarrera;
     private int anioInscripcion;
@@ -13,7 +13,7 @@ public class MatriculacionDTO {
     private int antiguedad;
     private boolean graduado;
 
-    public MatriculacionDTO(Long idEstudiante, Long idCarrera, int anioInscripcion, Integer anioEgreso, int antiguedad, boolean graduado) {
+    public EstudianteCarreraDTO(Long idEstudiante, Long idCarrera, int anioInscripcion, Integer anioEgreso, int antiguedad, boolean graduado) {
         this.idEstudiante = idEstudiante;
         this.idCarrera = idCarrera;
         this.anioInscripcion = anioInscripcion;
