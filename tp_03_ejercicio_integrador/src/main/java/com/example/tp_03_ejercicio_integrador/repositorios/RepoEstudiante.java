@@ -1,13 +1,14 @@
 package com.example.tp_03_ejercicio_integrador.repositorios;
 
 import com.example.tp_03_ejercicio_integrador.modelos.Estudiante;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository("RepoEstudiante")
-public interface RepoEstudiante extends RepoBase<Estudiante, Integer> {
+public interface RepoEstudiante extends JpaRepository<Estudiante, Integer> {
 
     // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple. -> Por APELLIDO
     @Query("SELECT e FROM Estudiante e WHERE e.apellido = :apellido")

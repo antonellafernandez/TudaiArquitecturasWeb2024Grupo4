@@ -42,8 +42,14 @@ public class CargaDeDatos {
              CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(readerCarreras)) {
 
             for (CSVRecord csvRecord : csvParser) {
-                Carrera carrera = new Carrera(Integer.parseInt(csvRecord.get("id_carrera")), csvRecord.get("nombre"));
-                rc.save(carrera); // Guardar carrera en la base de datos
+                // Creación de la entidad Carrera
+                Carrera carrera = new Carrera(
+                        Integer.parseInt(csvRecord.get("id_carrera")),
+                        csvRecord.get("nombre")
+                );
+
+                // Guardar carrera en la base de datos
+                rc.save(carrera);
             }
         }
 
@@ -51,9 +57,17 @@ public class CargaDeDatos {
              CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(readerEstudiantes)) {
 
             for (CSVRecord csvRecord : csvParser) {
-                Estudiante estudiante = new Estudiante(Integer.parseInt(csvRecord.get("DNI")), csvRecord.get("nombre"),
-                        csvRecord.get("apellido"), Integer.parseInt(csvRecord.get("edad")), csvRecord.get("genero"),
-                        csvRecord.get("ciudad"), Long.parseLong(csvRecord.get("LU")));
+                // Creación de la entidad Estudiante
+                Estudiante estudiante = new Estudiante(
+                        Integer.parseInt(csvRecord.get("DNI")),
+                        csvRecord.get("nombre"),
+                        csvRecord.get("apellido"),
+                        Integer.parseInt(csvRecord.get("edad")),
+                        csvRecord.get("genero"),
+                        csvRecord.get("ciudad"),
+                        Long.parseLong(csvRecord.get("LU"))
+                );
+
                 re.save(estudiante); // Guardar estudiante en la base de datos
             }
         }
@@ -61,12 +75,28 @@ public class CargaDeDatos {
         try (FileReader readerEstudianteCarrera = new FileReader(estudianteCarreraCSV);
              CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(readerEstudianteCarrera)) {
 
-            for (CSVRecord csvRecord : csvParser) { // PREGUNTAR en lugar de id_estudiante debería recibir Estudiante
-                EstudianteCarrera estudianteCarrera = new EstudianteCarrera(Integer.parseInt(csvRecord.get("id")),
-                        Integer.parseInt(csvRecord.get("id_estudiante")), Integer.parseInt(csvRecord.get("id_carrera")),
-                        Integer.parseInt(csvRecord.get("anioInscripcion")), Integer.parseInt(csvRecord.get("anioEgreso")),
-                        Integer.parseInt(csvRecord.get("antiguedad")), Boolean.parseBoolean(csvRecord.get("graduado")));
-                rec.save(estudianteCarrera); // Guardar inscripción en la base de datos
+            for (CSVRecord csvRecord : csvParser) {
+                // Manejo del Optional para el estudiante
+                Estudiante estudiante = re.findById(Integer.parseInt(csvRecord.get("id_estudiante")))
+                        .orElseThrow(() -> new RuntimeException("Estudiante no encontrado con id=" + csvRecord.get("id_estudiante") + "!"));
+
+                // Manejo del Optional para la carrera
+                Carrera carrera = rc.findById(Integer.parseInt(csvRecord.get("id_carrera")))
+                        .orElseThrow(() -> new RuntimeException("Carrera no encontrada con id=" + csvRecord.get("id_carrera") + "!"));
+
+                // Creación de la entidad EstudianteCarrera
+                EstudianteCarrera estudianteCarrera = new EstudianteCarrera(
+                        Integer.parseInt(csvRecord.get("id")),
+                        estudiante,
+                        carrera,
+                        Integer.parseInt(csvRecord.get("anioInscripcion")),
+                        Integer.parseInt(csvRecord.get("anioEgreso")),
+                        Integer.parseInt(csvRecord.get("antiguedad")),
+                        Boolean.parseBoolean(csvRecord.get("graduado"))
+                );
+
+                // Guardar la inscripción en la base de datos
+                rec.save(estudianteCarrera);
             }
         }
     }

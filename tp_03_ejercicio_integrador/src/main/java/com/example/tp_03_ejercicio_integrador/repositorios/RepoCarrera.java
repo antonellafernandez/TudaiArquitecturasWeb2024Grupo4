@@ -2,13 +2,14 @@ package com.example.tp_03_ejercicio_integrador.repositorios;
 
 import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
 import com.example.tp_03_ejercicio_integrador.dtos.ReporteCarreraDTO;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository("RepoCarrera")
-public interface RepoCarrera extends RepoBase<Carrera, Integer> {
+public interface RepoCarrera extends JpaRepository<Carrera, Integer> {
 
     // 2h) Generar un reporte de las carreras, que para cada carrera incluya información de los
     // inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y

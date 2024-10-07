@@ -8,10 +8,10 @@ import lombok.*;
 @Setter
 @ToString
 public class EstudianteCarreraDTO {
-    private int idEstudiante;
-    private int idCarrera;
+    private Long luEstudiante;
+    private String nombreCarrera;
     private int anioInscripcion;
-    private int anioEgreso; // Puede ser null
+    private int anioEgreso;
     private int antiguedad;
     private boolean graduado;
 }

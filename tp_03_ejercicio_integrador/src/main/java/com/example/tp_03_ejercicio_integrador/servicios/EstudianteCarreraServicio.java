@@ -19,42 +19,13 @@ import java.util.Optional;
 public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera> {
 
     @Autowired
-    private RepoEstudianteCarrera repoEstudiante;
+    private RepoEstudiante repoEstudiante;
 
     @Autowired
     private RepoCarrera repoCarrera;
 
     @Autowired
     private RepoEstudianteCarrera repoEstudianteCarrera;
-
-    // 2b) Matricular un estudiante en una carrera.
-    @Transactional
-    public EstudianteCarrera matricularEstudiante(EstudianteCarreraDTO estudianteCarreraDTO) throws Exception {
-        try {
-            // Buscar al estudiante por su ID
-            Estudiante estudiante = repoEstudiante.findById(estudianteCarreraDTO.getIdEstudiante())
-                    .orElseThrow(() -> new Exception("Estudiante no encontrado con ID: " + estudianteCarreraDTO.getIdEstudiante()));
-
-            // Buscar la carrera por su ID
-            Carrera carrera = repoCarrera.findById(estudianteCarreraDTO.getIdCarrera())
-                    .orElseThrow(() -> new Exception("Carrera no encontrada con ID: " + estudianteCarreraDTO.getIdCarrera()));
-
-            // Crear una nueva inscripción
-            EstudianteCarrera inscripcion = new EstudianteCarrera();
-            inscripcion.setEstudiante(estudiante);
-            inscripcion.setCarrera(carrera);
-            inscripcion.setAnioInscripcion(estudianteCarreraDTO.getAnioInscripcion());
-            inscripcion.setAnioEgreso(estudianteCarreraDTO.getAnioEgreso() != null ? estudianteCarreraDTO.getAnioEgreso() : null);
-            inscripcion.setAntiguedad(estudianteCarreraDTO.getAntiguedad());
-            inscripcion.setGraduado(estudianteCarreraDTO.isGraduado());
-
-            // Guardar la inscripción en la base de datos
-            EstudianteCarrera savedInscripcion = repoEstudianteCarrera.save(inscripcion);
-            return savedInscripcion;
-        } catch (Exception e) {
-            throw new Exception("Error al matricular estudiante!" + e.getMessage());
-        }
-    }
 
     // Obtener todas las inscripciones
     @Override
@@ -79,38 +50,46 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
         }
     }
 
+    // 2b) Matricular un estudiante en una carrera.
+    @Override
+    @Transactional
+    public EstudianteCarrera save(EstudianteCarrera estudianteCarrera) throws Exception {
+        try {
+            return repoEstudianteCarrera.save(estudianteCarrera);
+        } catch (Exception e) {
+            throw new Exception("Error al matricular estudiante!" + e.getMessage());
+        }
+    }
+
     // Actualizar una inscripción
     @Override
     @Transactional
-    public EstudianteCarrera update(int id, EstudianteCarreraDTO estudianteCarreraDTO) throws Exception {
+    public EstudianteCarrera update(int id, EstudianteCarrera estudianteCarrera) throws Exception {
         try {
             // Buscar la inscripción existente por ID
             EstudianteCarrera inscripcion = repoEstudianteCarrera.findById(id)
-                    .orElseThrow(() -> new Exception("Inscripción no encontrada con ID: " + id));
+                    .orElseThrow(() -> new Exception("Inscripción no encontrada con id=" + id + "!"));
 
-            // Actualizar el estudiante si se proporciona un nuevo ID
-            if (estudianteCarreraDTO.getIdEstudiante() != null) {
-                Estudiante estudiante = repoEstudiante.findById(estudianteCarreraDTO.getIdEstudiante())
-                        .orElseThrow(() -> new Exception("Estudiante no encontrado con ID: " + estudianteCarreraDTO.getIdEstudiante()));
-                inscripcion.setEstudiante(estudiante);
-            }
+            // Buscar estudiante existente
+            int idEstudiante = estudianteCarrera.getEstudiante().getDni();
+            Estudiante estudiante = repoEstudiante.findById(idEstudiante)
+                    .orElseThrow(() -> new RuntimeException("Estudiante no encontrado con id=" + idEstudiante + "!"));
 
-            // Actualizar la carrera si se proporciona un nuevo ID
-            if (estudianteCarreraDTO.getIdCarrera() != null) {
-                Carrera carrera = repoCarrera.findById(estudianteCarreraDTO.getIdCarrera())
-                        .orElseThrow(() -> new Exception("Carrera no encontrada con ID: " + estudianteCarreraDTO.getIdCarrera()));
-                inscripcion.setCarrera(carrera);
-            }
+            // Buscar carrera existente
+            int idCarrera = estudianteCarrera.getCarrera().getId();
+            Carrera carrera = repoCarrera.findById(idCarrera)
+                    .orElseThrow(() -> new RuntimeException("Carrera no encontrada con id=" + idCarrera + "!"));
 
-            // Actualizar otros campos de la inscripción
-            inscripcion.setAnioInscripcion(estudianteCarreraDTO.getAnioInscripcion());
-            inscripcion.setAnioEgreso(estudianteCarreraDTO.getAnioEgreso());
-            inscripcion.setAntiguedad(estudianteCarreraDTO.getAntiguedad());
-            inscripcion.setGraduado(estudianteCarreraDTO.isGraduado());
+            // Actualizar campos de inscripcion
+            inscripcion.setEstudiante(estudiante);
+            inscripcion.setCarrera(carrera);
+            inscripcion.setAnioInscripcion(estudianteCarrera.getAnioInscripcion());
+            inscripcion.setAnioEgreso(estudianteCarrera.getAnioEgreso());
+            inscripcion.setAntiguedad(estudianteCarrera.getAntiguedad());
+            inscripcion.setGraduado(estudianteCarrera.isGraduado());
 
             // Guardar la inscripción actualizada en la base de datos
-            EstudianteCarrera updatedInscripcion = repoEstudianteCarrera.save(inscripcion);
-            return updatedInscripcion;
+            return repoEstudianteCarrera.save(inscripcion);
         } catch (Exception e) {
             throw new Exception("Error al actualizar inscripción con id=" + id + "!" + e.getMessage());
         }
