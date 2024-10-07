@@ -57,6 +57,7 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
     }
 
     // Obtener todas las inscripciones
+    @Override
     @Transactional
     public List<EstudianteCarrera> findAll() throws Exception {
         try {
@@ -67,8 +68,9 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
     }
 
     // Obtener una inscripción por ID
+    @Override
     @Transactional
-    public EstudianteCarrera findById(Long id) throws Exception {
+    public EstudianteCarrera findById(int id) throws Exception {
         try {
             Optional<EstudianteCarrera> inscripcionOpt = repoEstudianteCarrera.findById(id);
             if (inscripcionOpt.isPresent()) {
@@ -82,8 +84,9 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
     }
 
     // Actualizar una inscripción
+    @Override
     @Transactional
-    public EstudianteCarrera update(Long id, EstudianteCarreraDTO estudianteCarreraDTO) throws Exception {
+    public EstudianteCarrera update(int id, EstudianteCarreraDTO estudianteCarreraDTO) throws Exception {
         try {
             // Buscar la inscripción existente por ID
             EstudianteCarrera inscripcion = repoEstudianteCarrera.findById(id)
@@ -118,8 +121,9 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
     }
 
     // Eliminar una inscripción
+    @Override
     @Transactional
-    public boolean delete(Long id) throws Exception {
+    public boolean delete(int id) throws Exception {
         try {
             if (repoEstudianteCarrera.existsById(id)) {
                 repoEstudianteCarrera.deleteById(id);
@@ -132,4 +136,3 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
         }
     }
 }
-

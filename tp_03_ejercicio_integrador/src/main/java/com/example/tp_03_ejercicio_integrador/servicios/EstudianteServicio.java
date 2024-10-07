@@ -16,17 +16,8 @@ public class EstudianteServicio implements BaseService<Estudiante> {
     @Autowired
     private RepoEstudiante repoEstudiante;
 
-    // Guardar un nuevo estudiante
-    @Transactional
-    public Estudiante guardarEstudiante(Estudiante estudiante) throws Exception {
-        try {
-            return repoEstudiante.save(estudiante);
-        } catch (Exception e) {
-            throw new Exception("Error al guardar estudiante: " + e.getMessage());
-        }
-    }
-
     // Obtener todos los estudiantes
+    @Override
     @Transactional
     public List<Estudiante> findAll() throws Exception {
         try {
@@ -37,8 +28,9 @@ public class EstudianteServicio implements BaseService<Estudiante> {
     }
 
     // Obtener un estudiante por ID
+    @Override
     @Transactional
-    public Estudiante findById(Long id) throws Exception {
+    public Estudiante findById(int id) throws Exception {
         try {
             return repoEstudiante.findById(id)
                     .orElseThrow(() -> new Exception("Estudiante no encontrado con ID: " + id));
@@ -47,9 +39,21 @@ public class EstudianteServicio implements BaseService<Estudiante> {
         }
     }
 
-    // Actualizar un estudiante
+    // Guardar un nuevo estudiante
+    @Override
     @Transactional
-    public Estudiante update(Long id, Estudiante estudiante) throws Exception {
+    public Estudiante save(Estudiante estudiante) throws Exception {
+        try {
+            return repoEstudiante.save(estudiante);
+        } catch (Exception e) {
+            throw new Exception("Error al guardar estudiante: " + e.getMessage());
+        }
+    }
+
+    // Actualizar un estudiante
+    @Override
+    @Transactional
+    public Estudiante update(int id, Estudiante estudiante) throws Exception {
         try {
             Estudiante estudianteExistente = findById(id);
             estudianteExistente.setNombre(estudiante.getNombre());
@@ -61,8 +65,9 @@ public class EstudianteServicio implements BaseService<Estudiante> {
     }
 
     // Eliminar un estudiante
+    @Override
     @Transactional
-    public boolean delete(Long id) throws Exception {
+    public boolean delete(int id) throws Exception {
         try {
             if (repoEstudiante.existsById(id)) {
                 repoEstudiante.deleteById(id);
@@ -73,9 +78,5 @@ public class EstudianteServicio implements BaseService<Estudiante> {
         } catch (Exception e) {
             throw new Exception("Error al eliminar estudiante: " + e.getMessage());
         }
-    }
-
-    public EstudianteDTO altaEstudiante(EstudianteDTO estudianteDTO) {
-
     }
 }
