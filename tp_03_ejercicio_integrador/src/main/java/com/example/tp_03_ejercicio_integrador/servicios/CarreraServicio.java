@@ -1,6 +1,8 @@
 package com.example.tp_03_ejercicio_integrador.servicios;
 
+import com.example.tp_03_ejercicio_integrador.dtos.CarreraDTO;
 import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
+import com.example.tp_03_ejercicio_integrador.modelos.EstudianteCarrera;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoCarrera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,5 +80,16 @@ public class CarreraServicio implements BaseService<Carrera> {
         } catch (Exception e) {
             throw new Exception("Error al eliminar carrera con id=" + id + "!" + e.getMessage());
         }
+    }
+
+    // Obtener CarreraDTO
+    public CarreraDTO toDTO(Carrera carrera) {
+        CarreraDTO carreraDTO = new CarreraDTO();
+
+        for (EstudianteCarrera inscripcion : carrera.getInscripciones()) {
+            carreraDTO.addInscripcion(inscripcion);
+        }
+
+        return carreraDTO;
     }
 }

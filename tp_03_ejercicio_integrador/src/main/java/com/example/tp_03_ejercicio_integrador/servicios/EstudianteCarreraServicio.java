@@ -1,5 +1,6 @@
 package com.example.tp_03_ejercicio_integrador.servicios;
 
+import com.example.tp_03_ejercicio_integrador.dtos.EstudianteCarreraDTO;
 import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
 import com.example.tp_03_ejercicio_integrador.modelos.Estudiante;
 import com.example.tp_03_ejercicio_integrador.modelos.EstudianteCarrera;
@@ -109,5 +110,19 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
         } catch (Exception e) {
             throw new Exception("Error al eliminar inscripción  con id=" + id + "!" + e.getMessage());
         }
+    }
+
+    // Obtener EstudianteCarreraDTO
+    public EstudianteCarreraDTO toDTO(EstudianteCarrera estudianteCarrera) {
+        EstudianteCarreraDTO estudianteCarreraDTO = new EstudianteCarreraDTO(
+                estudianteCarrera.getEstudiante().getLu(),
+                estudianteCarrera.getCarrera().getNombre(),
+                estudianteCarrera.getAnioInscripcion(),
+                estudianteCarrera.getAnioEgreso(),
+                estudianteCarrera.getAntiguedad(),
+                estudianteCarrera.isGraduado()
+        );
+
+        return estudianteCarreraDTO;
     }
 }

@@ -1,7 +1,11 @@
 package com.example.tp_03_ejercicio_integrador.servicios;
 
+import com.example.tp_03_ejercicio_integrador.dtos.CarreraDTO;
+import com.example.tp_03_ejercicio_integrador.dtos.EstudianteCarreraDTO;
 import com.example.tp_03_ejercicio_integrador.dtos.EstudianteDTO;
+import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
 import com.example.tp_03_ejercicio_integrador.modelos.Estudiante;
+import com.example.tp_03_ejercicio_integrador.modelos.EstudianteCarrera;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudiante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,5 +85,23 @@ public class EstudianteServicio implements BaseService<Estudiante> {
         } catch (Exception e) {
             throw new Exception("Error al eliminar estudiante con id=" + id + "!" + e.getMessage());
         }
+    }
+
+    // Obtener EstudianteDTO
+    public EstudianteDTO toDTO(Estudiante estudiante) {
+        EstudianteDTO estudianteDTO = new EstudianteDTO(
+                estudiante.getNombre(),
+                estudiante.getApellido(),
+                estudiante.getEdad(),
+                estudiante.getGenero(),
+                estudiante.getCiudadResidencia(),
+                estudiante.getLu()
+        );
+
+        for (EstudianteCarrera inscripcion : estudiante.getInscripciones()) {
+            estudianteDTO.addInscripcion(inscripcion);
+        }
+
+        return estudianteDTO;
     }
 }
