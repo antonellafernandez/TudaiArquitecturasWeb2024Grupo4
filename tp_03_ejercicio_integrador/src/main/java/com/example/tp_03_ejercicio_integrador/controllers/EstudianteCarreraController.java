@@ -1,6 +1,8 @@
 package com.example.tp_03_ejercicio_integrador.controllers;
 
 import com.example.tp_03_ejercicio_integrador.dtos.EstudianteCarreraDTO;
+import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
+import com.example.tp_03_ejercicio_integrador.modelos.Estudiante;
 import com.example.tp_03_ejercicio_integrador.modelos.EstudianteCarrera;
 import com.example.tp_03_ejercicio_integrador.servicios.EstudianteCarreraServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.time.LocalDate;
+import java.time.Year;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -20,10 +25,11 @@ public class EstudianteCarreraController {
 
     // 2b) Matricular un estudiante en una carrera.
     @PostMapping("/matricular")
-    public ResponseEntity<?> matricularEstudiante(@RequestBody EstudianteCarreraDTO estudianteCarreraDTO) {
+    public ResponseEntity<?> matricularEstudiante(@RequestBody Estudiante estudiante, Carrera carrera) {
         try {
-            EstudianteCarrera inscripcion = matriculacionServicio.matricularEstudiante(estudianteCarreraDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(inscripcion);
+            EstudianteCarrera entity = new EstudianteCarrera(1, estudiante, carrera, Year.now().getValue(), 0, 0, false);
+            matriculacionServicio.save(entity);
+            return ResponseEntity.status(HttpStatus.CREATED).body(EstudianteCarreraServicio.toDTO(entity));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");

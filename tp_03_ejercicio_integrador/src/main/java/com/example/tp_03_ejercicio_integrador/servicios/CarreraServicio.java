@@ -98,7 +98,7 @@ public class CarreraServicio implements BaseService<Carrera> {
         return repoCarrera.getReporteCarreras();
     }
 
-    public List<CarreraConCantInscriptosDTO> getCarrerasConCantInscriptos(){
-        return repoCarrera.getCarrerasConEstudiantesOrdenadas();
+    public List<CarreraConCantInscriptosDTO> getCarrerasOrdenadasPorInscriptos(){
+        return repoCarrera.getCarrerasOrdenadasPorInscriptos();
     }
 }

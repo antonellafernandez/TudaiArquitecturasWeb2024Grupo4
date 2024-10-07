@@ -111,7 +111,7 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
     }
 
     // Obtener EstudianteCarreraDTO
-    public EstudianteCarreraDTO toDTO(EstudianteCarrera estudianteCarrera) {
+    public static EstudianteCarreraDTO toDTO(EstudianteCarrera estudianteCarrera) {
         EstudianteCarreraDTO estudianteCarreraDTO = new EstudianteCarreraDTO(
                 estudianteCarrera.getEstudiante().getLu(),
                 estudianteCarrera.getCarrera().getNombre(),

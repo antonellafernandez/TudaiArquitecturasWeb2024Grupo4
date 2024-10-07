@@ -19,7 +19,7 @@ public interface RepoCarrera extends JpaRepository<Carrera, Integer> {
             "JOIN c.inscripciones ec " +
             "ORDER BY COUNT(ec) DESC"
     )
-    List<CarreraConCantInscriptosDTO> getCarrerasConEstudiantesOrdenadas();
+    List<CarreraConCantInscriptosDTO> getCarrerasOrdenadasPorInscriptos();
 
     // 2h) Generar un reporte de las carreras, que para cada carrera incluya información de los
     // inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y
