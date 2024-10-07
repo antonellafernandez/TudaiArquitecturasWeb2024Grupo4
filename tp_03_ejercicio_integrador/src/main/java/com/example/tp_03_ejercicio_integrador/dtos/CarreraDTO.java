@@ -9,29 +9,19 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class EstudianteDTO {
+public class CarreraDTO {
     private String nombre;
-    private String apellido;
-    private int edad;
-    private String genero;
-    private String ciudadResidencia;
-    private Long lu;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private List<EstudianteCarrera> inscripciones;
 
-    public EstudianteDTO() {
+    public CarreraDTO() {
         this.inscripciones = new ArrayList<EstudianteCarrera>();
     }
 
-    public EstudianteDTO(String nombre, String apellido, int edad, String genero, String ciudadResidencia, Long lu) {
+    public CarreraDTO(String nombre) {
         this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
-        this.genero = genero;
-        this.ciudadResidencia = ciudadResidencia;
-        this.lu = lu;
         this.inscripciones = new ArrayList<>();
     }
 

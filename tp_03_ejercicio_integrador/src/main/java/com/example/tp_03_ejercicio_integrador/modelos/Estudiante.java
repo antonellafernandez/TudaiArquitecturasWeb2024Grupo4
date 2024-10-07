@@ -1,13 +1,21 @@
 package com.example.tp_03_ejercicio_integrador.modelos;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@ToString
 public class Estudiante {
     @Id
+    @Setter(AccessLevel.NONE)
     private int dni;
 
     @Column
@@ -30,6 +38,8 @@ public class Estudiante {
 
     // Relación uno a muchos con la entidad Inscripcion
     @OneToMany(mappedBy = "estudiante", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // CascadeType.ALL significa que todas las operaciones de cascada se aplicarán a las entidades relacionadas
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private List<EstudianteCarrera> inscripciones;
 
     public Estudiante() {
@@ -48,58 +58,6 @@ public class Estudiante {
         this.inscripciones = new ArrayList<EstudianteCarrera>();
     }
 
-    public int getDni() {
-        return dni;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public String getCiudadResidencia() {
-        return ciudadResidencia;
-    }
-
-    public void setCiudadResidencia(String ciudadResidencia) {
-        this.ciudadResidencia = ciudadResidencia;
-    }
-
-    public Long getLu() {
-        return lu;
-    }
-
-    public void setLu(Long lu) {
-        this.lu = lu;
-    }
-
     public List<EstudianteCarrera> getInscripciones() {
         return new ArrayList<>(inscripciones);
     }
@@ -116,19 +74,5 @@ public class Estudiante {
             inscripciones.remove(estudianteCarrera);
             estudianteCarrera.setEstudiante(null); // Mantener la relación bidireccional
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Estudiante{" +
-                "dni=" + dni +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", edad=" + edad +
-                ", genero='" + genero + '\'' +
-                ", ciudadResidencia='" + ciudadResidencia + '\'' +
-                ", lu=" + lu +
-                ", inscripciones=" + inscripciones +
-                '}';
     }
 }

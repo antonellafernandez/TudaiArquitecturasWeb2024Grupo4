@@ -2,13 +2,18 @@ package com.example.tp_03_ejercicio_integrador.modelos;
 
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@ToString
 public class Carrera {
     @Id
+    @Setter(AccessLevel.NONE)
     private int id;
 
     @Column(nullable = false)
@@ -16,6 +21,8 @@ public class Carrera {
 
     // Relación uno a muchos con la entidad Inscripcion
     @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // CascadeType.ALL significa que todas las operaciones de cascada se aplicarán a las entidades relacionadas
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private List<EstudianteCarrera> inscripciones;
 
     public Carrera() {
@@ -26,18 +33,6 @@ public class Carrera {
         this.id = id;
         this.nombre = nombre;
         this.inscripciones = new ArrayList<EstudianteCarrera>();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public List<EstudianteCarrera> getInscripciones() {
@@ -56,14 +51,5 @@ public class Carrera {
             inscripciones.remove(estudianteCarrera);
             estudianteCarrera.setCarrera(null); // Mantener la relación bidireccional
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Carrera{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", inscripciones=" + inscripciones +
-                '}';
     }
 }
