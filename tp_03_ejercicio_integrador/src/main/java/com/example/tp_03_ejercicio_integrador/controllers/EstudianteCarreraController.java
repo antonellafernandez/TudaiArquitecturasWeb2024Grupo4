@@ -1,5 +1,6 @@
 package com.example.tp_03_ejercicio_integrador.controllers;
 
+import com.example.tp_03_ejercicio_integrador.dtos.EstudianteCarreraDTO;
 import com.example.tp_03_ejercicio_integrador.modelos.EstudianteCarrera;
 import com.example.tp_03_ejercicio_integrador.servicios.EstudianteCarreraServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/inscripciones")
-public class InscripcionController {
+public class EstudianteCarreraController {
 
     @Autowired
     private EstudianteCarreraServicio matriculacionServicio;
 
-    // b) Matricular un estudiante en una carrera
+    // 2b) Matricular un estudiante en una carrera.
     @PostMapping("/matricular")
     public ResponseEntity<?> matricularEstudiante(@RequestBody EstudianteCarreraDTO estudianteCarreraDTO) {
         try {
@@ -43,7 +44,7 @@ public class InscripcionController {
 
     // Obtener una inscripción por ID
     @GetMapping("/{id}")
-    public ResponseEntity<?> obtenerInscripcionPorId(@PathVariable Long id) {
+    public ResponseEntity<?> obtenerInscripcionPorId(@PathVariable int id) {
         try {
             EstudianteCarrera inscripcion = matriculacionServicio.findById(id);
             return ResponseEntity.status(HttpStatus.OK).body(inscripcion);
@@ -52,3 +53,4 @@ public class InscripcionController {
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
+}

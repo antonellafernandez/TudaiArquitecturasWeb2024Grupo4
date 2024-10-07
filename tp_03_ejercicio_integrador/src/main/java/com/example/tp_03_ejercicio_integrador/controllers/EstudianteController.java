@@ -1,13 +1,11 @@
 package com.example.tp_03_ejercicio_integrador.controllers;
 
+import com.example.tp_03_ejercicio_integrador.dtos.EstudianteDTO;
 import com.example.tp_03_ejercicio_integrador.servicios.EstudianteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-
-
 
 import java.util.List;
 
@@ -18,11 +16,11 @@ public class EstudianteController {
     @Autowired
     private EstudianteServicio estudianteServicio;
 
-    // a) Dar de alta un estudiante
+    // 2a) Dar de alta un estudiante
     @PostMapping("/alta")
     public ResponseEntity<?> altaEstudiante(@RequestBody EstudianteDTO estudianteDTO) {
         try {
-            EstudianteDTO creado = estudianteServicio.altaEstudiante(estudianteDTO);
+            EstudianteDTO creado = estudianteServicio.save(estudianteDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(creado);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -30,7 +28,7 @@ public class EstudianteController {
         }
     }
 
-    // c) Recuperar todos los estudiantes, ordenados por apellido
+    // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple. -> Por APELLIDO
     @GetMapping("")
     public ResponseEntity<?> obtenerTodos() {
         try {
@@ -42,7 +40,7 @@ public class EstudianteController {
         }
     }
 
-    // d) Recuperar un estudiante por número de libreta universitaria (LU)
+    // 2d) Eecuperar un estudiante, en base a su número de libreta universitaria.
     @GetMapping("/lu/{lu}")
     public ResponseEntity<?> obtenerPorLu(@PathVariable Long lu) {
         try {
@@ -54,7 +52,7 @@ public class EstudianteController {
         }
     }
 
-    // e) Recuperar todos los estudiantes por género
+    // 2e) Recuperar todos los estudiantes, en base a su género.
     @GetMapping("/genero/{genero}")
     public ResponseEntity<?> obtenerPorGenero(@PathVariable String genero) {
         try {
@@ -66,7 +64,7 @@ public class EstudianteController {
         }
     }
 
-    // g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
+    // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
     @GetMapping("/carrera/{nombreCarrera}/ciudad/{ciudadResidencia}")
     public ResponseEntity<?> obtenerPorCarreraYCiudad(@PathVariable String nombreCarrera,
                                                       @PathVariable String ciudadResidencia) {
@@ -81,7 +79,7 @@ public class EstudianteController {
 
     // Obtener un estudiante por ID
     @GetMapping("/{id}")
-    public ResponseEntity<?> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<?> obtenerPorId(@PathVariable int id) {
         try {
             EstudianteDTO estudiante = estudianteServicio.findById(id);
             return ResponseEntity.status(HttpStatus.OK).body(estudiante);
@@ -93,7 +91,7 @@ public class EstudianteController {
 
     // Actualizar un estudiante
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarEstudiante(@PathVariable Long id, @RequestBody EstudianteDTO estudianteDTO) {
+    public ResponseEntity<?> actualizarEstudiante(@PathVariable int id, @RequestBody EstudianteDTO estudianteDTO) {
         try {
             EstudianteDTO actualizado = estudianteServicio.update(id, estudianteDTO);
             return ResponseEntity.status(HttpStatus.OK).body(actualizado);
@@ -105,7 +103,7 @@ public class EstudianteController {
 
     // Eliminar un estudiante
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarEstudiante(@PathVariable Long id) {
+    public ResponseEntity<?> eliminarEstudiante(@PathVariable int id) {
         try {
             boolean eliminado = estudianteServicio.delete(id);
             if (eliminado) {

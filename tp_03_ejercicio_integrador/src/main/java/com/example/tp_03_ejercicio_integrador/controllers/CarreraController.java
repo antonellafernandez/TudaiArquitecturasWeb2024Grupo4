@@ -44,7 +44,7 @@ public class CarreraController {
 
     // Obtener una carrera por ID
     @GetMapping("/{id}")
-    public ResponseEntity<?> obtenerCarreraPorId(@PathVariable Long id) {
+    public ResponseEntity<?> obtenerCarreraPorId(@PathVariable int id) {
         try {
             Carrera carrera = carreraServicio.findById(id);
             return ResponseEntity.status(HttpStatus.OK).body(carrera);
@@ -56,7 +56,7 @@ public class CarreraController {
 
     // Actualizar una carrera
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarCarrera(@PathVariable Long id, @RequestBody Carrera carrera) {
+    public ResponseEntity<?> actualizarCarrera(@PathVariable int id, @RequestBody Carrera carrera) {
         try {
             Carrera actualizada = carreraServicio.update(id, carrera);
             return ResponseEntity.status(HttpStatus.OK).body(actualizada);
@@ -68,7 +68,7 @@ public class CarreraController {
 
     // Eliminar una carrera
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarCarrera(@PathVariable Long id) {
+    public ResponseEntity<?> eliminarCarrera(@PathVariable int id) {
         try {
             boolean eliminado = carreraServicio.delete(id);
             if (eliminado) {

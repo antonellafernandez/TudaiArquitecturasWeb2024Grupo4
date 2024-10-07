@@ -27,7 +27,7 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
     @Autowired
     private RepoEstudianteCarrera repoEstudianteCarrera;
 
-    // b) Matricular un estudiante en una carrera
+    // 2b) Matricular un estudiante en una carrera.
     @Transactional
     public EstudianteCarrera matricularEstudiante(EstudianteCarreraDTO estudianteCarreraDTO) throws Exception {
         try {
@@ -52,7 +52,7 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
             EstudianteCarrera savedInscripcion = repoEstudianteCarrera.save(inscripcion);
             return savedInscripcion;
         } catch (Exception e) {
-            throw new Exception("Error al matricular estudiante: " + e.getMessage());
+            throw new Exception("Error al matricular estudiante!" + e.getMessage());
         }
     }
 
@@ -63,7 +63,7 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
         try {
             return repoEstudianteCarrera.findAll();
         } catch (Exception e) {
-            throw new Exception("Error al obtener inscripciones: " + e.getMessage());
+            throw new Exception("Error al obtener inscripciones!" + e.getMessage());
         }
     }
 
@@ -72,14 +72,10 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
     @Transactional
     public EstudianteCarrera findById(int id) throws Exception {
         try {
-            Optional<EstudianteCarrera> inscripcionOpt = repoEstudianteCarrera.findById(id);
-            if (inscripcionOpt.isPresent()) {
-                return inscripcionOpt.get();
-            } else {
-                throw new Exception("Inscripción no encontrada con ID: " + id);
-            }
+            Optional<EstudianteCarrera> inscripcionBuscada = repoEstudianteCarrera.findById(id);
+            return inscripcionBuscada.get();
         } catch (Exception e) {
-            throw new Exception("Error al buscar inscripción: " + e.getMessage());
+            throw new Exception("Error al buscar inscripción  con id=" + id + "!" + e.getMessage());
         }
     }
 
@@ -116,7 +112,7 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
             EstudianteCarrera updatedInscripcion = repoEstudianteCarrera.save(inscripcion);
             return updatedInscripcion;
         } catch (Exception e) {
-            throw new Exception("Error al actualizar inscripción: " + e.getMessage());
+            throw new Exception("Error al actualizar inscripción con id=" + id + "!" + e.getMessage());
         }
     }
 
@@ -129,10 +125,10 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
                 repoEstudianteCarrera.deleteById(id);
                 return true;
             } else {
-                throw new Exception("Inscripción no encontrada con ID: " + id);
+                throw new Exception();
             }
         } catch (Exception e) {
-            throw new Exception("Error al eliminar inscripción: " + e.getMessage());
+            throw new Exception("Error al eliminar inscripción  con id=" + id + "!" + e.getMessage());
         }
     }
 }

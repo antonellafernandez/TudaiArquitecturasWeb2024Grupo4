@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EstudianteServicio implements BaseService<Estudiante> {
@@ -23,7 +24,7 @@ public class EstudianteServicio implements BaseService<Estudiante> {
         try {
             return repoEstudiante.findAll();
         } catch (Exception e) {
-            throw new Exception("Error al obtener estudiantes: " + e.getMessage());
+            throw new Exception("Error al obtener estudiantes!" + e.getMessage());
         }
     }
 
@@ -32,13 +33,14 @@ public class EstudianteServicio implements BaseService<Estudiante> {
     @Transactional
     public Estudiante findById(int id) throws Exception {
         try {
-            return repoEstudiante.findById(id)
-                    .orElseThrow(() -> new Exception("Estudiante no encontrado con ID: " + id));
+            Optional<Estudiante> estudianteBuscado = repoEstudiante.findById(id);
+            return estudianteBuscado.get();
         } catch (Exception e) {
-            throw new Exception("Error al buscar estudiante: " + e.getMessage());
+            throw new Exception("Error al obtener estudiante con id=" + id + "!" + e.getMessage());
         }
     }
 
+    // 2a) Dar de alta un estudiante.
     // Guardar un nuevo estudiante
     @Override
     @Transactional
@@ -46,7 +48,7 @@ public class EstudianteServicio implements BaseService<Estudiante> {
         try {
             return repoEstudiante.save(estudiante);
         } catch (Exception e) {
-            throw new Exception("Error al guardar estudiante: " + e.getMessage());
+            throw new Exception("Error al guardar estudiante!" + e.getMessage());
         }
     }
 
@@ -58,9 +60,10 @@ public class EstudianteServicio implements BaseService<Estudiante> {
             Estudiante estudianteExistente = findById(id);
             estudianteExistente.setNombre(estudiante.getNombre());
             estudianteExistente.setApellido(estudiante.getApellido());
+
             return repoEstudiante.save(estudianteExistente);
         } catch (Exception e) {
-            throw new Exception("Error al actualizar estudiante: " + e.getMessage());
+            throw new Exception("Error al actualizar estudiante con id=" + id + "!" + e.getMessage());
         }
     }
 
@@ -73,10 +76,10 @@ public class EstudianteServicio implements BaseService<Estudiante> {
                 repoEstudiante.deleteById(id);
                 return true;
             } else {
-                throw new Exception("Estudiante no encontrado con ID: " + id);
+                throw new Exception();
             }
         } catch (Exception e) {
-            throw new Exception("Error al eliminar estudiante: " + e.getMessage());
+            throw new Exception("Error al eliminar estudiante con id=" + id + "!" + e.getMessage());
         }
     }
 }

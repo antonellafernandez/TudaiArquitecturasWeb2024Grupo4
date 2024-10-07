@@ -23,7 +23,7 @@ public class CarreraServicio implements BaseService<Carrera> {
         try {
             return repoCarrera.findAll();
         } catch (Exception e) {
-            throw new Exception("Error al obtener carreras: " + e.getMessage());
+            throw new Exception("Error al obtener carreras!" + e.getMessage());
         }
     }
 
@@ -35,7 +35,7 @@ public class CarreraServicio implements BaseService<Carrera> {
             Optional<Carrera> carreraBuscada = repoCarrera.findById(id);
             return carreraBuscada.get();
         } catch (Exception e) {
-            throw new Exception("Carrera no encontrada con ID: " + id + e.getMessage());
+            throw new Exception("Error al obtener carrera con id=" + id + "!" + e.getMessage());
         }
     }
 
@@ -46,7 +46,7 @@ public class CarreraServicio implements BaseService<Carrera> {
         try {
             return repoCarrera.save(carrera);
         } catch (Exception e) {
-            throw new Exception("Error al guardar carrera: " + e.getMessage());
+            throw new Exception("Error al guardar carrera!" + e.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ public class CarreraServicio implements BaseService<Carrera> {
 
             return repoCarrera.save(carreraExistente);
         } catch (Exception e) {
-            throw new Exception("Error al actualizar carrera: " + e.getMessage());
+            throw new Exception("Error al actualizar carrera con id=" + id + "!" + e.getMessage());
         }
     }
 
@@ -73,10 +73,10 @@ public class CarreraServicio implements BaseService<Carrera> {
                 repoCarrera.deleteById(id);
                 return true;
             } else {
-                throw new Exception("Carrera no encontrada con ID: " + id);
+                throw new Exception();
             }
         } catch (Exception e) {
-            throw new Exception("Error al eliminar carrera: " + e.getMessage());
+            throw new Exception("Error al eliminar carrera con id=" + id + "!" + e.getMessage());
         }
     }
 }
