@@ -52,8 +52,6 @@ public class EstudianteServicio {
             Estudiante estudianteExistente = findById(id);
             estudianteExistente.setNombre(estudiante.getNombre());
             estudianteExistente.setApellido(estudiante.getApellido());
-            // Actualiza otros campos según sea necesario
-
             return repoEstudiante.save(estudianteExistente);
         } catch (Exception e) {
             throw new Exception("Error al actualizar estudiante: " + e.getMessage());

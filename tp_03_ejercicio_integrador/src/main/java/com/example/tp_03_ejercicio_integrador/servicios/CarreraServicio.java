@@ -52,7 +52,6 @@ public class CarreraServicio {
         try {
             Carrera carreraExistente = findById(id);
             carreraExistente.setNombre(carrera.getNombre());
-            // Actualiza otros campos según sea necesario
 
             return repoCarrera.save(carreraExistente);
         } catch (Exception e) {
