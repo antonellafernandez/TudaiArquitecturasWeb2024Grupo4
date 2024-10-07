@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("MatriculacionServicio")
-public class MatriculacionServicio {
+public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera> {
 
     @Autowired
-    private RepoEstudiante repoEstudiante;
+    private RepoEstudianteCarrera repoEstudiante;
 
     @Autowired
     private RepoCarrera repoCarrera;

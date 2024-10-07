@@ -8,24 +8,16 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class CarreraServicio {
+public class CarreraServicio implements BaseService<Carrera> {
 
     @Autowired
     private RepoCarrera repoCarrera;
 
-    // Guardar una nueva carrera
-    @Transactional
-    public Carrera guardarCarrera(Carrera carrera) throws Exception {
-        try {
-            return repoCarrera.save(carrera);
-        } catch (Exception e) {
-            throw new Exception("Error al guardar carrera: " + e.getMessage());
-        }
-    }
-
     // Obtener todas las carreras
+    @Override
     @Transactional
     public List<Carrera> findAll() throws Exception {
         try {
@@ -36,19 +28,32 @@ public class CarreraServicio {
     }
 
     // Obtener una carrera por ID
+    @Override
     @Transactional
-    public Carrera findById(Long id) throws Exception {
+    public Carrera findById(int id) throws Exception {
         try {
-            return repoCarrera.findById(id)
-                    .orElseThrow(() -> new Exception("Carrera no encontrada con ID: " + id));
+            Optional<Carrera> carreraBuscada = repoCarrera.findById(id);
+            return carreraBuscada.get();
         } catch (Exception e) {
-            throw new Exception("Error al buscar carrera: " + e.getMessage());
+            throw new Exception("Carrera no encontrada con ID: " + id + e.getMessage());
+        }
+    }
+
+    // Guardar una nueva carrera
+    @Override
+    @Transactional
+    public Carrera save(Carrera carrera) throws Exception {
+        try {
+            return repoCarrera.save(carrera);
+        } catch (Exception e) {
+            throw new Exception("Error al guardar carrera: " + e.getMessage());
         }
     }
 
     // Actualizar una carrera
+    @Override
     @Transactional
-    public Carrera update(Long id, Carrera carrera) throws Exception {
+    public Carrera update(int id, Carrera carrera) throws Exception {
         try {
             Carrera carreraExistente = findById(id);
             carreraExistente.setNombre(carrera.getNombre());
@@ -60,8 +65,9 @@ public class CarreraServicio {
     }
 
     // Eliminar una carrera
+    @Override
     @Transactional
-    public boolean delete(Long id) throws Exception {
+    public boolean delete(int id) throws Exception {
         try {
             if (repoCarrera.existsById(id)) {
                 repoCarrera.deleteById(id);
@@ -72,8 +78,5 @@ public class CarreraServicio {
         } catch (Exception e) {
             throw new Exception("Error al eliminar carrera: " + e.getMessage());
         }
-    }
-
-    public Carrera save(Carrera carrera) {
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface RepoEstudianteCarrera extends RepoBase<Carrera, Long> {
+public interface RepoEstudianteCarrera extends RepoBase<Carrera, Integer> {
 
     // 2f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
     @Query("SELECT ec, COUNT(ec.id_estudiante) AS cantidad_inscriptos " +

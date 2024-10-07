@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("RepoEstudiante")
-public interface RepoEstudiante extends RepoBase<Estudiante, Long> {
+public interface RepoEstudiante extends RepoBase<Estudiante, Integer> {
 
     // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple. -> Por APELLIDO
     @Query("SELECT e FROM Estudiante e WHERE e.apellido = :apellido")
@@ -28,5 +28,4 @@ public interface RepoEstudiante extends RepoBase<Estudiante, Long> {
             "WHERE e.ciudadResidencia = :ciudadResidencia " +
             "AND c.nombre LIKE :nombreCarrera")
     List<Estudiante> getEstudiantesByCiudad(String ciudadResidencia, String nombreCarrera);
-
 }

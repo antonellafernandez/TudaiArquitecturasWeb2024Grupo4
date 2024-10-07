@@ -8,12 +8,13 @@ import java.util.Optional;
 
 
 /**
- * Repositorio base (interface) común al resto de repositorios que extiende de Repository .
+ * Repositorio base (interface) común al resto de repositorios que extiende de Repository.
  *
  * @param <T>  Tipo de la entidad que manipula
  * @param <ID> Identificador único de la entidad que manipula
+ *
  * @author Martina Diaz
- *         Daniela Fernández
+ *         Daniela Fernández: dafernandez@alumnos.exa.unicen.edu.ar
  *         Mauro Valerioti
  *         Andres Buccella: andresbuccella@gmail.com
  * @version 1.0
@@ -43,7 +44,7 @@ public interface RepoBase <T,ID extends Serializable> extends org.springframewor
      * @param id Identificador único de la entidad.
      * @return Entidad que coicide con el id ingresado.
      */
-    Optional<T> findById(Long id);
+    Optional<T> findById(int id);
 
     /**
      * Indica si existe la entidad con el id ingresado por parámetro.
@@ -51,14 +52,14 @@ public interface RepoBase <T,ID extends Serializable> extends org.springframewor
      * @param id Identificador único de la entidad.
      * @return True en caso de existir, caso contraio, false.
      */
-    boolean existsById(Long id);
+    boolean existsById(int id);
 
     /**
      * Elimina una entidad correspondiente al id ingresado por parámetro.
      *
      * @param id Identificador único de la entidad.
      */
-    void deleteById(Long id);
+    void deleteById(int id);
 
     /**
      * Persiste una entidad ingresada por parámetro.
@@ -67,5 +68,4 @@ public interface RepoBase <T,ID extends Serializable> extends org.springframewor
      * @return retorna la entidad persistida con el id asignado.
      */
     T save(T persisted);
-
 }

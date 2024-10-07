@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("RepoCarrera")
-public interface RepoCarrera extends RepoBase<Carrera, Long> {
+public interface RepoCarrera extends RepoBase<Carrera, Integer> {
 
     // 2h) Generar un reporte de las carreras, que para cada carrera incluya información de los
     // inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y

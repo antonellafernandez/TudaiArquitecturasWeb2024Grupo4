@@ -1,7 +1,7 @@
 package com.example.tp_03_ejercicio_integrador.controllers;
 
 import com.example.tp_03_ejercicio_integrador.modelos.EstudianteCarrera;
-import com.example.tp_03_ejercicio_integrador.servicios.MatriculacionServicio;
+import com.example.tp_03_ejercicio_integrador.servicios.EstudianteCarreraServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 public class InscripcionController {
 
     @Autowired
-    private MatriculacionServicio matriculacionServicio;
+    private EstudianteCarreraServicio matriculacionServicio;
 
     // b) Matricular un estudiante en una carrera
     @PostMapping("/matricular")
