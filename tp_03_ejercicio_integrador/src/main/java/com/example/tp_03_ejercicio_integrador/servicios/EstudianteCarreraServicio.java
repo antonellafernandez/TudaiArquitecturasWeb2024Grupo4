@@ -9,8 +9,6 @@ import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudiante;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudianteCarrera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springboot.app.dtos.EstudianteCarreraDTO;
-
 
 import jakarta.transaction.Transactional;
 import java.util.List;
