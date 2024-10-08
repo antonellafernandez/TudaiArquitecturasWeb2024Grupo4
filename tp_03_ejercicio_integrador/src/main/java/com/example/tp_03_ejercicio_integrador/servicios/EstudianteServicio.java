@@ -104,4 +104,12 @@ public class EstudianteServicio implements BaseService<Estudiante> {
             throw new RuntimeException(e);
         }
     }
+
+    public List<Estudiante> obtenerPorGenero(String genero){
+        try{
+            return repoEstudiante.getEstudianteByGenero(genero);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

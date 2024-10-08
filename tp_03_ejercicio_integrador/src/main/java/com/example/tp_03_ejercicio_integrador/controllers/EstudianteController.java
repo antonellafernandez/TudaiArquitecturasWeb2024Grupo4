@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -53,19 +54,23 @@ public class EstudianteController {
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
-/*
     // 2e) Recuperar todos los estudiantes, en base a su género.
     @GetMapping("/genero/{genero}")
     public ResponseEntity<?> obtenerPorGenero(@PathVariable String genero) {
         try {
-            List<EstudianteDTO> estudiantes = estudianteServicio.getEstudiantesByGenero(genero);
-            return ResponseEntity.status(HttpStatus.OK).body(estudiantes);
+            List<Estudiante> estudiantes = estudianteServicio.obtenerPorGenero(genero);
+            List<EstudianteDTO> estudianteDTOS = new ArrayList<>();
+            for (Estudiante estudiante : estudiantes) {
+                estudianteDTOS.add(EstudianteServicio.toDTO(estudiante));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteDTOS);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
 
+/*
     // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
     @GetMapping("/carrera/{nombreCarrera}/ciudad/{ciudadResidencia}")
     public ResponseEntity<?> obtenerPorCarreraYCiudad(@PathVariable String nombreCarrera,
