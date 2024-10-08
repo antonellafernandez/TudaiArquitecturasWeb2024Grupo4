@@ -87,13 +87,13 @@ public class EstudianteController {
         }
     }
 
-/*
     // Obtener un estudiante por ID
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerPorId(@PathVariable int id) {
         try {
-            EstudianteDTO estudiante = estudianteServicio.findById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(estudiante);
+            Estudiante estudiante = estudianteServicio.findById(id);
+            EstudianteDTO estudianteDTO = estudianteServicio.toDTO(estudiante);
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteDTO);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
@@ -102,9 +102,9 @@ public class EstudianteController {
 
     // Actualizar un estudiante
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarEstudiante(@PathVariable int id, @RequestBody EstudianteDTO estudianteDTO) {
+    public ResponseEntity<?> actualizarEstudiante(@PathVariable int id, @RequestBody Estudiante estudiante) {
         try {
-            EstudianteDTO actualizado = estudianteServicio.update(id, estudianteDTO);
+            Estudiante actualizado = estudianteServicio.update(id, estudiante);
             return ResponseEntity.status(HttpStatus.OK).body(actualizado);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -127,5 +127,5 @@ public class EstudianteController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
-    }*/
+    }
 }
