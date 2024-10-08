@@ -28,12 +28,12 @@ public class EstudianteController {
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
-/*
+
     // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple. -> Por APELLIDO
     @GetMapping("")
     public ResponseEntity<?> obtenerTodos() {
         try {
-            List<EstudianteDTO> estudiantes = estudianteServicio.findAll();
+            List<Estudiante> estudiantes = estudianteServicio.findAll();
             return ResponseEntity.status(HttpStatus.OK).body(estudiantes);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -45,14 +45,15 @@ public class EstudianteController {
     @GetMapping("/lu/{lu}")
     public ResponseEntity<?> obtenerPorLu(@PathVariable Long lu) {
         try {
-            EstudianteDTO estudiante = estudianteServicio.getEstudianteByLu(lu);
-            return ResponseEntity.status(HttpStatus.OK).body(estudiante);
+            Estudiante estudiante = estudianteServicio.obtenerPorLu(lu);
+            EstudianteDTO estudianteDTO = estudianteServicio.toDTO(estudiante);
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteDTO);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
-
+/*
     // 2e) Recuperar todos los estudiantes, en base a su género.
     @GetMapping("/genero/{genero}")
     public ResponseEntity<?> obtenerPorGenero(@PathVariable String genero) {

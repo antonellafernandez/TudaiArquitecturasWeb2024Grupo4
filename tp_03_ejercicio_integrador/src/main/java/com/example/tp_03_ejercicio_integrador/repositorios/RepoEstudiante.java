@@ -16,7 +16,7 @@ public interface RepoEstudiante extends JpaRepository<Estudiante, Integer> {
 
     // 2d) Eecuperar un estudiante, en base a su número de libreta universitaria.
     @Query("SELECT e FROM Estudiante e WHERE e.lu = :lu")
-    List<Estudiante> getEstudianteByLu(String lu);
+    Estudiante getEstudianteByLu(Long lu);
 
     // 2e) Recuperar todos los estudiantes, en base a su género.
     @Query("SELECT e FROM Estudiante e WHERE e.genero = :genero")

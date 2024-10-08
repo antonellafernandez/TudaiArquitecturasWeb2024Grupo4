@@ -84,7 +84,7 @@ public class EstudianteServicio implements BaseService<Estudiante> {
     }
 
     // Obtener EstudianteDTO
-    public EstudianteDTO toDTO(Estudiante estudiante) {
+    public static EstudianteDTO toDTO(Estudiante estudiante) {
         EstudianteDTO estudianteDTO = new EstudianteDTO(
                 estudiante.getNombre(),
                 estudiante.getApellido(),
@@ -94,10 +94,14 @@ public class EstudianteServicio implements BaseService<Estudiante> {
                 estudiante.getLu()
         );
 
-        for (EstudianteCarrera inscripcion : estudiante.getInscripciones()) {
-            estudianteDTO.addInscripcion(inscripcion);
-        }
-
         return estudianteDTO;
+    }
+
+    public Estudiante obtenerPorLu(Long lu) throws Exception {
+        try{
+            return repoEstudiante.getEstudianteByLu(lu);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
