@@ -94,7 +94,7 @@ public class CarreraController {
 
     // 2h) Generar un reporte de las carreras
     @GetMapping("/reporte")
-    public ResponseEntity<?> generarReporteCarreras() {
+    public ResponseEntity<?> generarReporteCarreras() { // VEEEEEEEEEEEEEER CONSULTA
         try {
             List<ReporteCarreraDTO> reporte = carreraServicio.generarReporteCarreras();
             return ResponseEntity.status(HttpStatus.OK).body(reporte);
@@ -106,7 +106,7 @@ public class CarreraController {
 
     // 2f) Recuperar carreras ordenadas por cantidad de inscriptos
     @GetMapping("/ordenadas-inscriptos")
-    public ResponseEntity<?> getCarrerasOrdenadasPorInscriptos() {
+    public ResponseEntity<?> getCarrerasOrdenadasPorInscriptos() { //VEEEEEEEEEER CONSULTA
         try {
             List<CarreraConCantInscriptosDTO> carreras = carreraServicio.getCarrerasOrdenadasPorInscriptos();
             return ResponseEntity.status(HttpStatus.OK).body(carreras);

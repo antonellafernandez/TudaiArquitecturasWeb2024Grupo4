@@ -14,7 +14,7 @@ public interface RepoCarrera extends JpaRepository<Carrera, Integer> {
 
     // 2f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
     @Query("SELECT new com.example.tp_03_ejercicio_integrador.dtos.CarreraConCantInscriptosDTO(" +
-            "c.nombre, COUNT(ec)) " +
+            "c.nombre, COUNT(ec.carrera.nombre)) " +
             "FROM Carrera c " +
             "JOIN c.inscripciones ec " +
             "ORDER BY COUNT(ec) DESC"

@@ -1,7 +1,10 @@
 package com.example.tp_03_ejercicio_integrador.controllers;
 
+import com.example.tp_03_ejercicio_integrador.dtos.CarreraDTO;
 import com.example.tp_03_ejercicio_integrador.dtos.EstudianteDTO;
+import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
 import com.example.tp_03_ejercicio_integrador.modelos.Estudiante;
+import com.example.tp_03_ejercicio_integrador.servicios.CarreraServicio;
 import com.example.tp_03_ejercicio_integrador.servicios.EstudianteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +38,11 @@ public class EstudianteController {
     public ResponseEntity<?> obtenerTodos() {
         try {
             List<Estudiante> estudiantes = estudianteServicio.findAll();
-            return ResponseEntity.status(HttpStatus.OK).body(estudiantes);
+            List<EstudianteDTO> estudianteDTOS = new ArrayList<>();
+            for (Estudiante e : estudiantes) {
+                estudianteDTOS.add(EstudianteServicio.toDTO(e));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteDTOS);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("{\"error\":\"Error al obtener estudiantes.\"}");
