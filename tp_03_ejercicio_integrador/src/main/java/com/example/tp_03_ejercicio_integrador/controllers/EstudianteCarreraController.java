@@ -60,7 +60,8 @@ public class EstudianteCarreraController {
     public ResponseEntity<?> obtenerInscripcionPorId(@PathVariable int id) {
         try {
             EstudianteCarrera inscripcion = matriculacionServicio.findById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(inscripcion);
+            EstudianteCarreraDTO estudianteCarreraDTO = EstudianteCarreraServicio.toDTO(inscripcion);
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteCarreraDTO);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");

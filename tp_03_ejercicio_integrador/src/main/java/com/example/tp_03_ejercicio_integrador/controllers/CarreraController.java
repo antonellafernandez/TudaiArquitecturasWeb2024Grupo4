@@ -26,7 +26,8 @@ public class CarreraController {
     public ResponseEntity<?> crearCarrera(@RequestBody Carrera carrera) {
         try {
             Carrera carreraCreada = carreraServicio.save(carrera);
-            return ResponseEntity.status(HttpStatus.CREATED).body(carreraCreada);
+            CarreraDTO carreraDTO = carreraServicio.toDTO(carreraCreada);
+            return ResponseEntity.status(HttpStatus.CREATED).body(carreraDTO);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
