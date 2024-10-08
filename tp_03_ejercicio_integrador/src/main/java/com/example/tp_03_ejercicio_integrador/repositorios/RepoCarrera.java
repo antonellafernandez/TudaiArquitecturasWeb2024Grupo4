@@ -17,6 +17,7 @@ public interface RepoCarrera extends JpaRepository<Carrera, Integer> {
             "c.nombre, COUNT(ec.carrera.nombre)) " +
             "FROM Carrera c " +
             "JOIN c.inscripciones ec " +
+            "GROUP BY c.nombre " +
             "ORDER BY COUNT(ec) DESC"
     )
     List<CarreraConCantInscriptosDTO> getCarrerasOrdenadasPorInscriptos();
