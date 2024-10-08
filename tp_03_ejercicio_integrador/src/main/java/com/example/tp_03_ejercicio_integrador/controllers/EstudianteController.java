@@ -70,20 +70,24 @@ public class EstudianteController {
         }
     }
 
-/*
     // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
     @GetMapping("/carrera/{nombreCarrera}/ciudad/{ciudadResidencia}")
     public ResponseEntity<?> obtenerPorCarreraYCiudad(@PathVariable String nombreCarrera,
                                                       @PathVariable String ciudadResidencia) {
         try {
-            List<EstudianteDTO> estudiantes = estudianteServicio.getEstudiantesByCarreraAndCiudad(nombreCarrera, ciudadResidencia);
-            return ResponseEntity.status(HttpStatus.OK).body(estudiantes);
+            List<Estudiante> estudiantes = estudianteServicio.getEstudiantesByCarreraAndCiudad(nombreCarrera, ciudadResidencia);
+            List<EstudianteDTO> estudianteDTOS = new ArrayList<>();
+            for (Estudiante estudiante : estudiantes) {
+                estudianteDTOS.add(EstudianteServicio.toDTO(estudiante));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteDTOS);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
 
+/*
     // Obtener un estudiante por ID
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerPorId(@PathVariable int id) {

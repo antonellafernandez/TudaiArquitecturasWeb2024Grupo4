@@ -112,4 +112,12 @@ public class EstudianteServicio implements BaseService<Estudiante> {
             throw new RuntimeException(e);
         }
     }
+
+    public List<Estudiante> getEstudiantesByCarreraAndCiudad(String carrera, String ciudad){
+        try{
+            return repoEstudiante.getEstudiantesByCiudad(carrera, ciudad);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
