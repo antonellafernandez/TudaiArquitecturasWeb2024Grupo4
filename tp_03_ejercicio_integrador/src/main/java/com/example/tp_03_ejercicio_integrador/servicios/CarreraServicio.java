@@ -84,20 +84,16 @@ public class CarreraServicio implements BaseService<Carrera> {
     }
 
     // Obtener CarreraDTO
-    public CarreraDTO toDTO(Carrera carrera) {
-        CarreraDTO carreraDTO = new CarreraDTO();
-
-        for (EstudianteCarrera inscripcion : carrera.getInscripciones()) {
-            carreraDTO.addInscripcion(inscripcion);
-        }
-
-        return carreraDTO;
+    public static CarreraDTO toDTO(Carrera carrera) {
+        return new CarreraDTO(carrera.getNombre());
     }
 
+    @Transactional
     public List<ReporteCarreraDTO> generarReporteCarreras(){
         return repoCarrera.getReporteCarreras();
     }
 
+    @Transactional
     public List<CarreraConCantInscriptosDTO> getCarrerasOrdenadasPorInscriptos(){
         return repoCarrera.getCarrerasOrdenadasPorInscriptos();
     }

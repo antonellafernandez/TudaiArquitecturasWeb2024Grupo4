@@ -23,10 +23,13 @@ public interface RepoEstudiante extends JpaRepository<Estudiante, Integer> {
     List<Estudiante> getEstudianteByGenero(String genero);
 
     // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
-    @Query("SELECT e " +
+    /*@Query("SELECT e " +
             "FROM Estudiante e " +
-            "JOIN e.carrera c " +
-            "WHERE e.ciudadResidencia = :ciudadResidencia " +
+            "JOIN e.inscripciones i " +
+            "JOIN i.carrera c " +
+            "WHERE e.ciudadResidencia LIKE :ciudadResidencia " +
             "AND c.nombre LIKE :nombreCarrera")
+    */
+    @Query("SELECT e FROM Estudiante e")
     List<Estudiante> getEstudiantesByCiudad(String ciudadResidencia, String nombreCarrera);
 }

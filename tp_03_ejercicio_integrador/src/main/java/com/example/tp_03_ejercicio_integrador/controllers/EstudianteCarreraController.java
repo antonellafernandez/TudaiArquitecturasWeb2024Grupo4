@@ -4,6 +4,7 @@ import com.example.tp_03_ejercicio_integrador.dtos.EstudianteCarreraDTO;
 import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
 import com.example.tp_03_ejercicio_integrador.modelos.Estudiante;
 import com.example.tp_03_ejercicio_integrador.modelos.EstudianteCarrera;
+import com.example.tp_03_ejercicio_integrador.servicios.CarreraServicio;
 import com.example.tp_03_ejercicio_integrador.servicios.EstudianteCarreraServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +43,12 @@ public class EstudianteCarreraController {
     public ResponseEntity<?> obtenerTodasInscripciones() {
         try {
             List<EstudianteCarrera> inscripciones = matriculacionServicio.findAll();
-            return ResponseEntity.status(HttpStatus.OK).body(inscripciones);
+            List<EstudianteCarreraDTO> estudianteCarreraDTOS = new ArrayList<>();
+
+            for (EstudianteCarrera c : inscripciones) {
+                estudianteCarreraDTOS.add(EstudianteCarreraServicio.toDTO(c));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(estudianteCarreraDTOS);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("{\"error\":\"Error al obtener inscripciones: " + e.getMessage() + "\"}");

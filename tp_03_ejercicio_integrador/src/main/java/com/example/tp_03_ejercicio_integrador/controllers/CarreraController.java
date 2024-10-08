@@ -1,6 +1,7 @@
 package com.example.tp_03_ejercicio_integrador.controllers;
 
 import com.example.tp_03_ejercicio_integrador.dtos.CarreraConCantInscriptosDTO;
+import com.example.tp_03_ejercicio_integrador.dtos.CarreraDTO;
 import com.example.tp_03_ejercicio_integrador.dtos.ReporteCarreraDTO;
 import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
 import com.example.tp_03_ejercicio_integrador.servicios.CarreraServicio;
@@ -10,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,8 +25,8 @@ public class CarreraController {
     @PostMapping("/alta")
     public ResponseEntity<?> crearCarrera(@RequestBody Carrera carrera) {
         try {
-            Carrera creada = carreraServicio.save(carrera);
-            return ResponseEntity.status(HttpStatus.CREATED).body(creada);
+            Carrera carreraCreada = carreraServicio.save(carrera);
+            return ResponseEntity.status(HttpStatus.CREATED).body(carreraCreada);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
@@ -37,7 +38,11 @@ public class CarreraController {
     public ResponseEntity<?> obtenerTodasCarreras() {
         try {
             List<Carrera> carreras = carreraServicio.findAll();
-            return ResponseEntity.status(HttpStatus.OK).body(carreras);
+            List<CarreraDTO> carreraDTOS = new ArrayList<>();
+            for (Carrera c : carreras) {
+                carreraDTOS.add(CarreraServicio.toDTO(c));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(carreraDTOS);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("{\"error\":\"Error al obtener carreras.\"}");
@@ -48,8 +53,9 @@ public class CarreraController {
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerCarreraPorId(@PathVariable int id) {
         try {
-            Carrera carrera = carreraServicio.findById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(carrera);
+            Carrera carreraCreada = carreraServicio.findById(id);
+            CarreraDTO carreraDTO = carreraServicio.toDTO(carreraCreada);
+            return ResponseEntity.status(HttpStatus.OK).body(carreraDTO);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
@@ -60,8 +66,8 @@ public class CarreraController {
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarCarrera(@PathVariable int id, @RequestBody Carrera carrera) {
         try {
-            Carrera actualizada = carreraServicio.update(id, carrera);
-            return ResponseEntity.status(HttpStatus.OK).body(actualizada);
+            Carrera carreraActualizada = carreraServicio.update(id, carrera);
+            return ResponseEntity.status(HttpStatus.OK).body(carreraActualizada);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");

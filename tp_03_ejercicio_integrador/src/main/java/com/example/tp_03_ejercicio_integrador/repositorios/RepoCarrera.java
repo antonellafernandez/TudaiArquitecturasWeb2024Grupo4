@@ -24,16 +24,18 @@ public interface RepoCarrera extends JpaRepository<Carrera, Integer> {
     // 2h) Generar un reporte de las carreras, que para cada carrera incluya información de los
     // inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y
     // presentar los años de manera cronológica.
-    @Query("SELECT new com.example.tp_03_ejercicio_integrador.dtos.ReporteCarreraDTO(c.nombre, " +
+    /*@Query("SELECT new com.example.tp_03_ejercicio_integrador.dtos.ReporteCarreraDTO(" +
+            "c.nombre, " +
             "YEAR(ec.anioInscripcion), " +
             "YEAR(ec.anioEgreso), " +
             "(SUM(CASE WHEN ec.anioEgreso = 0 THEN 1 ELSE 0 END)), " + // Inscripciones sin egreso
             "(SUM(CASE WHEN ec.anioEgreso != 0 THEN 1 ELSE 0 END)), " + // Inscripciones con egreso
-            "e.dni) " +
+            "e.lu) " +
             "FROM EstudianteCarrera ec " +
             "JOIN ec.carrera c " +
             "JOIN ec.estudiante e " +
-            "ORDER BY c.nombre ASC, YEAR(ec.anioInscripcion) ASC, YEAR(ec.anioEgreso) ASC")
+            "ORDER BY c.nombre ASC, YEAR(ec.anioInscripcion) ASC, YEAR(ec.anioEgreso) ASC")*/
+    @Query("SELECT COUNT(c) FROM Carrera c")
     List<ReporteCarreraDTO> getReporteCarreras();
 
 }

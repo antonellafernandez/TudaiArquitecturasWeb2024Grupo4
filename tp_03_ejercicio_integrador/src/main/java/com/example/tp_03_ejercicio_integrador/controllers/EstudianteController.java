@@ -1,6 +1,7 @@
 package com.example.tp_03_ejercicio_integrador.controllers;
 
 import com.example.tp_03_ejercicio_integrador.dtos.EstudianteDTO;
+import com.example.tp_03_ejercicio_integrador.modelos.Estudiante;
 import com.example.tp_03_ejercicio_integrador.servicios.EstudianteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,16 +19,16 @@ public class EstudianteController {
 
     // 2a) Dar de alta un estudiante
     @PostMapping("/alta")
-    public ResponseEntity<?> altaEstudiante(@RequestBody EstudianteDTO estudianteDTO) {
+    public ResponseEntity<?> altaEstudiante(@RequestBody Estudiante estudiante) {
         try {
-            EstudianteDTO creado = estudianteServicio.save(estudianteDTO);
+            Estudiante creado = estudianteServicio.save(estudiante);
             return ResponseEntity.status(HttpStatus.CREATED).body(creado);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
-
+/*
     // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple. -> Por APELLIDO
     @GetMapping("")
     public ResponseEntity<?> obtenerTodos() {
@@ -116,5 +117,5 @@ public class EstudianteController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
-    }
+    }*/
 }

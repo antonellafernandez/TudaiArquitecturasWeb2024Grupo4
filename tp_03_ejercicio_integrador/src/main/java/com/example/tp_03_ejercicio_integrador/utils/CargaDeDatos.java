@@ -9,7 +9,7 @@ import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudiante;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudianteCarrera;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -18,25 +18,22 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Paths;
 
-@Component
+@Service
 public class CargaDeDatos {
 
-    private final RepoCarrera rc;
-    private final RepoEstudiante re;
-    private final RepoEstudianteCarrera rec;
-
     @Autowired
-    public CargaDeDatos(RepoCarrera rc, RepoEstudiante re, RepoEstudianteCarrera rec) {
-        this.rc = rc;
-        this.re = re;
-        this.rec = rec;
-    }
+    private RepoCarrera rc;
+    @Autowired
+    private RepoEstudiante re;
+    @Autowired
+    private RepoEstudianteCarrera rec;
 
     public void cargarDatosDesdeCSV() throws IOException {
-        File carrerasCSV = ResourceUtils.getFile("src/main/java/com.example.tp_03_ejercicio_integrador/csv/carreras.csv");
-        File estudiantesCSV = ResourceUtils.getFile("src/main/java/com.example.tp_03_ejercicio_integrador/csv/estudiantes.csv");
-        File estudianteCarreraCSV = ResourceUtils.getFile("src/main/java/com.example.tp_03_ejercicio_integrador/csv/estudianteCarrera.csv");
+        File carrerasCSV = ResourceUtils.getFile("classpath:csv/carreras.csv");
+        File estudiantesCSV = ResourceUtils.getFile("classpath:csv/estudiantes.csv");
+        File estudianteCarreraCSV = ResourceUtils.getFile("classpath:csv/estudianteCarrera.csv");
 
         try (FileReader readerCarreras = new FileReader(carrerasCSV);
              CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(readerCarreras)) {
@@ -47,9 +44,8 @@ public class CargaDeDatos {
                         Integer.parseInt(csvRecord.get("id_carrera")),
                         csvRecord.get("nombre")
                 );
-
                 // Guardar carrera en la base de datos
-                rc.save(carrera);
+                this.rc.saveAndFlush(carrera);
             }
         }
 
