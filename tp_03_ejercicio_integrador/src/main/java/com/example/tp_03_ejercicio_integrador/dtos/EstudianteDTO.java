@@ -13,6 +13,7 @@ public class EstudianteDTO {
     private String nombre;
     private String apellido;
     private int edad;
+    private int dni;
     private String genero;
     private String ciudadResidencia;
     private Long lu;
@@ -25,10 +26,11 @@ public class EstudianteDTO {
         this.inscripciones = new ArrayList<EstudianteCarrera>();
     }
 
-    public EstudianteDTO(String nombre, String apellido, int edad, String genero, String ciudadResidencia, Long lu) {
+    public EstudianteDTO(String nombre, String apellido, int edad, int dni, String genero, String ciudadResidencia, Long lu) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
+        this.dni = dni;
         this.genero = genero;
         this.ciudadResidencia = ciudadResidencia;
         this.lu = lu;

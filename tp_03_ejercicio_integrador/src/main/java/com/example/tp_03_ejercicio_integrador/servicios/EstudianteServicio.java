@@ -94,6 +94,7 @@ public class EstudianteServicio {
                 estudiante.getNombre(),
                 estudiante.getApellido(),
                 estudiante.getEdad(),
+                estudiante.getDni(),
                 estudiante.getGenero(),
                 estudiante.getCiudadResidencia(),
                 estudiante.getLu()
