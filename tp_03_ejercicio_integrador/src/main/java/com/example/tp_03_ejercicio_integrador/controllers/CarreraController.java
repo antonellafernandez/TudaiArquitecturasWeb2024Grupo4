@@ -106,7 +106,7 @@ public class CarreraController {
 
     // 2f) Recuperar carreras ordenadas por cantidad de inscriptos
     @GetMapping("/ordenadas-inscriptos")
-    public ResponseEntity<?> getCarrerasOrdenadasPorInscriptos() { //VEEEEEEEEEER CONSULTA
+    public ResponseEntity<?> getCarrerasOrdenadasPorInscriptos() {
         try {
             List<CarreraConCantInscriptosDTO> carreras = carreraServicio.getCarrerasOrdenadasPorInscriptos();
             return ResponseEntity.status(HttpStatus.OK).body(carreras);

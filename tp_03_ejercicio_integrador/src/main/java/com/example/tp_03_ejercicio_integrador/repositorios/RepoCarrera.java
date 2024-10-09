@@ -14,7 +14,7 @@ public interface RepoCarrera extends JpaRepository<Carrera, Integer> {
 
     // 2f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
     @Query("SELECT new com.example.tp_03_ejercicio_integrador.dtos.CarreraConCantInscriptosDTO(" +
-            "c.nombre, COUNT(ec.carrera.nombre)) " +
+            "c.nombre, COUNT(ec)) " +
             "FROM Carrera c " +
             "JOIN c.inscripciones ec " +
             "GROUP BY c.nombre " +
@@ -25,18 +25,17 @@ public interface RepoCarrera extends JpaRepository<Carrera, Integer> {
     // 2h) Generar un reporte de las carreras, que para cada carrera incluya información de los
     // inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y
     // presentar los años de manera cronológica.
-    /*@Query("SELECT new com.example.tp_03_ejercicio_integrador.dtos.ReporteCarreraDTO(" +
+    @Query("SELECT new com.example.tp_03_ejercicio_integrador.dtos.ReporteCarreraDTO(" +
             "c.nombre, " +
-            "YEAR(ec.anioInscripcion), " +
-            "YEAR(ec.anioEgreso), " +
-            "(SUM(CASE WHEN ec.anioEgreso = 0 THEN 1 ELSE 0 END)), " + // Inscripciones sin egreso
-            "(SUM(CASE WHEN ec.anioEgreso != 0 THEN 1 ELSE 0 END)), " + // Inscripciones con egreso
+            "ec.anioInscripcion, " +
+            "ec.anioEgreso, " +
+            "(SELECT COUNT(ec1) FROM EstudianteCarrera ec1 WHERE ec1.anioEgreso = 0 AND ec1.carrera = c), " + // Inscripciones sin egreso
+            "(SELECT COUNT(ec2) FROM EstudianteCarrera ec2 WHERE ec2.anioEgreso != 0 AND ec2.carrera = c), " + // Inscripciones con egreso
             "e.lu) " +
             "FROM EstudianteCarrera ec " +
             "JOIN ec.carrera c " +
             "JOIN ec.estudiante e " +
-            "ORDER BY c.nombre ASC, YEAR(ec.anioInscripcion) ASC, YEAR(ec.anioEgreso) ASC")*/
-    @Query("SELECT COUNT(c) FROM Carrera c")
+            "ORDER BY c.nombre ASC, ec.anioInscripcion ASC, ec.anioEgreso ASC")
     List<ReporteCarreraDTO> getReporteCarreras();
 
 }
