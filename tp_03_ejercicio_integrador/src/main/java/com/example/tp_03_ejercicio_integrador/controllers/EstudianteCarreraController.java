@@ -27,8 +27,8 @@ public class EstudianteCarreraController {
     public ResponseEntity<?> matricularEstudiante(@RequestBody Estudiante estudiante, Carrera carrera) {
         try {
             EstudianteCarrera entity = new EstudianteCarrera(1, estudiante, carrera, Year.now().getValue(), 0, 0, false);
-            matriculacionServicio.save(entity);
-            return ResponseEntity.status(HttpStatus.CREATED).body(EstudianteCarreraServicio.toDTO(entity));
+            EstudianteCarreraDTO estudianteCarreraDTO = matriculacionServicio.save(entity);
+            return ResponseEntity.status(HttpStatus.CREATED).body(estudianteCarreraDTO);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
@@ -39,13 +39,8 @@ public class EstudianteCarreraController {
     @GetMapping("")
     public ResponseEntity<?> obtenerTodasInscripciones() {
         try {
-            List<EstudianteCarrera> inscripciones = matriculacionServicio.findAll();
-            List<EstudianteCarreraDTO> estudianteCarreraDTOS = new ArrayList<>();
-
-            for (EstudianteCarrera c : inscripciones) {
-                estudianteCarreraDTOS.add(EstudianteCarreraServicio.toDTO(c));
-            }
-            return ResponseEntity.status(HttpStatus.OK).body(estudianteCarreraDTOS);
+            List<EstudianteCarreraDTO> inscripciones = matriculacionServicio.findAll();
+            return ResponseEntity.status(HttpStatus.OK).body(inscripciones);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("{\"error\":\"Error al obtener inscripciones: " + e.getMessage() + "\"}");
@@ -56,9 +51,8 @@ public class EstudianteCarreraController {
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerInscripcionPorId(@PathVariable int id) {
         try {
-            EstudianteCarrera inscripcion = matriculacionServicio.findById(id);
-            EstudianteCarreraDTO estudianteCarreraDTO = EstudianteCarreraServicio.toDTO(inscripcion);
-            return ResponseEntity.status(HttpStatus.OK).body(estudianteCarreraDTO);
+            EstudianteCarreraDTO inscripcion = matriculacionServicio.findById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(inscripcion);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");

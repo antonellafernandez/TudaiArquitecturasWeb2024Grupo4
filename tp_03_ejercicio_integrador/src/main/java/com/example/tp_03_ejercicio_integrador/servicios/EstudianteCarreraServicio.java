@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service("MatriculacionServicio")
-public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera> {
+public class EstudianteCarreraServicio {
 
     @Autowired
     private RepoEstudiante repoEstudiante;
@@ -27,43 +29,47 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
     private RepoEstudianteCarrera repoEstudianteCarrera;
 
     // Obtener todas las inscripciones
-    @Override
     @Transactional
-    public List<EstudianteCarrera> findAll() throws Exception {
+    public List<EstudianteCarreraDTO> findAll() throws Exception {
         try {
-            return repoEstudianteCarrera.findAll();
+            List<EstudianteCarrera> inscripciones = repoEstudianteCarrera.findAll();
+            List<EstudianteCarreraDTO> estudianteCarreraDTOS = new ArrayList<>();
+
+            for (EstudianteCarrera c : inscripciones) {
+                estudianteCarreraDTOS.add(this.toDTO(c));
+            }
+            return estudianteCarreraDTOS;
         } catch (Exception e) {
             throw new Exception("Error al obtener inscripciones!" + e.getMessage());
         }
     }
 
     // Obtener una inscripción por ID
-    @Override
     @Transactional
-    public EstudianteCarrera findById(int id) throws Exception {
+    public EstudianteCarreraDTO findById(int id) throws Exception {
         try {
             Optional<EstudianteCarrera> inscripcionBuscada = repoEstudianteCarrera.findById(id);
-            return inscripcionBuscada.get();
+            EstudianteCarreraDTO estudianteCarreraDTO = this.toDTO(inscripcionBuscada.get());
+            return estudianteCarreraDTO;
         } catch (Exception e) {
             throw new Exception("Error al buscar inscripción  con id=" + id + "!" + e.getMessage());
         }
     }
 
-    // 2b) Matricular un estudiante en una carrera.
-    @Override
     @Transactional
-    public EstudianteCarrera save(EstudianteCarrera estudianteCarrera) throws Exception {
+    public EstudianteCarreraDTO save(EstudianteCarrera estudianteCarrera) throws Exception {
         try {
-            return repoEstudianteCarrera.save(estudianteCarrera);
+            EstudianteCarrera estudianteGuardado = repoEstudianteCarrera.save(estudianteCarrera);
+            EstudianteCarreraDTO estudianteCarreraDTO = this.toDTO(estudianteGuardado);
+            return estudianteCarreraDTO;
         } catch (Exception e) {
             throw new Exception("Error al matricular estudiante!" + e.getMessage());
         }
     }
 
     // Actualizar una inscripción
-    @Override
     @Transactional
-    public EstudianteCarrera update(int id, EstudianteCarrera estudianteCarrera) throws Exception {
+    public EstudianteCarreraDTO update(int id, EstudianteCarrera estudianteCarrera) throws Exception {
         try {
             // Buscar la inscripción existente por ID
             EstudianteCarrera inscripcion = repoEstudianteCarrera.findById(id)
@@ -88,14 +94,17 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
             inscripcion.setGraduado(estudianteCarrera.isGraduado());
 
             // Guardar la inscripción actualizada en la base de datos
-            return repoEstudianteCarrera.save(inscripcion);
+            repoEstudianteCarrera.save(inscripcion);
+
+            //Convierte la inscripcion en DTO
+            EstudianteCarreraDTO estudianteCarreraDTO = this.toDTO(inscripcion);
+            return estudianteCarreraDTO;
         } catch (Exception e) {
             throw new Exception("Error al actualizar inscripción con id=" + id + "!" + e.getMessage());
         }
     }
 
     // Eliminar una inscripción
-    @Override
     @Transactional
     public boolean delete(int id) throws Exception {
         try {
@@ -111,7 +120,7 @@ public class EstudianteCarreraServicio implements BaseService<EstudianteCarrera>
     }
 
     // Obtener EstudianteCarreraDTO
-    public static EstudianteCarreraDTO toDTO(EstudianteCarrera estudianteCarrera) {
+    public EstudianteCarreraDTO toDTO(EstudianteCarrera estudianteCarrera) {
         EstudianteCarreraDTO estudianteCarreraDTO = new EstudianteCarreraDTO(
                 estudianteCarrera.getEstudiante().getLu(),
                 estudianteCarrera.getCarrera().getNombre(),

@@ -7,33 +7,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EstudianteServicio implements BaseService<Estudiante> {
+public class EstudianteServicio {
 
     @Autowired
     private RepoEstudiante repoEstudiante;
 
     // Obtener todos los estudiantes
-    @Override
     @Transactional
-    public List<Estudiante> findAll() throws Exception {
+    public List<EstudianteDTO> findAll() throws Exception {
         try {
-            return repoEstudiante.findAll();
+            List<Estudiante> estudiantes = repoEstudiante.findAll();
+            List<EstudianteDTO> estudianteDTOS = new ArrayList<>();
+            for (Estudiante e : estudiantes) {
+                estudianteDTOS.add(this.toDTO(e));
+            }
+            return estudianteDTOS;
         } catch (Exception e) {
             throw new Exception("Error al obtener estudiantes!" + e.getMessage());
         }
     }
 
     // Obtener un estudiante por ID
-    @Override
     @Transactional
-    public Estudiante findById(int id) throws Exception {
+    public EstudianteDTO findById(int id) throws Exception {
         try {
             Optional<Estudiante> estudianteBuscado = repoEstudiante.findById(id);
-            return estudianteBuscado.get();
+            EstudianteDTO estudianteDTO = this.toDTO(estudianteBuscado.get());
+            return estudianteDTO;
         } catch (Exception e) {
             throw new Exception("Error al obtener estudiante con id=" + id + "!" + e.getMessage());
         }
@@ -41,33 +47,33 @@ public class EstudianteServicio implements BaseService<Estudiante> {
 
     // 2a) Dar de alta un estudiante.
     // Guardar un nuevo estudiante
-    @Override
     @Transactional
-    public Estudiante save(Estudiante estudiante) throws Exception {
+    public EstudianteDTO save(Estudiante estudiante) throws Exception {
         try {
-            return repoEstudiante.save(estudiante);
+            Estudiante estudianteGuardado = repoEstudiante.save(estudiante);
+            EstudianteDTO estudianteDTO = this.toDTO(estudianteGuardado);
+            return estudianteDTO;
         } catch (Exception e) {
             throw new Exception("Error al guardar estudiante!" + e.getMessage());
         }
     }
 
     // Actualizar un estudiante
-    @Override
     @Transactional
-    public Estudiante update(int id, Estudiante estudiante) throws Exception {
+    public EstudianteDTO update(int id, Estudiante estudiante) throws Exception {
         try {
-            Estudiante estudianteExistente = findById(id);
-            estudianteExistente.setNombre(estudiante.getNombre());
-            estudianteExistente.setApellido(estudiante.getApellido());
-
-            return repoEstudiante.save(estudianteExistente);
+            if (repoEstudiante.existsById(id)){
+                Estudiante estudianteGuardado = repoEstudiante.save(estudiante);
+                EstudianteDTO estudianteDTO = this.toDTO(estudianteGuardado);
+                return estudianteDTO;
+            }
+            throw new Exception("Estudiante no encontrado");
         } catch (Exception e) {
             throw new Exception("Error al actualizar estudiante con id=" + id + "!" + e.getMessage());
         }
     }
 
     // Eliminar un estudiante
-    @Override
     @Transactional
     public boolean delete(int id) throws Exception {
         try {
@@ -83,7 +89,7 @@ public class EstudianteServicio implements BaseService<Estudiante> {
     }
 
     // Obtener EstudianteDTO
-    public static EstudianteDTO toDTO(Estudiante estudiante) {
+    public EstudianteDTO toDTO(Estudiante estudiante) {
         EstudianteDTO estudianteDTO = new EstudianteDTO(
                 estudiante.getNombre(),
                 estudiante.getApellido(),
@@ -96,25 +102,38 @@ public class EstudianteServicio implements BaseService<Estudiante> {
         return estudianteDTO;
     }
 
-    public Estudiante obtenerPorLu(Long lu) throws Exception {
+    public EstudianteDTO obtenerPorLu(Long lu) throws Exception {
         try{
-            return repoEstudiante.getEstudianteByLu(lu);
+            Estudiante estudiante = repoEstudiante.getEstudianteByLu(lu);
+            EstudianteDTO estudianteDTO = this.toDTO(estudiante);
+            return estudianteDTO;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public List<Estudiante> obtenerPorGenero(String genero){
+    public List<EstudianteDTO> obtenerPorGenero(String genero){
         try{
-            return repoEstudiante.getEstudianteByGenero(genero);
+            List<Estudiante> estudiantes = repoEstudiante.obtenerPorGenero(genero);
+            List<EstudianteDTO> estudianteDTOS = new ArrayList<>();
+            for (Estudiante estudiante : estudiantes) {
+                estudianteDTOS.add(this.toDTO(estudiante));
+            }
+            return estudianteDTOS;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public List<Estudiante> getEstudiantesByCarreraAndCiudad(String carrera, String ciudad){
+    public List<EstudianteDTO> getEstudiantesByCarreraAndCiudad(String carrera, String ciudad){
         try{
-            return repoEstudiante.getEstudiantesByCiudad(carrera, ciudad);
+            List<Estudiante> estudiantes = repoEstudiante.getEstudiantesByCarreraAndCiudad(carrera, ciudad);
+
+            List<EstudianteDTO> estudianteDTOS = new ArrayList<>();
+            for (Estudiante estudiante : estudiantes) {
+                estudianteDTOS.add(this.toDTO(estudiante));
+            }
+            return estudianteDTOS;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

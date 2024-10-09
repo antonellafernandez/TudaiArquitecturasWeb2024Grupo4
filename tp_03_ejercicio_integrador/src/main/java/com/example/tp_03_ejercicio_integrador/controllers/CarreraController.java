@@ -25,9 +25,8 @@ public class CarreraController {
     @PostMapping("/alta")
     public ResponseEntity<?> crearCarrera(@RequestBody Carrera carrera) {
         try {
-            Carrera carreraCreada = carreraServicio.save(carrera);
-            CarreraDTO carreraDTO = carreraServicio.toDTO(carreraCreada);
-            return ResponseEntity.status(HttpStatus.CREATED).body(carreraDTO);
+            CarreraDTO carreraCreada = carreraServicio.save(carrera);
+            return ResponseEntity.status(HttpStatus.CREATED).body(carreraCreada);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
@@ -38,12 +37,8 @@ public class CarreraController {
     @GetMapping("")
     public ResponseEntity<?> obtenerTodasCarreras() {
         try {
-            List<Carrera> carreras = carreraServicio.findAll();
-            List<CarreraDTO> carreraDTOS = new ArrayList<>();
-            for (Carrera c : carreras) {
-                carreraDTOS.add(CarreraServicio.toDTO(c));
-            }
-            return ResponseEntity.status(HttpStatus.OK).body(carreraDTOS);
+            List<CarreraDTO> carreras = carreraServicio.findAll();
+            return ResponseEntity.status(HttpStatus.OK).body(carreras);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("{\"error\":\"Error al obtener carreras.\"}");
@@ -54,9 +49,8 @@ public class CarreraController {
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerCarreraPorId(@PathVariable int id) {
         try {
-            Carrera carreraCreada = carreraServicio.findById(id);
-            CarreraDTO carreraDTO = carreraServicio.toDTO(carreraCreada);
-            return ResponseEntity.status(HttpStatus.OK).body(carreraDTO);
+            CarreraDTO carreraCreada = carreraServicio.findById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(carreraCreada);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
@@ -67,7 +61,7 @@ public class CarreraController {
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarCarrera(@PathVariable int id, @RequestBody Carrera carrera) {
         try {
-            Carrera carreraActualizada = carreraServicio.update(id, carrera);
+            CarreraDTO carreraActualizada = carreraServicio.update(id, carrera);
             return ResponseEntity.status(HttpStatus.OK).body(carreraActualizada);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

@@ -9,65 +9,72 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CarreraServicio implements BaseService<Carrera> {
+public class CarreraServicio {
 
     @Autowired
     private RepoCarrera repoCarrera;
 
     // Obtener todas las carreras
-    @Override
     @Transactional
-    public List<Carrera> findAll() throws Exception {
+    public List<CarreraDTO> findAll() throws Exception {
         try {
-            return repoCarrera.findAll();
+            List<Carrera> carreras = repoCarrera.findAll();
+            List<CarreraDTO> carreraDTOS = new ArrayList<>();
+            for (Carrera c : carreras) {
+                carreraDTOS.add(this.toDTO(c));
+            }
+            return carreraDTOS;
         } catch (Exception e) {
             throw new Exception("Error al obtener carreras!" + e.getMessage());
         }
     }
 
     // Obtener una carrera por ID
-    @Override
     @Transactional
-    public Carrera findById(int id) throws Exception {
+    public CarreraDTO findById(int id) throws Exception {
         try {
             Optional<Carrera> carreraBuscada = repoCarrera.findById(id);
-            return carreraBuscada.get();
+            CarreraDTO carreraDTO = this.toDTO(carreraBuscada.get());
+            return carreraDTO;
         } catch (Exception e) {
             throw new Exception("Error al obtener carrera con id=" + id + "!" + e.getMessage());
         }
     }
 
     // Guardar una nueva carrera
-    @Override
     @Transactional
-    public Carrera save(Carrera carrera) throws Exception {
+    public CarreraDTO save(Carrera carrera) throws Exception { //Tiene que devolver un DTO? Al igual que update
         try {
-            return repoCarrera.save(carrera);
+            repoCarrera.save(carrera);
+            CarreraDTO carreraDTO = this.toDTO(carrera);
+            return carreraDTO;
         } catch (Exception e) {
             throw new Exception("Error al guardar carrera!" + e.getMessage());
         }
     }
 
     // Actualizar una carrera
-    @Override
     @Transactional
-    public Carrera update(int id, Carrera carrera) throws Exception {
+    public CarreraDTO update(int id, Carrera carrera) throws Exception {
         try {
-            Carrera carreraExistente = findById(id);
-            carreraExistente.setNombre(carrera.getNombre());
-
-            return repoCarrera.save(carreraExistente);
+            if (repoCarrera.existsById(id)){
+                repoCarrera.save(carrera);
+                CarreraDTO carreraDTO = this.toDTO(carrera);
+                return carreraDTO;
+            }
+            throw new Exception("No existe un carrera con id=" + id + "!");
         } catch (Exception e) {
             throw new Exception("Error al actualizar carrera con id=" + id + "!" + e.getMessage());
         }
     }
 
     // Eliminar una carrera
-    @Override
     @Transactional
     public boolean delete(int id) throws Exception {
         try {
@@ -83,7 +90,7 @@ public class CarreraServicio implements BaseService<Carrera> {
     }
 
     // Obtener CarreraDTO
-    public static CarreraDTO toDTO(Carrera carrera) {
+    public CarreraDTO toDTO(Carrera carrera) {
         return new CarreraDTO(carrera.getNombre());
     }
 

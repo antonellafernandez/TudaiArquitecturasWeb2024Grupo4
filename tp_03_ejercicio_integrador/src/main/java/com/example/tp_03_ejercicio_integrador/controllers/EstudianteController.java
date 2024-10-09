@@ -22,7 +22,7 @@ public class EstudianteController {
     @PostMapping("/alta")
     public ResponseEntity<?> altaEstudiante(@RequestBody Estudiante estudiante) {
         try {
-            Estudiante creado = estudianteServicio.save(estudiante);
+            EstudianteDTO creado = estudianteServicio.save(estudiante);
             return ResponseEntity.status(HttpStatus.CREATED).body(creado);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -34,12 +34,8 @@ public class EstudianteController {
     @GetMapping("")
     public ResponseEntity<?> obtenerTodos() {
         try {
-            List<Estudiante> estudiantes = estudianteServicio.findAll();
-            List<EstudianteDTO> estudianteDTOS = new ArrayList<>();
-            for (Estudiante e : estudiantes) {
-                estudianteDTOS.add(EstudianteServicio.toDTO(e));
-            }
-            return ResponseEntity.status(HttpStatus.OK).body(estudianteDTOS);
+            List<EstudianteDTO> estudiantes = estudianteServicio.findAll();
+            return ResponseEntity.status(HttpStatus.OK).body(estudiantes);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("{\"error\":\"Error al obtener estudiantes.\"}");
@@ -50,9 +46,8 @@ public class EstudianteController {
     @GetMapping("/lu/{lu}")
     public ResponseEntity<?> obtenerPorLu(@PathVariable Long lu) {
         try {
-            Estudiante estudiante = estudianteServicio.obtenerPorLu(lu);
-            EstudianteDTO estudianteDTO = estudianteServicio.toDTO(estudiante);
-            return ResponseEntity.status(HttpStatus.OK).body(estudianteDTO);
+            EstudianteDTO estudiante = estudianteServicio.obtenerPorLu(lu);
+            return ResponseEntity.status(HttpStatus.OK).body(estudiante);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
@@ -62,12 +57,8 @@ public class EstudianteController {
     @GetMapping("/genero/{genero}")
     public ResponseEntity<?> obtenerPorGenero(@PathVariable String genero) {
         try {
-            List<Estudiante> estudiantes = estudianteServicio.obtenerPorGenero(genero);
-            List<EstudianteDTO> estudianteDTOS = new ArrayList<>();
-            for (Estudiante estudiante : estudiantes) {
-                estudianteDTOS.add(EstudianteServicio.toDTO(estudiante));
-            }
-            return ResponseEntity.status(HttpStatus.OK).body(estudianteDTOS);
+            List<EstudianteDTO> estudiantes = estudianteServicio.obtenerPorGenero(genero);
+            return ResponseEntity.status(HttpStatus.OK).body(estudiantes);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
@@ -79,12 +70,8 @@ public class EstudianteController {
     public ResponseEntity<?> obtenerPorCarreraYCiudad(@PathVariable String nombreCarrera,
                                                       @PathVariable String ciudadResidencia) {
         try {
-            List<Estudiante> estudiantes = estudianteServicio.getEstudiantesByCarreraAndCiudad(nombreCarrera, ciudadResidencia);
-            List<EstudianteDTO> estudianteDTOS = new ArrayList<>();
-            for (Estudiante estudiante : estudiantes) {
-                estudianteDTOS.add(EstudianteServicio.toDTO(estudiante));
-            }
-            return ResponseEntity.status(HttpStatus.OK).body(estudianteDTOS);
+            List<EstudianteDTO> estudiantes = estudianteServicio.getEstudiantesByCarreraAndCiudad(nombreCarrera, ciudadResidencia);
+            return ResponseEntity.status(HttpStatus.OK).body(estudiantes);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
@@ -95,9 +82,8 @@ public class EstudianteController {
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerPorId(@PathVariable int id) {
         try {
-            Estudiante estudiante = estudianteServicio.findById(id);
-            EstudianteDTO estudianteDTO = estudianteServicio.toDTO(estudiante);
-            return ResponseEntity.status(HttpStatus.OK).body(estudianteDTO);
+            EstudianteDTO estudiante = estudianteServicio.findById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(estudiante);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
@@ -108,7 +94,7 @@ public class EstudianteController {
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarEstudiante(@PathVariable int id, @RequestBody Estudiante estudiante) {
         try {
-            Estudiante actualizado = estudianteServicio.update(id, estudiante);
+            EstudianteDTO actualizado = estudianteServicio.update(id, estudiante);
             return ResponseEntity.status(HttpStatus.OK).body(actualizado);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

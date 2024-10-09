@@ -20,7 +20,7 @@ public interface RepoEstudiante extends JpaRepository<Estudiante, Integer> {
 
     // 2e) Recuperar todos los estudiantes, en base a su género.
     @Query("SELECT e FROM Estudiante e WHERE e.genero = :genero")
-    List<Estudiante> getEstudianteByGenero(String genero);
+    List<Estudiante> obtenerPorGenero(String genero);
 
     // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
     @Query("SELECT e " +
@@ -30,5 +30,5 @@ public interface RepoEstudiante extends JpaRepository<Estudiante, Integer> {
             "WHERE e.ciudadResidencia LIKE :ciudadResidencia " +
             "AND c.nombre LIKE :nombreCarrera")
     //@Query("SELECT e FROM Estudiante e")
-    List<Estudiante> getEstudiantesByCiudad(String nombreCarrera, String ciudadResidencia);
+    List<Estudiante> getEstudiantesByCarreraAndCiudad(String nombreCarrera, String ciudadResidencia);
 }
