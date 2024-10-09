@@ -4,7 +4,6 @@ import com.example.tp_03_ejercicio_integrador.dtos.EstudianteCarreraDTO;
 import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
 import com.example.tp_03_ejercicio_integrador.modelos.Estudiante;
 import com.example.tp_03_ejercicio_integrador.modelos.EstudianteCarrera;
-import com.example.tp_03_ejercicio_integrador.servicios.CarreraServicio;
 import com.example.tp_03_ejercicio_integrador.servicios.EstudianteCarreraServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

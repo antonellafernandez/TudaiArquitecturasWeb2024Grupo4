@@ -2,7 +2,6 @@ package com.example.tp_03_ejercicio_integrador.servicios;
 
 import com.example.tp_03_ejercicio_integrador.dtos.EstudianteDTO;
 import com.example.tp_03_ejercicio_integrador.modelos.Estudiante;
-import com.example.tp_03_ejercicio_integrador.modelos.EstudianteCarrera;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudiante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

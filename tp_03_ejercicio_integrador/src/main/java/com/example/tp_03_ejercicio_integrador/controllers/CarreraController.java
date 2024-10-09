@@ -94,7 +94,7 @@ public class CarreraController {
 
     // 2h) Generar un reporte de las carreras
     @GetMapping("/reporte")
-    public ResponseEntity<?> generarReporteCarreras() { // VEEEEEEEEEEEEEER CONSULTA
+    public ResponseEntity<?> generarReporteCarreras() {
         try {
             List<ReporteCarreraDTO> reporte = carreraServicio.generarReporteCarreras();
             return ResponseEntity.status(HttpStatus.OK).body(reporte);

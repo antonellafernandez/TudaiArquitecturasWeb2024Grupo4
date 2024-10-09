@@ -4,7 +4,6 @@ import com.example.tp_03_ejercicio_integrador.dtos.CarreraConCantInscriptosDTO;
 import com.example.tp_03_ejercicio_integrador.dtos.CarreraDTO;
 import com.example.tp_03_ejercicio_integrador.dtos.ReporteCarreraDTO;
 import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
-import com.example.tp_03_ejercicio_integrador.modelos.EstudianteCarrera;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoCarrera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

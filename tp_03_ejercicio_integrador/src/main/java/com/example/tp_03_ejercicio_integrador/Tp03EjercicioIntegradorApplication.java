@@ -1,7 +1,6 @@
 package com.example.tp_03_ejercicio_integrador;
 
 import com.example.tp_03_ejercicio_integrador.utils.CargaDeDatos;
-import org.apache.catalina.core.ApplicationContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;

@@ -1,10 +1,7 @@
 package com.example.tp_03_ejercicio_integrador.controllers;
 
-import com.example.tp_03_ejercicio_integrador.dtos.CarreraDTO;
 import com.example.tp_03_ejercicio_integrador.dtos.EstudianteDTO;
-import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
 import com.example.tp_03_ejercicio_integrador.modelos.Estudiante;
-import com.example.tp_03_ejercicio_integrador.servicios.CarreraServicio;
 import com.example.tp_03_ejercicio_integrador.servicios.EstudianteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,5 @@
 package com.example.tp_03_ejercicio_integrador.dtos;
 
-import com.example.tp_03_ejercicio_integrador.controllers.CarreraController;
 import lombok.Data;
 
 @Data
