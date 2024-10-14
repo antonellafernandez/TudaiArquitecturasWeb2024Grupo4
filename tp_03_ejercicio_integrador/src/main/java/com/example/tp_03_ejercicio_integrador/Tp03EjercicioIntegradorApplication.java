@@ -11,10 +11,7 @@ import java.io.IOException;
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.example.tp_03_ejercicio_integrador.repositorios")
 public class Tp03EjercicioIntegradorApplication {
-
 	public static void main(String[] args) throws IOException {
-
-
 		ConfigurableApplicationContext context = SpringApplication.run(Tp03EjercicioIntegradorApplication.class, args);
 
 		// Obtener el bean 'CargaDeDatos' gestionado por Spring
@@ -23,5 +20,4 @@ public class Tp03EjercicioIntegradorApplication {
 		// Cargar los datos
 		cargaDeDatos.cargarDatosDesdeCSV();
 	}
-
 }
