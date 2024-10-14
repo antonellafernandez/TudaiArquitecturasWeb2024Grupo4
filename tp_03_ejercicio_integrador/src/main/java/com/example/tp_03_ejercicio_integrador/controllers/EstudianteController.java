@@ -34,7 +34,7 @@ public class EstudianteController {
     @GetMapping("")
     public ResponseEntity<?> obtenerTodos() {
         try {
-            List<EstudianteDTO> estudiantes = estudianteServicio.findAll();
+            List<EstudianteDTO> estudiantes = estudianteServicio.obtenerEstudiantesOrdenadosPorApellidoASC();
             return ResponseEntity.status(HttpStatus.OK).body(estudiantes);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -12,7 +12,7 @@ public interface RepoEstudiante extends JpaRepository<Estudiante, Integer> {
 
     // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple. -> Por APELLIDO
     @Query("SELECT e FROM Estudiante e ORDER BY e.apellido ASC")
-    List<Estudiante> getEstudiantesOrderedByApellidoASC();
+    List<Estudiante> obtenerEstudiantesOrdenadosPorApellidoASC();
 
     // 2d) Eecuperar un estudiante, en base a su número de libreta universitaria.
     @Query("SELECT e FROM Estudiante e WHERE e.lu = :lu")
@@ -29,6 +29,5 @@ public interface RepoEstudiante extends JpaRepository<Estudiante, Integer> {
             "JOIN i.carrera c " +
             "WHERE e.ciudadResidencia LIKE :ciudadResidencia " +
             "AND c.nombre LIKE :nombreCarrera")
-    //@Query("SELECT e FROM Estudiante e")
     List<Estudiante> getEstudiantesByCarreraAndCiudad(String nombreCarrera, String ciudadResidencia);
 }

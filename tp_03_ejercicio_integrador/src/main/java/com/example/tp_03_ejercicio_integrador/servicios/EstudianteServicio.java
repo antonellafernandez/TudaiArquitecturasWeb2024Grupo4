@@ -103,6 +103,19 @@ public class EstudianteServicio {
         return estudianteDTO;
     }
 
+    public List<EstudianteDTO> obtenerEstudiantesOrdenadosPorApellidoASC() throws Exception {
+        try {
+            List<Estudiante> estudiantes = repoEstudiante.obtenerEstudiantesOrdenadosPorApellidoASC();
+            List<EstudianteDTO> estudianteDTOS = new ArrayList<>();
+            for (Estudiante e : estudiantes) {
+                estudianteDTOS.add(this.toDTO(e));
+            }
+            return estudianteDTOS;
+        } catch (Exception e) {
+            throw new Exception("Error al obtener estudiantes!" + e.getMessage());
+        }
+    }
+
     public EstudianteDTO obtenerPorLu(Long lu) throws Exception {
         try{
             Estudiante estudiante = repoEstudiante.getEstudianteByLu(lu);

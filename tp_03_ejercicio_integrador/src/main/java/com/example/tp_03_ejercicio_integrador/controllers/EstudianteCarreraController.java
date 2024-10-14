@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/inscripciones")
@@ -24,8 +25,26 @@ public class EstudianteCarreraController {
 
     // 2b) Matricular un estudiante en una carrera
     @PostMapping("/matricular")
-    public ResponseEntity<?> matricularEstudiante(@RequestBody Estudiante estudiante, Carrera carrera) {
+    public ResponseEntity<?> matricularEstudiante(@RequestBody Map<String, Object> request) {
         try {
+            Map<String, Object> estudianteMap = (Map<String, Object>) request.get("estudiante");
+            Map<String, Object> carreraMap = (Map<String, Object>) request.get("carrera");
+
+            Estudiante estudiante = new Estudiante(
+                    (Integer) estudianteMap.get("dni"),
+                    (String) estudianteMap.get("nombre"),
+                    (String) estudianteMap.get("apellido"),
+                    (Integer) estudianteMap.get("edad"),
+                    (String) estudianteMap.get("genero"),
+                    (String) estudianteMap.get("ciudadResidencia"),
+                    ((Integer) estudianteMap.get("lu")).longValue()
+                    );
+
+            Carrera carrera = new Carrera(
+                    (Integer) carreraMap.get("id"),
+                    (String) carreraMap.get("nombre")
+            );
+
             EstudianteCarrera entity = new EstudianteCarrera(1, estudiante, carrera, Year.now().getValue(), 0, 0, false);
             EstudianteCarreraDTO estudianteCarreraDTO = matriculacionServicio.save(entity);
             return ResponseEntity.status(HttpStatus.CREATED).body(estudianteCarreraDTO);

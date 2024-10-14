@@ -1,0 +1,590 @@
+{
+	"info": {
+		"_postman_id": "33ae6b4b-6e92-469d-a770-1c7fe36eeba8",
+		"name": "Arquitecturas2024Grupo4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29659750"
+	},
+	"item": [
+		{
+			"name": "2a) Dar de alta un estudiante",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dni\": 12123123,\r\n  \"nombre\": \"Daniela\",\r\n  \"apellido\": \"Fernández\",\r\n  \"edad\": 28,\r\n  \"genero\": \"Female\",\r\n  \"ciudadResidencia\": \"Tandil\",\r\n  \"lu\": 11100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/estudiantes/alta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes",
+						"alta"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dni\": 12123123,\r\n  \"nombre\": \"Daniela\",\r\n  \"apellido\": \"Fernández\",\r\n  \"edad\": 28,\r\n  \"genero\": \"Female\",\r\n  \"ciudadResidencia\": \"Tandil\",\r\n  \"lu\": 11100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/estudiantes/alta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"estudiantes",
+								"alta"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 14 Oct 2024 02:33:34 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"nombre\": \"Daniela\",\n    \"apellido\": \"Fernández\",\n    \"edad\": 28,\n    \"dni\": 12123123,\n    \"genero\": \"Female\",\n    \"ciudadResidencia\": \"Tandil\",\n    \"lu\": 11100,\n    \"inscripciones\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "2b) Matricular un estudiante en una carrera",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"estudiante\": {\r\n    \"dni\": 12123123,\r\n    \"nombre\": \"Daniela\",\r\n    \"apellido\": \"Fernández\",\r\n    \"edad\": 28,\r\n    \"genero\": \"Female\",\r\n    \"ciudadResidencia\": \"Tandil\",\r\n    \"lu\": 11100\r\n  },\r\n  \"carrera\": {\r\n    \"id\": 1,\r\n    \"nombre\": \"TUDAI\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/inscripciones/matricular",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"inscripciones",
+						"matricular"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"estudiante\": {\r\n    \"dni\": 12123123,\r\n    \"nombre\": \"Daniela\",\r\n    \"apellido\": \"Fernández\",\r\n    \"edad\": 28,\r\n    \"genero\": \"Female\",\r\n    \"ciudadResidencia\": \"Tandil\",\r\n    \"lu\": 11100\r\n  },\r\n  \"carrera\": {\r\n    \"id\": 1,\r\n    \"nombre\": \"TUDAI\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/inscripciones/matricular",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inscripciones",
+								"matricular"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 14 Oct 2024 02:34:04 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"luEstudiante\": 11100,\n    \"nombreCarrera\": \"TUDAI\",\n    \"anioInscripcion\": 2024,\n    \"anioEgreso\": 0,\n    \"antiguedad\": 0,\n    \"graduado\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "2c) Recuperar todos los estudiantes ordenados por apellido ASC",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/estudiantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/estudiantes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"estudiantes"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 14 Oct 2024 02:34:22 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"nombre\": \"Ham\",\n        \"apellido\": \"Airy\",\n        \"edad\": 27,\n        \"dni\": 44782708,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Dashtobod\",\n        \"lu\": 90958,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Stormy\",\n        \"apellido\": \"Audrey\",\n        \"edad\": 26,\n        \"dni\": 89370812,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"N\",\n        \"lu\": 93298,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Sebastien\",\n        \"apellido\": \"Bayle\",\n        \"edad\": 41,\n        \"dni\": 84076286,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Arroio do Meio\",\n        \"lu\": 98057,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Isidro\",\n        \"apellido\": \"Blackmuir\",\n        \"edad\": 66,\n        \"dni\": 71779527,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Jiaoyuan\",\n        \"lu\": 34978,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Eldredge\",\n        \"apellido\": \"Blenkharn\",\n        \"edad\": 48,\n        \"dni\": 64472668,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Sophia Antipolis\",\n        \"lu\": 56614,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Jaye\",\n        \"apellido\": \"Boow\",\n        \"edad\": 31,\n        \"dni\": 97757202,\n        \"genero\": \"Agender\",\n        \"ciudadResidencia\": \"Ongandjera\",\n        \"lu\": 18876,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Aprilette\",\n        \"apellido\": \"Broadfield\",\n        \"edad\": 37,\n        \"dni\": 35600736,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Sámi\",\n        \"lu\": 32410,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Merry\",\n        \"apellido\": \"Buglar\",\n        \"edad\": 56,\n        \"dni\": 84969599,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Guling\",\n        \"lu\": 51516,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Velma\",\n        \"apellido\": \"Bullus\",\n        \"edad\": 48,\n        \"dni\": 58310186,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Sacotes\",\n        \"lu\": 81551,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Fredia\",\n        \"apellido\": \"Burgum\",\n        \"edad\": 47,\n        \"dni\": 74843661,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Rym\",\n        \"lu\": 41109,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Mariya\",\n        \"apellido\": \"Caney\",\n        \"edad\": 52,\n        \"dni\": 58814096,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Kabul\",\n        \"lu\": 30314,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Nicolas\",\n        \"apellido\": \"Carsaniga\",\n        \"edad\": 30,\n        \"dni\": 32362231,\n        \"genero\": \"Masculino\",\n        \"ciudadResidencia\": \"Rauch\",\n        \"lu\": 250019,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Hulda\",\n        \"apellido\": \"Chotty\",\n        \"edad\": 52,\n        \"dni\": 39132115,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Nguru\",\n        \"lu\": 57759,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Jerry\",\n        \"apellido\": \"Christol\",\n        \"edad\": 61,\n        \"dni\": 30842249,\n        \"genero\": \"Agender\",\n        \"ciudadResidencia\": \"Idvor\",\n        \"lu\": 95419,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Karie\",\n        \"apellido\": \"Coppledike\",\n        \"edad\": 56,\n        \"dni\": 59323172,\n        \"genero\": \"Polygender\",\n        \"ciudadResidencia\": \"Kedunglo\",\n        \"lu\": 28886,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Padget\",\n        \"apellido\": \"Corzon\",\n        \"edad\": 60,\n        \"dni\": 69684172,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"D An\",\n        \"lu\": 55783,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Dilly\",\n        \"apellido\": \"Cristea\",\n        \"edad\": 45,\n        \"dni\": 11962781,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Lyamino\",\n        \"lu\": 96779,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Elayne\",\n        \"apellido\": \"Cullity\",\n        \"edad\": 18,\n        \"dni\": 76495775,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Albarraque\",\n        \"lu\": 53245,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Silvie\",\n        \"apellido\": \"de Clerk\",\n        \"edad\": 68,\n        \"dni\": 65674324,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Kudanding\",\n        \"lu\": 35979,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Linette\",\n        \"apellido\": \"Dell'Abbate\",\n        \"edad\": 26,\n        \"dni\": 23862520,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Phon Phisai\",\n        \"lu\": 90574,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Reese\",\n        \"apellido\": \"Dorkins\",\n        \"edad\": 21,\n        \"dni\": 91911951,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Kumo\",\n        \"lu\": 26799,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Selby\",\n        \"apellido\": \"Druitt\",\n        \"edad\": 42,\n        \"dni\": 54557133,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Pljevlja\",\n        \"lu\": 90059,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Patin\",\n        \"apellido\": \"Durkin\",\n        \"edad\": 45,\n        \"dni\": 72809474,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Sakai\",\n        \"lu\": 75514,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Dayle\",\n        \"apellido\": \"Edie\",\n        \"edad\": 37,\n        \"dni\": 17331470,\n        \"genero\": \"Polygender\",\n        \"ciudadResidencia\": \"Melekeok Village\",\n        \"lu\": 61607,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Hollis\",\n        \"apellido\": \"Etherington\",\n        \"edad\": 35,\n        \"dni\": 83678518,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Kępno\",\n        \"lu\": 82077,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Lamond\",\n        \"apellido\": \"Ettritch\",\n        \"edad\": 35,\n        \"dni\": 29292082,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Chong’ansi\",\n        \"lu\": 99614,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Clarissa\",\n        \"apellido\": \"Felix\",\n        \"edad\": 43,\n        \"dni\": 20916178,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Baisha\",\n        \"lu\": 78149,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Daniela\",\n        \"apellido\": \"Fernández\",\n        \"edad\": 28,\n        \"dni\": 12123123,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Tandil\",\n        \"lu\": 11100,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Ronni\",\n        \"apellido\": \"Fesby\",\n        \"edad\": 36,\n        \"dni\": 79791921,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Jawatiwa\",\n        \"lu\": 10910,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Marijn\",\n        \"apellido\": \"Fideler\",\n        \"edad\": 20,\n        \"dni\": 91971812,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Yinla\",\n        \"lu\": 34169,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Edsel\",\n        \"apellido\": \"Geroldi\",\n        \"edad\": 32,\n        \"dni\": 27532732,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Samagaltay\",\n        \"lu\": 48092,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Jana\",\n        \"apellido\": \"Giacopetti\",\n        \"edad\": 57,\n        \"dni\": 77945783,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Kwekwe\",\n        \"lu\": 80375,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Krishnah\",\n        \"apellido\": \"Goodbar\",\n        \"edad\": 56,\n        \"dni\": 39961032,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Andekantor\",\n        \"lu\": 73830,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Heather\",\n        \"apellido\": \"Grima\",\n        \"edad\": 63,\n        \"dni\": 25343761,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Sungairaya\",\n        \"lu\": 10705,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Shep\",\n        \"apellido\": \"Guymer\",\n        \"edad\": 51,\n        \"dni\": 66647912,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Chilly-Mazarin\",\n        \"lu\": 43523,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Ronald\",\n        \"apellido\": \"Gwalter\",\n        \"edad\": 52,\n        \"dni\": 90662737,\n        \"genero\": \"Polygender\",\n        \"ciudadResidencia\": \"Tomaszw Lubelski\",\n        \"lu\": 50617,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Tye\",\n        \"apellido\": \"Hamlen\",\n        \"edad\": 40,\n        \"dni\": 71704970,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Santiago\",\n        \"lu\": 79419,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Stanfield\",\n        \"apellido\": \"Hanhart\",\n        \"edad\": 62,\n        \"dni\": 87684462,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Zákupy\",\n        \"lu\": 66297,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Hanni\",\n        \"apellido\": \"Harrisson\",\n        \"edad\": 49,\n        \"dni\": 10719241,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Samal\",\n        \"lu\": 72976,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Eddie\",\n        \"apellido\": \"Hasted\",\n        \"edad\": 29,\n        \"dni\": 64815263,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Nelspruit\",\n        \"lu\": 44599,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Austin\",\n        \"apellido\": \"Hatherall\",\n        \"edad\": 67,\n        \"dni\": 33865264,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Ganhe\",\n        \"lu\": 51244,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Roxanna\",\n        \"apellido\": \"Hearfield\",\n        \"edad\": 50,\n        \"dni\": 98281338,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Chateaubelair\",\n        \"lu\": 46485,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Kinny\",\n        \"apellido\": \"Heinert\",\n        \"edad\": 24,\n        \"dni\": 66195647,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Seabra\",\n        \"lu\": 66275,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Kathy\",\n        \"apellido\": \"Imm\",\n        \"edad\": 54,\n        \"dni\": 38431533,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Azilal\",\n        \"lu\": 90149,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Wenda\",\n        \"apellido\": \"Jertz\",\n        \"edad\": 43,\n        \"dni\": 24549124,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Qiligang\",\n        \"lu\": 35056,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Fredi\",\n        \"apellido\": \"Jovicevic\",\n        \"edad\": 48,\n        \"dni\": 45421127,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Fushë-Muhurr\",\n        \"lu\": 39711,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Elva\",\n        \"apellido\": \"Kehler\",\n        \"edad\": 45,\n        \"dni\": 24914542,\n        \"genero\": \"Femenino\",\n        \"ciudadResidencia\": \"Rauch\",\n        \"lu\": 250020,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Horatia\",\n        \"apellido\": \"Kienl\",\n        \"edad\": 31,\n        \"dni\": 21930491,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Bascaron\",\n        \"lu\": 67486,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Gilburt\",\n        \"apellido\": \"Kingcote\",\n        \"edad\": 37,\n        \"dni\": 97379322,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Espargos\",\n        \"lu\": 74864,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Reggie\",\n        \"apellido\": \"Kubczak\",\n        \"edad\": 45,\n        \"dni\": 76787321,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Hita\",\n        \"lu\": 45231,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Domini\",\n        \"apellido\": \"Larderot\",\n        \"edad\": 70,\n        \"dni\": 12950356,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Mengyin\",\n        \"lu\": 84506,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Hector\",\n        \"apellido\": \"Liceaga\",\n        \"edad\": 32,\n        \"dni\": 30111285,\n        \"genero\": \"Masculino\",\n        \"ciudadResidencia\": \"Rauch\",\n        \"lu\": 250021,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Camel\",\n        \"apellido\": \"Lorkings\",\n        \"edad\": 23,\n        \"dni\": 98182070,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Petersfield\",\n        \"lu\": 24931,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Robenia\",\n        \"apellido\": \"Lowings\",\n        \"edad\": 39,\n        \"dni\": 85357204,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Tengah\",\n        \"lu\": 93560,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Bradney\",\n        \"apellido\": \"Luety\",\n        \"edad\": 19,\n        \"dni\": 42492247,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Jinyuan\",\n        \"lu\": 24861,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Kean\",\n        \"apellido\": \"Lyddiatt\",\n        \"edad\": 66,\n        \"dni\": 99266178,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Taxisco\",\n        \"lu\": 95950,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Ferrel\",\n        \"apellido\": \"MacGoun\",\n        \"edad\": 46,\n        \"dni\": 57065298,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Gradac\",\n        \"lu\": 80067,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Jaymie\",\n        \"apellido\": \"Mammatt\",\n        \"edad\": 48,\n        \"dni\": 17471754,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Sicheng\",\n        \"lu\": 80681,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Matias\",\n        \"apellido\": \"Matokhnin\",\n        \"edad\": 38,\n        \"dni\": 27652182,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Lobanovo\",\n        \"lu\": 66739,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Ashby\",\n        \"apellido\": \"Mattiazzo\",\n        \"edad\": 54,\n        \"dni\": 88122566,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Busalangga\",\n        \"lu\": 11667,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Faina\",\n        \"apellido\": \"Mewitt\",\n        \"edad\": 44,\n        \"dni\": 47936932,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Wodzisław Śląski\",\n        \"lu\": 15030,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Rorie\",\n        \"apellido\": \"Molder\",\n        \"edad\": 39,\n        \"dni\": 63974080,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Avaré\",\n        \"lu\": 79204,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Richmound\",\n        \"apellido\": \"Monnoyer\",\n        \"edad\": 56,\n        \"dni\": 44708235,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Paltamo\",\n        \"lu\": 13007,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Shurlock\",\n        \"apellido\": \"Muat\",\n        \"edad\": 18,\n        \"dni\": 57799873,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Ręczno\",\n        \"lu\": 15872,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Fredric\",\n        \"apellido\": \"Mulhall\",\n        \"edad\": 70,\n        \"dni\": 12706636,\n        \"genero\": \"Genderfluid\",\n        \"ciudadResidencia\": \"Alvalade\",\n        \"lu\": 79150,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Carlota\",\n        \"apellido\": \"Mussett\",\n        \"edad\": 25,\n        \"dni\": 92705774,\n        \"genero\": \"Bigender\",\n        \"ciudadResidencia\": \"Batawa\",\n        \"lu\": 19081,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Thaxter\",\n        \"apellido\": \"Noe\",\n        \"edad\": 20,\n        \"dni\": 77555326,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Zhanjia\",\n        \"lu\": 56695,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Eimile\",\n        \"apellido\": \"Normavell\",\n        \"edad\": 27,\n        \"dni\": 84454135,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Lanas\",\n        \"lu\": 59247,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Shanon\",\n        \"apellido\": \"Nottram\",\n        \"edad\": 65,\n        \"dni\": 62626021,\n        \"genero\": \"Polygender\",\n        \"ciudadResidencia\": \"Rixi\",\n        \"lu\": 89001,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Rochester\",\n        \"apellido\": \"O'Heyne\",\n        \"edad\": 41,\n        \"dni\": 92026473,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Kuliyapitiya\",\n        \"lu\": 44502,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Talia\",\n        \"apellido\": \"O'Sherin\",\n        \"edad\": 53,\n        \"dni\": 92997287,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Guisa\",\n        \"lu\": 10904,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Brenn\",\n        \"apellido\": \"Oakeby\",\n        \"edad\": 29,\n        \"dni\": 90033012,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Vide\",\n        \"lu\": 51301,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Addy\",\n        \"apellido\": \"Orrock\",\n        \"edad\": 27,\n        \"dni\": 49014100,\n        \"genero\": \"Genderfluid\",\n        \"ciudadResidencia\": \"Nong Khaem\",\n        \"lu\": 50096,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Fancy\",\n        \"apellido\": \"Pepys\",\n        \"edad\": 32,\n        \"dni\": 36995626,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Longquan\",\n        \"lu\": 62334,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Kym\",\n        \"apellido\": \"Pointin\",\n        \"edad\": 60,\n        \"dni\": 91565586,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Ārifwāla\",\n        \"lu\": 64687,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Mariejeanne\",\n        \"apellido\": \"Pozzo\",\n        \"edad\": 38,\n        \"dni\": 71854706,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Isak\",\n        \"lu\": 41387,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Lorrie\",\n        \"apellido\": \"Prozillo\",\n        \"edad\": 58,\n        \"dni\": 72449048,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Sabi\",\n        \"lu\": 61993,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Deidre\",\n        \"apellido\": \"Pumfrett\",\n        \"edad\": 39,\n        \"dni\": 77644062,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Destrnik\",\n        \"lu\": 51513,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Faun\",\n        \"apellido\": \"Quadrio\",\n        \"edad\": 56,\n        \"dni\": 26647604,\n        \"genero\": \"Genderfluid\",\n        \"ciudadResidencia\": \"Naberera\",\n        \"lu\": 56957,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Yettie\",\n        \"apellido\": \"Rope\",\n        \"edad\": 41,\n        \"dni\": 59239392,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Zbraslavice\",\n        \"lu\": 73127,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Cob\",\n        \"apellido\": \"Sacase\",\n        \"edad\": 45,\n        \"dni\": 68742850,\n        \"genero\": \"Non-binary\",\n        \"ciudadResidencia\": \"Karukh\",\n        \"lu\": 65850,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Milo\",\n        \"apellido\": \"Seamon\",\n        \"edad\": 24,\n        \"dni\": 16768994,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Haolibao\",\n        \"lu\": 25789,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Ezri\",\n        \"apellido\": \"Sebright\",\n        \"edad\": 31,\n        \"dni\": 88526208,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Mauá\",\n        \"lu\": 58517,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Gustie\",\n        \"apellido\": \"Shenfish\",\n        \"edad\": 51,\n        \"dni\": 77560472,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Anulid\",\n        \"lu\": 37972,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Willabella\",\n        \"apellido\": \"Sillett\",\n        \"edad\": 68,\n        \"dni\": 67116086,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Mafra\",\n        \"lu\": 45096,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Isis\",\n        \"apellido\": \"Siveter\",\n        \"edad\": 50,\n        \"dni\": 67025488,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Kokkónion\",\n        \"lu\": 71987,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Aaron\",\n        \"apellido\": \"Snookes\",\n        \"edad\": 64,\n        \"dni\": 45629610,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Osek nad Bečvou\",\n        \"lu\": 29661,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Spense\",\n        \"apellido\": \"Souch\",\n        \"edad\": 46,\n        \"dni\": 74170593,\n        \"genero\": \"Bigender\",\n        \"ciudadResidencia\": \"Burlatskoye\",\n        \"lu\": 22251,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Danica\",\n        \"apellido\": \"Stopford\",\n        \"edad\": 63,\n        \"dni\": 13820383,\n        \"genero\": \"Non-binary\",\n        \"ciudadResidencia\": \"Fenghuang\",\n        \"lu\": 75247,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Jonis\",\n        \"apellido\": \"Suthren\",\n        \"edad\": 61,\n        \"dni\": 17503300,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Mainit\",\n        \"lu\": 35424,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Maggee\",\n        \"apellido\": \"Symones\",\n        \"edad\": 53,\n        \"dni\": 72695248,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Dewetsdorp\",\n        \"lu\": 39797,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Skip\",\n        \"apellido\": \"Symper\",\n        \"edad\": 59,\n        \"dni\": 99497767,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Paris La Défense\",\n        \"lu\": 36340,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Hal\",\n        \"apellido\": \"Tanby\",\n        \"edad\": 29,\n        \"dni\": 22670848,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Chilecito\",\n        \"lu\": 13666,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Valentin\",\n        \"apellido\": \"Thireau\",\n        \"edad\": 62,\n        \"dni\": 96043915,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Huilongshan\",\n        \"lu\": 61883,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Dix\",\n        \"apellido\": \"Toolin\",\n        \"edad\": 69,\n        \"dni\": 20642434,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Nishishinminato\",\n        \"lu\": 13413,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Connor\",\n        \"apellido\": \"Train\",\n        \"edad\": 24,\n        \"dni\": 39004697,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Salon-de-Provence\",\n        \"lu\": 46140,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Kiley\",\n        \"apellido\": \"Ulyatt\",\n        \"edad\": 44,\n        \"dni\": 67827466,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Mandala\",\n        \"lu\": 84033,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Octavius\",\n        \"apellido\": \"Veltmann\",\n        \"edad\": 21,\n        \"dni\": 80947108,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Sangatta\",\n        \"lu\": 10383,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Lorianna\",\n        \"apellido\": \"Verey\",\n        \"edad\": 41,\n        \"dni\": 31100797,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Monte Novo\",\n        \"lu\": 70437,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Derek\",\n        \"apellido\": \"Von Der Empten\",\n        \"edad\": 57,\n        \"dni\": 22438724,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Paquera\",\n        \"lu\": 59652,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Lorin\",\n        \"apellido\": \"Warhurst\",\n        \"edad\": 52,\n        \"dni\": 36756785,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Iau\",\n        \"lu\": 21429,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Esther\",\n        \"apellido\": \"Wellen\",\n        \"edad\": 37,\n        \"dni\": 85171302,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Don Chedi\",\n        \"lu\": 51171,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Stephan\",\n        \"apellido\": \"Winspare\",\n        \"edad\": 62,\n        \"dni\": 40155130,\n        \"genero\": \"Male\",\n        \"ciudadResidencia\": \"Ljungby\",\n        \"lu\": 26013,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Lanny\",\n        \"apellido\": \"Wybrew\",\n        \"edad\": 21,\n        \"dni\": 29588318,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Magetlegar\",\n        \"lu\": 19844,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Sergio\",\n        \"apellido\": \"Ya\\ufffdez\",\n        \"edad\": 48,\n        \"dni\": 23322529,\n        \"genero\": \"Masculino\",\n        \"ciudadResidencia\": \"Rauch\",\n        \"lu\": 250018,\n        \"inscripciones\": []\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "2d) Recuperar un estudiante, en base a su número de libreta universitaria",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/estudiantes/lu/11100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes",
+						"lu",
+						"11100"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/estudiantes/lu/11100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"estudiantes",
+								"lu",
+								"11100"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 14 Oct 2024 02:34:37 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"nombre\": \"Daniela\",\n    \"apellido\": \"Fernández\",\n    \"edad\": 28,\n    \"dni\": 12123123,\n    \"genero\": \"Female\",\n    \"ciudadResidencia\": \"Tandil\",\n    \"lu\": 11100,\n    \"inscripciones\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "2e) Recuperar todos los estudiantes, en base a su género",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/estudiantes/genero/Female",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes",
+						"genero",
+						"Female"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/estudiantes/genero/Female",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"estudiantes",
+								"genero",
+								"Female"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 14 Oct 2024 02:35:06 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"nombre\": \"Hanni\",\n        \"apellido\": \"Harrisson\",\n        \"edad\": 49,\n        \"dni\": 10719241,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Samal\",\n        \"lu\": 72976,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Daniela\",\n        \"apellido\": \"Fernández\",\n        \"edad\": 28,\n        \"dni\": 12123123,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Tandil\",\n        \"lu\": 11100,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Domini\",\n        \"apellido\": \"Larderot\",\n        \"edad\": 70,\n        \"dni\": 12950356,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Mengyin\",\n        \"lu\": 84506,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Jonis\",\n        \"apellido\": \"Suthren\",\n        \"edad\": 61,\n        \"dni\": 17503300,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Mainit\",\n        \"lu\": 35424,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Dix\",\n        \"apellido\": \"Toolin\",\n        \"edad\": 69,\n        \"dni\": 20642434,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Nishishinminato\",\n        \"lu\": 13413,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Clarissa\",\n        \"apellido\": \"Felix\",\n        \"edad\": 43,\n        \"dni\": 20916178,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Baisha\",\n        \"lu\": 78149,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Horatia\",\n        \"apellido\": \"Kienl\",\n        \"edad\": 31,\n        \"dni\": 21930491,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Bascaron\",\n        \"lu\": 67486,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Linette\",\n        \"apellido\": \"Dell'Abbate\",\n        \"edad\": 26,\n        \"dni\": 23862520,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Phon Phisai\",\n        \"lu\": 90574,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Wenda\",\n        \"apellido\": \"Jertz\",\n        \"edad\": 43,\n        \"dni\": 24549124,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Qiligang\",\n        \"lu\": 35056,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Heather\",\n        \"apellido\": \"Grima\",\n        \"edad\": 63,\n        \"dni\": 25343761,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Sungairaya\",\n        \"lu\": 10705,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Lanny\",\n        \"apellido\": \"Wybrew\",\n        \"edad\": 21,\n        \"dni\": 29588318,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Magetlegar\",\n        \"lu\": 19844,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Lorianna\",\n        \"apellido\": \"Verey\",\n        \"edad\": 41,\n        \"dni\": 31100797,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Monte Novo\",\n        \"lu\": 70437,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Aprilette\",\n        \"apellido\": \"Broadfield\",\n        \"edad\": 37,\n        \"dni\": 35600736,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Sámi\",\n        \"lu\": 32410,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Fancy\",\n        \"apellido\": \"Pepys\",\n        \"edad\": 32,\n        \"dni\": 36995626,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Longquan\",\n        \"lu\": 62334,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Kathy\",\n        \"apellido\": \"Imm\",\n        \"edad\": 54,\n        \"dni\": 38431533,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Azilal\",\n        \"lu\": 90149,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Hulda\",\n        \"apellido\": \"Chotty\",\n        \"edad\": 52,\n        \"dni\": 39132115,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Nguru\",\n        \"lu\": 57759,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Fredi\",\n        \"apellido\": \"Jovicevic\",\n        \"edad\": 48,\n        \"dni\": 45421127,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Fushë-Muhurr\",\n        \"lu\": 39711,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Faina\",\n        \"apellido\": \"Mewitt\",\n        \"edad\": 44,\n        \"dni\": 47936932,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Wodzisław Śląski\",\n        \"lu\": 15030,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Velma\",\n        \"apellido\": \"Bullus\",\n        \"edad\": 48,\n        \"dni\": 58310186,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Sacotes\",\n        \"lu\": 81551,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Mariya\",\n        \"apellido\": \"Caney\",\n        \"edad\": 52,\n        \"dni\": 58814096,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Kabul\",\n        \"lu\": 30314,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Yettie\",\n        \"apellido\": \"Rope\",\n        \"edad\": 41,\n        \"dni\": 59239392,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Zbraslavice\",\n        \"lu\": 73127,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Rorie\",\n        \"apellido\": \"Molder\",\n        \"edad\": 39,\n        \"dni\": 63974080,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Avaré\",\n        \"lu\": 79204,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Silvie\",\n        \"apellido\": \"de Clerk\",\n        \"edad\": 68,\n        \"dni\": 65674324,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Kudanding\",\n        \"lu\": 35979,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Isis\",\n        \"apellido\": \"Siveter\",\n        \"edad\": 50,\n        \"dni\": 67025488,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Kokkónion\",\n        \"lu\": 71987,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Willabella\",\n        \"apellido\": \"Sillett\",\n        \"edad\": 68,\n        \"dni\": 67116086,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Mafra\",\n        \"lu\": 45096,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Kiley\",\n        \"apellido\": \"Ulyatt\",\n        \"edad\": 44,\n        \"dni\": 67827466,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Mandala\",\n        \"lu\": 84033,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Mariejeanne\",\n        \"apellido\": \"Pozzo\",\n        \"edad\": 38,\n        \"dni\": 71854706,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Isak\",\n        \"lu\": 41387,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Maggee\",\n        \"apellido\": \"Symones\",\n        \"edad\": 53,\n        \"dni\": 72695248,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Dewetsdorp\",\n        \"lu\": 39797,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Fredia\",\n        \"apellido\": \"Burgum\",\n        \"edad\": 47,\n        \"dni\": 74843661,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Rym\",\n        \"lu\": 41109,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Elayne\",\n        \"apellido\": \"Cullity\",\n        \"edad\": 18,\n        \"dni\": 76495775,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Albarraque\",\n        \"lu\": 53245,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Reggie\",\n        \"apellido\": \"Kubczak\",\n        \"edad\": 45,\n        \"dni\": 76787321,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Hita\",\n        \"lu\": 45231,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Gustie\",\n        \"apellido\": \"Shenfish\",\n        \"edad\": 51,\n        \"dni\": 77560472,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Anulid\",\n        \"lu\": 37972,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Deidre\",\n        \"apellido\": \"Pumfrett\",\n        \"edad\": 39,\n        \"dni\": 77644062,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Destrnik\",\n        \"lu\": 51513,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Jana\",\n        \"apellido\": \"Giacopetti\",\n        \"edad\": 57,\n        \"dni\": 77945783,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Kwekwe\",\n        \"lu\": 80375,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Ronni\",\n        \"apellido\": \"Fesby\",\n        \"edad\": 36,\n        \"dni\": 79791921,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Jawatiwa\",\n        \"lu\": 10910,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Eimile\",\n        \"apellido\": \"Normavell\",\n        \"edad\": 27,\n        \"dni\": 84454135,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Lanas\",\n        \"lu\": 59247,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Merry\",\n        \"apellido\": \"Buglar\",\n        \"edad\": 56,\n        \"dni\": 84969599,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Guling\",\n        \"lu\": 51516,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Esther\",\n        \"apellido\": \"Wellen\",\n        \"edad\": 37,\n        \"dni\": 85171302,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Don Chedi\",\n        \"lu\": 51171,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Robenia\",\n        \"apellido\": \"Lowings\",\n        \"edad\": 39,\n        \"dni\": 85357204,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Tengah\",\n        \"lu\": 93560,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Stormy\",\n        \"apellido\": \"Audrey\",\n        \"edad\": 26,\n        \"dni\": 89370812,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"N\",\n        \"lu\": 93298,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Brenn\",\n        \"apellido\": \"Oakeby\",\n        \"edad\": 29,\n        \"dni\": 90033012,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Vide\",\n        \"lu\": 51301,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Kym\",\n        \"apellido\": \"Pointin\",\n        \"edad\": 60,\n        \"dni\": 91565586,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Ārifwāla\",\n        \"lu\": 64687,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Talia\",\n        \"apellido\": \"O'Sherin\",\n        \"edad\": 53,\n        \"dni\": 92997287,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Guisa\",\n        \"lu\": 10904,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Camel\",\n        \"apellido\": \"Lorkings\",\n        \"edad\": 23,\n        \"dni\": 98182070,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Petersfield\",\n        \"lu\": 24931,\n        \"inscripciones\": []\n    },\n    {\n        \"nombre\": \"Roxanna\",\n        \"apellido\": \"Hearfield\",\n        \"edad\": 50,\n        \"dni\": 98281338,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Chateaubelair\",\n        \"lu\": 46485,\n        \"inscripciones\": []\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "2f) Recuperar carreras ordenadas por cantidad de inscriptos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/carreras/ordenadas-inscriptos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carreras",
+						"ordenadas-inscriptos"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carreras/ordenadas-inscriptos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carreras",
+								"ordenadas-inscriptos"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 14 Oct 2024 02:35:19 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"cantInscriptos\": 18\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"cantInscriptos\": 12\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria de Sistemas\",\n        \"cantInscriptos\": 10\n    },\n    {\n        \"nombreCarrera\": \"Psicologia\",\n        \"cantInscriptos\": 10\n    },\n    {\n        \"nombreCarrera\": \"Medicina\",\n        \"cantInscriptos\": 9\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria Electronica\",\n        \"cantInscriptos\": 6\n    },\n    {\n        \"nombreCarrera\": \"Veterinaria\",\n        \"cantInscriptos\": 6\n    },\n    {\n        \"nombreCarrera\": \"Licenciatura en Fisica\",\n        \"cantInscriptos\": 6\n    },\n    {\n        \"nombreCarrera\": \"Arte\",\n        \"cantInscriptos\": 6\n    },\n    {\n        \"nombreCarrera\": \"Abogacia\",\n        \"cantInscriptos\": 5\n    },\n    {\n        \"nombreCarrera\": \"Profesorado Matematicas\",\n        \"cantInscriptos\": 5\n    },\n    {\n        \"nombreCarrera\": \"Periodismo\",\n        \"cantInscriptos\": 5\n    },\n    {\n        \"nombreCarrera\": \"Ciencias Economicas\",\n        \"cantInscriptos\": 5\n    },\n    {\n        \"nombreCarrera\": \"TUARI\",\n        \"cantInscriptos\": 3\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria Industrial\",\n        \"cantInscriptos\": 3\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/estudiantes/carrera/TUDAI/ciudad/Tandil",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estudiantes",
+						"carrera",
+						"TUDAI",
+						"ciudad",
+						"Tandil"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/estudiantes/carrera/TUDAI/ciudad/Tandil",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"estudiantes",
+								"carrera",
+								"TUDAI",
+								"ciudad",
+								"Tandil"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 14 Oct 2024 02:35:28 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"nombre\": \"Daniela\",\n        \"apellido\": \"Fernández\",\n        \"edad\": 28,\n        \"dni\": 12123123,\n        \"genero\": \"Female\",\n        \"ciudadResidencia\": \"Tandil\",\n        \"lu\": 11100,\n        \"inscripciones\": []\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "2h) Generar un reporte de las carreras",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/carreras/reporte",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carreras",
+						"reporte"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carreras/reporte",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carreras",
+								"reporte"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 14 Oct 2024 02:35:44 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"nombreCarrera\": \"Abogacia\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 19844\n    },\n    {\n        \"nombreCarrera\": \"Abogacia\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 24861\n    },\n    {\n        \"nombreCarrera\": \"Abogacia\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 41387\n    },\n    {\n        \"nombreCarrera\": \"Abogacia\",\n        \"anioInscripcion\": 2018,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 95419\n    },\n    {\n        \"nombreCarrera\": \"Abogacia\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 13413\n    },\n    {\n        \"nombreCarrera\": \"Arte\",\n        \"anioInscripcion\": 2015,\n        \"anioEgreso\": 2025,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 51516\n    },\n    {\n        \"nombreCarrera\": \"Arte\",\n        \"anioInscripcion\": 2016,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 90149\n    },\n    {\n        \"nombreCarrera\": \"Arte\",\n        \"anioInscripcion\": 2016,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 24931\n    },\n    {\n        \"nombreCarrera\": \"Arte\",\n        \"anioInscripcion\": 2023,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 39711\n    },\n    {\n        \"nombreCarrera\": \"Arte\",\n        \"anioInscripcion\": 2024,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 65850\n    },\n    {\n        \"nombreCarrera\": \"Arte\",\n        \"anioInscripcion\": 2024,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 15030\n    },\n    {\n        \"nombreCarrera\": \"Ciencias Economicas\",\n        \"anioInscripcion\": 2019,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 4,\n        \"luEstudiante\": 26013\n    },\n    {\n        \"nombreCarrera\": \"Ciencias Economicas\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 4,\n        \"luEstudiante\": 90149\n    },\n    {\n        \"nombreCarrera\": \"Ciencias Economicas\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 2025,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 4,\n        \"luEstudiante\": 15872\n    },\n    {\n        \"nombreCarrera\": \"Ciencias Economicas\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 4,\n        \"luEstudiante\": 56695\n    },\n    {\n        \"nombreCarrera\": \"Ciencias Economicas\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 4,\n        \"luEstudiante\": 25789\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"anioInscripcion\": 2014,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 10,\n        \"luEstudiante\": 79419\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"anioInscripcion\": 2015,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 10,\n        \"luEstudiante\": 35424\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"anioInscripcion\": 2016,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 10,\n        \"luEstudiante\": 10904\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 10,\n        \"luEstudiante\": 13007\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 10,\n        \"luEstudiante\": 59247\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"anioInscripcion\": 2018,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 10,\n        \"luEstudiante\": 44599\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"anioInscripcion\": 2019,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 10,\n        \"luEstudiante\": 95950\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 2025,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 10,\n        \"luEstudiante\": 57759\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 10,\n        \"luEstudiante\": 48092\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 10,\n        \"luEstudiante\": 34978\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 10,\n        \"luEstudiante\": 26799\n    },\n    {\n        \"nombreCarrera\": \"Educacion Fisica\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 2025,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 10,\n        \"luEstudiante\": 18876\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria de Sistemas\",\n        \"anioInscripcion\": 2016,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 89001\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria de Sistemas\",\n        \"anioInscripcion\": 2016,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 43523\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria de Sistemas\",\n        \"anioInscripcion\": 2018,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 79204\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria de Sistemas\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 61993\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria de Sistemas\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 59652\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria de Sistemas\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 62334\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria de Sistemas\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 250018\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria de Sistemas\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 98057\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria de Sistemas\",\n        \"anioInscripcion\": 2023,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 80375\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria de Sistemas\",\n        \"anioInscripcion\": 2024,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 78149\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria Electronica\",\n        \"anioInscripcion\": 2016,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 73127\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria Electronica\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 89001\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria Electronica\",\n        \"anioInscripcion\": 2019,\n        \"anioEgreso\": 2025,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 51244\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria Electronica\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 11667\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria Electronica\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 80681\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria Electronica\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 6,\n        \"luEstudiante\": 93560\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria Industrial\",\n        \"anioInscripcion\": 2013,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 2,\n        \"luEstudiante\": 84033\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria Industrial\",\n        \"anioInscripcion\": 2016,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 2,\n        \"luEstudiante\": 13413\n    },\n    {\n        \"nombreCarrera\": \"Ingenieria Industrial\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 2025,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 2,\n        \"luEstudiante\": 61607\n    },\n    {\n        \"nombreCarrera\": \"Licenciatura en Fisica\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 3,\n        \"cantidadEgresados\": 3,\n        \"luEstudiante\": 15030\n    },\n    {\n        \"nombreCarrera\": \"Licenciatura en Fisica\",\n        \"anioInscripcion\": 2018,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 3,\n        \"cantidadEgresados\": 3,\n        \"luEstudiante\": 65850\n    },\n    {\n        \"nombreCarrera\": \"Licenciatura en Fisica\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 3,\n        \"cantidadEgresados\": 3,\n        \"luEstudiante\": 89001\n    },\n    {\n        \"nombreCarrera\": \"Licenciatura en Fisica\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 3,\n        \"cantidadEgresados\": 3,\n        \"luEstudiante\": 56695\n    },\n    {\n        \"nombreCarrera\": \"Licenciatura en Fisica\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 3,\n        \"cantidadEgresados\": 3,\n        \"luEstudiante\": 58517\n    },\n    {\n        \"nombreCarrera\": \"Licenciatura en Fisica\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 3,\n        \"cantidadEgresados\": 3,\n        \"luEstudiante\": 90958\n    },\n    {\n        \"nombreCarrera\": \"Medicina\",\n        \"anioInscripcion\": 2015,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 15030\n    },\n    {\n        \"nombreCarrera\": \"Medicina\",\n        \"anioInscripcion\": 2016,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 81551\n    },\n    {\n        \"nombreCarrera\": \"Medicina\",\n        \"anioInscripcion\": 2018,\n        \"anioEgreso\": 2025,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 80067\n    },\n    {\n        \"nombreCarrera\": \"Medicina\",\n        \"anioInscripcion\": 2019,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 41387\n    },\n    {\n        \"nombreCarrera\": \"Medicina\",\n        \"anioInscripcion\": 2019,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 79150\n    },\n    {\n        \"nombreCarrera\": \"Medicina\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 75247\n    },\n    {\n        \"nombreCarrera\": \"Medicina\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 11667\n    },\n    {\n        \"nombreCarrera\": \"Medicina\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 82077\n    },\n    {\n        \"nombreCarrera\": \"Medicina\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 93298\n    },\n    {\n        \"nombreCarrera\": \"Periodismo\",\n        \"anioInscripcion\": 2015,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 89001\n    },\n    {\n        \"nombreCarrera\": \"Periodismo\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 15030\n    },\n    {\n        \"nombreCarrera\": \"Periodismo\",\n        \"anioInscripcion\": 2018,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 37972\n    },\n    {\n        \"nombreCarrera\": \"Periodismo\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 96779\n    },\n    {\n        \"nombreCarrera\": \"Periodismo\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 0,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 62334\n    },\n    {\n        \"nombreCarrera\": \"Profesorado Matematicas\",\n        \"anioInscripcion\": 2016,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 3,\n        \"luEstudiante\": 51171\n    },\n    {\n        \"nombreCarrera\": \"Profesorado Matematicas\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 2025,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 3,\n        \"luEstudiante\": 56614\n    },\n    {\n        \"nombreCarrera\": \"Profesorado Matematicas\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 3,\n        \"luEstudiante\": 45231\n    },\n    {\n        \"nombreCarrera\": \"Profesorado Matematicas\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 3,\n        \"luEstudiante\": 32410\n    },\n    {\n        \"nombreCarrera\": \"Profesorado Matematicas\",\n        \"anioInscripcion\": 2024,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 3,\n        \"luEstudiante\": 56614\n    },\n    {\n        \"nombreCarrera\": \"Psicologia\",\n        \"anioInscripcion\": 202,\n        \"anioEgreso\": 2025,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 22251\n    },\n    {\n        \"nombreCarrera\": \"Psicologia\",\n        \"anioInscripcion\": 2013,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 53245\n    },\n    {\n        \"nombreCarrera\": \"Psicologia\",\n        \"anioInscripcion\": 2016,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 66275\n    },\n    {\n        \"nombreCarrera\": \"Psicologia\",\n        \"anioInscripcion\": 2016,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 90059\n    },\n    {\n        \"nombreCarrera\": \"Psicologia\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 56614\n    },\n    {\n        \"nombreCarrera\": \"Psicologia\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 39797\n    },\n    {\n        \"nombreCarrera\": \"Psicologia\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 70437\n    },\n    {\n        \"nombreCarrera\": \"Psicologia\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 90574\n    },\n    {\n        \"nombreCarrera\": \"Psicologia\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 41109\n    },\n    {\n        \"nombreCarrera\": \"Psicologia\",\n        \"anioInscripcion\": 2025,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 9,\n        \"luEstudiante\": 36340\n    },\n    {\n        \"nombreCarrera\": \"TUARI\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 1,\n        \"luEstudiante\": 26799\n    },\n    {\n        \"nombreCarrera\": \"TUARI\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 1,\n        \"luEstudiante\": 90574\n    },\n    {\n        \"nombreCarrera\": \"TUARI\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 2,\n        \"cantidadEgresados\": 1,\n        \"luEstudiante\": 44599\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2014,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 50617\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2015,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 59652\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2015,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 51301\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 10705\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 2025,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 34169\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2019,\n        \"anioEgreso\": 2020,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 82077\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2019,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 250018\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2019,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 13007\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2019,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 250019\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2019,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 250021\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2019,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 79204\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2019,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 250020\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 43523\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2021,\n        \"anioEgreso\": 2024,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 30314\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 98057\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 2023,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 55783\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2024,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 11100\n    },\n    {\n        \"nombreCarrera\": \"TUDAI\",\n        \"anioInscripcion\": 2024,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 4,\n        \"cantidadEgresados\": 14,\n        \"luEstudiante\": 21429\n    },\n    {\n        \"nombreCarrera\": \"Veterinaria\",\n        \"anioInscripcion\": 2016,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 45096\n    },\n    {\n        \"nombreCarrera\": \"Veterinaria\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 0,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 56695\n    },\n    {\n        \"nombreCarrera\": \"Veterinaria\",\n        \"anioInscripcion\": 2017,\n        \"anioEgreso\": 2025,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 71987\n    },\n    {\n        \"nombreCarrera\": \"Veterinaria\",\n        \"anioInscripcion\": 2020,\n        \"anioEgreso\": 2022,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 96779\n    },\n    {\n        \"nombreCarrera\": \"Veterinaria\",\n        \"anioInscripcion\": 2022,\n        \"anioEgreso\": 2026,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 35056\n    },\n    {\n        \"nombreCarrera\": \"Veterinaria\",\n        \"anioInscripcion\": 2023,\n        \"anioEgreso\": 2025,\n        \"cantidadInscriptos\": 1,\n        \"cantidadEgresados\": 5,\n        \"luEstudiante\": 10910\n    }\n]"
+				}
+			]
+		}
+	]
+}
