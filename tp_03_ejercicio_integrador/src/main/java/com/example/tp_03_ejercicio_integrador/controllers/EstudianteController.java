@@ -53,6 +53,7 @@ public class EstudianteController {
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
+
     // 2e) Recuperar todos los estudiantes, en base a su género
     @GetMapping("/genero/{genero}")
     public ResponseEntity<?> obtenerPorGenero(@PathVariable String genero) {
