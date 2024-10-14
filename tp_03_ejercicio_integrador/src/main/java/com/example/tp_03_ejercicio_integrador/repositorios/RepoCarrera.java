@@ -37,5 +37,4 @@ public interface RepoCarrera extends JpaRepository<Carrera, Integer> {
             "JOIN ec.estudiante e " +
             "ORDER BY c.nombre ASC, ec.anioInscripcion ASC, ec.anioEgreso ASC")
     List<ReporteCarreraDTO> getReporteCarreras();
-
 }
