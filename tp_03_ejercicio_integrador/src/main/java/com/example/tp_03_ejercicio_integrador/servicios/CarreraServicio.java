@@ -7,8 +7,7 @@ import com.example.tp_03_ejercicio_integrador.modelos.Carrera;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoCarrera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class CarreraServicio {
     private RepoCarrera repoCarrera;
 
     // Obtener todas las carreras
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CarreraDTO> findAll() throws Exception {
         try {
             List<Carrera> carreras = repoCarrera.findAll();
@@ -36,7 +35,7 @@ public class CarreraServicio {
     }
 
     // Obtener una carrera por ID
-    @Transactional
+    @Transactional(readOnly = true)
     public CarreraDTO findById(int id) throws Exception {
         try {
             Optional<Carrera> carreraBuscada = repoCarrera.findById(id);
@@ -94,12 +93,12 @@ public class CarreraServicio {
         return new CarreraDTO(carrera.getNombre());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ReporteCarreraDTO> generarReporteCarreras(){
         return repoCarrera.getReporteCarreras();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CarreraConCantInscriptosDTO> getCarrerasOrdenadasPorInscriptos(){
         return repoCarrera.getCarrerasOrdenadasPorInscriptos();
     }

@@ -5,8 +5,7 @@ import com.example.tp_03_ejercicio_integrador.modelos.Estudiante;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudiante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ public class EstudianteServicio {
     private RepoEstudiante repoEstudiante;
 
     // Obtener todos los estudiantes
-    @Transactional
+    @Transactional(readOnly = true)
     public List<EstudianteDTO> findAll() throws Exception {
         try {
             List<Estudiante> estudiantes = repoEstudiante.findAll();
@@ -34,7 +33,7 @@ public class EstudianteServicio {
     }
 
     // Obtener un estudiante por ID
-    @Transactional
+    @Transactional(readOnly = true)
     public EstudianteDTO findById(int id) throws Exception {
         try {
             Optional<Estudiante> estudianteBuscado = repoEstudiante.findById(id);
@@ -103,6 +102,7 @@ public class EstudianteServicio {
         return estudianteDTO;
     }
 
+    @Transactional(readOnly = true)
     public List<EstudianteDTO> obtenerEstudiantesOrdenadosPorApellidoASC() throws Exception {
         try {
             List<Estudiante> estudiantes = repoEstudiante.obtenerEstudiantesOrdenadosPorApellidoASC();
@@ -116,6 +116,7 @@ public class EstudianteServicio {
         }
     }
 
+    @Transactional(readOnly = true)
     public EstudianteDTO obtenerPorLu(Long lu) throws Exception {
         try{
             Estudiante estudiante = repoEstudiante.getEstudianteByLu(lu);
@@ -126,6 +127,7 @@ public class EstudianteServicio {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<EstudianteDTO> obtenerPorGenero(String genero){
         try{
             List<Estudiante> estudiantes = repoEstudiante.obtenerPorGenero(genero);
@@ -139,6 +141,7 @@ public class EstudianteServicio {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<EstudianteDTO> getEstudiantesByCarreraAndCiudad(String carrera, String ciudad){
         try{
             List<Estudiante> estudiantes = repoEstudiante.getEstudiantesByCarreraAndCiudad(carrera, ciudad);

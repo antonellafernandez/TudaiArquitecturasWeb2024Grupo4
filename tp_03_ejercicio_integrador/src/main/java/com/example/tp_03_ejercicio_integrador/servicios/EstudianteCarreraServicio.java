@@ -9,8 +9,7 @@ import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudiante;
 import com.example.tp_03_ejercicio_integrador.repositorios.RepoEstudianteCarrera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class EstudianteCarreraServicio {
     private RepoEstudianteCarrera repoEstudianteCarrera;
 
     // Obtener todas las inscripciones
-    @Transactional
+    @Transactional(readOnly = true)
     public List<EstudianteCarreraDTO> findAll() throws Exception {
         try {
             List<EstudianteCarrera> inscripciones = repoEstudianteCarrera.findAll();
@@ -45,7 +44,7 @@ public class EstudianteCarreraServicio {
     }
 
     // Obtener una inscripción por ID
-    @Transactional
+    @Transactional(readOnly = true)
     public EstudianteCarreraDTO findById(int id) throws Exception {
         try {
             Optional<EstudianteCarrera> inscripcionBuscada = repoEstudianteCarrera.findById(id);
