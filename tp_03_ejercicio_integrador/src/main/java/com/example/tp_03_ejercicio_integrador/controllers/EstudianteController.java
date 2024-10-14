@@ -30,7 +30,7 @@ public class EstudianteController {
         }
     }
 
-    // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple. -> Por APELLIDO
+    // 2c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple -> Por APELLIDO
     @GetMapping("")
     public ResponseEntity<?> obtenerTodos() {
         try {
@@ -42,7 +42,7 @@ public class EstudianteController {
         }
     }
 
-    // 2d) Eecuperar un estudiante, en base a su número de libreta universitaria.
+    // 2d) Eecuperar un estudiante, en base a su número de libreta universitaria
     @GetMapping("/lu/{lu}")
     public ResponseEntity<?> obtenerPorLu(@PathVariable Long lu) {
         try {
@@ -53,7 +53,7 @@ public class EstudianteController {
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
-    // 2e) Recuperar todos los estudiantes, en base a su género.
+    // 2e) Recuperar todos los estudiantes, en base a su género
     @GetMapping("/genero/{genero}")
     public ResponseEntity<?> obtenerPorGenero(@PathVariable String genero) {
         try {
@@ -65,7 +65,7 @@ public class EstudianteController {
         }
     }
 
-    // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
+    // 2g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
     @GetMapping("/carrera/{nombreCarrera}/ciudad/{ciudadResidencia}")
     public ResponseEntity<?> obtenerPorCarreraYCiudad(@PathVariable String nombreCarrera,
                                                       @PathVariable String ciudadResidencia) {

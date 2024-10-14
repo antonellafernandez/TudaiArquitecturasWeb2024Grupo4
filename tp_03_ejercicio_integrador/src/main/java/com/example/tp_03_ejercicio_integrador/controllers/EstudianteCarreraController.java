@@ -22,7 +22,7 @@ public class EstudianteCarreraController {
     @Autowired
     private EstudianteCarreraServicio matriculacionServicio;
 
-    // 2b) Matricular un estudiante en una carrera.
+    // 2b) Matricular un estudiante en una carrera
     @PostMapping("/matricular")
     public ResponseEntity<?> matricularEstudiante(@RequestBody Estudiante estudiante, Carrera carrera) {
         try {
