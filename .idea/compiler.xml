@@ -8,12 +8,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="tp_03_ejercicio_integrador" />
+        <module name="microservicio_administrador" />
         <module name="tp_02_ejercicio_integrador" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="TPE" options="" />
+      <module name="microservicio_administrador" options="-parameters" />
       <module name="tp_03_ejercicio_integrador" options="-parameters" />
     </option>
   </component>
