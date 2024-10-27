@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Integradores arqui web.iml" filepath="$PROJECT_DIR$/.idea/Integradores arqui web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TPE/TPE.iml" filepath="$PROJECT_DIR$/TPE/TPE.iml" />
       <module fileurl="file://$PROJECT_DIR$/TPE/microservicio_administrador/microservicio_administrador.iml" filepath="$PROJECT_DIR$/TPE/microservicio_administrador/microservicio_administrador.iml" />
       <module fileurl="file://$PROJECT_DIR$/tp_02_ejercicio_integrador/tp_02_ejercicio_integrador.iml" filepath="$PROJECT_DIR$/tp_02_ejercicio_integrador/tp_02_ejercicio_integrador.iml" />
       <module fileurl="file://$PROJECT_DIR$/tp_03_ejercicio_integrador/tp_03_ejercicio_integrador.iml" filepath="$PROJECT_DIR$/tp_03_ejercicio_integrador/tp_03_ejercicio_integrador.iml" />
