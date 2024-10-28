@@ -19,16 +19,18 @@ public class Monopatin {
     private Long kmRecorridosTotales;
     private Boolean disponible;
 
-
     @OneToOne(mappedBy = "monopatin")
     private Viaje viajeActivo;
-/*
-    @OneToOne(mappedBy = "monopatinActual")
-    private Usuario usuario;
+    /*
+        @OneToOne(mappedBy = "monopatinActual")
+        private Usuario usuario;
 
-  */
-
+      */
     @OneToOne
     @JoinColumn(name = "gps_id")
     private Gps gps;
+
+    public void pausarMonopatin() {
+        this.disponible = false;  // Cambia el estado a no disponible
+    }
 }
