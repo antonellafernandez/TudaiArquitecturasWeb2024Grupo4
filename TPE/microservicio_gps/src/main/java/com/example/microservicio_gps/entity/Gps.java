@@ -17,6 +17,27 @@ public class Gps {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String ubicacionActual;
+    private double latitud;
+    private double longitud;
     private Boolean activo;
+/*
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Parada> paradasValidas = new ArrayList<>();
+
+    // Método para validar si una parada es permitida
+    public boolean validarParadaPermitida(Parada parada) {
+        return paradasValidas.contains(parada);
+    }
+
+    // Método para registrar una nueva parada permitida
+    public void registrarParada(Parada parada) {
+        if (!paradasValidas.contains(parada)) {
+            paradasValidas.add(parada);
+        }
+    }
+
+    // Método para quitar una parada permitida
+    public void quitarParada(Parada parada) {
+        paradasValidas.remove(parada);
+    }*/
 }
