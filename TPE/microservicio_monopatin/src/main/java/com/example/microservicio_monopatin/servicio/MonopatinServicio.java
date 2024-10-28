@@ -33,26 +33,35 @@ public class MonopatinService {
         return monopatinRepository.save(monopatin);
     }
 
-    public void pausarMonopatin(Long id) {
-        Monopatin monopatin = findById(id);
-        if (monopatin != null) {
+
+public boolean pausarMonopatin(Long id, Long paradaId) {
+    Monopatin monopatin = monopatinRepository.findById(id).orElse(null);
+    if (monopatin != null && paradaId != null && monopatin.isDisponible()) {
+        Parada parada = paradaRepository.findById(paradaId).orElse(null);
+        if (parada != null && esParadaPermitida(monopatin, parada)) {
             monopatin.setDisponible(false);
-            save(monopatin);
+            monopatin.setParada(parada);
+            monopatinRepository.save(monopatin);
+            return true;
         }
     }
+    return false;
+}
 
-    public void reanudarMonopatin(Long id) {
-        Monopatin monopatin = findById(id);
-        if (monopatin != null) {
+public boolean reanudarMonopatin(Long id) {
+    Monopatin monopatin = monopatinRepository.findById(id).orElse(null);
+    if (monopatin != null && !monopatin.isDisponible() && monopatin.getParada() != null) {
+        if (esParadaPermitida(monopatin, monopatin.getParada())) {
             monopatin.setDisponible(true);
-            save(monopatin);
+            monopatin.setParada(null); // Limpia la parada indicando que está en movimiento
+            monopatinRepository.save(monopatin);
+            return true;
         }
+    }
+    return false;
+}
 
-        public boolean esParadaPermitida(Long idMonopatin, Parada parada) {
-            Monopatin monopatin = findById(idMonopatin);
-            if (monopatin != null && monopatin.getGps() != null) {
-                return monopatin.getGps().validarParadaPermitida(parada);
-            }
-            return false;
-        }
+private boolean esParadaPermitida(Monopatin monopatin, Parada parada) {
+    return monopatin.getGps() != null && monopatin.getGps().validarParadaPermitida(parada);
+}
 }

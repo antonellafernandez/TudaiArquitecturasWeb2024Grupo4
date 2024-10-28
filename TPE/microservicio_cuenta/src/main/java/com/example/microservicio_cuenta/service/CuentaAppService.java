@@ -30,16 +30,20 @@ public class CuentaAppService {
         cuentaAppRepository.deleteById(id);
     }
 
+    @Transactional
     public void pausarMonopatinPorCuenta(Long cuentaId) {
-        CuentaApp cuentaApp = cuentaAppRepository.findById(cuentaId).orElse(null);
-        if (cuentaApp != null) {
-            cuentaApp.getUsuarios().forEach(usuario -> {
-                if (usuario.getMonopatin() != null) {
-                    usuario.getMonopatin().setDisponible(false);
-                }
-            });
-            cuentaAppRepository.save(cuentaApp);
-        }
+        CuentaApp cuentaApp = cuentaAppRepository.findById(cuentaId)
+                .orElseThrow(() -> new EntityNotFoundException("CuentaApp no encontrada con ID: " + cuentaId));
+
+        cuentaApp.getUsuarios().forEach(usuario -> {
+            Monopatin monopatin = usuario.getMonopatin();
+            if (monopatin != null && monopatin.isDisponible()) {
+                monopatin.setDisponible(false);
+            }
+        });
+        cuentaAppRepository.save(cuentaApp); // Se asegura de que el cambio sea persistente
+    }
+
 
 
 }

@@ -31,4 +31,8 @@ public class Monopatin {
     public void pausarMonopatin() {
         this.disponible = false;  // Cambia el estado a no disponible
     }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
 }

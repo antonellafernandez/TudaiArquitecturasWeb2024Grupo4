@@ -55,13 +55,21 @@ public class MonopatinController {
 
     @PutMapping("/{id}/pausar")
     public ResponseEntity<Void> pausarMonopatin(@PathVariable Long id) {
-        monopatinService.pausarMonopatin(id);
-        return ResponseEntity.noContent().build();
+        boolean resultado = monopatinService.pausarMonopatin(id);
+        if (resultado) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build(); // Ya está pausado
+        }
     }
 
     @PutMapping("/{id}/reanudar")
     public ResponseEntity<Void> reanudarMonopatin(@PathVariable Long id) {
-        monopatinService.reanudarMonopatin(id);
-        return ResponseEntity.noContent().build();
+        boolean resultado = monopatinService.reanudarMonopatin(id);
+        if (resultado) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build(); // Ya está disponible
+        }
     }
 }
