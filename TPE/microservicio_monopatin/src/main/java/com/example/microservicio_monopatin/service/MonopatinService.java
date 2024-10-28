@@ -1,11 +1,10 @@
 package com.example.microservicio_monopatin.service;
 
 import com.example.microservicio_monopatin.entity.Monopatin;
-import com.example.microservicio_monopatin.repository.MonopatinRepository;
+import com.example.microservicio_monopatin.repository.MonopatinRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class MonopatinService {

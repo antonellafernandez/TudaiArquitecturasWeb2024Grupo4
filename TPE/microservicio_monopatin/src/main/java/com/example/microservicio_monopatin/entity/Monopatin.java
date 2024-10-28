@@ -1,9 +1,7 @@
 package com.example.microservicio_monopatin.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
@@ -18,6 +16,9 @@ public class Monopatin {
     private Gps gps;
 
     private long kmRecorridosTotales;
+    
+    @Setter
+    @Getter
     private boolean disponible;  // Para saber si está disponible para su uso
 
     @ManyToOne
@@ -32,7 +33,4 @@ public class Monopatin {
         this.disponible = false;  // Cambia el estado a no disponible
     }
 
-    public boolean isDisponible() {
-        return disponible;
-    }
 }

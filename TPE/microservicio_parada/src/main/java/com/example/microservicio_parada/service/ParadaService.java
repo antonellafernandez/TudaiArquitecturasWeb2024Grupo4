@@ -1,3 +1,10 @@
+package com.example.microservicio_parada.service;
+
+import com.example.microservicio_parada.entity.Monopatin;
+import com.example.microservicio_parada.repository.MonopatinRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class ParadaService {
 

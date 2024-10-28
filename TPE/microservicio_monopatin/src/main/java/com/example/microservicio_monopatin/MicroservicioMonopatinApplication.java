@@ -9,5 +9,5 @@ public class MicroservicioMonopatinApplication {
     public static void main(String[] args) {
         SpringApplication.run(MicroservicioMonopatinApplication.class, args);
     }
-SpringApplication.run(MicroservicioMonopatinApplication.class, args);
+//SpringApplication.run(MicroservicioMonopatinApplication.class, args);
 }
