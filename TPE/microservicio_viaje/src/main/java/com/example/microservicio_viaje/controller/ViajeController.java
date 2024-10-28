@@ -7,41 +7,45 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/viajes")
 public class ViajeController {
 
     @Autowired
-    private ViajeService viajeService;
+    ViajeService viajeService;
 
     @GetMapping("/")
     public ResponseEntity<List<Viaje>> getAllViajes() {
         List<Viaje> viajes = viajeService.getAll();
-        return viajes.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(viajes);
+        if (viajes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(viajes);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Viaje> getViajeById(@PathVariable Long id) {
+    public ResponseEntity<Viaje> getViajeById(@PathVariable("id") Long id) {
         Viaje viaje = viajeService.findById(id);
-        return viaje != null ? ResponseEntity.ok(viaje) : ResponseEntity.notFound().build();
+        if (viaje == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(viaje);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Viaje> saveViaje(@RequestBody Viaje viaje) {
-        Viaje newViaje = viajeService.save(viaje);
-        return ResponseEntity.ok(newViaje);
-    }
-
-    @PutMapping("/{id}/pausar")
-    public ResponseEntity<Void> pausarViaje(@PathVariable Long id, @RequestParam("pausa") LocalDateTime pausa) {
-        viajeService.pausarViaje(id, pausa);
-        return ResponseEntity.noContent().build();
+    @PostMapping("")
+    public ResponseEntity<Viaje> save(@RequestBody Viaje viaje) {
+        Viaje viajeNew = viajeService.save(viaje);
+        return ResponseEntity.ok(viajeNew);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteViaje(@PathVariable Long id) {
-        viajeService.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        Viaje viaje = viajeService.findById(id);
+        if (viaje == null) {
+            return ResponseEntity.notFound().build();
+        }
+        viajeService.delete(viaje);
         return ResponseEntity.noContent().build();
     }
 }
-

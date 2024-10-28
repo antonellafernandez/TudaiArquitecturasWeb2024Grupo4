@@ -1,5 +1,6 @@
 package com.example.microservicio_cuenta.entity;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,16 +16,11 @@ import java.util.List;
 public class CuentaApp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCuenta;
-
+    private Long id;
     private LocalDate fechaAlta;
     private Long montoCreditos;
-    private int idCuentaMP;
+    private Long idCuentaMp;
 
     @ManyToMany(mappedBy = "cuentas")
     private List<Usuario> usuarios;
-
-    @ManyToOne
-    @JoinColumn(name = "id_cuenta_mp", insertable = false, updatable = false)
-    private CuentaMercadoPago cuentaMercadoPago;
 }

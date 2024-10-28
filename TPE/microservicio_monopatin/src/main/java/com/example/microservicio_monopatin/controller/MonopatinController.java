@@ -1,7 +1,7 @@
 package com.example.microservicio_monopatin.controller;
 
 import com.example.microservicio_monopatin.entity.Monopatin;
-import com.example.microservicio_monopatin.repository.MonopatinRepository;
+import com.example.microservicio_monopatin.service.MonopatinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,63 +13,39 @@ import java.util.List;
 public class MonopatinController {
 
     @Autowired
-    private MonopatinRepository monopatinRepository;
+    MonopatinService monopatinService;
 
     @GetMapping("/")
-    public List<Monopatin> getAllMonopatines() {
-        return monopatinRepository.findAll();
+    public ResponseEntity<List<Monopatin>> getAllMonopatines() {
+        List<Monopatin> monopatines = monopatinService.getAll();
+        if (monopatines.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(monopatines);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Monopatin> getMonopatinById(@PathVariable Long id) {
-        return monopatinRepository.findById(id)
-                .map(monopatin -> ResponseEntity.ok(monopatin))
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Monopatin> getMonopatinById(@PathVariable("id") Long id) {
+        Monopatin monopatin = monopatinService.findById(id);
+        if (monopatin == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(monopatin);
     }
 
-    @PostMapping("/")
-    public Monopatin createMonopatin(@RequestBody Monopatin monopatin) {
-        return monopatinRepository.save(monopatin);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Monopatin> updateMonopatin(@PathVariable Long id, @RequestBody Monopatin monopatin) {
-        return monopatinRepository.findById(id)
-                .map(existingMonopatin -> {
-                    monopatin.setIdMonopatin(existingMonopatin.getIdMonopatin());
-                    return ResponseEntity.ok(monopatinRepository.save(monopatin));
-                })
-                .orElse(ResponseEntity.notFound().build());
+    @PostMapping("")
+    public ResponseEntity<Monopatin> save(@RequestBody Monopatin monopatin) {
+        Monopatin monopatinNew = monopatinService.save(monopatin);
+        return ResponseEntity.ok(monopatinNew);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMonopatin(@PathVariable Long id) {
-        return monopatinRepository.findById(id)
-                .map(monopatin -> {
-                    monopatinRepository.delete(monopatin);
-                    return ResponseEntity.ok().build();
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-
-    @PutMapping("/{id}/pausar")
-    public ResponseEntity<Void> pausarMonopatin(@PathVariable Long id) {
-        boolean resultado = monopatinService.pausarMonopatin(id);
-        if (resultado) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build(); // Ya está pausado
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        Monopatin monopatin = monopatinService.findById(id);
+        if (monopatin == null) {
+            return ResponseEntity.notFound().build();
         }
-    }
-
-    @PutMapping("/{id}/reanudar")
-    public ResponseEntity<Void> reanudarMonopatin(@PathVariable Long id) {
-        boolean resultado = monopatinService.reanudarMonopatin(id);
-        if (resultado) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build(); // Ya está disponible
-        }
+        monopatinService.delete(monopatin);
+        return ResponseEntity.noContent().build();
     }
 }

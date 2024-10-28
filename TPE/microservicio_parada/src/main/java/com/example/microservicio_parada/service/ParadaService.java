@@ -1,38 +1,35 @@
 package com.example.microservicio_parada.service;
 
-import com.example.microservicio_parada.entity.Monopatin;
-import com.example.microservicio_parada.repository.MonopatinRepository;
+import com.example.microservicio_parada.entity.Parada;
+import com.example.microservicio_parada.repository.ParadaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ParadaService {
 
     @Autowired
-    private ParadaRepository paradaRepository;
+    ParadaRepository paradaRepository;
 
-    public List<Parada> getAllParadas() {
+    public List<Parada> getAll() {
         return paradaRepository.findAll();
     }
 
-    public Optional<Parada> getParadaById(Long id) {
-        return paradaRepository.findById(id);
-    }
-
-    public Parada createParada(Parada parada) {
+    public Parada save(Parada parada) {
         return paradaRepository.save(parada);
     }
 
-    public Parada updateParada(Long id, Parada parada) {
-        return paradaRepository.findById(id)
-                .map(existingParada -> {
-                    parada.setIdParada(existingParada.getIdParada());
-                    return paradaRepository.save(parada);
-                })
-                .orElseThrow(() -> new EntityNotFoundException("Parada no encontrada"));
+    public void delete(Parada parada) {
+        paradaRepository.delete(parada);
     }
 
-    public void deleteParada(Long id) {
-        paradaRepository.deleteById(id);
+    public Parada findById(Long id) {
+        return paradaRepository.findById(id).orElse(null);
+    }
+
+    public Parada update(Parada parada) {
+        return paradaRepository.save(parada);
     }
 }

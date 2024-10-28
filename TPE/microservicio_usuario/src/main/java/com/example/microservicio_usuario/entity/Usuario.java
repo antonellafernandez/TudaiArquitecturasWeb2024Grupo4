@@ -17,15 +17,9 @@ public class Usuario {
     private Long id;
     private String nombre;
     private String apellido;
-    private String nro_celular;
+    private String nroCelular;
     private String email;
 
-    // Relación Uno a Uno con Monopatin
-    @OneToOne
-    @JoinColumn(name = "monopatin_id")
-    private Monopatin monopatin;
-
-    // Relación Muchos a Muchos con CuentaApp
     @ManyToMany
     @JoinTable(
             name = "usuario_cuenta",

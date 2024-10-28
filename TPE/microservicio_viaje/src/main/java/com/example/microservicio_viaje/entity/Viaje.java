@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,15 +15,15 @@ import java.util.List;
 public class Viaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idViaje;
+    private Long id;
+    private LocalDateTime fechaHoraInicio;
+    private LocalDateTime fechaHoraFin;
+    private Long kmRecorridos;
 
-    // Lista para almacenar el inicio, pausas y final del viaje
     @ElementCollection
-    private List<LocalDateTime> inicioPausasFinal = new ArrayList<>();
-
-    private long kmRecorridos; // Kilómetros recorridos en este viaje
+    private List<LocalDateTime> inicioPausasFinal;
 
     @ManyToOne
-    @JoinColumn(name = "id_monopatin")
+    @JoinColumn(name = "monopatin_id")
     private Monopatin monopatin;
 }

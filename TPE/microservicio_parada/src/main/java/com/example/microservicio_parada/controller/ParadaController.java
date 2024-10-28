@@ -1,48 +1,51 @@
 package com.example.microservicio_parada.controller;
 
+import com.example.microservicio_parada.entity.Parada;
+import com.example.microservicio_parada.service.ParadaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/paradas")
 public class ParadaController {
 
     @Autowired
-    private ParadaService paradaService;
+    ParadaService paradaService;
 
     @GetMapping("/")
-    public List<Parada> getAllParadas() {
-        return paradaService.getAllParadas();
+    public ResponseEntity<List<Parada>> getAllParadas() {
+        List<Parada> paradas = paradaService.getAll();
+        if (paradas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(paradas);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Parada> getParadaById(@PathVariable Long id) {
-        return paradaService.getParadaById(id)
-                .map(parada -> ResponseEntity.ok(parada))
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PostMapping("/")
-    public Parada createParada(@RequestBody Parada parada) {
-        return paradaService.createParada(parada);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Parada> updateParada(@PathVariable Long id, @RequestBody Parada parada) {
-        try {
-            return ResponseEntity.ok(paradaService.updateParada(id, parada));
-        } catch (EntityNotFoundException e) {
+    public ResponseEntity<Parada> getParadaById(@PathVariable("id") Long id) {
+        Parada parada = paradaService.findById(id);
+        if (parada == null) {
             return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(parada);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Parada> save(@RequestBody Parada parada) {
+        Parada paradaNew = paradaService.save(parada);
+        return ResponseEntity.ok(paradaNew);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteParada(@PathVariable Long id) {
-        paradaService.deleteParada(id);
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        Parada parada = paradaService.findById(id);
+        if (parada == null) {
+            return ResponseEntity.notFound().build();
+        }
+        paradaService.delete(parada);
         return ResponseEntity.noContent().build();
     }
 }

@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class ViajeService {
 
     @Autowired
-    private ViajeRepository viajeRepository;
+    ViajeRepository viajeRepository;
 
     public List<Viaje> getAll() {
         return viajeRepository.findAll();
@@ -21,23 +22,15 @@ public class ViajeService {
         return viajeRepository.save(viaje);
     }
 
-    public Viaje findById(Long id) {
-        return viajeRepository.findById(id).orElse(null);
+    public void delete(Viaje viaje) {
+        viajeRepository.delete(viaje);
     }
 
-    public void delete(Long id) {
-        viajeRepository.deleteById(id);
+    public Viaje findById(Long id) {
+        return viajeRepository.findById(id).orElse(null);
     }
 
     public Viaje update(Viaje viaje) {
         return viajeRepository.save(viaje);
     }
-    public void pausarViaje(Long id, LocalDateTime pausa) {
-        Viaje viaje = findById(id);
-        if (viaje != null) {
-            viaje.getInicioPausasFinal().add(pausa);
-            save(viaje);
-        }
-    }
-
 }

@@ -1,31 +1,36 @@
-package com.example.microserviciousuario.service;
+package com.example.microservicio_usuario.service;
 
-import com.example.microserviciousuario.entity.Usuario;
-import com.example.microserviciousuario.repository.UsuarioRepository;
+import com.example.microservicio_usuario.entity.Usuario;
+import com.example.microservicio_usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class UsuarioService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    UsuarioRepository usuarioRepository;
 
-    public List<Usuario> getAllUsuarios() {
+    public List<Usuario> getAll() {
         return usuarioRepository.findAll();
     }
 
-    public Usuario saveUsuario(Usuario usuario) {
+    public Usuario save(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario getUsuarioById(Long id) {
+    public void delete(Usuario usuario) {
+        usuarioRepository.delete(usuario);
+    }
+
+    public Usuario findById(Long id) {
         return usuarioRepository.findById(id).orElse(null);
     }
 
-    public void deleteUsuario(Long id) {
-        usuarioRepository.deleteById(id);
+    public Usuario update(Usuario usuario) {
+        return usuarioRepository.save(usuario);
     }
 }
