@@ -1,7 +1,7 @@
-package com.example.microserviciousuario.controller;
+package com.example.microservicio_usuario.controller;
 
-import com.example.microserviciousuario.entity.Usuario;
-import com.example.microserviciousuario.service.UsuarioService;
+import com.example.microservicio_usuario.entity.Usuario;
+import com.example.microservicio_usuario.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

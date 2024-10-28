@@ -1,6 +1,6 @@
-package com.example.microservicioviaje.repository;
+package com.example.microservicio_viaje.repository;
 
-import com.example.microservicioviaje.entity.Viaje;
+import com.example.microservicio_viaje.entity.Viaje;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

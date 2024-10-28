@@ -1,7 +1,7 @@
-package com.example.microserviciocuentaapp.service;
+package com.example.microservicio_cuenta.service;
 
-import com.example.microserviciocuentaapp.entity.CuentaApp;
-import com.example.microserviciocuentaapp.repository.CuentaAppRepository;
+import com.example.microservicio_cuenta.entity.CuentaApp;
+import com.example.microservicio_cuenta.repository.CuentaAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

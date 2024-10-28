@@ -1,4 +1,4 @@
-package com.example.microserviciousuario.entity;
+package com.example.microservicio_usuario.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

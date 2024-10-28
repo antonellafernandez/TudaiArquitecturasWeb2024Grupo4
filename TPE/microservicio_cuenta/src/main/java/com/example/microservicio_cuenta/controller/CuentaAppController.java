@@ -1,7 +1,7 @@
-package com.example.microserviciocuentaapp.controller;
+package com.example.microservicio_cuenta.controller;
 
-import com.example.microserviciocuentaapp.entity.CuentaApp;
-import com.example.microserviciocuentaapp.service.CuentaAppService;
+import com.example.microservicio_cuenta.entity.CuentaApp;
+import com.example.microservicio_cuenta.service.CuentaAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

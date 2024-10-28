@@ -1,7 +1,7 @@
-package com.example.microservicioviaje.service;
+package com.example.microservicio_viaje.service;
 
-import com.example.microservicioviaje.entity.Viaje;
-import com.example.microservicioviaje.repository.ViajeRepository;
+import com.example.microservicio_viaje.entity.Viaje;
+import com.example.microservicio_viaje.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package com.example.microserviciomonopatin.repository;
+package com.example.microservicio_monopatin.repository;
 
-import com.example.microserviciomonopatin.entity.Monopatin;
+import com.example.microservicio_monopatin.entity.Monopatin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

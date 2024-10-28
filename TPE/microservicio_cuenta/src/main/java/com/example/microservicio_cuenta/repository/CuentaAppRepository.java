@@ -1,6 +1,6 @@
-package com.example.microserviciocuentaapp.repository;
+package com.example.microservicio_cuenta.repository;
 
-import com.example.microserviciocuentaapp.entity.CuentaApp;
+import com.example.microservicio_cuenta.entity.CuentaApp;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

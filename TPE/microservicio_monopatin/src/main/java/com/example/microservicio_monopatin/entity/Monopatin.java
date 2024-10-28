@@ -1,4 +1,4 @@
-package com.example.microserviciomonopatin.entity;
+package com.example.microservicio_monopatin.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

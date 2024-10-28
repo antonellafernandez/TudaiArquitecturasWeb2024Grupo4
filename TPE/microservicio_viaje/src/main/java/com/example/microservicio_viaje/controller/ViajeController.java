@@ -1,7 +1,7 @@
-package com.example.microservicioviaje.controller;
+package com.example.microservicio_viaje.controller;
 
-import com.example.microservicioviaje.entity.Viaje;
-import com.example.microservicioviaje.service.ViajeService;
+import com.example.microservicio_viaje.entity.Viaje;
+import com.example.microservicio_viaje.service.ViajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

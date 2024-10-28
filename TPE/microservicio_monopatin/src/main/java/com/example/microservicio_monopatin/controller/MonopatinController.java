@@ -1,7 +1,7 @@
-package com.example.microserviciomonopatines.controller;
+package com.example.microservicio_monopatin.controller;
 
-import com.example.microserviciomonopatines.entity.Monopatin;
-import com.example.microserviciomonopatines.repository.MonopatinRepository;
+import com.example.microservicio_monopatin.entity.Monopatin;
+import com.example.microservicio_monopatin.repository.MonopatinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
