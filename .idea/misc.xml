@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/TPE/pom.xml" />
         <option value="$PROJECT_DIR$/TPE/microservicio_administrador/pom.xml" />
         <option value="$PROJECT_DIR$/TPE/microservicio_mantenimiento/pom.xml" />
+        <option value="$PROJECT_DIR$/TPE/microservicio_usuario/pom.xml" />
       </list>
     </option>
   </component>
