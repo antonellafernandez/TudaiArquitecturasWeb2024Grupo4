@@ -1,11 +1,12 @@
 package com.example.microservicio_usuario.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Data
@@ -19,7 +20,7 @@ public class Usuario {
     private String apellido;
     private String nroCelular;
     private String email;
-
+/*
     @ManyToMany
     @JoinTable(
             name = "usuario_cuenta",
@@ -27,4 +28,11 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "cuenta_id")
     )
     private List<CuentaApp> cuentas;
+
+
+    @OneToOne
+    @JoinColumn(name = "monopatin_id")
+    private Monopatin monopatinActual;
+
+ */
 }

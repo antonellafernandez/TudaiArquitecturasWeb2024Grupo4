@@ -17,8 +17,6 @@ public class Gps {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double latitud;
-    private double longitud;
     private Boolean activo;
 /*
     @OneToMany(cascade = CascadeType.ALL)

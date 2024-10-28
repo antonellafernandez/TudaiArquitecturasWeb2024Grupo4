@@ -22,7 +22,11 @@ public class Monopatin {
 
     @OneToOne(mappedBy = "monopatin")
     private Viaje viajeActivo;
+/*
+    @OneToOne(mappedBy = "monopatinActual")
+    private Usuario usuario;
 
+  */
 
     @OneToOne
     @JoinColumn(name = "gps_id")

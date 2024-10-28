@@ -23,4 +23,5 @@ public class CuentaApp {
 
     @ManyToMany(mappedBy = "cuentas")
     private List<Usuario> usuarios;
+    
 }
