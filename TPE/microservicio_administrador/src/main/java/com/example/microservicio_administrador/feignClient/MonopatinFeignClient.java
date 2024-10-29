@@ -1,6 +1,6 @@
 package com.example.microservicio_administrador.feignClient;
 
-import com.example.microservicio_monopatin.entity.Monopatin;
+import com.example.microservicio_administrador.model.Monopatin;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

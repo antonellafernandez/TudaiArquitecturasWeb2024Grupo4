@@ -1,6 +1,6 @@
 package com.example.microservicio_administrador.feignClient;
 
-import com.example.microservicio_monopatin.entity.Monopatin;
+import com.example.microservicio_administrador.model.Cuenta;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,11 +10,14 @@ import java.util.List;
 public interface CuentaFeignClient {
 
     @GetMapping("api/cuentas/")
-    List<Monopatin> getAll();
+    List<Cuenta> getAll();
 
     @PostMapping("api/cuentas")
-    Monopatin save(@RequestBody Monopatin monopatin);
+    Cuenta save(@RequestBody Cuenta cuenta);
 
     @DeleteMapping("api/cuentas/{id}")
-    void delete(@PathVariable("id") Long id);
+    void anularCuenta(@PathVariable("id") Long id);
+
+    @PutMapping("api/cuentas/{id}")
+    void restablecerCuenta(@PathVariable("id") Long id);
 }
