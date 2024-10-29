@@ -1,6 +1,5 @@
 package com.example.microservicio_monopatin.entity;
 
-import com.example.microservicio_gps.entity.Gps;
 import com.example.microservicio_viaje.entity.Viaje;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,19 +17,10 @@ public class Monopatin {
     private Long gpsId;
     private Long kmRecorridosTotales;
     private Boolean disponible;
+    private Boolean longitud;
+    private Boolean latitud;
 
     @OneToOne(mappedBy = "monopatin")
     private Viaje viajeActivo;
-    /*
-        @OneToOne(mappedBy = "monopatinActual")
-        private Usuario usuario;
 
-      */
-    @OneToOne
-    @JoinColumn(name = "gps_id")
-    private Gps gps;
-
-    public void pausarMonopatin() {
-        this.disponible = false;  // Cambia el estado a no disponible
-    }
 }

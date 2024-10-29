@@ -22,7 +22,6 @@
         <module>microservicio_monopatin</module>
         <module>microservicio_viaje</module>
         <module>microservicio_parada</module>
-        <module>microservicio_gps</module>
     </modules>
     <url/>
     <licenses>

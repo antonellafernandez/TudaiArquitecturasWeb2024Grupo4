@@ -23,7 +23,5 @@ public class Viaje {
     @ElementCollection
     private List<LocalDateTime> inicioPausasFinal;
 
-    @ManyToOne
-    @JoinColumn(name = "monopatin_id")
-    private Monopatin monopatin;
+
 }
