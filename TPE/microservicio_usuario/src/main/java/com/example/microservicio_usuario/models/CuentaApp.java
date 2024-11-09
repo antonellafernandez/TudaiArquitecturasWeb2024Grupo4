@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -13,5 +14,6 @@ public class CuentaApp {
     private LocalDate fechaAlta;
     private Long montoCreditos;
     private Long idCuentaMp;
+    private List<Long> idUsuarios;
     private Boolean habilitado;
 }

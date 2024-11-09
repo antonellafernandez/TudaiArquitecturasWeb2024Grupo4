@@ -13,4 +13,5 @@ public class Monopatin {
     private Boolean disponible;
     private Long longitud;
     private Long latitud;
+    private Long idViajeActivo;
 }
