@@ -17,25 +17,20 @@ public class Parada {
     private Long id;
     private String ubicacion;
 
-    @OneToMany(mappedBy = "parada")
-    private List<Monopatin> monopatines;
+    @ElementCollection
+    @CollectionTable(name = "paradaMonopatines", joinColumns = @JoinColumn(name = "paradaId"))
+    @Column(name = "idMonopatin")
+    private List<Long> idMonopatines;
 
-/*
-    // Método para agregar un monopatín
-    public void agregarMonopatin(Monopatin monopatin) {
-        if (!monopatines.contains(monopatin)) {
-            monopatines.add(monopatin);
-            monopatin.setParada(this);  // Establece la relación bidireccional
+    // Método para agregar un monopatín por su ID
+    public void agregarMonopatin(Long monopatinId) {
+        if (!idMonopatines.contains(monopatinId)) {
+            idMonopatines.add(monopatinId);
         }
     }
 
-    // Método para quitar un monopatín
-    public void quitarMonopatin(Monopatin monopatin) {
-        if (monopatines.contains(monopatin)) {
-            monopatines.remove(monopatin);
-            monopatin.setParada(null);  // Elimina la relación bidireccional
-        }
+    // Método para quitar un monopatín por su ID
+    public void quitarMonopatin(Long monopatinId) {
+        idMonopatines.remove(monopatinId);
     }
-
- */
 }
