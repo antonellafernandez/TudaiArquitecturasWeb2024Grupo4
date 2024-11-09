@@ -1,13 +1,13 @@
 package com.example.microservicio_administrador.controller;
 
 
-import com.example.microservicio_administrador.dto.AdministradorResponseDto;
+import com.example.microservicio_administrador.dto.AdministradorDto;
+import com.example.microservicio_administrador.feignClient.ParadaFeignClient;
+import com.example.microservicio_administrador.model.Parada;
+import com.example.microservicio_administrador.service.AdministradorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,21 +18,45 @@ public class AdministradorController {
     @Autowired
     private AdministradorService administradorService;
 
+    @Autowired
+    private ParadaFeignClient paradaFeignClient;
+
     @GetMapping("/")
-    public ResponseEntity<List<AdministradorResponseDto>> getAllAdministradores(){
-        List<AdministradorResponseDto> administradores = administradorService.getAll();
-        if(administradores.isEmpty()){
+    public ResponseEntity<List<AdministradorDto>> getAllAdministradores() {
+        List<AdministradorDto> administradores = administradorService.getAllAdministradores();
+        if (administradores.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(administradores);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AdministradorResponseDto> getAdministradorById(@PathVariable Long id){
-        AdministradorResponseDto admin = administradorService.getAdministradorById(id);
-        if(admin == null){
+    public ResponseEntity<AdministradorDto> getAdministradorById(@PathVariable Long id) {
+        AdministradorDto admin = administradorService.getAdministradorById(id);
+        if (admin == null)
             return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(admin);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AdministradorDto> updateAdministrador(@PathVariable Long id, AdministradorDto admin) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @PostMapping
+    public ResponseEntity<AdministradorDto> save(AdministradorDto newAdmin) {
+        AdministradorDto admin = administradorService.save(newAdmin);
+
+        if (admin == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(admin);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(Long id) {
+        administradorService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
