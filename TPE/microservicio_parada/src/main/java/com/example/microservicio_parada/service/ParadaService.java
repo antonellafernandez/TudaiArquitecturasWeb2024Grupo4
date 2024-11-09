@@ -19,6 +19,7 @@ public class ParadaService {
 
     @Autowired
     MonopatinFeignClient monopatinFeignClient;
+
     // Create
     public Parada save(Parada parada) {
         return paradaRepository.save(parada);
@@ -39,6 +40,11 @@ public class ParadaService {
 
     public Parada findById(Long id) {
         return paradaRepository.findById(id).orElse(null);
+    }
+
+    // Update
+    public Parada update(Parada parada) {
+        return paradaRepository.save(parada);
     }
 
     // Delete
