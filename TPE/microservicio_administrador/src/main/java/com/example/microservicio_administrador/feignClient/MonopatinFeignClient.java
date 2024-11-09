@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "microservicio_monopatin")
+@FeignClient(name = "microservicio_monopatin", url="")
 public interface MonopatinFeignClient {
 
     @GetMapping("api/monopatines/")
