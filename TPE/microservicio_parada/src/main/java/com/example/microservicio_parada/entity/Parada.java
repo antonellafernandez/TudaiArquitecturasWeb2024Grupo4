@@ -15,12 +15,16 @@ public class Parada {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String ubicacion;
+    private String nombre;
+    private Long longitud;
+    private Long latitud;
 
     @ElementCollection
     @CollectionTable(name = "paradaMonopatines", joinColumns = @JoinColumn(name = "paradaId"))
     @Column(name = "idMonopatin")
     private List<Long> idMonopatines;
+
+    private Boolean habilitado;
 
     // Método para agregar un monopatín por su ID
     public void agregarMonopatin(Long monopatinId) {

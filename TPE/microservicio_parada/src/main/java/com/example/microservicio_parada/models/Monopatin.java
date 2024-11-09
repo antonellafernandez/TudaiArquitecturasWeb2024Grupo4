@@ -11,6 +11,6 @@ public class Monopatin {
     private Long gpsId;
     private Long kmRecorridosTotales;
     private Boolean disponible;
-    private Boolean longitud;
-    private Boolean latitud;
+    private Long longitud;
+    private Long latitud;
 }

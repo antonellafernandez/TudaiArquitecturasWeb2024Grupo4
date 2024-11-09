@@ -27,6 +27,8 @@ public class Usuario {
     @Column(name = "idCuentaApp")
     private List<Long> idCuentaApps;
 
+    private Boolean habilitado;
+
     // Método para agregar una cuenta por su ID
     public void agregarCuentaApp(Long cuentaId) {
         if (!idCuentaApps.contains(cuentaId)) {

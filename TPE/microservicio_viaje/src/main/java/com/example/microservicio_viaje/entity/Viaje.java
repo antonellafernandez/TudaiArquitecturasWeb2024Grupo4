@@ -22,6 +22,4 @@ public class Viaje {
 
     @ElementCollection
     private List<LocalDateTime> inicioPausasFinal;
-
-
 }

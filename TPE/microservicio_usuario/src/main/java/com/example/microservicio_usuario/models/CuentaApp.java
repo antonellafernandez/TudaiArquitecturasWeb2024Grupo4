@@ -13,4 +13,5 @@ public class CuentaApp {
     private LocalDate fechaAlta;
     private Long montoCreditos;
     private Long idCuentaMp;
+    private Boolean habilitado;
 }

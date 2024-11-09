@@ -6,6 +6,7 @@ import com.example.microservicio_parada.models.Monopatin;
 import com.example.microservicio_parada.repository.ParadaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,33 +19,52 @@ public class ParadaService {
 
     @Autowired
     MonopatinFeignClient monopatinFeignClient;
-
-    public List<Parada> getAll() {
-        return paradaRepository.findAll();
-    }
-
+    // Create
     public Parada save(Parada parada) {
         return paradaRepository.save(parada);
     }
 
-    public void delete(Parada parada) {
-        paradaRepository.delete(parada);
+    // Read
+    public List<Parada> getAll() {
+        return paradaRepository.findAll();
+    }
+
+    public List<Parada> getAllHabilitadas() {
+        return paradaRepository.findAllHabilitadas();
+    }
+
+    public List<Parada> getAllDeshabilitadas() {
+        return paradaRepository.findAllDeshabilitadas();
     }
 
     public Parada findById(Long id) {
         return paradaRepository.findById(id).orElse(null);
     }
 
-    public Parada update(Parada parada) {
-        return paradaRepository.save(parada);
+    // Delete
+    public void delete(Parada parada) {
+        paradaRepository.delete(parada);
     }
 
+    // Habilitar Parada
+    @Transactional
+    public void habilitar(Long id) {
+        paradaRepository.habilitar(id);
+    }
+
+    // Habilitar Parada
+    @Transactional
+    public void deshabilitar(Long id) {
+        paradaRepository.deshabilitar(id);
+    }
+
+    // Read Monopatines
     public List<Monopatin> getMonopatinesById(Long id) {
         List<Monopatin> salida = new ArrayList<Monopatin>();
-        List<Long> id_monopatines = paradaRepository.getIdMonopatines(id);
+        List<Long> idMonopatines = paradaRepository.getIdMonopatines(id);
 
-        for (Long id_monopatin : id_monopatines) {
-            salida.add(monopatinFeignClient.getMonopatinById(id_monopatin));
+        for (Long idMonopatin : idMonopatines) {
+            salida.add(monopatinFeignClient.getMonopatinById(idMonopatin));
         }
 
        return salida;
