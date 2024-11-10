@@ -16,29 +16,35 @@ public class Parada {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+<<<<<<< HEAD
     private String ubicacion;
     private double latitud;
     private double longitud;
     
     @OneToMany(mappedBy = "parada")
     private List<Monopatin> monopatines;
+=======
+    private String nombre;
+    private Long longitud;
+    private Long latitud;
 
-/*
-    // Método para agregar un monopatín
-    public void agregarMonopatin(Monopatin monopatin) {
-        if (!monopatines.contains(monopatin)) {
-            monopatines.add(monopatin);
-            monopatin.setParada(this);  // Establece la relación bidireccional
+    @ElementCollection
+    @CollectionTable(name = "paradaMonopatines", joinColumns = @JoinColumn(name = "paradaId"))
+    @Column(name = "idMonopatin")
+    private List<Long> idMonopatines;
+>>>>>>> 5e31968a7b68f06ee5ce32c58313abb434ec3bec
+
+    private Boolean habilitado;
+
+    // Método para agregar un monopatín por su ID
+    public void agregarMonopatin(Long monopatinId) {
+        if (!idMonopatines.contains(monopatinId)) {
+            idMonopatines.add(monopatinId);
         }
     }
 
-    // Método para quitar un monopatín
-    public void quitarMonopatin(Monopatin monopatin) {
-        if (monopatines.contains(monopatin)) {
-            monopatines.remove(monopatin);
-            monopatin.setParada(null);  // Elimina la relación bidireccional
-        }
+    // Método para quitar un monopatín por su ID
+    public void quitarMonopatin(Long monopatinId) {
+        idMonopatines.remove(monopatinId);
     }
-
- */
 }

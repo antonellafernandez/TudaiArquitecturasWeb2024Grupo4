@@ -14,10 +14,34 @@ public class UsuarioController {
 
     @Autowired
     UsuarioService usuarioService;
-
+    // Create
+    @PostMapping("")
+    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) {
+        Usuario usuarioNew = usuarioService.save(usuario);
+        return ResponseEntity.ok(usuarioNew);
+    }
+    // Read
     @GetMapping("/")
     public ResponseEntity<List<Usuario>> getAllUsuarios() {
         List<Usuario> usuarios = usuarioService.getAll();
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(usuarios);
+    }
+
+    @GetMapping("/habilitados")
+    public ResponseEntity<List<Usuario>> getAllUsuariosHabilitados() {
+        List<Usuario> usuarios = usuarioService.getAllHabilitados();
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(usuarios);
+    }
+
+    @GetMapping("/deshabilitados")
+    public ResponseEntity<List<Usuario>> getAllUsuariosDeshabilitados() {
+        List<Usuario> usuarios = usuarioService.getAllDeshabilitados();
         if (usuarios.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -32,13 +56,7 @@ public class UsuarioController {
         }
         return ResponseEntity.ok(usuario);
     }
-
-    @PostMapping("")
-    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) {
-        Usuario usuarioNew = usuarioService.save(usuario);
-        return ResponseEntity.ok(usuarioNew);
-    }
-
+    // Delete
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         Usuario usuario = usuarioService.findById(id);
@@ -46,6 +64,26 @@ public class UsuarioController {
             return ResponseEntity.notFound().build();
         }
         usuarioService.delete(usuario);
+        return ResponseEntity.noContent().build();
+    }
+    // Habilitar
+    @PutMapping("/habilitar/{id}")
+    public ResponseEntity<Void> habilitar(@PathVariable("id") Long id) {
+        Usuario usuario = usuarioService.findById(id);
+        if (usuario == null) {
+            return ResponseEntity.notFound().build();
+        }
+        usuarioService.habilitar(id);
+        return ResponseEntity.noContent().build();
+    }
+    // Deshabilitar
+    @PutMapping("/deshabilitar/{id}")
+    public ResponseEntity<Void> deshabilitar(@PathVariable("id") Long id) {
+        Usuario usuario = usuarioService.findById(id);
+        if (usuario == null) {
+            return ResponseEntity.notFound().build();
+        }
+        usuarioService.deshabilitar(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -18,4 +18,13 @@ public interface ParadaFeignClient {
     @DeleteMapping("api/paradas/{id}")
     void delete(@PathVariable("id") Long id);
 
+    @PostMapping("api/paradas/habilitar/{id}")
+    Parada deshabilitarParada(@PathVariable("id") Long id);
+
+    @PostMapping("api/paradas/deshabilitar/{id}")
+    Parada habilitarParada(@PathVariable("id") Long id);
+
+    @PutMapping("api/paradas/deshabilitar/{id}")
+    Parada updateParada(@PathVariable("id") Long id, @RequestBody Parada parada);
+
 }
