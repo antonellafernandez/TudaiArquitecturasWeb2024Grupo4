@@ -20,7 +20,7 @@ public class Mantenimiento {
     @ElementCollection
     @CollectionTable(name = "mantenimientoMonopatines", joinColumns = @JoinColumn(name = "mantenimientoId"))
     @Column(name = "idMonopatin")
-    private List<Long> idMonopatin;
+    private List<Long> idMonopatines;
 
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;

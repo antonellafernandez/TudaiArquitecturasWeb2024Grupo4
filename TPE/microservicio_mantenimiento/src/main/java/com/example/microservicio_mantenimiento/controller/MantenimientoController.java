@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/mantenimiento")
 public class MantenimientoController {
-
-    @Autowired
-    private MonopatinRepository monopatinRepository;
-
+/*
     @Autowired
     private MantenimientoService mantenimientoService;
 
@@ -35,5 +32,5 @@ public class MantenimientoController {
     @GetMapping("/necesita/{id}")
     public boolean necesitaMantenimiento(@PathVariable Long id) {
         return mantenimientoService.necesitaMantenimiento(id);
-    }
+    }*/
 }

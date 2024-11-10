@@ -18,13 +18,11 @@ public class Monopatin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long kmRecorridosTotales;
+    private Long tiempoRecorridosTotales;
     private Boolean disponible;
     private Long longitud;
     private Long latitud;
-    private Long viajeActivo;
-
-    @OneToMany
-    private List<Parada> paradasValidas;
+    private Long idViajeActivo;
 
     public Monopatin(MonopatinDTO monopatinDTO) {
     }

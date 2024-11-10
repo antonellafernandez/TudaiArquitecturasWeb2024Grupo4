@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class Monopatin {
     private Long gpsId;
     private Long kmRecorridosTotales;
+    private Long tiempoRecorridosTotales;
     private Boolean disponible;
     private Boolean longitud;
     private Boolean latitud;
