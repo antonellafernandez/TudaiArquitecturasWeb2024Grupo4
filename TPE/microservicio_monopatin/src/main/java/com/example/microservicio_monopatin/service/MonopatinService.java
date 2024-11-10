@@ -1,9 +1,9 @@
 package com.example.microservicio_monopatin.service;
 
-import com.example.microservicio_monopatin.AdministracionFeignClient;
-import com.example.microservicio_monopatin.ParadaFeignClient;
-import com.example.microservicio_monopatin.ViajeFeignClient;
 import com.example.microservicio_monopatin.entity.Monopatin;
+import com.example.microservicio_monopatin.feignClient.AdministracionFeignClient;
+import com.example.microservicio_monopatin.feignClient.ParadaFeignClient;
+import com.example.microservicio_monopatin.feignClient.ViajeFeignClient;
 import com.example.microservicio_monopatin.repository.MonopatinRepository;
 import com.example.microservicio_parada.entity.Parada;
 import org.springframework.beans.factory.annotation.Autowired;

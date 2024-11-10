@@ -1,4 +1,4 @@
-package com.example.microservicio_monopatin;
+package com.example.microservicio_monopatin.feignClient;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
