@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface MantenimientoRepository extends JpaRepository<Mantenimiento, Long> {
     // Obtener Monopatines
-    @Query("SELECT p.idMonopatines FROM Parada p WHERE p.id = :id")
+    @Query("SELECT m.idMonopatines FROM Mantenimiento m WHERE m.id = :id")
     List<Long> getIdMonopatines(Long id);
 }

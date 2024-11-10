@@ -1,51 +1,40 @@
 package com.example.microservicio_mantenimiento.service;
 
 
-import com.example.microservicio_viaje.entity.Viaje;
-import com.example.microservicio_viaje.repository.ViajeRepository;
+import com.example.microservicio_mantenimiento.models.Monopatin;
+import com.example.microservicio_mantenimiento.repository.MantenimientoRepository;
+import com.example.microservicio_mantenimiento.feignClients.MonopatinFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MantenimientoService {
 
     @Autowired
-    private ViajeRepository viajeRepository;
+    private MantenimientoRepository mantenimientoRepository;
 
-    @Value("${mantenimiento.umbral.km}")
-    private Long umbralKm;
+    @Autowired
+    private MonopatinFeignClient monopatinFeignClient;
 
-    @Value("${mantenimiento.umbral.tiempo}")
-    private Long umbralTiempo;
+    // Read Monopatines
+    public List<Monopatin> getMonopatinesById(Long id) {
+        List<Monopatin> enMantenimiento = new ArrayList<Monopatin>();
+        List<Long> idMonopatines = mantenimientoRepository.getIdMonopatines(id);
 
-    public Long calcularKmTotales(Long monopatinId) {
-        List<Viaje> viajes = viajeRepository.findByMonopatinId(monopatinId);
-        return viajes.stream().mapToLong(Viaje::getKmRecorridos).sum();
-    }
+        for (Long idMonopatin : idMonopatines) {
+            Monopatin monopatin = monopatinFeignClient.getMonopatinById(idMonopatin);
 
-    public Long calcularTiempoUsoTotal(Long monopatinId) {
-        List<Viaje> viajes = viajeRepository.findByMonopatinId(monopatinId);
-        return viajes.stream()
-                .mapToLong(viaje -> {
-                    LocalDateTime inicio = viaje.getFechaHoraInicio();
-                    LocalDateTime fin = viaje.getFechaHoraFin();
-                    return Duration.between(inicio, fin).toMinutes();
-                })
-                .sum();
-    }
+            if (monopatin.getKmRecorridosTotales() >= umbralKm || monopatin.getTiempoRecorridosTotales() >= umbralTiempo) {
+                enMantenimiento.add(monopatin);
+            }
+        }
 
-    public boolean necesitaMantenimiento(Long monopatinId) {
-        Long kmTotales = calcularKmTotales(monopatinId);
-        Long tiempoUsoTotal = calcularTiempoUsoTotal(monopatinId);
-
-        boolean mantenimientoPorKm = kmTotales >= umbralKm;
-        boolean mantenimientoPorTiempo = tiempoUsoTotal >= umbralTiempo;
-
-        return mantenimientoPorKm || mantenimientoPorTiempo;
+        return enMantenimiento;
     }
 }

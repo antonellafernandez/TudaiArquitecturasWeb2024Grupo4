@@ -9,17 +9,16 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/mantenimiento")
 public class MantenimientoController {
-/*
     @Autowired
     private MantenimientoService mantenimientoService;
 
     @PutMapping("/registrar/{id}")
     public Monopatin registrarMantenimiento(@PathVariable Long id) {
-        Monopatin monopatin = monopatinRepository.findById(id).orElseThrow(() -> new RuntimeException("Monopatín no encontrado"));
-        monopatin.setDisponible(false);
-        monopatin.setEnMantenimiento(true);
-        return monopatinRepository.save(monopatin);
+        mantenimientoService.getMonopatinesById(id);
+        return
     }
+/*
+
 
     @PutMapping("/finalizar/{id}")
     public Monopatin finalizarMantenimiento(@PathVariable Long id) {
