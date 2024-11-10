@@ -4,10 +4,7 @@ import com.example.microservicio_administrador.dto.TarifaDto;
 import com.example.microservicio_administrador.service.TarifaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +29,24 @@ public class TarifaController {
         List<TarifaDto> tarifas = tarifaService.getTarifas();
         if (tarifas != null && tarifas.size() > 0)
             return ResponseEntity.ok(tarifas);
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<TarifaDto> save(@RequestBody TarifaDto tarifaDto) {
+        TarifaDto tarifa = tarifaService.save(tarifaDto);
+        if (tarifa != null)
+            return ResponseEntity.ok(tarifa);
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TarifaDto> update(@PathVariable Long id, @RequestBody TarifaDto tarifaDto) {
+        TarifaDto tarifa = tarifaService.update(id, tarifaDto);
+        if (tarifa != null)
+            return ResponseEntity.ok(tarifa);
 
         return ResponseEntity.notFound().build();
     }

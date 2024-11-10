@@ -1,5 +1,6 @@
 package com.example.microservicio_administrador.repository;
 
+import com.example.microservicio_administrador.dto.TarifaDto;
 import com.example.microservicio_administrador.entity.Tarifa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

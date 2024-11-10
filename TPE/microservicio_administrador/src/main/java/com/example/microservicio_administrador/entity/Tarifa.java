@@ -21,4 +21,11 @@ public class Tarifa {
     @Column(nullable = false)
     private Double precioTarifa;
     private Double descuentoTarifa;
+
+    public Tarifa(String nombreTarifa, String tipoTarifa, Double precioTarifa, Double descuentoTarifa) {
+        this.nombreTarifa = nombreTarifa;
+        this.tipoTarifa = tipoTarifa;
+        this.precioTarifa = precioTarifa;
+        this.descuentoTarifa = descuentoTarifa;
+    }
 }

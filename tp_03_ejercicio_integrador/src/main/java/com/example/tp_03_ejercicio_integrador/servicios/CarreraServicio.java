@@ -61,16 +61,7 @@ public class CarreraServicio {
     // Actualizar una carrera
     @Transactional
     public CarreraDTO update(int id, Carrera carrera) throws Exception {
-        try {
-            if (repoCarrera.existsById(id)){
-                repoCarrera.save(carrera);
-                CarreraDTO carreraDTO = this.toDTO(carrera);
-                return carreraDTO;
-            }
-            throw new Exception("No existe un carrera con id=" + id + "!");
-        } catch (Exception e) {
-            throw new Exception("Error al actualizar carrera con id=" + id + "!" + e.getMessage());
-        }
+
     }
 
     // Eliminar una carrera
