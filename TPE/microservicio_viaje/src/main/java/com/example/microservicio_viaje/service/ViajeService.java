@@ -5,6 +5,8 @@ import com.example.microservicio_viaje.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,17 +14,7 @@ import java.util.List;
 public class ViajeService {
 
     @Autowired
-    ViajeRepository viajeRepository;
-/*
-    @Autowired
-    private CuentaAppRepository cuentaRepository;
-
-    @Autowired
-    private MonopatinRepository monopatinRepository;
-
-    @Autowired
-    private ParadaService paradaService;
-*/
+    private ViajeRepository viajeRepository;
 
     public List<Viaje> getAll() {
         return viajeRepository.findAll();
@@ -44,79 +36,51 @@ public class ViajeService {
         return viajeRepository.save(viaje);
     }
 
-/*
 
-public Viaje iniciarViaje(Long cuentaId, Long monopatinId) {
-        Cuenta cuenta = cuentaRepository.findById(cuentaId)
-                .orElseThrow(() -> new RuntimeException("Cuenta no encontrada"));
-
-        if (cuenta.getSaldo() <= 0) {
-            throw new RuntimeException("Saldo insuficiente");
+    public void registrarInicioPausa(Long monopatinId, LocalDateTime fechaHoraInicio) {
+        // Lógica para registrar el inicio de una pausa
+        Viaje viaje = viajeRepository.findViajeByMonopatinId(monopatinId);
+        if (viaje != null) {
+            viaje.getInicioPausasFinal().add(fechaHoraInicio);
+            viajeRepository.save(viaje);
         }
+    }
 
-        // Lógica para iniciar el viaje
+    public LocalDateTime obtenerInicioUltimaPausa(Long monopatinId) {
+        // Obtener el inicio de la última pausa
+        Viaje viaje = viajeRepository.findViajeByMonopatinId(monopatinId);
+        if (viaje != null && !viaje.getInicioPausasFinal().isEmpty()) {
+            return viaje.getInicioPausasFinal().get(viaje.getInicioPausasFinal().size() - 1);
+        }
+        return null;
+    }
+
+    public void registrarFinPausa(Long monopatinId, LocalDateTime fechaHoraFin) {
+        // Lógica para registrar el fin de una pausa
+        Viaje viaje = viajeRepository.findViajeByMonopatinId(monopatinId);
+        if (viaje != null && !viaje.getInicioPausasFinal().isEmpty()) {
+            viaje.getInicioPausasFinal().add(fechaHoraFin);
+            viajeRepository.save(viaje);
+        }
+    }
+
+    public void finalizarViaje(Long viajeId, LocalDateTime fechaHoraFin, Long kmRecorridos) {
+        // Lógica para finalizar el viaje
+        Viaje viaje = viajeRepository.findById(viajeId).orElse(null);
+        if (viaje != null) {
+            viaje.setFechaHoraFin(fechaHoraFin);
+            viaje.setKmRecorridos(kmRecorridos);
+            viajeRepository.save(viaje);
+        }
+    }
+
+    public void iniciarViaje(Long monopatinId, LocalDateTime fechaHoraInicio) {
+        // Lógica para iniciar un viaje
         Viaje viaje = new Viaje();
-
-        viaje.setMonopatinId(monopatinId);
-        viaje.setFechaHoraInicio(LocalDateTime.now());
-        return viajeRepository.save(viaje);
+        viaje.setFechaHoraInicio(fechaHoraInicio);
+        viaje.setFechaHoraFin(null);
+        viaje.setKmRecorridos(0L);
+        viaje.setInicioPausasFinal(new ArrayList<>());
+        viajeRepository.save(viaje);
     }
-
-    public Viaje finalizarViaje(Long viajeId, double latitud, double longitud) {
-        Viaje viaje = viajeRepository.findById(viajeId)
-                .orElseThrow(() -> new RuntimeException("Viaje no encontrado"));
-
-        // Obtener el monopatín asociado al viaje
-        Monopatin monopatin = monopatinRepository.findMonopatinByViajeId(viajeId);
-        if (monopatin == null) {
-            throw new RuntimeException("Monopatín no encontrado para el viaje");
-        }
-
-        // Obtener el usuario asociado al monopatín
-        Usuario usuario = monopatin.getUsuario();
-        if (usuario == null) {
-            throw new RuntimeException("Usuario no encontrado para el monopatín");
-        }
-
-        // Verificar que el monopatín esté en una de sus paradas válidas
-        if (!paradaService.esParadaValidaParaMonopatin(monopatin.getId(), latitud, longitud)) {
-            throw new RuntimeException("El monopatín no está en una parada válida");
-        }
-
-        // Establecer la fecha y hora de finalización del viaje
-        viaje.setFechaHoraFin(LocalDateTime.now());
-
-        // Calcular el costo del viaje en centavos
-        long costo = calcularCosto(viaje);
-
-        // Obtener la cuenta asociada al usuario
-        Cuenta cuenta = usuario.getCuenta();
-        if (cuenta == null) {
-            throw new RuntimeException("Cuenta no encontrada para el usuario");
-        }
-
-        // Descontar el costo del saldo
-        long nuevoSaldo = cuenta.getMontoCreditos() - costo;
-        if (nuevoSaldo < 0) {
-            throw new RuntimeException("Saldo insuficiente");
-        }
-        cuenta.setMontoCreditos(nuevoSaldo);
-        cuentaRepository.save(cuenta);
-
-        // Marcar como no disponible el monopatín
-        monopatin.setDisponible(false);
-        monopatinRepository.save(monopatin);
-
-        return viajeRepository.save(viaje);
-    }
-
-    private long calcularCosto(Viaje viaje) {
-        // Implementar la lógica para calcular el costo del viaje
-        long minutos = Duration.between(viaje.getFechaHoraInicio(), viaje.getFechaHoraFin()).toMinutes();
-        long tarifaPorMinuto = 50;
-        return tarifaPorMinuto * minutos;
-    }
-
-    */
-
 }

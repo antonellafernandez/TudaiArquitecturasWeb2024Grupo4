@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -47,5 +48,46 @@ public class ViajeController {
         }
         viajeService.delete(viaje);
         return ResponseEntity.noContent().build();
+    }
+
+
+    // Registrar inicio de pausa
+    @PostMapping("/registrarInicioPausa")
+    public ResponseEntity<Void> registrarInicioPausa(@RequestParam("monopatinId") Long monopatinId,
+                                                     @RequestParam("fechaHoraInicio") LocalDateTime fechaHoraInicio) {
+        viajeService.registrarInicioPausa(monopatinId, fechaHoraInicio);
+        return ResponseEntity.ok().build();
+    }
+
+    // Obtener el inicio de la última pausa
+    @GetMapping("/obtenerInicioUltimaPausa")
+    public ResponseEntity<LocalDateTime> obtenerInicioUltimaPausa(@RequestParam("monopatinId") Long monopatinId) {
+        LocalDateTime inicioUltimaPausa = viajeService.obtenerInicioUltimaPausa(monopatinId);
+        return ResponseEntity.ok(inicioUltimaPausa);
+    }
+
+    // Registrar fin de pausa
+    @PostMapping("/registrarFinPausa")
+    public ResponseEntity<Void> registrarFinPausa(@RequestParam("monopatinId") Long monopatinId,
+                                                  @RequestParam("fechaHoraFin") LocalDateTime fechaHoraFin) {
+        viajeService.registrarFinPausa(monopatinId, fechaHoraFin);
+        return ResponseEntity.ok().build();
+    }
+
+    // Finalizar viaje
+    @PutMapping("/finalizar")
+    public ResponseEntity<Void> finalizarViaje(@RequestParam("viajeId") Long viajeId,
+                                               @RequestParam("fechaHoraFin") LocalDateTime fechaHoraFin,
+                                               @RequestParam("kmRecorridos") Long kmRecorridos) {
+        viajeService.finalizarViaje(viajeId, fechaHoraFin, kmRecorridos);
+        return ResponseEntity.ok().build();
+    }
+
+    // Iniciar viaje
+    @PostMapping("/iniciar")
+    public ResponseEntity<Void> iniciarViaje(@RequestParam Long monopatinId,
+                                             @RequestParam LocalDateTime fechaHoraInicio) {
+        viajeService.iniciarViaje(monopatinId, fechaHoraInicio);
+        return ResponseEntity.ok().build();
     }
 }

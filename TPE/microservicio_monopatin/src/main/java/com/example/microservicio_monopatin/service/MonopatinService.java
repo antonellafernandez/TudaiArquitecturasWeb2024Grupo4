@@ -1,7 +1,8 @@
 package com.example.microservicio_monopatin.service;
 
+import com.example.microservicio_monopatin.dtos.MonopatinDTO;
 import com.example.microservicio_monopatin.entity.Monopatin;
-import com.example.microservicio_monopatin.feignClient.AdministracionFeignClient;
+import com.example.microservicio_monopatin.feignClient.AdministradorFeignClient;
 import com.example.microservicio_monopatin.feignClient.ParadaFeignClient;
 import com.example.microservicio_monopatin.feignClient.ViajeFeignClient;
 import com.example.microservicio_monopatin.repository.MonopatinRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -21,7 +23,7 @@ public class MonopatinService {
     MonopatinRepository monopatinRepository;
 
     @Autowired
-    private AdministracionFeignClient administracionClient;
+    private AdministradorFeignClient administradorClient;
 
     @Autowired
     private ParadaFeignClient paradaClient;
@@ -29,8 +31,11 @@ public class MonopatinService {
     @Autowired
     private ViajeFeignClient viajeClient;  // Cliente Feign para el microservicio de Viaje
 
-    public List<Monopatin> getAll() {
-        return monopatinRepository.findAll();
+    public List<MonopatinDTO> getAll() {
+        List<Monopatin> monopatines = monopatinRepository.findAll();
+        return monopatines.stream()
+                .map(MonopatinDTO::new)  // Convierte a MonopatinDTO
+                .collect(Collectors.toList());
     }
 
     public Monopatin save(Monopatin monopatin) {
@@ -73,21 +78,37 @@ public class MonopatinService {
         viajeClient.registrarFinPausa(monopatinId, finPausa);  // Actualizar fin de pausa en Viaje
 
 
-        administracionClient.aplicarTarifaExtra(monopatinId, tarifa);
-
-        monopatin.setDisponible(true);
+        administradorClient.aplicarTarifaExtra(monopatinId, tarifa);
         monopatinRepository.save(monopatin);
     }
 
     // Método para calcular la tarifa de reinicio
     private double calcularTarifaReinicio(long minutosPausa) {
-        double tarifaBase = administracionClient.obtenerPrecioBase();
+        double tarifaBase = administradorClient.obtenerPrecioBase();
         if (minutosPausa > 15) {
-            tarifaBase += administracionClient.obtenerTarifaExtra();
+            tarifaBase += administradorClient.obtenerTarifaExtra();
         }
         return tarifaBase;
     }
 
+    // Método para iniciar un viaje al retirar el monopatín de una parada
+    public void iniciarViaje(Long monopatinId, Long paradaId) {
+        Monopatin monopatin = monopatinRepository.findById(monopatinId)
+                .orElseThrow(() -> new RuntimeException("Monopatin no encontrado"));
+
+        // Verificar que el monopatín esté disponible para iniciar el viaje
+        if (monopatin.isDisponible()) {
+            // Registrar el inicio del viaje en el microservicio de Viaje
+            LocalDateTime fechaHoraInicio = LocalDateTime.now();
+            viajeClient.iniciarViaje(monopatinId, fechaHoraInicio);
+
+            // Cambiar el estado del monopatín a no disponible
+            monopatin.setDisponible(false);
+            monopatinRepository.save(monopatin);
+        } else {
+            throw new RuntimeException("El monopatín no está disponible para iniciar un viaje");
+        }
+    }
 
     // Método para ubicar monopatín en una parada válida y finalizar el viaje si está en uso
     public boolean pararMonopatin(Long monopatinId, Long paradaId, Long viajeId, Long kmRecorridos) {

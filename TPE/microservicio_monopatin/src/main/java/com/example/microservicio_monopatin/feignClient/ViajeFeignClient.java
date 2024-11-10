@@ -29,4 +29,9 @@ public interface ViajeFeignClient {
     void finalizarViaje(@RequestParam("viajeId") Long viajeId,
                         @RequestParam("fechaHoraFin") LocalDateTime fechaHoraFin,
                         @RequestParam("kmRecorridos") Long kmRecorridos);
+
+    // Método para iniciar un viaje
+    @PostMapping("/viaje/iniciar")
+    void iniciarViaje(@RequestParam Long monopatinId, @RequestParam LocalDateTime fechaHoraInicio);
 }
+

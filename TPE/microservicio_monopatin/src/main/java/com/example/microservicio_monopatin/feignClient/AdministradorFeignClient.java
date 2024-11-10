@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "microservicio-mantenimiento", url = "")
-public interface AdministracionFeignClient {
+public interface AdministradorFeignClient {
 
     @GetMapping("/mantenimiento/precio-base")
     double obtenerPrecioBase();

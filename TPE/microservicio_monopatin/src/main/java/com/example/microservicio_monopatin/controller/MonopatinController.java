@@ -1,5 +1,6 @@
 package com.example.microservicio_monopatin.controller;
 
+import com.example.microservicio_monopatin.dtos.MonopatinDTO;
 import com.example.microservicio_monopatin.entity.Monopatin;
 import com.example.microservicio_monopatin.service.MonopatinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/monopatines")
@@ -17,27 +19,37 @@ public class MonopatinController {
     MonopatinService monopatinService;
 
     @GetMapping("/")
-    public ResponseEntity<List<Monopatin>> getAllMonopatines() {
-        List<Monopatin> monopatines = monopatinService.getAll();
+    public ResponseEntity<List<MonopatinDTO>> getAllMonopatines() {
+        List<MonopatinDTO> monopatines = monopatinService.getAll();
         if (monopatines.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(monopatines);
+
+        // Convertir la lista de Monopatines a MonopatinDTO
+        List<MonopatinDTO> monopatinDTOs = monopatines.stream()
+                .map(MonopatinDTO::new) // Usar el constructor que convierte la entidad en DTO
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(monopatinDTOs);
     }
 
+
     @GetMapping("/{id}")
-    public ResponseEntity<Monopatin> getMonopatinById(@PathVariable("id") Long id) {
+    public ResponseEntity<MonopatinDTO> getMonopatinById(@PathVariable("id") Long id) {
         Monopatin monopatin = monopatinService.findById(id);
         if (monopatin == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(monopatin);
+        MonopatinDTO monopatinDTO = new MonopatinDTO(monopatin);
+        return ResponseEntity.ok(monopatinDTO);
     }
 
     @PostMapping("")
-    public ResponseEntity<Monopatin> save(@RequestBody Monopatin monopatin) {
+    public ResponseEntity<MonopatinDTO> save(@RequestBody MonopatinDTO monopatinDTO) {
+        Monopatin monopatin = new Monopatin(monopatinDTO);
         Monopatin monopatinNew = monopatinService.save(monopatin);
-        return ResponseEntity.ok(monopatinNew);
+        MonopatinDTO monopatinNewDTO = new MonopatinDTO(monopatinNew);
+        return ResponseEntity.ok(monopatinNewDTO);
     }
 
     @DeleteMapping("/{id}")

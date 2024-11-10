@@ -28,7 +28,6 @@ public class Parada {
     @CollectionTable(name = "paradaMonopatines", joinColumns = @JoinColumn(name = "paradaId"))
     @Column(name = "idMonopatin")
     private List<Long> idMonopatines;
-z
 
     private Boolean habilitado;
 

@@ -1,5 +1,6 @@
 package com.example.microservicio_monopatin.entity;
 
+import com.example.microservicio_monopatin.dtos.MonopatinDTO;
 import com.example.microservicio_parada.entity.Parada;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,9 @@ public class Monopatin {
 
     @OneToMany
     private List<Parada> paradasValidas;
+
+    public Monopatin(MonopatinDTO monopatinDTO) {
+    }
 
     public boolean isDisponible() {
         return this.disponible;

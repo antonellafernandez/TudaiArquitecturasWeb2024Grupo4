@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ViajeRepository extends JpaRepository<Viaje, Long> {
     List<Viaje> findByMonopatinId(Long monopatinId);
+
+    Viaje findViajeByMonopatinId(Long monopatinId);
 }
