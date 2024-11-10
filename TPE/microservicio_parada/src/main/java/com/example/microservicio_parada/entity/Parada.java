@@ -16,16 +16,19 @@ public class Parada {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
     private String ubicacion;
     @OneToMany(mappedBy = "parada")
     private List<Monopatin> monopatines;
-    
+
+    private String nombre;
+    private Long longitud;
+    private Long latitud;
+
     @ElementCollection
     @CollectionTable(name = "paradaMonopatines", joinColumns = @JoinColumn(name = "paradaId"))
     @Column(name = "idMonopatin")
     private List<Long> idMonopatines;
-
+z
 
     private Boolean habilitado;
 
