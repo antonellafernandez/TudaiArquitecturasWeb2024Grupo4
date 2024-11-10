@@ -17,9 +17,6 @@ public class Parada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String ubicacion;
-    @OneToMany(mappedBy = "parada")
-    private List<Monopatin> monopatines;
-
     private String nombre;
     private Long longitud;
     private Long latitud;
