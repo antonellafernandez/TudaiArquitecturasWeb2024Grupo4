@@ -16,24 +16,7 @@ public class Mantenimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ElementCollection
-    @CollectionTable(name = "mantenimientoMonopatines", joinColumns = @JoinColumn(name = "mantenimientoId"))
-    @Column(name = "idMonopatin")
-    private List<Long> idMonopatines;
-
+    private Long idMonopatin;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
-
-    // Método para agregar un monopatín por su ID
-    public void agregarMonopatin(Long monopatinId) {
-        if (!idMonopatines.contains(monopatinId)) {
-            idMonopatines.add(monopatinId);
-        }
-    }
-
-    // Método para quitar un monopatín por su ID
-    public void quitarMonopatin(Long monopatinId) {
-        idMonopatines.remove(monopatinId);
-    }
 }

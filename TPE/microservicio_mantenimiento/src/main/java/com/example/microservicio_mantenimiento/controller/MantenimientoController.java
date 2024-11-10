@@ -14,19 +14,18 @@ public class MantenimientoController {
 
     @PutMapping("/registrar/{id}")
     public Monopatin registrarMantenimiento(@PathVariable Long id) {
-        mantenimientoService.getMonopatinesById(id);
-        return
+        return mantenimientoService.registrarMonopatinEnMantenimiento(id);
     }
 /*
-
-
-    @PutMapping("/finalizar/{id}")
+@PutMapping("/finalizar/{id}")
     public Monopatin finalizarMantenimiento(@PathVariable Long id) {
         Monopatin monopatin = monopatinRepository.findById(id).orElseThrow(() -> new RuntimeException("Monopatín no encontrado"));
         monopatin.setDisponible(true);
         monopatin.setEnMantenimiento(false);
         return monopatinRepository.save(monopatin);
     }
+
+
 
     @GetMapping("/necesita/{id}")
     public boolean necesitaMantenimiento(@PathVariable Long id) {
