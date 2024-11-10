@@ -1,10 +1,12 @@
 package com.example.microservicio_monopatin.entity;
 
-import com.example.microservicio_viaje.entity.Viaje;
+import com.example.microservicio_parada.entity.Parada;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -14,13 +16,16 @@ public class Monopatin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long gpsId;
     private Long kmRecorridosTotales;
     private Boolean disponible;
-    private Boolean longitud;
-    private Boolean latitud;
+    private Long longitud;
+    private Long latitud;
+    private Long viajeActivo;
 
-    @OneToOne(mappedBy = "monopatin")
-    private Viaje viajeActivo;
+    @OneToMany
+    private List<Parada> paradasValidas;
 
+    public boolean isDisponible() {
+        return this.disponible;
+    }
 }

@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MonopatinRepository extends JpaRepository<Monopatin, Long> {
-    // Puedes agregar métodos personalizados si es necesario
+    Monopatin findMonopatinByViajeId(Long viajeId);
+   
 }

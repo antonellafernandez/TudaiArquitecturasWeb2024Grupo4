@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/monopatines")
+
 public class MonopatinController {
 
     @Autowired

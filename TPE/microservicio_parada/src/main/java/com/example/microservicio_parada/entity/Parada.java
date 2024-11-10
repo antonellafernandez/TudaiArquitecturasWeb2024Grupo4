@@ -1,5 +1,6 @@
 package com.example.microservicio_parada.entity;
 
+import com.example.microservicio_monopatin.entity.Monopatin;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,9 @@ public class Parada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String ubicacion;
-
+    private double latitud;
+    private double longitud;
+    
     @OneToMany(mappedBy = "parada")
     private List<Monopatin> monopatines;
 

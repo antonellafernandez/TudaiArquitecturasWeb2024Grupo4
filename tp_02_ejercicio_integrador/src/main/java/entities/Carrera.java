@@ -14,7 +14,8 @@ public class Carrera {
     private String nombre;
 
     // Relación uno a muchos con la entidad Inscripcion
-    @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // CascadeType.ALL significa que todas las operaciones de cascada se aplicarán a las entidades relacionadas
+    @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // CascadeType.ALL significa que todas las operaciones de cascada se aplicarán a las entidades relacionadas
     private List<Inscripcion> inscripciones;
 
     // Constructores
