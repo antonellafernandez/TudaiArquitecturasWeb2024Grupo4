@@ -5,6 +5,7 @@ import com.example.microservicio_administrador.entity.Tarifa;
 import com.example.microservicio_administrador.repository.TarifaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,12 +15,14 @@ public class TarifaService {
     @Autowired
     TarifaRepository tarifaRepository;
 
+    @Transactional(readOnly = true)
     public TarifaDto getTarifaByTipo(String tipo) {
         return tarifaRepository.getTarifaByTipo(tipo)
                 .map(TarifaDto::new)
                 .orElseThrow(()-> new RuntimeException("No se encontro el tipo de tarifa: " + tipo));
     }
 
+    @Transactional(readOnly = true)
     public List<TarifaDto> getTarifas() {
         try{
             return tarifaRepository.findAll().stream()
@@ -30,6 +33,7 @@ public class TarifaService {
         }
     }
 
+    @Transactional
     public TarifaDto save(TarifaDto tarifaDto) {
         try {
             Tarifa tarifaModificada = new Tarifa(tarifaDto.getNombreTarifa(), tarifaDto.getTipoTarifa(), tarifaDto.getPrecioTarifa(), tarifaDto.getDescuentoTarifa());
@@ -41,6 +45,7 @@ public class TarifaService {
         }
     }
 
+    @Transactional
     public TarifaDto update(Long id, TarifaDto tarifaDto) {
         try {
             Tarifa tarifaModificada = new Tarifa(tarifaDto.getNombreTarifa(), tarifaDto.getTipoTarifa(), tarifaDto.getPrecioTarifa(), tarifaDto.getDescuentoTarifa());
@@ -52,6 +57,15 @@ public class TarifaService {
             throw new RuntimeException("No existe un tarifa con id=" + id + "!");
         } catch (Exception e) {
             throw new RuntimeException("Error al actualizar tarifa con id=" + id + "!" + e.getMessage());
+        }
+    }
+
+    public boolean delete(Long id) {
+        try{
+            tarifaRepository.deleteById(id);
+            return true;
+        }catch (Exception e){
+            throw new RuntimeException("Error al eliminar tarifa con id=" + id + "!" + e.getMessage());
         }
     }
 
