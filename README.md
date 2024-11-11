@@ -5,6 +5,7 @@
 <h3>a. Como encargado de mantenimiento quiero poder generar un reporte de uso de monopatines por
 kilómetros para establecer si un monopatín requiere de mantenimiento. Este reporte debe poder
 configurarse para incluir (o no) los tiempos de pausa.</h3>
+--> Implementado en microservicio_monopatin
 
 <h3>b. Como administrador quiero poder anular cuentas para inhabilitar el uso momentáneo de la
 misma.</h3>
