@@ -14,4 +14,6 @@ public interface MonopatinFeignClient {
 
     @PostMapping ("")
     Monopatin save(@RequestBody Monopatin monopatin);
+
+
 }

@@ -9,4 +9,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Monopatin {
+
+    private Long id;
+    private Long kmRecorridosTotales;
+    private Boolean disponible;
+    private Long longitud;
+    private Long latitud;
+    private Long viajeActivo;
 }

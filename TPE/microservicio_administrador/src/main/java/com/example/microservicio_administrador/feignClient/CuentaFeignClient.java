@@ -5,18 +5,18 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "microservicio_cuenta", url="")
+@FeignClient(name = "microservicio_cuenta", url="http://localhost:8083/cuentas")
 public interface CuentaFeignClient {
 
-    @GetMapping("api/cuentas/")
+    @GetMapping("/")
     ResponseEntity<?> getAll();
 
-    @PostMapping("api/cuentas")
+    @PostMapping("")
     ResponseEntity<?> save(@RequestBody Cuenta cuenta);
 
-    @DeleteMapping("api/cuentas/{id}")
+    @PutMapping("/deshabilitar/{id}")
     ResponseEntity<?> deshabilitarCuenta(@PathVariable("id") Long id);
 
-    @PutMapping("api/cuentas/{id}")
+    @PutMapping("/habilitar/{id}")
     ResponseEntity<?> habilitarCuenta(@PathVariable("id") Long id);
 }

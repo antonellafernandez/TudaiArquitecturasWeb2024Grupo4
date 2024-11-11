@@ -19,4 +19,10 @@ public class Mantenimiento {
     private Long idMonopatin;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
+
+    public Mantenimiento(Long idMonopatin, LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        this.idMonopatin = idMonopatin;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
 }
