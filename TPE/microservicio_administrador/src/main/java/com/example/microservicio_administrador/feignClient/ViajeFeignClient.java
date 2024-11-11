@@ -18,6 +18,6 @@ public interface ViajeFeignClient {
     @DeleteMapping("api/viajes/{id}")
     void delete(@PathVariable("id") Long id);
 
-    @GetMapping("api/viajes/monopatin/{id}")
-    List<Viaje> getByMonopatinCantidadViajesYAnio(@PathVariable("id") Long id, Long cantViajes, int anio);
+    @GetMapping("api/viajes/monopatines/anio/{anio}/cantViajes/{cantViajes}")
+    List<Viaje> getMonopatinesByCantidadViajesYAnio(@PathVariable Long cantViajes, @PathVariable Long anio);
 }

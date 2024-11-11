@@ -1,10 +1,12 @@
 package com.example.microservicio_viaje.service;
 
+import com.example.microservicio_viaje.dto.ReporteMonopatinesPorViajesYAnio;
 import com.example.microservicio_viaje.dto.ReporteUsoPorTiempoDto;
 import com.example.microservicio_viaje.entity.Viaje;
 import com.example.microservicio_viaje.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -104,5 +106,9 @@ public class ViajeService {
                 duracion += Duration.between(pausas.get(i), pausas.get(i + 1)).toMinutes();
             }
         return duracion;
+    }
+
+    public List<ReporteMonopatinesPorViajesYAnio>getReportePorViajeYAnio(Long cantViajes, Long anio){
+        return viajeRepository.getReportePorViajeYAnio(cantViajes, anio);
     }
 }

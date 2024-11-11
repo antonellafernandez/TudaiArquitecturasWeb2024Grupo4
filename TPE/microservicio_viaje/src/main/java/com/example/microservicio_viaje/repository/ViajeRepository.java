@@ -1,5 +1,6 @@
 package com.example.microservicio_viaje.repository;
 
+import com.example.microservicio_viaje.dto.ReporteMonopatinesPorViajesYAnio;
 import com.example.microservicio_viaje.dto.ReporteUsoPorTiempoDto;
 import com.example.microservicio_viaje.entity.Viaje;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,11 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
     @Query("SELECT new com.example.microservicio_viaje.dto.ReporteUsoPorTiempoDto(v.idMonopatin, v.inicioPausasFinal) " +
             "FROM Viaje v ")
     List<ReporteUsoPorTiempoDto>reporteUsoPorTiempo();
+
+    @Query("SELECT new com.example.microservicio_viaje.dto.ReporteMonopatinesPorViajesYAnio(v.idMonopatin, COUNT(v), :anio) " +
+            "FROM Viaje v " +
+            "WHERE YEAR(v.fechaHoraFin) = :anio " +
+            "GROUP BY v.idMonopatin " +
+            "HAVING COUNT(v) > :cantViajes")
+    List<ReporteMonopatinesPorViajesYAnio>getReportePorViajeYAnio(Long cantViajes, Long anio);
 }

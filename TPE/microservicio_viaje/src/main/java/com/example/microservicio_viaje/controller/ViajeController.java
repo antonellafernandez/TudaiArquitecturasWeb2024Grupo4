@@ -1,5 +1,6 @@
 package com.example.microservicio_viaje.controller;
 
+import com.example.microservicio_viaje.dto.ReporteMonopatinesPorViajesYAnio;
 import com.example.microservicio_viaje.entity.Viaje;
 import com.example.microservicio_viaje.service.ViajeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +99,17 @@ public class ViajeController {
         try {
             Map<Long, Long> tiempoPausas = viajeService.getDuracionPausas();
             return ResponseEntity.status(HttpStatus.OK).body(tiempoPausas);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"error\":\"" + e.getMessage() + "\"}");
+        }
+    }
+
+    @GetMapping("/monopatines/anio/{anio}/cantViajes/{cantViajes}")
+    public ResponseEntity<?> getMonopatinesByCantidadViajesYAnio(@PathVariable Long cantViajes, @PathVariable Long anio){
+        try {
+        List<ReporteMonopatinesPorViajesYAnio> reporte = viajeService.getReportePorViajeYAnio(cantViajes, anio);
+            return ResponseEntity.status(HttpStatus.OK).body(reporte);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
