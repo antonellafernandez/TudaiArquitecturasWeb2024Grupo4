@@ -16,7 +16,7 @@ public class ReporteUsoPorTiempoDto {
     private List<LocalDateTime> pausas;
     private Long pausasTotales;
 
-    public ReporteUsoPorTiempoDto(Long idMonopatin, List<LocalDateTime> pausas){
+    public ReporteUsoPorTiempoDto(Long idMonopatin, List<LocalDateTime> pausas) {
         this.idMonopatin = idMonopatin;
         this.pausas = pausas;
     }
