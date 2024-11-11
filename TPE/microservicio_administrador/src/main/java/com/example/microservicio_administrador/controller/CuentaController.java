@@ -8,13 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("administrador/cuentas")
+@RequestMapping("administradores/cuentas")
 public class CuentaController {
     @Autowired
     private CuentaFeignClient cuentaFeignClient;
+
     /*
     3b. Como administrador quiero poder anular cuentas para inhabilitar el uso momentáneo de la misma.
-     */
+    */
     @PutMapping
     public ResponseEntity<?> habilitarCuenta(@RequestBody Long id) {
         try{

@@ -19,7 +19,7 @@ public class MonopatinController {
     @Autowired
     MonopatinService monopatinService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<MonopatinDTO>> getAllMonopatines() {
         List<MonopatinDTO> monopatines = monopatinService.getAll();
         if (monopatines.isEmpty()) {
@@ -105,5 +105,4 @@ public class MonopatinController {
         }
         return ResponseEntity.notFound().build();
     }
-
 }

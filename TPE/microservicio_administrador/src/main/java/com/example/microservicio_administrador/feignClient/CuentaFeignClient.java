@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "microservicio_cuenta", url="http://localhost:8083/cuentas")
 public interface CuentaFeignClient {
 
-    @GetMapping("/")
+    @GetMapping("")
     ResponseEntity<?> getAll();
 
     @PostMapping("")

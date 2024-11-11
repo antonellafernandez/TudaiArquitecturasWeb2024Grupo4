@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/administrador/monopatines")
+@RequestMapping("/administradores/monopatines")
 public class MonopatinController {
 
     @Autowired
@@ -38,7 +38,7 @@ public class MonopatinController {
         return ResponseEntity.ok(resultado);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Monopatin> addMonopatin(@RequestBody Monopatin newMonopatin) {
         Monopatin monopatin = monopatinFeignClient.save(newMonopatin);
         if (monopatin == null)

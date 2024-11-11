@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/administrador/tarifas")
+@RequestMapping("/administradores/tarifas")
 public class TarifaController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class TarifaController {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<?> getTarifas() {
         try {
             List<TarifaDto> tarifas = tarifaService.getTarifas();
@@ -38,7 +38,7 @@ public class TarifaController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<?> save(@RequestBody TarifaDto tarifaDto) {
         try {
             TarifaDto tarifa = tarifaService.save(tarifaDto);

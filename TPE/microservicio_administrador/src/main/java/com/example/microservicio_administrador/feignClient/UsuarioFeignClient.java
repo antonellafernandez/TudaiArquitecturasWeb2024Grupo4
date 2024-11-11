@@ -9,12 +9,12 @@ import java.util.List;
 @FeignClient(name = "microservicio_usuario", url="http://localhost:8085/usuarios")
 public interface UsuarioFeignClient {
 
-    @GetMapping("api/monopatines/")
+    @GetMapping("")
     List<Usuario> getAll();
 
-    @PostMapping("api/monopatines")
+    @PostMapping("")
     Usuario save(@RequestBody Usuario usuario);
 
-    @DeleteMapping("api/monopatines/{id}")
+    @DeleteMapping("/{id}")
     void delete(@PathVariable("id") Long id);
 }

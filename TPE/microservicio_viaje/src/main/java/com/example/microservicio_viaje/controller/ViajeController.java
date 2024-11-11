@@ -20,7 +20,7 @@ public class ViajeController {
     @Autowired
     ViajeService viajeService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Viaje>> getAllViajes() {
         List<Viaje> viajes = viajeService.getAll();
         if (viajes.isEmpty()) {
