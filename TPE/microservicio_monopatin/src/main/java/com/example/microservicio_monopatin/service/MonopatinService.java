@@ -7,9 +7,7 @@ import com.example.microservicio_monopatin.feignClient.ParadaFeignClient;
 import com.example.microservicio_monopatin.feignClient.ViajeFeignClient;
 import com.example.microservicio_monopatin.repository.MonopatinRepository;
 import com.example.microservicio_parada.entity.Parada;
-import com.example.microservicio_monopatin.dtos.ReporteUsoPorKilometroDto;
-import com.example.microservicio_monopatin.dtos.ReporteUsoPorTiempoDto;
-import com.example.microservicio_viaje.entity.Viaje;
+import com.example.microservicio_monopatin.dtos.ReporteUsoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -164,9 +162,44 @@ public class MonopatinService {
         return habilitado;
     }
 
-    public List<ReporteUsoPorKilometroDto> getReporteUsoMonopatinesPorKilometro(){
+    public List<ReporteUsoDto> getReporteUsoMonopatinesCompleto(){
         try {
-            List<ReporteUsoPorKilometroDto> reporte = monopatinRepository.reporteUsoPorKilometro();
+            List<ReporteUsoDto> reporte = monopatinRepository.reporteUsoCompleto();
+
+            if (reporte == null || reporte.isEmpty())
+                return Collections.emptyList();
+
+            return reporte;
+        } catch (Exception e) {
+            throw new RuntimeException("Error al generar el reporte de uso de monopatines completo", e);
+        }
+    }
+    public List<ReporteUsoDto> getReporteUsoMonopatinesCompletoSinPausa(){
+        try {
+            Map<Long, Long> pausasMonopatines = (Map<Long, Long>) viajeFeignClient.getPausasMonopatines().getBody();
+            List<ReporteUsoDto> reportes = monopatinRepository.reporteUsoCompleto();
+
+            if (reportes == null || reportes.isEmpty())
+                return Collections.emptyList();
+            if(pausasMonopatines == null || pausasMonopatines.isEmpty())
+                return reportes;
+
+            for(ReporteUsoDto reporte : reportes){
+                reporte.setTiempoTotal(
+                        reporte.getTiempoTotal()
+                                -
+                                pausasMonopatines.get(reporte.getIdMonopatin()));
+            }
+            return reportes;
+        } catch (Exception e) {
+            throw new RuntimeException("Error al generar el reporte de uso de monopatines completo sin pausa", e);
+        }
+    }
+
+
+    public List<ReporteUsoDto> getReporteUsoMonopatinesPorKilometro(){
+        try {
+            List<ReporteUsoDto> reporte = monopatinRepository.reporteUsoPorKilometro();
 
             if (reporte == null || reporte.isEmpty())
                 return Collections.emptyList();
@@ -177,10 +210,10 @@ public class MonopatinService {
         }
     }
 
-    public List<ReporteUsoPorTiempoDto> getReporteMonopatinesPorTiempoConPausas(){
+    public List<ReporteUsoDto> getReporteMonopatinesPorTiempoConPausas(){
 
         try {
-            List<ReporteUsoPorTiempoDto> reportes = monopatinRepository.reporteUsoPorTiempo();
+            List<ReporteUsoDto> reportes = monopatinRepository.reporteUsoPorTiempo();
             if (reportes == null || reportes.isEmpty())
                 return Collections.emptyList();
 
@@ -190,18 +223,18 @@ public class MonopatinService {
         }
     }
 
-    public List<ReporteUsoPorTiempoDto> getReporteMonopatinesPorTiempoSinPausas(){
+    public List<ReporteUsoDto> getReporteMonopatinesPorTiempoSinPausas(){
 
         try {
             Map<Long, Long> pausasMonopatines = (Map<Long, Long>) viajeFeignClient.getPausasMonopatines().getBody();
-            List<ReporteUsoPorTiempoDto> reportes = monopatinRepository.reporteUsoPorTiempo();
+            List<ReporteUsoDto> reportes = monopatinRepository.reporteUsoPorTiempo();
             if (reportes == null || reportes.isEmpty())
                 return Collections.emptyList();
 
             if(pausasMonopatines == null || pausasMonopatines.isEmpty())
                 return reportes;
 
-            for(ReporteUsoPorTiempoDto reporte : reportes){
+            for(ReporteUsoDto reporte : reportes){
                 reporte.setTiempoTotal(
                         reporte.getTiempoTotal()
                         -

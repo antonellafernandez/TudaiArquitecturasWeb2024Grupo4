@@ -1,9 +1,7 @@
 package com.example.microservicio_monopatin.controller;
 
-import com.example.microservicio_cuenta.entity.CuentaApp;
 import com.example.microservicio_monopatin.dtos.MonopatinDTO;
-import com.example.microservicio_monopatin.dtos.ReporteUsoPorKilometroDto;
-import com.example.microservicio_monopatin.dtos.ReporteUsoPorTiempoDto;
+import com.example.microservicio_monopatin.dtos.ReporteUsoDto;
 import com.example.microservicio_monopatin.entity.Monopatin;
 import com.example.microservicio_monopatin.service.MonopatinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +81,7 @@ public class MonopatinController {
 
     @GetMapping("/reportePorKilometros")
     public ResponseEntity<?> getReportePorKilometros(){
-        List<ReporteUsoPorKilometroDto> reporte = monopatinService.getReporteUsoMonopatinesPorKilometro();
+        List<ReporteUsoDto> reporte = monopatinService.getReporteUsoMonopatinesPorKilometro();
         if (reporte != null) {
             return ResponseEntity.ok(reporte);
         }
@@ -92,7 +90,7 @@ public class MonopatinController {
 
     @GetMapping("/reportePorTiempoTotal")
     public ResponseEntity<?> getReporteMonopatinesPorTiempoConPausas(){
-        List<ReporteUsoPorTiempoDto> reporte = monopatinService.getReporteMonopatinesPorTiempoConPausas();
+        List<ReporteUsoDto> reporte = monopatinService.getReporteMonopatinesPorTiempoConPausas();
         if (reporte != null) {
             return ResponseEntity.ok(reporte);
         }
@@ -101,7 +99,7 @@ public class MonopatinController {
 
     @GetMapping("/reportePorTiempoSinPausa")
     public ResponseEntity<?> getReporteMonopatinesPorTiempoSinPausas(){
-        List<ReporteUsoPorTiempoDto> reporte = monopatinService.getReporteMonopatinesPorTiempoSinPausas();
+        List<ReporteUsoDto> reporte = monopatinService.getReporteMonopatinesPorTiempoSinPausas();
         if (reporte != null) {
             return ResponseEntity.ok(reporte);
         }

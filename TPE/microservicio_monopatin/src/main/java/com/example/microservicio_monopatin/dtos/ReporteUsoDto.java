@@ -2,15 +2,13 @@ package com.example.microservicio_monopatin.dtos;
 
 import lombok.*;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReporteUsoPorTiempoDto {
+public class ReporteUsoDto {
     private Long idMonopatin;
+    private Long kmRecorridos;
     private Long tiempoTotal;
 }
