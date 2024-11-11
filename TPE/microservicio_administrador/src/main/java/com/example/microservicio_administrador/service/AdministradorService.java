@@ -5,14 +5,17 @@ import com.example.microservicio_administrador.entity.Administrador;
 import com.example.microservicio_administrador.repository.AdministradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class AdministradorService {
+
     @Autowired
     private AdministradorRepository administradorRepository;
 
+    @Transactional(readOnly = true)
     public List<AdministradorDto> getAllAdministradores() {
 
         return administradorRepository.findAll()
@@ -21,6 +24,7 @@ public class AdministradorService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public AdministradorDto getAdministradorById(Long id) {
 
         return administradorRepository.findById(id)
@@ -28,6 +32,7 @@ public class AdministradorService {
                 .orElseThrow(()-> new RuntimeException("No se encontro el administrador"));
     }
 
+    @Transactional
     public AdministradorDto save(AdministradorDto newAdmin) {
         Administrador admin = new Administrador();
         admin.setNombre(newAdmin.getNombre());
@@ -38,11 +43,11 @@ public class AdministradorService {
         return null;
     }
 
+    @Transactional
     public AdministradorDto delete(Long id) {
         if(administradorRepository.existsById(id))
             administradorRepository.deleteById(id);
 
         return null;
     }
-
 }
