@@ -2,6 +2,8 @@ package com.example.microservicio_monopatin.controller;
 
 import com.example.microservicio_cuenta.entity.CuentaApp;
 import com.example.microservicio_monopatin.dtos.MonopatinDTO;
+import com.example.microservicio_monopatin.dtos.ReporteUsoPorKilometroDto;
+import com.example.microservicio_monopatin.dtos.ReporteUsoPorTiempoDto;
 import com.example.microservicio_monopatin.entity.Monopatin;
 import com.example.microservicio_monopatin.service.MonopatinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +65,6 @@ public class MonopatinController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping
-
     @PutMapping("/habilitar/{id}")
     public ResponseEntity<?> habilitar(@PathVariable Long idMonopatin) {
         if (monopatinService.habilitar(idMonopatin)) {
@@ -77,6 +77,33 @@ public class MonopatinController {
     public ResponseEntity<?> deshabilitar(@PathVariable Long idMonopatin) {
         if (monopatinService.deshabilitar(idMonopatin)) {
             return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/reportePorKilometros")
+    public ResponseEntity<?> getReportePorKilometros(){
+        List<ReporteUsoPorKilometroDto> reporte = monopatinService.getReporteUsoMonopatinesPorKilometro();
+        if (reporte != null) {
+            return ResponseEntity.ok(reporte);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/reportePorTiempoTotal")
+    public ResponseEntity<?> getReporteMonopatinesPorTiempoConPausas(){
+        List<ReporteUsoPorTiempoDto> reporte = monopatinService.getReporteMonopatinesPorTiempoConPausas();
+        if (reporte != null) {
+            return ResponseEntity.ok(reporte);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/reportePorTiempoSinPausa")
+    public ResponseEntity<?> getReporteMonopatinesPorTiempoSinPausas(){
+        List<ReporteUsoPorTiempoDto> reporte = monopatinService.getReporteMonopatinesPorTiempoSinPausas();
+        if (reporte != null) {
+            return ResponseEntity.ok(reporte);
         }
         return ResponseEntity.notFound().build();
     }

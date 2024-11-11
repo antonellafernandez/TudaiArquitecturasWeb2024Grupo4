@@ -7,12 +7,17 @@ import com.example.microservicio_monopatin.feignClient.ParadaFeignClient;
 import com.example.microservicio_monopatin.feignClient.ViajeFeignClient;
 import com.example.microservicio_monopatin.repository.MonopatinRepository;
 import com.example.microservicio_parada.entity.Parada;
+import com.example.microservicio_monopatin.dtos.ReporteUsoPorKilometroDto;
+import com.example.microservicio_monopatin.dtos.ReporteUsoPorTiempoDto;
+import com.example.microservicio_viaje.entity.Viaje;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -158,6 +163,56 @@ public class MonopatinService {
             monopatinRepository.deshabilitar(monopatinId);
 
         return habilitado;
+    }
+
+    public List<ReporteUsoPorKilometroDto> getReporteUsoMonopatinesPorKilometro(){
+        try {
+            List<ReporteUsoPorKilometroDto> reporte = monopatinRepository.reporteUsoPorKilometro();
+
+            if (reporte == null || reporte.isEmpty())
+                return Collections.emptyList();
+
+            return reporte;
+        } catch (Exception e) {
+            throw new RuntimeException("Error al generar el reporte de uso de monopatines por kilometros", e);
+        }
+    }
+
+    public List<ReporteUsoPorTiempoDto> getReporteMonopatinesPorTiempoConPausas(){
+
+        try {
+            List<ReporteUsoPorTiempoDto> reportes = monopatinRepository.reporteUsoPorTiempo();
+            if (reportes == null || reportes.isEmpty())
+                return Collections.emptyList();
+
+            return reportes;
+        } catch (Exception e) {
+            throw new RuntimeException("Error al generar el reporte de uso de monopatines por tiempo con pausas", e);
+        }
+    }
+
+    public List<ReporteUsoPorTiempoDto> getReporteMonopatinesPorTiempoSinPausas(){
+
+        try {
+            Map<Long, Long> pausasMonopatines = (Map<Long, Long>) viajeClient.getPausasMonopatines().getBody();
+            List<ReporteUsoPorTiempoDto> reportes = monopatinRepository.reporteUsoPorTiempo();
+            if (reportes == null || reportes.isEmpty())
+                return Collections.emptyList();
+
+            if(pausasMonopatines == null || pausasMonopatines.isEmpty())
+                return reportes;
+
+            for(ReporteUsoPorTiempoDto reporte : reportes){
+                reporte.setTiempoTotal(
+                        reporte.getTiempoTotal()
+                        -
+                        pausasMonopatines.get(reporte.getIdMonopatin()));
+            }
+
+            return reportes;
+        } catch (Exception e) {
+            throw new RuntimeException("Error al generar el reporte de uso de monopatines por tiempo sin pausas", e);
+        }
     }
 }
 

@@ -1,12 +1,14 @@
 package com.example.microservicio_monopatin.feignClient;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @FeignClient(name = "viaje-service")
 public interface ViajeFeignClient {
@@ -33,5 +35,8 @@ public interface ViajeFeignClient {
     // Método para iniciar un viaje
     @PostMapping("/viaje/iniciar")
     void iniciarViaje(@RequestParam Long monopatinId, @RequestParam LocalDateTime fechaHoraInicio);
+
+    @GetMapping("/totalPausas")
+    ResponseEntity<?> getPausasMonopatines();
 }
 

@@ -1,6 +1,6 @@
 package com.example.microservicio_viaje.service;
 
-import com.example.microservicio_viaje.dto.ReporteUsoPorKilometroDto;
+import com.example.microservicio_viaje.dto.ReporteUsoPorTiempoDto;
 import com.example.microservicio_viaje.entity.Viaje;
 import com.example.microservicio_viaje.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -39,34 +40,6 @@ public class ViajeService {
         return viajeRepository.save(viaje);
     }
 
-
-    private Long getDuracionPausas(Long idViaje){
-        Viaje viaje = viajeRepository.findById(idViaje).get();
-        if (viaje != null) {
-            List<LocalDateTime> pausas = viaje.getInicioPausasFinal();
-            if (!pausas.isEmpty()) {
-                Long duracion = 0L;
-                for (int i = 0; i < pausas.size() - 1; i+=2) {
-                    duracion += Duration.between(pausas.get(i), pausas.get(i+1)).toMinutes();
-                }
-                return duracion;
-            }
-        }
-        return 0L;
-    }
-    public List<ReporteUsoPorKilometroDto> getReporteUsoMonopatinesPorKilometro(){
-        try {
-            List<ReporteUsoPorKilometroDto> reporte = viajeRepository.reporteUsoPorKilometro();
-
-            if (reporte == null || reporte.isEmpty())
-                return Collections.emptyList();
-
-            return reporte;
-        } catch (Exception e) {
-            throw new RuntimeException("Error al generar el reporte de uso de monopatines por kilometros", e);
-        }
-
-    }
 
     public void registrarInicioPausa(Long idViaje, LocalDateTime fechaHoraInicio) {
         // Lógica para registrar el inicio de una pausa
@@ -113,5 +86,23 @@ public class ViajeService {
         viaje.setKmRecorridos(0L);
         viaje.setInicioPausasFinal(new ArrayList<>());
         viajeRepository.save(viaje);
+    }
+
+    public Map<Long, Long> getDuracionPausas() {
+        List<ReporteUsoPorTiempoDto> pausaMonopatines = viajeRepository.reporteUsoPorTiempo();
+        return pausaMonopatines.stream()
+                .collect(Collectors.groupingBy(
+                        ReporteUsoPorTiempoDto::getIdMonopatin,
+                        Collectors.summingLong(reporte -> this.sumarPausas(reporte.getPausas()))  // Sumar los minutos de las pausas
+                ));
+    }
+
+    private Long sumarPausas(List<LocalDateTime> pausas) {
+        Long duracion = 0L;
+        if (pausas != null && !pausas.isEmpty())
+            for (int i = 0; i < pausas.size() - 1; i += 2) {
+                duracion += Duration.between(pausas.get(i), pausas.get(i + 1)).toMinutes();
+            }
+        return duracion;
     }
 }

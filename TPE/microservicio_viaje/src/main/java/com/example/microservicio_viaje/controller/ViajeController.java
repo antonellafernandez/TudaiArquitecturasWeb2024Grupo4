@@ -3,11 +3,13 @@ package com.example.microservicio_viaje.controller;
 import com.example.microservicio_viaje.entity.Viaje;
 import com.example.microservicio_viaje.service.ViajeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/viajes")
@@ -89,5 +91,16 @@ public class ViajeController {
                                              @RequestParam LocalDateTime fechaHoraInicio) {
         viajeService.iniciarViaje(monopatinId, fechaHoraInicio);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/totalPausas")
+    public ResponseEntity<?> getPausasMonopatines(){
+        try {
+            Map<Long, Long> tiempoPausas = viajeService.getDuracionPausas();
+            return ResponseEntity.status(HttpStatus.OK).body(tiempoPausas);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"error\":\"" + e.getMessage() + "\"}");
+        }
     }
 }
