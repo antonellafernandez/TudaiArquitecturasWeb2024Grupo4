@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "microservicio-mantenimiento", url = "http://localhost:8082/mantenimientos")
 public interface AdministradorFeignClient {
 
-    @GetMapping("/mantenimiento/precio-base")
+    @GetMapping("/precio-base")
     double obtenerPrecioBase();
 
-    @GetMapping("/mantenimiento/tarifa-extra")
+    @GetMapping("/tarifa-extra")
     double obtenerTarifaExtra();
 
     // Aplicar tarifa extra para un monopatín específico después de una pausa prolongada
-    @PostMapping("/mantenimiento/aplicar-tarifa-extra")
+    @PostMapping("/aplicar-tarifa-extra")
     void aplicarTarifaExtra(@RequestParam("monopatinId") Long monopatinId,
                             @RequestParam("tarifa") double tarifa);
 }

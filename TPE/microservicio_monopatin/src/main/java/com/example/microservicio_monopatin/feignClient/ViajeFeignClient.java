@@ -14,26 +14,26 @@ import java.util.Map;
 public interface ViajeFeignClient {
 
     // Registrar el inicio de una pausa en el microservicio de Viaje
-    @PostMapping("/viaje/registrarInicioPausa")
+    @PostMapping("/registrarInicioPausa")
     void registrarInicioPausa(@RequestParam("id") Long idViaje,
                               @RequestParam("fechaHoraInicio") LocalDateTime fechaHoraInicio);
 
     // Obtener el inicio de la última pausa del viaje
-    @GetMapping("/viaje/obtenerInicioUltimaPausa")
+    @GetMapping("/obtenerInicioUltimaPausa")
     LocalDateTime obtenerInicioUltimaPausa(@RequestParam("monopatinId") Long monopatinId);
 
     // Registrar el fin de una pausa en el microservicio de Viaje
-    @PostMapping("/viaje/registrarFinPausa")
+    @PostMapping("/registrarFinPausa")
     void registrarFinPausa(@RequestParam("monopatinId") Long monopatinId,
                            @RequestParam("fechaHoraFin") LocalDateTime fechaHoraFin);
 
-    @PutMapping("/viaje/finalizar")
+    @PutMapping("/finalizar")
     void finalizarViaje(@RequestParam("viajeId") Long viajeId,
                         @RequestParam("fechaHoraFin") LocalDateTime fechaHoraFin,
                         @RequestParam("kmRecorridos") Long kmRecorridos);
 
     // Método para iniciar un viaje
-    @PostMapping("/viaje/iniciar")
+    @PostMapping("/iniciar")
     void iniciarViaje(@RequestParam Long monopatinId, @RequestParam LocalDateTime fechaHoraInicio);
 
     @GetMapping("/totalPausas")

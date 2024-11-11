@@ -10,21 +10,21 @@ import java.util.List;
 @FeignClient(name="microservicio_monopatin", url="http://localhost:8084/monopatines")
 public interface MonopatinFeignClient {
 
-    @GetMapping("api/monopatines/")
+    @GetMapping("")
     List<Monopatin> getAll();
 
-    @PostMapping("api/monopatines")
+    @PostMapping("")
     Monopatin save(@RequestBody Monopatin monopatin);
 
-    @DeleteMapping("api/monopatines/{id}")
+    @DeleteMapping("/{id}")
     void delete(@PathVariable("id") Long id);
 
-    @PostMapping("api/monopatines/habilitar/{id}")
+    @PostMapping("/habilitar/{id}")
     Monopatin deshabilitarMonopatin(@PathVariable("id") Long id);
 
-    @PostMapping("api/monopatines/deshabilitar/{id}")
+    @PostMapping("/deshabilitar/{id}")
     Monopatin habilitarMonopatin(@PathVariable("id") Long id);
 
-    @PutMapping("api/monopatines/deshabilitar/{id}")
+    @PutMapping("/deshabilitar/{id}")
     Monopatin updateMonopatin(@PathVariable("id") Long id, @RequestBody Monopatin Monopatin);
 }

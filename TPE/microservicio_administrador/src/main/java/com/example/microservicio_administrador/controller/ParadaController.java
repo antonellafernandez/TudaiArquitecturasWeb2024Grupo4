@@ -7,13 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/administrador/paradas")
+@RequestMapping("/administradores/paradas")
 public class ParadaController {
     @Autowired
     private ParadaFeignClient paradaFeignClient;
 
-
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Parada> addParada(@RequestBody Parada newParada) {
         Parada parada = paradaFeignClient.save(newParada);
         if (parada == null)

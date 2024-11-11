@@ -21,7 +21,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioNew);
     }
     // Read
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Usuario>> getAllUsuarios() {
         List<Usuario> usuarios = usuarioService.getAll();
         if (usuarios.isEmpty()) {

@@ -10,21 +10,20 @@ import java.util.List;
 @FeignClient(name = "microservicio_viaje", url="http://localhost:8087/viajes")
 public interface ViajeFeignClient {
 
-    @GetMapping("api/viajes/")
+    @GetMapping("")
     List<Viaje> getAll();
 
-    @PostMapping("api/viajes")
+    @PostMapping("")
     Viaje save(@RequestBody Viaje viaje);
 
-    @DeleteMapping("api/viajes/{id}")
+    @DeleteMapping("/{id}")
     void delete(@PathVariable("id") Long id);
 
-    @GetMapping("api/viajes/monopatines/anio/{anio}/cantViajes/{cantViajes}")
+    @GetMapping("/monopatines/anio/{anio}/cantViajes/{cantViajes}")
     List<Viaje> getMonopatinesByCantidadViajesYAnio(@PathVariable Long cantViajes, @PathVariable Long anio);
 
     @GetMapping("/viajes/facturado")
     ReporteTotalFacturadoEntreMesesDeAnio getReporteTotalFacturadoEntreMesesDeAnio(@RequestParam Long mesInicio,
                                                                                    @RequestParam Long mesFin,
                                                                                    @RequestParam Long anio);
-
 }

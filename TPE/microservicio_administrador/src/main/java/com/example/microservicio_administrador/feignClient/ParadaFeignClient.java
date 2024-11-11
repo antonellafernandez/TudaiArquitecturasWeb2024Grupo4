@@ -9,22 +9,21 @@ import java.util.List;
 @FeignClient(name = "microservicio_parada", url="http://localhost:8086/paradas")
 public interface ParadaFeignClient {
 
-    @GetMapping("api/paradas/")
+    @GetMapping("")
     List<Parada> getAll();
 
-    @PostMapping("api/paradas")
+    @PostMapping("")
     Parada save(@RequestBody Parada parada);
 
-    @DeleteMapping("api/paradas/{id}")
+    @DeleteMapping("/{id}")
     void delete(@PathVariable("id") Long id);
 
-    @PostMapping("api/paradas/habilitar/{id}")
+    @PostMapping("/habilitar/{id}")
     Parada deshabilitarParada(@PathVariable("id") Long id);
 
-    @PostMapping("api/paradas/deshabilitar/{id}")
+    @PostMapping("/deshabilitar/{id}")
     Parada habilitarParada(@PathVariable("id") Long id);
 
-    @PutMapping("api/paradas/deshabilitar/{id}")
+    @PutMapping("/{id}")
     Parada updateParada(@PathVariable("id") Long id, @RequestBody Parada parada);
-
 }

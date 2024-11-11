@@ -23,7 +23,7 @@ public class CuentaController {
     }
 
     // Read
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<CuentaApp>> getAllCuentas() {
         List<CuentaApp> cuentas = cuentaService.getAll();
         if (cuentas.isEmpty()) {

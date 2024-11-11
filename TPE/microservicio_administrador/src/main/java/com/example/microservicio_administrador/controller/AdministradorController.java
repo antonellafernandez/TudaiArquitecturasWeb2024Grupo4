@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/administrador")
+@RequestMapping("/administradores")
 public class AdministradorController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class AdministradorController {
     @Autowired
     private ViajeFeignClient viajeFeignClient;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<AdministradorDto>> getAllAdministradores() {
         List<AdministradorDto> administradores = administradorService.getAllAdministradores();
         if (administradores.isEmpty()) {

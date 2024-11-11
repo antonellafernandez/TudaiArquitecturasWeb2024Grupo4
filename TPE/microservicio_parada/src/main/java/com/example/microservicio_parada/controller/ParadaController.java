@@ -22,7 +22,7 @@ public class ParadaController {
         return ResponseEntity.ok(paradaNew);
     }
     // Read
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Parada>> getAllParadas() {
         List<Parada> paradas = paradaService.getAll();
         if (paradas.isEmpty()) {
