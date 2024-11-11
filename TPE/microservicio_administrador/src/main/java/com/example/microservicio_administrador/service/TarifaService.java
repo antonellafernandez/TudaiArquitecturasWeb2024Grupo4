@@ -89,6 +89,7 @@ public class TarifaService {
         }
     }
 
+    @Transactional
     public boolean delete(Long id) {
         try{
             tarifaRepository.deleteById(id);

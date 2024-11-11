@@ -22,33 +22,40 @@ public class CuentaService {
     UsuarioFeignClient usuarioFeignClient;
 
     // Create
+    @Transactional
     public CuentaApp save(CuentaApp cuenta) {
         return cuentaRepository.save(cuenta);
     }
 
     // Read
+    @Transactional(readOnly = true)
     public List<CuentaApp> getAll() {
         return cuentaRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<CuentaApp> getAllHabilitadas() {
         return cuentaRepository.findAllHabilitadas();
     }
 
+    @Transactional(readOnly = true)
     public List<CuentaApp> getAllDeshabilitadas() {
         return cuentaRepository.findAllDeshabilitadas();
     }
 
+    @Transactional(readOnly = true)
     public CuentaApp findById(Long id) {
         return cuentaRepository.findById(id).orElse(null);
     }
 
     // Update
+    @Transactional
     public CuentaApp update(CuentaApp cuenta) {
         return cuentaRepository.save(cuenta);
     }
 
     // Delete
+    @Transactional
     public void delete(CuentaApp cuenta) {
         cuentaRepository.delete(cuenta);
     }
@@ -66,6 +73,7 @@ public class CuentaService {
     }
 
     // Read Usuarios
+    @Transactional(readOnly = true)
     public List<Usuario> getUsuariosById(Long id) {
         List<Usuario> salida = new ArrayList<Usuario>();
         List<Long> idUsuarios = cuentaRepository.getIdUsuarios(id);

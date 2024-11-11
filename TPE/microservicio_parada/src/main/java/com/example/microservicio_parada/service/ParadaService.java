@@ -22,33 +22,40 @@ public class ParadaService {
     MonopatinFeignClient monopatinFeignClient;
 
     // Create
+    @Transactional
     public Parada save(Parada parada) {
         return paradaRepository.save(parada);
     }
 
     // Read
+    @Transactional(readOnly = true)
     public List<Parada> getAll() {
         return paradaRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Parada> getAllHabilitadas() {
         return paradaRepository.findAllHabilitadas();
     }
 
+    @Transactional(readOnly = true)
     public List<Parada> getAllDeshabilitadas() {
         return paradaRepository.findAllDeshabilitadas();
     }
 
+    @Transactional(readOnly = true)
     public Parada findById(Long id) {
         return paradaRepository.findById(id).orElse(null);
     }
 
     // Update
+    @Transactional
     public Parada update(Parada parada) {
         return paradaRepository.save(parada);
     }
 
     // Delete
+    @Transactional
     public void delete(Parada parada) {
         paradaRepository.delete(parada);
     }
@@ -66,6 +73,7 @@ public class ParadaService {
     }
 
     // Read Monopatines
+    @Transactional(readOnly = true)
     public List<Monopatin> getMonopatinesById(Long id) {
         List<Monopatin> salida = new ArrayList<Monopatin>();
         List<Long> idMonopatines = paradaRepository.getIdMonopatines(id);
@@ -78,6 +86,7 @@ public class ParadaService {
     }
 
     // Obtener monopatines cercanos.
+    @Transactional(readOnly = true)
     public List<Monopatin> getMonopatinesCercanos(double latitud, double longitud, double radio) {
         List<Parada> paradas = paradaRepository.findAllHabilitadas();
         List<Parada> paradasCercanas = paradas.stream()

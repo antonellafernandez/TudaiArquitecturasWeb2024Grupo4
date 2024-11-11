@@ -90,7 +90,7 @@ public class MonopatinController {
 
     @GetMapping("/reportePorTiempoTotal")
     public ResponseEntity<?> getReporteMonopatinesPorTiempoConPausas(){
-        List<ReporteUsoDto> reporte = monopatinService.getReporteMonopatinesPorTiempoConPausas();
+        List<ReporteUsoDto> reporte = monopatinService.getReporteUsoMonopatinesCompleto();
         if (reporte != null) {
             return ResponseEntity.ok(reporte);
         }
@@ -99,7 +99,7 @@ public class MonopatinController {
 
     @GetMapping("/reportePorTiempoSinPausa")
     public ResponseEntity<?> getReporteMonopatinesPorTiempoSinPausas(){
-        List<ReporteUsoDto> reporte = monopatinService.getReporteMonopatinesPorTiempoSinPausas();
+        List<ReporteUsoDto> reporte = monopatinService.getReporteUsoMonopatinesCompletoSinPausa();
         if (reporte != null) {
             return ResponseEntity.ok(reporte);
         }

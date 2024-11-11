@@ -10,6 +10,7 @@ import com.example.microservicio_parada.entity.Parada;
 import com.example.microservicio_monopatin.dtos.ReporteUsoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -34,6 +35,7 @@ public class MonopatinService {
     @Autowired
     private ViajeFeignClient viajeFeignClient;  // Cliente Feign para el microservicio de Viaje
 
+    @Transactional(readOnly = true)
     public List<MonopatinDTO> getAll() {
         List<Monopatin> monopatines = monopatinRepository.findAll();
         return monopatines.stream()
@@ -41,24 +43,29 @@ public class MonopatinService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public Monopatin save(Monopatin monopatin) {
         return monopatinRepository.save(monopatin);
     }
 
+    @Transactional
     public void delete(Monopatin monopatin) {
         monopatinRepository.delete(monopatin);
     }
 
+    @Transactional(readOnly = true)
     public Monopatin findById(Long id) {
         return monopatinRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public Monopatin update(Monopatin monopatin) {
         return monopatinRepository.save(monopatin);
     }
 
 
     // Método para pausar el monopatín
+    @Transactional
     public void pausarMonopatin(Long monopatinId) {
         Monopatin monopatin = monopatinRepository.findById(monopatinId)
                 .orElseThrow(() -> new RuntimeException("Monopatin no encontrado"));
@@ -69,6 +76,7 @@ public class MonopatinService {
     }
 
     // Método para reiniciar el monopatín y calcular la tarifa de reinicio
+    @Transactional
     public void reiniciarMonopatin(Long monopatinId) {
         Monopatin monopatin = monopatinRepository.findById(monopatinId)
                 .orElseThrow(() -> new RuntimeException("Monopatin no encontrado"));
@@ -94,6 +102,7 @@ public class MonopatinService {
     }
 
     // Método para iniciar un viaje al retirar el monopatín de una parada
+    @Transactional
     public void iniciarViaje(Long monopatinId, Long paradaId) {
         Monopatin monopatin = monopatinRepository.findById(monopatinId)
                 .orElseThrow(() -> new RuntimeException("Monopatin no encontrado"));
@@ -113,6 +122,7 @@ public class MonopatinService {
     }
 
     // Método para ubicar monopatín en una parada válida y finalizar el viaje si está en uso
+    @Transactional
     public boolean pararMonopatin(Long monopatinId, Long paradaId, Long viajeId, Long kmRecorridos) {
         Monopatin monopatin = monopatinRepository.findById(monopatinId).orElse(null);
         if (monopatin != null && paradaId != null && monopatin.isDisponible()) {
@@ -132,6 +142,7 @@ public class MonopatinService {
 
 
     // Método para verificar si el monopatín está en el rango de la parada
+
     private boolean esParadaPermitida(Monopatin monopatin, Parada parada) {
         double rangoPermitido = 0.0005; // Aproximadamente 50 m, ajustable
         return Math.abs(monopatin.getLatitud() - parada.getLatitud()) < rangoPermitido &&
@@ -146,6 +157,7 @@ public class MonopatinService {
         viajeFeignClient.finalizarViaje(viajeId, fechaHoraFin, kmRecorridos);
     }
 
+    @Transactional
     public Boolean habilitar(Long monopatinId) {
         Boolean habilitado = monopatinRepository.findById(monopatinId).isPresent();
         if(habilitado)
@@ -154,6 +166,7 @@ public class MonopatinService {
         return habilitado;
     }
 
+    @Transactional
     public Boolean deshabilitar(Long monopatinId) {
         Boolean habilitado = monopatinRepository.findById(monopatinId).isPresent();
         if(habilitado)
@@ -162,6 +175,7 @@ public class MonopatinService {
         return habilitado;
     }
 
+    @Transactional(readOnly = true)
     public List<ReporteUsoDto> getReporteUsoMonopatinesCompleto(){
         try {
             List<ReporteUsoDto> reporte = monopatinRepository.reporteUsoCompleto();
@@ -174,6 +188,7 @@ public class MonopatinService {
             throw new RuntimeException("Error al generar el reporte de uso de monopatines completo", e);
         }
     }
+    @Transactional(readOnly = true)
     public List<ReporteUsoDto> getReporteUsoMonopatinesCompletoSinPausa(){
         try {
             Map<Long, Long> pausasMonopatines = (Map<Long, Long>) viajeFeignClient.getPausasMonopatines().getBody();
@@ -197,6 +212,7 @@ public class MonopatinService {
     }
 
 
+    @Transactional(readOnly = true)
     public List<ReporteUsoDto> getReporteUsoMonopatinesPorKilometro(){
         try {
             List<ReporteUsoDto> reporte = monopatinRepository.reporteUsoPorKilometro();
@@ -210,6 +226,7 @@ public class MonopatinService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<ReporteUsoDto> getReporteMonopatinesPorTiempoConPausas(){
 
         try {
@@ -223,6 +240,7 @@ public class MonopatinService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<ReporteUsoDto> getReporteMonopatinesPorTiempoSinPausas(){
 
         try {

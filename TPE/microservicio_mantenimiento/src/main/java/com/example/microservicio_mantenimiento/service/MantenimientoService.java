@@ -7,6 +7,7 @@ import com.example.microservicio_mantenimiento.repository.MantenimientoRepositor
 import com.example.microservicio_mantenimiento.feignClients.MonopatinFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,6 +22,7 @@ public class MantenimientoService {
     private MonopatinFeignClient monopatinFeignClient;
 
     // Read Monopatin
+    @Transactional
     public Mantenimiento registrarMonopatinEnMantenimiento(Long idMonopatin, Long umbralKm, Long umbralTiempo) {
         Monopatin monopatin = monopatinFeignClient.getMonopatinById(idMonopatin);
         Mantenimiento newMantenimiento = new Mantenimiento(monopatin.getGpsId(), LocalDateTime.now(), null);
@@ -33,6 +35,7 @@ public class MantenimientoService {
         throw new IllegalArgumentException("El monopatin no está apto para mantenimiento");
     }
 
+    @Transactional
     public Mantenimiento finalizarMantenimiento(Long idMantenimiento) {
 
         if (mantenimientoRepository.findById(idMantenimiento) != null){

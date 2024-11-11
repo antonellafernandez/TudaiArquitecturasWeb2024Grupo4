@@ -7,6 +7,7 @@ import com.example.microservicio_viaje.entity.Viaje;
 import com.example.microservicio_viaje.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -22,27 +23,33 @@ public class ViajeService {
     @Autowired
     private ViajeRepository viajeRepository;
 
+    @Transactional(readOnly = true)
     public List<Viaje> getAll() {
         return viajeRepository.findAll();
     }
 
+    @Transactional
     public Viaje save(Viaje viaje) {
         return viajeRepository.save(viaje);
     }
 
+    @Transactional
     public void delete(Viaje viaje) {
         viajeRepository.delete(viaje);
     }
 
+    @Transactional(readOnly = true)
     public Viaje findById(Long id) {
         return viajeRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public Viaje update(Viaje viaje) {
         return viajeRepository.save(viaje);
     }
 
 
+    @Transactional
     public void registrarInicioPausa(Long idViaje, LocalDateTime fechaHoraInicio) {
         // Lógica para registrar el inicio de una pausa
         Viaje viaje = viajeRepository.findById(idViaje).get();
@@ -52,6 +59,7 @@ public class ViajeService {
         }
     }
 
+    @Transactional(readOnly = true)
     public LocalDateTime obtenerInicioUltimaPausa(Long monopatinId) {
         // Obtener el inicio de la última pausa
         Viaje viaje = viajeRepository.findById(monopatinId).get();
@@ -61,6 +69,7 @@ public class ViajeService {
         return null;
     }
 
+    @Transactional
     public void registrarFinPausa(Long monopatinId, LocalDateTime fechaHoraFin) {
         // Lógica para registrar el fin de una pausa
         Viaje viaje = viajeRepository.findById(monopatinId).get();
@@ -70,6 +79,7 @@ public class ViajeService {
         }
     }
 
+    @Transactional
     public void finalizarViaje(Long viajeId, LocalDateTime fechaHoraFin, Long kmRecorridos) {
         // Lógica para finalizar el viaje
         Viaje viaje = viajeRepository.findById(viajeId).orElse(null);
@@ -80,6 +90,7 @@ public class ViajeService {
         }
     }
 
+    @Transactional
     public void iniciarViaje(Long monopatinId, LocalDateTime fechaHoraInicio) {
         // Lógica para iniciar un viaje
         Viaje viaje = new Viaje();
@@ -90,6 +101,7 @@ public class ViajeService {
         viajeRepository.save(viaje);
     }
 
+    @Transactional(readOnly = true)
     public Map<Long, Long> getDuracionPausas() {
         List<ReporteUsoPorTiempoDto> pausaMonopatines = viajeRepository.reporteUsoPorTiempo();
         return pausaMonopatines.stream()
@@ -108,10 +120,12 @@ public class ViajeService {
         return duracion;
     }
 
+    @Transactional(readOnly = true)
     public List<ReporteMonopatinesPorViajesYAnio>getReportePorViajeYAnio(Long cantViajes, Long anio){
         return viajeRepository.getReportePorViajeYAnio(cantViajes, anio);
     }
 
+    @Transactional(readOnly = true)
     public ReporteTotalFacturadoEntreMesesDeAnio getReporteTotalFacturadoEntreMesesDeAnio(Long mesInicio, Long mesFin, Long anio){
         return viajeRepository.getReporteTotalFacturadoEntreMesesDeAnio(mesInicio, mesFin, anio);
     }
