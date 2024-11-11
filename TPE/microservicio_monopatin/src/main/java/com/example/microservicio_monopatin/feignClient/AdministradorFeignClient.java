@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "microservicio_administrador", url = "http://localhost:8081/administradores")
+@FeignClient(name = "microservicio_administrador", url = "http://localhost:3307/administradores")
 public interface AdministradorFeignClient {
 
     @GetMapping("/precio-base")

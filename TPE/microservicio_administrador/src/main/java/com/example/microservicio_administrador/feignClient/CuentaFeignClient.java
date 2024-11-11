@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "microservicio_cuenta", url="http://localhost:8083/cuentas")
+@FeignClient(name = "microservicio_cuenta", url="http://localhost:3309/cuentas")
 public interface CuentaFeignClient {
 
     @GetMapping("")

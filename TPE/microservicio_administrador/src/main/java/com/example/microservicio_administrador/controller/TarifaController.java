@@ -74,4 +74,14 @@ public class TarifaController {
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
+    @GetMapping("")
+    public ResponseEntity<?> getTarifasNormales() {
+        try {
+            List<TarifaDto> tarifas = tarifaService.getTarifas();
+            return ResponseEntity.status(HttpStatus.OK).body(tarifas);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("{\"error\":\"Error al obtener tarifas.\"}");
+        }
+    }
 }

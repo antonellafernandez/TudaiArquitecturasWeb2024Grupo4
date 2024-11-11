@@ -2,55 +2,55 @@ services:
   microservicio_administrador:
     image: mysql
     ports:
-      - "8081:8080"  # Mapea el puerto 8081 en el host al 8080 en el contenedor
+      - "3307:3306"  # Mapea el puerto 3307 en el host al 3306 en el contenedor
     environment:
-      - "MYSQL_DATABASE:db_administrador"
-      - "MYSQL_ALLOW_EMPTY_PASSWORD:yes"
+      - MYSQL_DATABASE=db_administrador
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
   microservicio_mantenimiento:
     image: mysql
     ports:
-      - "8082:8080"  # Mapea el puerto 8082 en el host al 8080 en el contenedor
+      - "3308:3306"  # Mapea el puerto 3308 en el host al 3306 en el contenedor
     environment:
-      - "MYSQL_DATABASE:db_mantenimiento"
-      - "MYSQL_ALLOW_EMPTY_PASSWORD:yes"
+      - MYSQL_DATABASE=db_mantenimiento
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
   microservicio_cuenta:
     image: mysql
     ports:
-      - "8083:8080"  # Mapea el puerto 8083 en el host al 8080 en el contenedor
+      - "3309:3306"  # Mapea el puerto 3309 en el host al 3306 en el contenedor
     environment:
-      - "MYSQL_DATABASE:db_cuenta"
-      - "MYSQL_ALLOW_EMPTY_PASSWORD:yes"
+      - MYSQL_DATABASE=db_cuenta
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
   microservicio_monopatin:
     image: mysql
     ports:
-      - "8084:8080"  # Mapea el puerto 8084 en el host al 8080 en el contenedor
+      - "3310:3306"  # Mapea el puerto 3310 en el host al 3306 en el contenedor
     environment:
-      - "MYSQL_DATABASE:db_monopatin"
-      - "MYSQL_ALLOW_EMPTY_PASSWORD:yes"
+      - MYSQL_DATABASE=db_monopatin
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
   microservicio_usuario:
     image: mysql
     ports:
-      - "8085:8080"  # Mapea el puerto 8085 en el host al 8080 en el contenedor
+      - "3311:3306"  # Mapea el puerto 3311 en el host al 3306 en el contenedor
     environment:
-      - "MYSQL_DATABASE:db_usuario"
-      - "MYSQL_ALLOW_EMPTY_PASSWORD:yes"
+      - MYSQL_DATABASE=db_usuario
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
   microservicio_parada:
     image: mysql
     ports:
-      - "8086:8080"  # Mapea el puerto 8086 en el host al 8080 en el contenedor
+      - "3312:3306"  # Mapea el puerto 3312 en el host al 3306 en el contenedor
     environment:
-      - "MYSQL_DATABASE:db_parada"
-      - "MYSQL_ALLOW_EMPTY_PASSWORD:yes"
+      - MYSQL_DATABASE=db_parada
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
   microservicio_viaje:
     image: mysql
     ports:
-      - "8087:8080"  # Mapea el puerto 8087 en el host al 8080 en el contenedor
+      - "3313:3306"  # Mapea el puerto 3313 en el host al 3306 en el contenedor
     environment:
-      - "MYSQL_DATABASE:db_viaje"
-      - "MYSQL_ALLOW_EMPTY_PASSWORD:yes"
+      - MYSQL_DATABASE=db_viaje
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes

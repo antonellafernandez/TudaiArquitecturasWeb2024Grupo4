@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name="microservicio_cuenta", url="http://localhost:8083/cuentas")
+@FeignClient(name="microservicio_cuenta", url="http://localhost:3309/cuentas")
 public interface CuentaAppFeignClient {
     @GetMapping("/{id}")
     CuentaApp getCuentaById(@PathVariable("id") Long id);

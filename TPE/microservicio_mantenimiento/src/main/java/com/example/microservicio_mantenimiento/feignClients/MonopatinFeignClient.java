@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name="microservicio_monopatin", url="http://localhost:8084/monopatines")
+@FeignClient(name="microservicio_monopatin", url="http://localhost:3310/monopatines")
 public interface MonopatinFeignClient {
     @GetMapping("/{id}")
     Monopatin getMonopatinById(@PathVariable("id") Long id);
