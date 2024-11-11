@@ -14,6 +14,7 @@ misma.</h3>
 --> Implementado en microservicio_administrador ViajeController y microservicio_viaje ViajeService
 
 <h3>d. Como administrador quiero consultar el total facturado en un rango de meses de cierto año.</h3>
+--> Implementado en microservicio_administrador y en microservicio_viaje
 
 <h3>e. Como administrador quiero consultar la cantidad de monopatines actualmente en operación,
 versus la cantidad de monopatines actualmente en mantenimiento.</h3>
