@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReporteUsoPorKilometro {
+public class ReporteUsoPorKilometroDto {
     private Long idMonopatin;
     private Long kmRecorridos;
 }

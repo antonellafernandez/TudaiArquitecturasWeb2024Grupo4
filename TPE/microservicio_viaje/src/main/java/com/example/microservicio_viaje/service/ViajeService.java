@@ -1,17 +1,16 @@
 package com.example.microservicio_viaje.service;
 
-import com.example.microservicio_viaje.dto.ReporteUsoPorKilometro;
+import com.example.microservicio_viaje.dto.ReporteUsoPorKilometroDto;
 import com.example.microservicio_viaje.entity.Viaje;
 import com.example.microservicio_viaje.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.MissingResourceException;
 
 
 @Service
@@ -55,10 +54,16 @@ public class ViajeService {
         }
         return 0L;
     }
-    public ReporteUsoPorKilometro getReporteUsoMonopatinesPorKilometro(Long idMonopatin){
-        if (viajeRepository.monopatinTieneViajes(idMonopatin)){
-            ReporteUsoPorKilometro reporte = viajeRepository.reporteUsoPorKilometro(idMonopatin);
+    public List<ReporteUsoPorKilometroDto> getReporteUsoMonopatinesPorKilometro(){
+        try {
+            List<ReporteUsoPorKilometroDto> reporte = viajeRepository.reporteUsoPorKilometro();
 
+            if (reporte == null || reporte.isEmpty())
+                return Collections.emptyList();
+
+            return reporte;
+        } catch (Exception e) {
+            throw new RuntimeException("Error al generar el reporte de uso de monopatines por kilometros", e);
         }
 
     }

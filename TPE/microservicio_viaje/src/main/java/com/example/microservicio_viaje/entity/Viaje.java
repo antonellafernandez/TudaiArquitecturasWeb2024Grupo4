@@ -16,6 +16,7 @@ public class Viaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long idMonopatin;
     private LocalDateTime fechaHoraInicio;
     private LocalDateTime fechaHoraFin;
     private Long kmRecorridos;
