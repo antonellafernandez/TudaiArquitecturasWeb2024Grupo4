@@ -30,4 +30,5 @@ public interface MonopatinRepository extends JpaRepository<Monopatin, Long> {
     @Query("SELECT new com.example.microservicio_monopatin.dtos.ReporteUsoPorTiempoDto(m.id, m.tiempoRecorridosTotales) " +
             "FROM Monopatin m ")
     List<ReporteUsoPorTiempoDto>reporteUsoPorTiempo();
+
 }

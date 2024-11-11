@@ -1,5 +1,6 @@
 package com.example.microservicio_administrador.feignClient;
 
+import com.example.microservicio_administrador.model.ReporteTotalFacturadoEntreMesesDeAnio;
 import com.example.microservicio_administrador.model.Viaje;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -20,4 +21,10 @@ public interface ViajeFeignClient {
 
     @GetMapping("api/viajes/monopatines/anio/{anio}/cantViajes/{cantViajes}")
     List<Viaje> getMonopatinesByCantidadViajesYAnio(@PathVariable Long cantViajes, @PathVariable Long anio);
+
+    @GetMapping("/viajes/facturado")
+    ReporteTotalFacturadoEntreMesesDeAnio getReporteTotalFacturadoEntreMesesDeAnio(@RequestParam Long mesInicio,
+                                                                                   @RequestParam Long mesFin,
+                                                                                   @RequestParam Long anio);
+
 }

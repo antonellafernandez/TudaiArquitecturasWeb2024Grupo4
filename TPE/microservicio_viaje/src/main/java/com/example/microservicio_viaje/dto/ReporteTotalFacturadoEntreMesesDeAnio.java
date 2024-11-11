@@ -7,8 +7,9 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReporteMonopatinesPorViajesYAnio {
-    private Long idMonopatin;
-    private Long cantViajes;
+public class ReporteTotalFacturadoEntreMesesDeAnio {
+    private Double totalFacturado;
     private Long anio;
+    private Long mesInicio;
+    private Long mesFin;
 }

@@ -20,6 +20,7 @@ public class Viaje {
     private LocalDateTime fechaHoraInicio;
     private LocalDateTime fechaHoraFin;
     private Long kmRecorridos;
+    private Double valorTotal;
 
     @ElementCollection
     private List<LocalDateTime> inicioPausasFinal;
