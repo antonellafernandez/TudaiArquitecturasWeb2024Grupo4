@@ -21,6 +21,7 @@ versus la cantidad de monopatines actualmente en mantenimiento.</h3>
 
 <h3>f. Como administrador quiero hacer un ajuste de precios, y que a partir de cierta fecha el sistema
 habilite los nuevos precios.</h3>
+--> Implementado en microservicio_administrador TarifaService
 
 <h3>g. Como usuario quiero un listado de los monopatines cercanos a mi zona, para poder encontrar
 un monopatín cerca de mi ubicación.</h3>
