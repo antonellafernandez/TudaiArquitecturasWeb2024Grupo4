@@ -1,6 +1,7 @@
 package com.example.microservicio_parada.controller;
 
 import com.example.microservicio_parada.entity.Parada;
+import com.example.microservicio_parada.models.Monopatin;
 import com.example.microservicio_parada.service.ParadaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -85,5 +86,21 @@ public class ParadaController {
         }
         paradaService.deshabilitar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    /*
+    3g. Como usuario quiero un listado de los monopatines cercanos a mi zona, para poder encontrar
+    un monopatín cerca de mi ubicación.
+    */
+    @GetMapping("/cercanos")
+    public ResponseEntity<List<Monopatin>> getMonopatinesCercanos(
+            @RequestParam double latitud,
+            @RequestParam double longitud,
+            @RequestParam double radio) {
+        List<Monopatin> monopatinesCercanos = paradaService.getMonopatinesCercanos(latitud, longitud, radio);
+        if (monopatinesCercanos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(monopatinesCercanos);
     }
 }
