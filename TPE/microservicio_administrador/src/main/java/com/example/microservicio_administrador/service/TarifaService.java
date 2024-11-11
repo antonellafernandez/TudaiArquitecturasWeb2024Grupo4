@@ -68,5 +68,4 @@ public class TarifaService {
             throw new RuntimeException("Error al eliminar tarifa con id=" + id + "!" + e.getMessage());
         }
     }
-
 }

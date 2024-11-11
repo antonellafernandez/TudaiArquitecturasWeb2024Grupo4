@@ -28,13 +28,13 @@ public class MonopatinService {
     MonopatinRepository monopatinRepository;
 
     @Autowired
-    private AdministradorFeignClient administradorClient;
+    private AdministradorFeignClient administradorFeignClient;
 
     @Autowired
-    private ParadaFeignClient paradaClient;
+    private ParadaFeignClient paradaFeignClient;
 
     @Autowired
-    private ViajeFeignClient viajeClient;  // Cliente Feign para el microservicio de Viaje
+    private ViajeFeignClient viajeFeignClient;  // Cliente Feign para el microservicio de Viaje
 
     public List<MonopatinDTO> getAll() {
         List<Monopatin> monopatines = monopatinRepository.findAll();
@@ -65,7 +65,7 @@ public class MonopatinService {
         Monopatin monopatin = monopatinRepository.findById(monopatinId)
                 .orElseThrow(() -> new RuntimeException("Monopatin no encontrado"));
 
-        viajeClient.registrarInicioPausa(monopatin.getIdViajeActivo(), LocalDateTime.now());  // Registrar pausa en Viaje
+        viajeFeignClient.registrarInicioPausa(monopatin.getIdViajeActivo(), LocalDateTime.now());  // Registrar pausa en Viaje
         monopatin.setDisponible(false);
         monopatinRepository.save(monopatin);
     }
@@ -76,22 +76,21 @@ public class MonopatinService {
                 .orElseThrow(() -> new RuntimeException("Monopatin no encontrado"));
 
         LocalDateTime finPausa = LocalDateTime.now();
-        LocalDateTime inicioPausa = viajeClient.obtenerInicioUltimaPausa(monopatinId);
+        LocalDateTime inicioPausa = viajeFeignClient.obtenerInicioUltimaPausa(monopatinId);
         long minutosPausa = Duration.between(inicioPausa, finPausa).toMinutes();
 
         double tarifa = calcularTarifaReinicio(minutosPausa);
-        viajeClient.registrarFinPausa(monopatinId, finPausa);  // Actualizar fin de pausa en Viaje
+        viajeFeignClient.registrarFinPausa(monopatinId, finPausa);  // Actualizar fin de pausa en Viaje
 
-
-        administradorClient.aplicarTarifaExtra(monopatinId, tarifa);
+        administradorFeignClient.aplicarTarifaExtra(monopatinId, tarifa);
         monopatinRepository.save(monopatin);
     }
 
     // Método para calcular la tarifa de reinicio
     private double calcularTarifaReinicio(long minutosPausa) {
-        double tarifaBase = administradorClient.obtenerPrecioBase();
+        double tarifaBase = administradorFeignClient.obtenerPrecioBase();
         if (minutosPausa > 15) {
-            tarifaBase += administradorClient.obtenerTarifaExtra();
+            tarifaBase += administradorFeignClient.obtenerTarifaExtra();
         }
         return tarifaBase;
     }
@@ -105,7 +104,7 @@ public class MonopatinService {
         if (monopatin.isDisponible()) {
             // Registrar el inicio del viaje en el microservicio de Viaje
             LocalDateTime fechaHoraInicio = LocalDateTime.now();
-            viajeClient.iniciarViaje(monopatinId, fechaHoraInicio);
+            viajeFeignClient.iniciarViaje(monopatinId, fechaHoraInicio);
 
             // Cambiar el estado del monopatín a no disponible
             monopatin.setDisponible(false);
@@ -119,7 +118,7 @@ public class MonopatinService {
     public boolean pararMonopatin(Long monopatinId, Long paradaId, Long viajeId, Long kmRecorridos) {
         Monopatin monopatin = monopatinRepository.findById(monopatinId).orElse(null);
         if (monopatin != null && paradaId != null && monopatin.isDisponible()) {
-            Parada parada = paradaClient.getParadaById(paradaId);
+            Parada parada = paradaFeignClient.getParadaById(paradaId);
             if (parada != null && esParadaPermitida(monopatin, parada)) {
 
                 // Finalizar el viaje llamando al microservicio Viaje
@@ -146,7 +145,7 @@ public class MonopatinService {
         LocalDateTime fechaHoraFin = LocalDateTime.now();
 
         // Llamada al microservicio Viaje para registrar la finalización
-        viajeClient.finalizarViaje(viajeId, fechaHoraFin, kmRecorridos);
+        viajeFeignClient.finalizarViaje(viajeId, fechaHoraFin, kmRecorridos);
     }
 
     public Boolean habilitar(Long monopatinId) {
@@ -194,7 +193,7 @@ public class MonopatinService {
     public List<ReporteUsoPorTiempoDto> getReporteMonopatinesPorTiempoSinPausas(){
 
         try {
-            Map<Long, Long> pausasMonopatines = (Map<Long, Long>) viajeClient.getPausasMonopatines().getBody();
+            Map<Long, Long> pausasMonopatines = (Map<Long, Long>) viajeFeignClient.getPausasMonopatines().getBody();
             List<ReporteUsoPorTiempoDto> reportes = monopatinRepository.reporteUsoPorTiempo();
             if (reportes == null || reportes.isEmpty())
                 return Collections.emptyList();
@@ -215,11 +214,3 @@ public class MonopatinService {
         }
     }
 }
-
-
-
-
-
-
-
-
