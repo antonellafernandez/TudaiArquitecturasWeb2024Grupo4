@@ -27,15 +27,21 @@ public class MantenimientoService {
         if (monopatin.getDisponible() && monopatin.getKmRecorridosTotales() >= umbralKm ||
                 monopatin.getTiempoRecorridosTotales() >= umbralTiempo) {
             mantenimientoRepository.save(newMantenimiento);
-            monopatinFeignClient.deshabilitar();
+            monopatinFeignClient.deshabilitar(idMonopatin);
             return newMantenimiento;
         }
         throw new IllegalArgumentException("El monopatin no está apto para mantenimiento");
     }
 
-    public Mantenimiento finalizarMantenimiento(Long idMonopatin) {
+    public Mantenimiento finalizarMantenimiento(Long idMantenimiento) {
 
-        if (mantenimientoRepository.findByIdMonopatin(idMonopatin) != null)
-            return mantenimientoRepository.findById(idMonopatin).get();
+        if (mantenimientoRepository.findById(idMantenimiento) != null){
+            if(mantenimientoRepository.monopatinEnMantenimiento(idMantenimiento))
+                throw new IllegalArgumentException("El mantenimiento estaba finalizado");
+            else
+                return mantenimientoRepository.finalizarMantenimiento(idMantenimiento, LocalDateTime.now());
+        }
+
+        throw new IllegalArgumentException("El mantenimiento no existe");
     }
 }

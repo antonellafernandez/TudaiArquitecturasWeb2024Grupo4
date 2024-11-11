@@ -53,9 +53,9 @@ public class ViajeController {
 
     // Registrar inicio de pausa
     @PostMapping("/registrarInicioPausa")
-    public ResponseEntity<Void> registrarInicioPausa(@RequestParam("monopatinId") Long monopatinId,
+    public ResponseEntity<Void> registrarInicioPausa(@RequestParam("id") Long idViaje,
                                                      @RequestParam("fechaHoraInicio") LocalDateTime fechaHoraInicio) {
-        viajeService.registrarInicioPausa(monopatinId, fechaHoraInicio);
+        viajeService.registrarInicioPausa(idViaje, fechaHoraInicio);
         return ResponseEntity.ok().build();
     }
 

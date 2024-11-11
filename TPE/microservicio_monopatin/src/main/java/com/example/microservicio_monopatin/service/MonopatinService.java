@@ -60,7 +60,7 @@ public class MonopatinService {
         Monopatin monopatin = monopatinRepository.findById(monopatinId)
                 .orElseThrow(() -> new RuntimeException("Monopatin no encontrado"));
 
-        viajeClient.registrarInicioPausa(monopatinId, LocalDateTime.now());  // Registrar pausa en Viaje
+        viajeClient.registrarInicioPausa(monopatin.getIdViajeActivo(), LocalDateTime.now());  // Registrar pausa en Viaje
         monopatin.setDisponible(false);
         monopatinRepository.save(monopatin);
     }
@@ -142,6 +142,22 @@ public class MonopatinService {
 
         // Llamada al microservicio Viaje para registrar la finalización
         viajeClient.finalizarViaje(viajeId, fechaHoraFin, kmRecorridos);
+    }
+
+    public Boolean habilitar(Long monopatinId) {
+        Boolean habilitado = monopatinRepository.findById(monopatinId).isPresent();
+        if(habilitado)
+            monopatinRepository.habilitar(monopatinId);
+
+        return habilitado;
+    }
+
+    public Boolean deshabilitar(Long monopatinId) {
+        Boolean habilitado = monopatinRepository.findById(monopatinId).isPresent();
+        if(habilitado)
+            monopatinRepository.deshabilitar(monopatinId);
+
+        return habilitado;
     }
 }
 

@@ -69,6 +69,7 @@ public class CuentaController {
         cuentaService.delete(cuenta);
         return ResponseEntity.noContent().build();
     }
+
     // Habilitar
     @PutMapping("/habilitar/{id}")
     public ResponseEntity<Void> habilitar(@PathVariable("id") Long id) {
@@ -79,6 +80,7 @@ public class CuentaController {
         cuentaService.habilitar(id);
         return ResponseEntity.noContent().build();
     }
+
     // Deshabilitar
     @PutMapping("/deshabilitar/{id}")
     public ResponseEntity<Void> deshabilitar(@PathVariable("id") Long id) {

@@ -13,7 +13,7 @@ public interface ViajeFeignClient {
 
     // Registrar el inicio de una pausa en el microservicio de Viaje
     @PostMapping("/viaje/registrarInicioPausa")
-    void registrarInicioPausa(@RequestParam("monopatinId") Long monopatinId,
+    void registrarInicioPausa(@RequestParam("id") Long idViaje,
                               @RequestParam("fechaHoraInicio") LocalDateTime fechaHoraInicio);
 
     // Obtener el inicio de la última pausa del viaje

@@ -1,5 +1,6 @@
 package com.example.microservicio_monopatin.controller;
 
+import com.example.microservicio_cuenta.entity.CuentaApp;
 import com.example.microservicio_monopatin.dtos.MonopatinDTO;
 import com.example.microservicio_monopatin.entity.Monopatin;
 import com.example.microservicio_monopatin.service.MonopatinService;
@@ -61,4 +62,23 @@ public class MonopatinController {
         monopatinService.delete(monopatin);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping
+
+    @PutMapping("/habilitar/{id}")
+    public ResponseEntity<?> habilitar(@PathVariable Long idMonopatin) {
+        if (monopatinService.habilitar(idMonopatin)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/deshabilitar/{id}")
+    public ResponseEntity<?> deshabilitar(@PathVariable Long idMonopatin) {
+        if (monopatinService.deshabilitar(idMonopatin)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 }

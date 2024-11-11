@@ -27,11 +27,12 @@ public class MantenimientoController {
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
+
     @PutMapping("/finalizar/{id}")
-    public ResponseEntity<?> finalizarMantenimiento(@PathVariable Long id) {
+    public ResponseEntity<?> finalizarMantenimiento(@PathVariable Long idMantenimiento) {
 
         try {
-            Mantenimiento mantenimiento = mantenimientoService.finalizarMantenimiento(id);
+            Mantenimiento mantenimiento = mantenimientoService.finalizarMantenimiento(idMantenimiento);
             return ResponseEntity.status(HttpStatus.OK).body(mantenimiento);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

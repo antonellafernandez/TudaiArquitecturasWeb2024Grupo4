@@ -1,13 +1,17 @@
 package com.example.microservicio_viaje.service;
 
+import com.example.microservicio_viaje.dto.ReporteUsoPorKilometro;
 import com.example.microservicio_viaje.entity.Viaje;
 import com.example.microservicio_viaje.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingResourceException;
 
 
 @Service
@@ -37,9 +41,31 @@ public class ViajeService {
     }
 
 
-    public void registrarInicioPausa(Long monopatinId, LocalDateTime fechaHoraInicio) {
+    private Long getDuracionPausas(Long idViaje){
+        Viaje viaje = viajeRepository.findById(idViaje).get();
+        if (viaje != null) {
+            List<LocalDateTime> pausas = viaje.getInicioPausasFinal();
+            if (!pausas.isEmpty()) {
+                Long duracion = 0L;
+                for (int i = 0; i < pausas.size() - 1; i+=2) {
+                    duracion += Duration.between(pausas.get(i), pausas.get(i+1)).toMinutes();
+                }
+                return duracion;
+            }
+        }
+        return 0L;
+    }
+    public ReporteUsoPorKilometro getReporteUsoMonopatinesPorKilometro(Long idMonopatin){
+        if (viajeRepository.monopatinTieneViajes(idMonopatin)){
+            ReporteUsoPorKilometro reporte = viajeRepository.reporteUsoPorKilometro(idMonopatin);
+
+        }
+
+    }
+
+    public void registrarInicioPausa(Long idViaje, LocalDateTime fechaHoraInicio) {
         // Lógica para registrar el inicio de una pausa
-        Viaje viaje = viajeRepository.findViajeByMonopatinId(monopatinId);
+        Viaje viaje = viajeRepository.findById(idViaje).get();
         if (viaje != null) {
             viaje.getInicioPausasFinal().add(fechaHoraInicio);
             viajeRepository.save(viaje);
@@ -48,7 +74,7 @@ public class ViajeService {
 
     public LocalDateTime obtenerInicioUltimaPausa(Long monopatinId) {
         // Obtener el inicio de la última pausa
-        Viaje viaje = viajeRepository.findViajeByMonopatinId(monopatinId);
+        Viaje viaje = viajeRepository.findById(monopatinId).get();
         if (viaje != null && !viaje.getInicioPausasFinal().isEmpty()) {
             return viaje.getInicioPausasFinal().get(viaje.getInicioPausasFinal().size() - 1);
         }
@@ -57,7 +83,7 @@ public class ViajeService {
 
     public void registrarFinPausa(Long monopatinId, LocalDateTime fechaHoraFin) {
         // Lógica para registrar el fin de una pausa
-        Viaje viaje = viajeRepository.findViajeByMonopatinId(monopatinId);
+        Viaje viaje = viajeRepository.findById(monopatinId).get();
         if (viaje != null && !viaje.getInicioPausasFinal().isEmpty()) {
             viaje.getInicioPausasFinal().add(fechaHoraFin);
             viajeRepository.save(viaje);
