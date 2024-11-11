@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/mantenimiento")
+@RequestMapping("/mantenimientos")
 public class MantenimientoController {
     @Autowired
     private MantenimientoService mantenimientoService;
@@ -39,14 +39,4 @@ public class MantenimientoController {
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
-
-
-/*
-
-
-
-    @GetMapping("/necesita/{id}")
-    public boolean necesitaMantenimiento(@PathVariable Long id) {
-        return mantenimientoService.necesitaMantenimiento(id);
-    }*/
 }

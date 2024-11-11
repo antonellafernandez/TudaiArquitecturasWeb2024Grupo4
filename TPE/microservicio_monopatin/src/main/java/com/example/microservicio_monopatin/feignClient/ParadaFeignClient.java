@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "microservicio-parada", url = "http://microservicio-parada:8082")
+@FeignClient(name = "microservicio-parada", url="http://localhost:8086/paradas")
 public interface ParadaFeignClient {
 
     @GetMapping("/parada/{id}")

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "microservicio-mantenimiento", url = "")
+@FeignClient(name = "microservicio-mantenimiento", url = "http://localhost:8082/mantenimientos")
 public interface AdministradorFeignClient {
 
     @GetMapping("/mantenimiento/precio-base")
@@ -18,5 +18,4 @@ public interface AdministradorFeignClient {
     @PostMapping("/mantenimiento/aplicar-tarifa-extra")
     void aplicarTarifaExtra(@RequestParam("monopatinId") Long monopatinId,
                             @RequestParam("tarifa") double tarifa);
-
 }
