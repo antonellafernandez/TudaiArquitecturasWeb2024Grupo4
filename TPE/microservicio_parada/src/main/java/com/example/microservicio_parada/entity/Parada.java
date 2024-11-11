@@ -1,6 +1,5 @@
 package com.example.microservicio_parada.entity;
 
-import com.example.microservicio_monopatin.entity.Monopatin;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
