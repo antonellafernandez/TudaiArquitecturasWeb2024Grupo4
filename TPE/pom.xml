@@ -15,13 +15,13 @@
     <name>TPE</name>
     <description>TPE</description>
     <modules>
-        <module>microservicio_administrador</module>
-        <module>microservicio_mantenimiento</module>
-        <module>microservicio_usuario</module>
-        <module>microservicio_cuenta</module>
-        <module>microservicio_monopatin</module>
-        <module>microservicio_viaje</module>
-        <module>microservicio_parada</module>
+        <module>microservicio-administrador</module>
+        <module>microservicio-mantenimiento</module>
+        <module>microservicio-usuario</module>
+        <module>microservicio-cuenta</module>
+        <module>microservicio-monopatin</module>
+        <module>microservicio-viaje</module>
+        <module>microservicio-parada</module>
     </modules>
     <url/>
     <licenses>

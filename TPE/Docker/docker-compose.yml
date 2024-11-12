@@ -1,5 +1,5 @@
 services:
-  microservicio_administrador:
+  microservicio-administrador:
     image: mysql
     ports:
       - "3307:3306"  # Mapea el puerto 3307 en el host al 3306 en el contenedor
@@ -7,7 +7,7 @@ services:
       - MYSQL_DATABASE=db_administrador
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
-  microservicio_mantenimiento:
+  microservicio-mantenimiento:
     image: mysql
     ports:
       - "3308:3306"  # Mapea el puerto 3308 en el host al 3306 en el contenedor
@@ -15,7 +15,7 @@ services:
       - MYSQL_DATABASE=db_mantenimiento
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
-  microservicio_cuenta:
+  microservicio-cuenta:
     image: mysql
     ports:
       - "3309:3306"  # Mapea el puerto 3309 en el host al 3306 en el contenedor
@@ -23,7 +23,7 @@ services:
       - MYSQL_DATABASE=db_cuenta
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
-  microservicio_monopatin:
+  microservicio-monopatin:
     image: mysql
     ports:
       - "3310:3306"  # Mapea el puerto 3310 en el host al 3306 en el contenedor
@@ -31,7 +31,7 @@ services:
       - MYSQL_DATABASE=db_monopatin
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
-  microservicio_usuario:
+  microservicio-usuario:
     image: mysql
     ports:
       - "3311:3306"  # Mapea el puerto 3311 en el host al 3306 en el contenedor
@@ -39,7 +39,7 @@ services:
       - MYSQL_DATABASE=db_usuario
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
-  microservicio_parada:
+  microservicio-parada:
     image: mysql
     ports:
       - "3312:3306"  # Mapea el puerto 3312 en el host al 3306 en el contenedor
@@ -47,7 +47,7 @@ services:
       - MYSQL_DATABASE=db_parada
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
-  microservicio_viaje:
+  microservicio-viaje:
     image: mysql
     ports:
       - "3313:3306"  # Mapea el puerto 3313 en el host al 3306 en el contenedor
