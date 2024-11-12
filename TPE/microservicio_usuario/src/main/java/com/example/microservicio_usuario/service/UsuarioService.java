@@ -6,6 +6,7 @@ import com.example.microservicio_usuario.feignClients.MonopatinFeignClient;
 import com.example.microservicio_usuario.feignClients.ViajeFeignClient;
 import com.example.microservicio_usuario.models.CuentaApp;
 import com.example.microservicio_usuario.models.Monopatin;
+import com.example.microservicio_usuario.models.Viaje;
 import com.example.microservicio_usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,17 +93,18 @@ public class UsuarioService {
 
         return salida;
     }
-    
+
     @Transactional
-    public void activarMonopatin(Long id, long monopatinId) {
+    public void activarMonopatin(Long id, long monopatinId, long idCuenta) {
         CuentaApp cuenta = cuentaAppFeignClient.getCuentaById(id);
         if (cuenta.getMontoCreditos() > 0) {
-            viajeFeignClient.iniciarViaje(monopatinId, LocalDateTime.now());
+            Viaje viaje = viajeFeignClient.iniciarViaje(monopatinId, LocalDateTime.now());
+            Long idViaje = viaje.getId();
+            viajeFeignClient.asociarCuenta(idViaje, idCuenta);
         } else {
             throw new IllegalStateException("No hay suficiente saldo en la cuenta.");
         }
     }
-
 
     // Read Monopatin
     @Transactional(readOnly = true)

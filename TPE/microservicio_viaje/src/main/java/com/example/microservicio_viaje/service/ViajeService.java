@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -62,6 +63,14 @@ public class ViajeService {
         }
     }
 
+    @Transactional
+    public void asociarCuenta(Long idViaje, Long idCuenta) {
+        Viaje viaje = viajeRepository.findById(idViaje)
+                .orElseThrow(() -> new EntityNotFoundException("Viaje no encontrado"));
+        viaje.setIdCuenta(idCuenta);
+        viajeRepository.save(viaje);
+    }
+
     @Transactional(readOnly = true)
     public LocalDateTime obtenerInicioUltimaPausa(Long monopatinId) {
         // Obtener el inicio de la última pausa
@@ -95,7 +104,7 @@ public class ViajeService {
     }
 
     @Transactional
-    public void iniciarViaje(Long monopatinId, LocalDateTime fechaHoraInicio) {
+    public Viaje iniciarViaje(Long monopatinId, LocalDateTime fechaHoraInicio) {
         // Lógica para iniciar un viaje
         Viaje viaje = new Viaje();
         viaje.setFechaHoraInicio(fechaHoraInicio);
@@ -103,14 +112,16 @@ public class ViajeService {
         viaje.setKmRecorridos(0L);
         viaje.setInicioPausasFinal(new ArrayList<>());
         viajeRepository.save(viaje);
+        return viaje;
     }
+
 
     @Transactional(readOnly = true)
     public Map<Long, Long> getDuracionPausas() {
         List<ReporteUsoPorTiempoDto> pausaMonopatines = viajeRepository.reporteUsoPorTiempo();
         Map<Long, List<LocalDateTime>> mapPausasPorMonopatin = new HashMap<>();
-        for (ReporteUsoPorTiempoDto repo : pausaMonopatines){
-            if (!mapPausasPorMonopatin.containsKey(repo.getIdMonopatin())){
+        for (ReporteUsoPorTiempoDto repo : pausaMonopatines) {
+            if (!mapPausasPorMonopatin.containsKey(repo.getIdMonopatin())) {
                 ArrayList<LocalDateTime> arr = new ArrayList<>();
                 mapPausasPorMonopatin.put(repo.getIdMonopatin(), arr);
             }
@@ -133,12 +144,12 @@ public class ViajeService {
     }
 
     @Transactional(readOnly = true)
-    public List<ReporteMonopatinesPorViajesYAnio>getReportePorViajeYAnio(Long cantViajes, Long anio){
+    public List<ReporteMonopatinesPorViajesYAnio> getReportePorViajeYAnio(Long cantViajes, Long anio) {
         return viajeRepository.getReportePorViajeYAnio(cantViajes, anio);
     }
 
     @Transactional(readOnly = true)
-    public ReporteTotalFacturadoEntreMesesDeAnio getReporteTotalFacturadoEntreMesesDeAnio(Long mesInicio, Long mesFin, Long anio){
+    public ReporteTotalFacturadoEntreMesesDeAnio getReporteTotalFacturadoEntreMesesDeAnio(Long mesInicio, Long mesFin, Long anio) {
         return viajeRepository.getReporteTotalFacturadoEntreMesesDeAnio(mesInicio, mesFin, anio);
     }
 }

@@ -44,6 +44,13 @@ public class ViajeController {
         return ResponseEntity.ok(viajeNew);
     }
 
+    @PutMapping("/asociarCuenta")
+    public ResponseEntity<Void> asociarCuenta(@RequestParam Long idViaje,
+                                              @RequestParam Long idCuenta) {
+        viajeService.asociarCuenta(idViaje, idCuenta);
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         Viaje viaje = viajeService.findById(id);
@@ -96,7 +103,7 @@ public class ViajeController {
     }
 
     @GetMapping("/totalPausas")
-    public ResponseEntity<?> getPausasMonopatines(){
+    public ResponseEntity<?> getPausasMonopatines() {
         try {
             Map<Long, Long> tiempoPausas = viajeService.getDuracionPausas();
             return ResponseEntity.status(HttpStatus.OK).body(tiempoPausas);
@@ -107,9 +114,9 @@ public class ViajeController {
     }
 
     @GetMapping("/monopatines/anio/{anio}/cantViajes/{cantViajes}")
-    public ResponseEntity<?> getMonopatinesByCantidadViajesYAnio(@PathVariable Long cantViajes, @PathVariable Long anio){
+    public ResponseEntity<?> getMonopatinesByCantidadViajesYAnio(@PathVariable Long cantViajes, @PathVariable Long anio) {
         try {
-        List<ReporteMonopatinesPorViajesYAnio> reporte = viajeService.getReportePorViajeYAnio(cantViajes, anio);
+            List<ReporteMonopatinesPorViajesYAnio> reporte = viajeService.getReportePorViajeYAnio(cantViajes, anio);
             return ResponseEntity.status(HttpStatus.OK).body(reporte);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -120,7 +127,7 @@ public class ViajeController {
     @GetMapping("/facturado")
     public ResponseEntity<?> getReporteTotalFacturadoEntreMesesDeAnio(@RequestParam Long mesInicio,
                                                                       @RequestParam Long mesFin,
-                                                                        @RequestParam Long anio){
+                                                                      @RequestParam Long anio) {
 
         try {
             ReporteTotalFacturadoEntreMesesDeAnio reporte = viajeService.getReporteTotalFacturadoEntreMesesDeAnio(mesInicio, mesFin, anio);
