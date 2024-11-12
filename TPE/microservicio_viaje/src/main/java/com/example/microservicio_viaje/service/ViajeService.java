@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -107,23 +108,26 @@ public class ViajeService {
     @Transactional(readOnly = true)
     public Map<Long, Long> getDuracionPausas() {
         List<ReporteUsoPorTiempoDto> pausaMonopatines = viajeRepository.reporteUsoPorTiempo();
-        Map<Long, List<LocalDateTime>> mapPausasPorMonopatin = pausaMonopatines.stream()
+        Map<Long, List<LocalDateTime>> mapPausasPorMonopatin = new HashMap<>();
+        for (ReporteUsoPorTiempoDto repo : pausaMonopatines){
+            if (!mapPausasPorMonopatin.containsKey(repo.getIdMonopatin())){
+                ArrayList<LocalDateTime> arr = new ArrayList<>();
+                mapPausasPorMonopatin.put(repo.getIdMonopatin(), arr);
+            }
+            mapPausasPorMonopatin.get(repo.getIdMonopatin()).add(repo.getPausa());
+        }
+        return mapPausasPorMonopatin.entrySet().stream()
                 .collect(Collectors.toMap(
-                        ReporteUsoPorTiempoDto::getIdMonopatin, // Clave: idMonopatin
-                        ReporteUsoPorTiempoDto::getPausa // Valor: Lista de Pausas (LocalDateTime)
-                ));
-        return pausaMonopatines.stream()
-                .collect(Collectors.groupingBy(
-                        ReporteUsoPorTiempoDto::getIdMonopatin,
-                        Collectors.summingLong(reporte -> this.sumarPausas(reporte))
-                ));
+                        Map.Entry::getKey,
+                        entry -> this.sumarPausas(entry.getValue()))
+                );
     }
 
-    private Long sumarPausas(List<Pausa> pausas) {
+    private Long sumarPausas(List<LocalDateTime> pausas) {
         Long duracion = 0L;
         if (pausas != null && !pausas.isEmpty())
             for (int i = 0; i < pausas.size() - 1; i += 2) {
-                duracion += Duration.between(pausas.get(i).getPausa(), pausas.get(i + 1).getPausa()).toMinutes();
+                duracion += Duration.between(pausas.get(i), pausas.get(i + 1)).toMinutes();
             }
         return duracion;
     }
