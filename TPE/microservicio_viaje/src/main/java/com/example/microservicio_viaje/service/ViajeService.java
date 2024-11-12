@@ -3,6 +3,7 @@ package com.example.microservicio_viaje.service;
 import com.example.microservicio_viaje.dto.ReporteMonopatinesPorViajesYAnio;
 import com.example.microservicio_viaje.dto.ReporteTotalFacturadoEntreMesesDeAnio;
 import com.example.microservicio_viaje.dto.ReporteUsoPorTiempoDto;
+import com.example.microservicio_viaje.entity.Pausa;
 import com.example.microservicio_viaje.entity.Viaje;
 import com.example.microservicio_viaje.repository.ViajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,8 @@ public class ViajeService {
         // Lógica para registrar el inicio de una pausa
         Viaje viaje = viajeRepository.findById(idViaje).get();
         if (viaje != null) {
-            viaje.getInicioPausasFinal().add(fechaHoraInicio);
+            Pausa p = new Pausa(fechaHoraInicio, viaje);
+            viaje.getInicioPausasFinal().add(p);
             viajeRepository.save(viaje);
         }
     }
@@ -64,7 +66,7 @@ public class ViajeService {
         // Obtener el inicio de la última pausa
         Viaje viaje = viajeRepository.findById(monopatinId).get();
         if (viaje != null && !viaje.getInicioPausasFinal().isEmpty()) {
-            return viaje.getInicioPausasFinal().get(viaje.getInicioPausasFinal().size() - 1);
+            return viaje.getInicioPausasFinal().get(viaje.getInicioPausasFinal().size() - 1).getPausa();
         }
         return null;
     }
@@ -74,7 +76,8 @@ public class ViajeService {
         // Lógica para registrar el fin de una pausa
         Viaje viaje = viajeRepository.findById(monopatinId).get();
         if (viaje != null && !viaje.getInicioPausasFinal().isEmpty()) {
-            viaje.getInicioPausasFinal().add(fechaHoraFin);
+            Pausa p = new Pausa(fechaHoraFin, viaje);
+            viaje.getInicioPausasFinal().add(p);
             viajeRepository.save(viaje);
         }
     }
@@ -104,18 +107,23 @@ public class ViajeService {
     @Transactional(readOnly = true)
     public Map<Long, Long> getDuracionPausas() {
         List<ReporteUsoPorTiempoDto> pausaMonopatines = viajeRepository.reporteUsoPorTiempo();
+        Map<Long, List<LocalDateTime>> mapPausasPorMonopatin = pausaMonopatines.stream()
+                .collect(Collectors.toMap(
+                        ReporteUsoPorTiempoDto::getIdMonopatin, // Clave: idMonopatin
+                        ReporteUsoPorTiempoDto::getPausa // Valor: Lista de Pausas (LocalDateTime)
+                ));
         return pausaMonopatines.stream()
                 .collect(Collectors.groupingBy(
                         ReporteUsoPorTiempoDto::getIdMonopatin,
-                        Collectors.summingLong(reporte -> this.sumarPausas(reporte.getPausas()))  // Sumar los minutos de las pausas
+                        Collectors.summingLong(reporte -> this.sumarPausas(reporte))
                 ));
     }
 
-    private Long sumarPausas(List<LocalDateTime> pausas) {
+    private Long sumarPausas(List<Pausa> pausas) {
         Long duracion = 0L;
         if (pausas != null && !pausas.isEmpty())
             for (int i = 0; i < pausas.size() - 1; i += 2) {
-                duracion += Duration.between(pausas.get(i), pausas.get(i + 1)).toMinutes();
+                duracion += Duration.between(pausas.get(i).getPausa(), pausas.get(i + 1).getPausa()).toMinutes();
             }
         return duracion;
     }
