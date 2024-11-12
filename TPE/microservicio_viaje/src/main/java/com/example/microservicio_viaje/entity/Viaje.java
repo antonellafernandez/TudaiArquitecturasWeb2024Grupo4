@@ -17,11 +17,12 @@ public class Viaje {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long idMonopatin;
+    private Long idCuenta;
     private LocalDateTime fechaHoraInicio;
     private LocalDateTime fechaHoraFin;
     private Long kmRecorridos;
     private Double valorTotal;
 
-    @ElementCollection
-    private List<LocalDateTime> inicioPausasFinal;
+    @OneToMany(mappedBy = "viaje", cascade = CascadeType.ALL)
+    private List<Pausa> inicioPausasFinal;
 }

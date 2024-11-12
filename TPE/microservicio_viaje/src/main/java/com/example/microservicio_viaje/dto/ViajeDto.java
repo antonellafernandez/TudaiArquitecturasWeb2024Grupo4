@@ -1,5 +1,6 @@
 package com.example.microservicio_viaje.dto;
 
+import com.example.microservicio_viaje.entity.Pausa;
 import jakarta.persistence.ElementCollection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,5 +22,5 @@ public class ViajeDto {
     private Long kmRecorridos;
     private Double valorTotal;
 
-    private List<LocalDateTime> inicioPausasFinal;
+    private List<Pausa> inicioPausasFinal;
 }

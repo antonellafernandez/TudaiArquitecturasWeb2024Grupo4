@@ -16,8 +16,10 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
     @Query("SELECT 1 FROM Viaje v WHERE v.idMonopatin = :idMonopatin")
     Boolean monopatinTieneViajes(Long idMonopatin);
 
-    @Query("SELECT new com.example.microservicio_viaje.dto.ReporteUsoPorTiempoDto(v.idMonopatin, v.inicioPausasFinal) " +
-            "FROM Viaje v ")
+    @Query("SELECT new com.example.microservicio_viaje.dto.ReporteUsoPorTiempoDto(v.idMonopatin, p.pausa) " +
+            "FROM Viaje v " +
+            "JOIN v.inicioPausasFinal p " +
+            "ORDER BY v.idMonopatin, p.pausa")
     List<ReporteUsoPorTiempoDto>reporteUsoPorTiempo();
 
     @Query("SELECT new com.example.microservicio_viaje.dto.ReporteMonopatinesPorViajesYAnio(v.idMonopatin, COUNT(v), :anio) " +
@@ -28,7 +30,7 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
     List<ReporteMonopatinesPorViajesYAnio>getReportePorViajeYAnio(Long cantViajes, Long anio);
 
 
-    @Query("SELECT new com.example.microservicio_viaje.dto.ReporteTotalFacturadoEnMesesDeAnio(SUM(v.valorTotal), :anio, :mesInicio, :mesFin) " +
+    @Query("SELECT new com.example.microservicio_viaje.dto.ReporteTotalFacturadoEntreMesesDeAnio(SUM(v.valorTotal), :anio, :mesInicio, :mesFin) " +
             "FROM Viaje v " +
             "WHERE YEAR(v.fechaHoraInicio) = :year " +
             "AND MONTH(v.fechaHoraInicio) BETWEEN :mesInicio AND :mesFin")
