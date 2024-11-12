@@ -1,7 +1,6 @@
 package com.example.microservicio_mantenimiento.feignClients;
 
 import com.example.microservicio_mantenimiento.models.Monopatin;
-import com.example.microservicio_monopatin.dtos.ReporteUsoDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

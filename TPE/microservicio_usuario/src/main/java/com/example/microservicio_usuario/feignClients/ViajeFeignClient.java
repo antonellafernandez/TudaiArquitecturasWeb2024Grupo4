@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 
-@FeignClient(name = "viaje-service")
+@FeignClient(name = "microservicio_viaje", url="http://localhost:3310/viajes")
 public interface ViajeFeignClient {
 
     @PostMapping("/iniciar")
