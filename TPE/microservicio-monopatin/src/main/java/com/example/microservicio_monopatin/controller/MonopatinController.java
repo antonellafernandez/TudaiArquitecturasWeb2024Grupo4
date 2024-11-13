@@ -25,13 +25,7 @@ public class MonopatinController {
         if (monopatines.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-
-        // Convertir la lista de Monopatines a MonopatinDTO
-        List<MonopatinDTO> monopatinDTOs = monopatines.stream()
-                .map(MonopatinDTO::new) // Usar el constructor que convierte la entidad en DTO
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(monopatinDTOs);
+        return ResponseEntity.ok(monopatines);
     }
 
 
@@ -47,10 +41,8 @@ public class MonopatinController {
 
     @PostMapping("")
     public ResponseEntity<MonopatinDTO> save(@RequestBody MonopatinDTO monopatinDTO) {
-        Monopatin monopatin = new Monopatin(monopatinDTO);
-        Monopatin monopatinNew = monopatinService.save(monopatin);
-        MonopatinDTO monopatinNewDTO = new MonopatinDTO(monopatinNew);
-        return ResponseEntity.ok(monopatinNewDTO);
+        MonopatinDTO monopatinNew = monopatinService.save(monopatinDTO);
+        return ResponseEntity.ok(monopatinNew);
     }
 
     @DeleteMapping("/{id}")

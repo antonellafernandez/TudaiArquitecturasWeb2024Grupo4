@@ -47,7 +47,7 @@ public class AdministradorController {
     }
 
     @PostMapping
-    public ResponseEntity<AdministradorDto> save(AdministradorDto newAdmin) {
+    public ResponseEntity<AdministradorDto> save(@RequestBody AdministradorDto newAdmin) {
         AdministradorDto admin = administradorService.save(newAdmin);
 
         if (admin == null)
@@ -57,11 +57,12 @@ public class AdministradorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         administradorService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/reporteTotalFacturadoEntreMesesDeAnio")
     public ResponseEntity<?> getReporteTotalFacturadoEntreMesesDeAnio(@RequestParam Long mesInicio,
                                                                       @RequestParam Long mesFin,
                                                                       @RequestParam Long anio){

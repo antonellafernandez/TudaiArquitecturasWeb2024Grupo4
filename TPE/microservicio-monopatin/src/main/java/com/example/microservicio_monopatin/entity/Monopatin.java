@@ -24,9 +24,11 @@ public class Monopatin {
     private Long idViajeActivo;
 
     public Monopatin(MonopatinDTO monopatinDTO) {
-    }
-
-    public boolean isDisponible() {
-        return this.disponible;
+        this.kmRecorridosTotales = monopatinDTO.getKmRecorridosTotales();
+        this.tiempoRecorridosTotales = monopatinDTO.getTiempoRecorridosTotales();
+        this.disponible = monopatinDTO.getDisponible();
+        this.longitud = monopatinDTO.getLongitud();
+        this.latitud = monopatinDTO.getLatitud();
+        this.idViajeActivo = monopatinDTO.getViajeActivo();
     }
 }

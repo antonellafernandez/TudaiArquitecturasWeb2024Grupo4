@@ -14,10 +14,10 @@ import org.antlr.v4.runtime.misc.NotNull;
 @NoArgsConstructor
 public class MonopatinDTO {
 
-    @NotNull
     private Long id;
 
     private Long kmRecorridosTotales;
+    private Long tiempoRecorridosTotales;
     private Boolean disponible;
     private Long longitud;
     private Long latitud;
@@ -27,12 +27,10 @@ public class MonopatinDTO {
     public MonopatinDTO(Monopatin monopatin) {
         this.id = monopatin.getId();
         this.kmRecorridosTotales = monopatin.getKmRecorridosTotales();
+        this.tiempoRecorridosTotales = monopatin.getTiempoRecorridosTotales();
         this.disponible = monopatin.getDisponible();
         this.longitud = monopatin.getLongitud();
         this.latitud = monopatin.getLatitud();
         this.viajeActivo = monopatin.getIdViajeActivo();
-    }
-
-    public MonopatinDTO(MonopatinDTO monopatinDTO) {
     }
 }

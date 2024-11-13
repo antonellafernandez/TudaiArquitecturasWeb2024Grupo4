@@ -44,8 +44,11 @@ public class MonopatinService {
     }
 
     @Transactional
-    public Monopatin save(Monopatin monopatin) {
-        return monopatinRepository.save(monopatin);
+    public MonopatinDTO save(MonopatinDTO monopatinDto) {
+        Monopatin monopatin = new Monopatin(monopatinDto);
+        monopatinRepository.save(monopatin);
+        MonopatinDTO newMonopatinDTO = new MonopatinDTO(monopatin);
+        return newMonopatinDTO;
     }
 
     @Transactional
@@ -108,7 +111,7 @@ public class MonopatinService {
                 .orElseThrow(() -> new RuntimeException("Monopatin no encontrado"));
 
         // Verificar que el monopatín esté disponible para iniciar el viaje
-        if (monopatin.isDisponible()) {
+        if (monopatin.getDisponible()) {
             // Registrar el inicio del viaje en el microservicio de Viaje
             LocalDateTime fechaHoraInicio = LocalDateTime.now();
             viajeFeignClient.iniciarViaje(monopatinId, fechaHoraInicio);
@@ -125,7 +128,7 @@ public class MonopatinService {
     @Transactional
     public boolean pararMonopatin(Long monopatinId, Long paradaId, Long viajeId, Long kmRecorridos) {
         Monopatin monopatin = monopatinRepository.findById(monopatinId).orElse(null);
-        if (monopatin != null && paradaId != null && monopatin.isDisponible()) {
+        if (monopatin != null && paradaId != null && monopatin.getDisponible()) {
             Parada parada = paradaFeignClient.getParadaById(paradaId);
             if (parada != null && esParadaPermitida(monopatin, parada)) {
 
