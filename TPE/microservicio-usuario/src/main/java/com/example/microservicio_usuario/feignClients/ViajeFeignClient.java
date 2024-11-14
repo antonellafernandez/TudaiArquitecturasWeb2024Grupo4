@@ -2,10 +2,7 @@ package com.example.microservicio_usuario.feignClients;
 
 import com.example.microservicio_usuario.models.Viaje;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +17,6 @@ public interface ViajeFeignClient {
     void asociarCuenta(@RequestParam("idViaje") Long idViaje,
                        @RequestParam("idCuenta") Long idCuenta);
 
-    @GetMapping("/ObtenerViaje")
-    Long getViaje();
+    @GetMapping("/{idViaje}")
+    Long getViaje(@PathVariable Long idViaje);
 }

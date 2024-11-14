@@ -140,6 +140,10 @@ public class MonopatinService {
 
                 monopatin.setDisponible(true);  // Monopatín vuelve a estar disponible
                 monopatinRepository.save(monopatin);
+
+                //Se coloca el monopatin en la parada
+                parada.getIdMonopatines().add(monopatin.getId());
+                paradaFeignClient.save(parada);
                 return true;
             }
         }

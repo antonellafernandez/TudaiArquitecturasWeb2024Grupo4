@@ -1,11 +1,10 @@
 package com.example.microservicio_usuario.feignClients;
 
 import com.example.microservicio_usuario.models.Monopatin;
+import feign.Response;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name="microservicio-monopatin", url="http://localhost:8084/monopatines")
 public interface MonopatinFeignClient {
@@ -14,4 +13,10 @@ public interface MonopatinFeignClient {
 
     @PostMapping ("")
     Monopatin save(@RequestBody Monopatin monopatin);
+
+    @PutMapping("/reservarMonopatin/parada{idParada}/monopatin/{idMonopatin}")
+    public ResponseEntity<?> reservarMonopatin(@RequestParam("idParada") Long idParada, @RequestParam("idMonopatin") Long idMonopatin);
+
+    @PutMapping("/{idMonopatin}/finalizarRecorrido")
+    public ResponseEntity<?> finalizarRecorrido(@PathVariable("idMonopatin") Long idMonopatin);
 }

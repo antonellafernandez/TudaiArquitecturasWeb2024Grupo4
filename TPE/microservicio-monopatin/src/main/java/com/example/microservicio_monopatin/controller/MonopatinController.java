@@ -98,12 +98,27 @@ public class MonopatinController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/reservarMonopatin/parada{idParada}/monopatin/{idMonopatin")
+    @PutMapping("/reservarMonopatin/parada{idParada}/monopatin/{idMonopatin}")
     public ResponseEntity<?> reservarMonopatin(@RequestParam("idParada") Long idParada, @RequestParam("idMonopatin") Long idMonopatin) {
         MonopatinDTO monopatin = monopatinService.iniciarViaje(idParada, idMonopatin);
         if (monopatin != null) {
             return ResponseEntity.ok(monopatin);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/pausa/{id}")
+    public ResponseEntity<?> pausa(@PathVariable("id") Long idMonopatin) {
+        monopatinService.pausarMonopatin(idMonopatin);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{idMonopatin}/finalizarRecorrido")
+    public ResponseEntity<?> finalizarRecorrido(@PathVariable("idMonopatin") Long idMonopatin,
+                                                @RequestParam Long paradaId,
+                                                @RequestParam Long viajeId,
+                                                @RequestParam Long kmRecorridos) {
+        monopatinService.pararMonopatin(idMonopatin, paradaId, viajeId, kmRecorridos);
+        return ResponseEntity.ok().build();
     }
 }

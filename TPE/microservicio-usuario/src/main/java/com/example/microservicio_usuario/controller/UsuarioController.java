@@ -86,4 +86,25 @@ public class UsuarioController {
         usuarioService.deshabilitar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/reservarMonopatin")
+    public ResponseEntity<?> reservarMonopatin(@RequestParam("idCuenta") Long idCuenta,
+                                               @RequestParam("idParada") Long idParada,
+                                               @RequestParam("idMonopatin") Long idMonopatin) {
+        usuarioService.activarMonopatin(idCuenta,idParada,idMonopatin);
+        return ResponseEntity.ok().build();
+    }
+    @PutMapping("/pausar")
+    public ResponseEntity<Void> pausar(@RequestParam("idMonopatin"){
+        usuarioService.pausar(idMonopatin);
+        return ResponseEntity.ok().build();
+    }
+    @PutMapping("/finalizarViaje")
+    public ResponseEntity<?> finalizarViaje(@RequestParam("idCuenta") Long idCuenta,
+                                               @RequestParam("idParada") Long idParada,
+                                               @RequestParam("idMonopatin") Long idMonopatin) {
+        usuarioService.finalizarViaje(idCuenta,idMonopatin);
+        return ResponseEntity.ok().build();
+    }
+
 }

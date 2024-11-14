@@ -7,6 +7,7 @@ import com.example.microservicio_cuenta.repository.CuentaAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,5 +84,14 @@ public class CuentaService {
         }
 
         return salida;
+    }
+
+    public void cobrarVaije(Long idCuenta, Long idViaje){
+        CuentaApp cuenta = cuentaRepository.findById(idCuenta).orElse(null);
+
+    }
+
+    private Double getPrecioTotal(Long idViaje){
+        return 0.0;
     }
 }

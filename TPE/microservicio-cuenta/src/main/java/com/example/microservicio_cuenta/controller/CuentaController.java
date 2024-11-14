@@ -91,4 +91,9 @@ public class CuentaController {
         cuentaService.deshabilitar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/cobrarViaje")
+    public ResponseEntity<Void> cobrarViaje(@RequestBody Long idCuenta, @RequestBody Long idViaje) {
+        cuentaService.cobrarViaje(idCuenta, idViaje);
+    }
 }

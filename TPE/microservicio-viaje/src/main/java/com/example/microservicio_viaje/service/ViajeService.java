@@ -46,14 +46,13 @@ public class ViajeService {
         return viajeRepository.findById(id).orElse(null);
     }
 
-    @Transactional
     public Viaje update(Viaje viaje) {
         return viajeRepository.save(viaje);
     }
 
 
     @Transactional
-    public void registrarInicioPausa(Long idViaje, LocalDateTime fechaHoraInicio) {
+    public void registrarPausa(Long idViaje, LocalDateTime fechaHoraInicio) {
         // Lógica para registrar el inicio de una pausa
         Viaje viaje = viajeRepository.findById(idViaje).get();
         if (viaje != null) {
@@ -82,17 +81,6 @@ public class ViajeService {
     }
 
     @Transactional
-    public void registrarFinPausa(Long monopatinId, LocalDateTime fechaHoraFin) {
-        // Lógica para registrar el fin de una pausa
-        Viaje viaje = viajeRepository.findById(monopatinId).get();
-        if (viaje != null && !viaje.getInicioPausasFinal().isEmpty()) {
-            Pausa p = new Pausa(fechaHoraFin, viaje);
-            viaje.getInicioPausasFinal().add(p);
-            viajeRepository.save(viaje);
-        }
-    }
-
-    @Transactional
     public void finalizarViaje(Long viajeId, LocalDateTime fechaHoraFin, Long kmRecorridos) {
         // Lógica para finalizar el viaje
         Viaje viaje = viajeRepository.findById(viajeId).orElse(null);
@@ -116,6 +104,8 @@ public class ViajeService {
         return viaje;
     }
 
+    @Transactional
+    public void setPrecioTotal(){}
 
     @Transactional(readOnly = true)
     public Map<Long, Long> getDuracionPausas() {

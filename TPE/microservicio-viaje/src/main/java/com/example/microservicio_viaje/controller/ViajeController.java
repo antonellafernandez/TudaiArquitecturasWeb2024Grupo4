@@ -63,10 +63,10 @@ public class ViajeController {
 
 
     // Registrar inicio de pausa
-    @PostMapping("/registrarInicioPausa")
-    public ResponseEntity<Void> registrarInicioPausa(@RequestParam("id") Long idViaje,
-                                                     @RequestParam("fechaHoraInicio") LocalDateTime fechaHoraInicio) {
-        viajeService.registrarInicioPausa(idViaje, fechaHoraInicio);
+    @PostMapping("/registrarPausa")
+    public ResponseEntity<Void> registrarPausa(@RequestParam("id") Long idViaje,
+                                               @RequestParam("fechaHora") LocalDateTime fechaHora) {
+        viajeService.registrarPausa(idViaje, fechaHora);
         return ResponseEntity.ok().build();
     }
 
@@ -75,14 +75,6 @@ public class ViajeController {
     public ResponseEntity<LocalDateTime> obtenerInicioUltimaPausa(@RequestParam("monopatinId") Long monopatinId) {
         LocalDateTime inicioUltimaPausa = viajeService.obtenerInicioUltimaPausa(monopatinId);
         return ResponseEntity.ok(inicioUltimaPausa);
-    }
-
-    // Registrar fin de pausa
-    @PostMapping("/registrarFinPausa")
-    public ResponseEntity<Void> registrarFinPausa(@RequestParam("monopatinId") Long monopatinId,
-                                                  @RequestParam("fechaHoraFin") LocalDateTime fechaHoraFin) {
-        viajeService.registrarFinPausa(monopatinId, fechaHoraFin);
-        return ResponseEntity.ok().build();
     }
 
     // Finalizar viaje

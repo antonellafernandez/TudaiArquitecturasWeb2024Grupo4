@@ -95,16 +95,28 @@ public class UsuarioService {
     }
 
     @Transactional
-    public void activarMonopatin(Long id, long monopatinId, long idCuenta) {
-        CuentaApp cuenta = cuentaAppFeignClient.getCuentaById(id);
+    public void activarMonopatin(Long idCuenta, Long idParada, Long monopatinId) {
+        CuentaApp cuenta = cuentaAppFeignClient.getCuentaById(idCuenta);
         if (cuenta.getMontoCreditos() > 0) {
             Viaje viaje = viajeFeignClient.iniciarViaje(monopatinId, LocalDateTime.now());
             Long idViaje = viaje.getId();
             viajeFeignClient.asociarCuenta(idViaje, idCuenta);
+            monopatinFeignClient.reservarMonopatin(idParada, monopatinId);
         } else {
             throw new IllegalStateException("No hay suficiente saldo en la cuenta.");
         }
     }
+    @Transactional
+    public void finalizarViaje(Long idCuenta, Long monopatinId) {
+        Monopatin monopatin = monopatinFeignClient.getMonopatinById(monopatinId);
+        Long idViaje = viajeFeignClient.getViaje(monopatin.getIdViajeActivo());
+
+        cuentaAppFeignClient.cobrarViaje(idCuenta, idViaje);
+
+        monopatinFeignClient.finalizarRecorrido(monopatinId);
+    }
+
+
 
     // Read Monopatin
     @Transactional(readOnly = true)
