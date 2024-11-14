@@ -56,7 +56,7 @@ public class MonopatinController {
     }
 
     @PutMapping("/habilitar/{id}")
-    public ResponseEntity<?> habilitar(@PathVariable Long idMonopatin) {
+    public ResponseEntity<?> habilitar(@PathVariable("id") Long idMonopatin) {
         if (monopatinService.habilitar(idMonopatin)) {
             return ResponseEntity.ok().build();
         }
@@ -64,7 +64,7 @@ public class MonopatinController {
     }
 
     @PutMapping("/deshabilitar/{id}")
-    public ResponseEntity<?> deshabilitar(@PathVariable Long idMonopatin) {
+    public ResponseEntity<?> deshabilitar(@PathVariable("id") Long idMonopatin) {
         if (monopatinService.deshabilitar(idMonopatin)) {
             return ResponseEntity.ok().build();
         }
@@ -94,6 +94,15 @@ public class MonopatinController {
         List<ReporteUsoDto> reporte = monopatinService.getReporteUsoMonopatinesCompletoSinPausa();
         if (reporte != null) {
             return ResponseEntity.ok(reporte);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/reservarMonopatin/parada{idParada}/monopatin/{idMonopatin")
+    public ResponseEntity<?> reservarMonopatin(@RequestParam("idParada") Long idParada, @RequestParam("idMonopatin") Long idMonopatin) {
+        MonopatinDTO monopatin = monopatinService.iniciarViaje(idParada, idMonopatin);
+        if (monopatin != null) {
+            return ResponseEntity.ok(monopatin);
         }
         return ResponseEntity.notFound().build();
     }

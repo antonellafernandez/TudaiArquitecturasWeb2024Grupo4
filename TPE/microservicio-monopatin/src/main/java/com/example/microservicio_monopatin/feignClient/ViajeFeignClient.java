@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-@FeignClient(name = "microservicio-viaje", url = "http://localhost:3313/viajes")
+@FeignClient(name = "microservicio-viaje", url = "http://localhost:8087/viajes")
 public interface ViajeFeignClient {
 
     // Registrar el inicio de una pausa en el microservicio de Viaje

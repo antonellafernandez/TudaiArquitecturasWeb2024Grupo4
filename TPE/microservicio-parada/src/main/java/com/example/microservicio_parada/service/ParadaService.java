@@ -113,4 +113,17 @@ public class ParadaService {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return RADIO_TIERRA * c;
     }
+
+    @Transactional
+    public Parada quitarMonopatin(Long idParada, Long idMonopatin) {
+        try{
+            Parada parada = findById(idParada);
+            parada.quitarMonopatin(idMonopatin);
+            paradaRepository.save(parada);
+            return parada;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

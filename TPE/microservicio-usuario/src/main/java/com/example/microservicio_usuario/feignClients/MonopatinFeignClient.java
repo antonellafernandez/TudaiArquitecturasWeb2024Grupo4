@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name="microservicio-monopatin", url="http://localhost:3310/monopatines")
+@FeignClient(name="microservicio-monopatin", url="http://localhost:8084/monopatines")
 public interface MonopatinFeignClient {
     @GetMapping("/{id}")
     Monopatin getMonopatinById(@PathVariable("id") Long id);

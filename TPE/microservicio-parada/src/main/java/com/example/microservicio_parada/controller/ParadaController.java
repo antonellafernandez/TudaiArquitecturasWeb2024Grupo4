@@ -103,4 +103,13 @@ public class ParadaController {
         }
         return ResponseEntity.ok(monopatinesCercanos);
     }
+
+    @PutMapping("/{idParada}/monopatin/{idMonopatin}/quitarMonopatin")
+    public ResponseEntity<?> quitarMonopatin(@PathVariable("idParada") Long idParada, @PathVariable Long idMonopatin){
+        Parada parada = paradaService.quitarMonopatin(idParada, idMonopatin);
+        if (parada == null) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(parada);
+    }
 }

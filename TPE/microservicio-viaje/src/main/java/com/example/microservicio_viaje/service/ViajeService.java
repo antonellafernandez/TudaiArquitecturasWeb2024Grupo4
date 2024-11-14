@@ -108,6 +108,7 @@ public class ViajeService {
         // Lógica para iniciar un viaje
         Viaje viaje = new Viaje();
         viaje.setFechaHoraInicio(fechaHoraInicio);
+        viaje.setIdMonopatin(monopatinId);
         viaje.setFechaHoraFin(null);
         viaje.setKmRecorridos(0L);
         viaje.setInicioPausasFinal(new ArrayList<>());

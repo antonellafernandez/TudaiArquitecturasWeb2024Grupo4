@@ -47,8 +47,7 @@ public class MonopatinService {
     public MonopatinDTO save(MonopatinDTO monopatinDto) {
         Monopatin monopatin = new Monopatin(monopatinDto);
         monopatinRepository.save(monopatin);
-        MonopatinDTO newMonopatinDTO = new MonopatinDTO(monopatin);
-        return newMonopatinDTO;
+        return monopatinDto;
     }
 
     @Transactional
@@ -106,7 +105,7 @@ public class MonopatinService {
 
     // Método para iniciar un viaje al retirar el monopatín de una parada
     @Transactional
-    public void iniciarViaje(Long monopatinId, Long paradaId) {
+    public MonopatinDTO iniciarViaje(Long paradaId, Long monopatinId) {
         Monopatin monopatin = monopatinRepository.findById(monopatinId)
                 .orElseThrow(() -> new RuntimeException("Monopatin no encontrado"));
 
@@ -119,6 +118,10 @@ public class MonopatinService {
             // Cambiar el estado del monopatín a no disponible
             monopatin.setDisponible(false);
             monopatinRepository.save(monopatin);
+
+            paradaFeignClient.quitarMonopatin(paradaId, monopatinId);
+
+            return new MonopatinDTO(monopatin);
         } else {
             throw new RuntimeException("El monopatín no está disponible para iniciar un viaje");
         }
@@ -128,7 +131,7 @@ public class MonopatinService {
     @Transactional
     public boolean pararMonopatin(Long monopatinId, Long paradaId, Long viajeId, Long kmRecorridos) {
         Monopatin monopatin = monopatinRepository.findById(monopatinId).orElse(null);
-        if (monopatin != null && paradaId != null && monopatin.getDisponible()) {
+        if (monopatin != null && paradaId != null && !monopatin.getDisponible()) {
             Parada parada = paradaFeignClient.getParadaById(paradaId);
             if (parada != null && esParadaPermitida(monopatin, parada)) {
 
@@ -162,20 +165,12 @@ public class MonopatinService {
 
     @Transactional
     public Boolean habilitar(Long monopatinId) {
-        Boolean habilitado = monopatinRepository.findById(monopatinId).isPresent();
-        if(habilitado)
-            monopatinRepository.habilitar(monopatinId);
-
-        return habilitado;
+        return monopatinRepository.habilitar(monopatinId) == 1;
     }
 
     @Transactional
     public Boolean deshabilitar(Long monopatinId) {
-        Boolean habilitado = monopatinRepository.findById(monopatinId).isPresent();
-        if(habilitado)
-            monopatinRepository.deshabilitar(monopatinId);
-
-        return habilitado;
+        return monopatinRepository.deshabilitar(monopatinId) == 1;
     }
 
     @Transactional(readOnly = true)
@@ -195,10 +190,8 @@ public class MonopatinService {
     public List<ReporteUsoDto> getReporteUsoMonopatinesCompletoSinPausa(){
         try {
             Map<Long, Long> pausasMonopatines = (Map<Long, Long>) viajeFeignClient.getPausasMonopatines().getBody();
-            List<ReporteUsoDto> reportes = monopatinRepository.reporteUsoCompleto();
+            List<ReporteUsoDto> reportes = this.getReporteUsoMonopatinesCompleto();
 
-            if (reportes == null || reportes.isEmpty())
-                return Collections.emptyList();
             if(pausasMonopatines == null || pausasMonopatines.isEmpty())
                 return reportes;
 

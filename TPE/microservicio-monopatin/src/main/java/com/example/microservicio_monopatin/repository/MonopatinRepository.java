@@ -15,11 +15,11 @@ public interface MonopatinRepository extends JpaRepository<Monopatin, Long> {
 
     @Modifying
     @Query("UPDATE Monopatin m SET m.disponible = true WHERE m.id = :monopatinId")
-    Monopatin habilitar(Long monopatinId);
+    Integer habilitar(Long monopatinId);
 
     @Modifying
     @Query("UPDATE Monopatin m SET m.disponible = false WHERE m.id = :monopatinId")
-    Monopatin deshabilitar(Long monopatinId);
+    Integer deshabilitar(Long monopatinId);
 
     @Query("SELECT new com.example.microservicio_monopatin.dtos.ReporteUsoDto(m.id, m.kmRecorridosTotales, null) " +
             "FROM Monopatin m ")
