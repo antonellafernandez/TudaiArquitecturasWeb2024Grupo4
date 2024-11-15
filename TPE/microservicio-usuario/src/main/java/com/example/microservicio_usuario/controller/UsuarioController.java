@@ -101,7 +101,6 @@ public class UsuarioController {
     }
     @PutMapping("/finalizarViaje")
     public ResponseEntity<?> finalizarViaje(@RequestParam("idCuenta") Long idCuenta,
-                                               @RequestParam("idParada") Long idParada,
                                                @RequestParam("idMonopatin") Long idMonopatin) {
         usuarioService.finalizarViaje(idCuenta,idMonopatin);
         return ResponseEntity.ok().build();

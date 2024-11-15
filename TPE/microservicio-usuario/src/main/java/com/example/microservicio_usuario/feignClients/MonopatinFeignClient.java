@@ -14,8 +14,8 @@ public interface MonopatinFeignClient {
     @PostMapping ("")
     Monopatin save(@RequestBody Monopatin monopatin);
 
-    @PutMapping("/reservarMonopatin/parada{idParada}/monopatin/{idMonopatin}")
-    public ResponseEntity<?> reservarMonopatin(@RequestParam("idParada") Long idParada, @RequestParam("idMonopatin") Long idMonopatin);
+    @PutMapping("/reservarMonopatin/parada/{idParada}/monopatin/{idMonopatin}/reservar")
+    public ResponseEntity<?> reservarMonopatin(@PathVariable("idParada") Long idParada, @PathVariable("idMonopatin") Long idMonopatin);
 
     @PutMapping("/{idMonopatin}/finalizarRecorrido")
     public ResponseEntity<?> finalizarRecorrido(@PathVariable("idMonopatin") Long idMonopatin);

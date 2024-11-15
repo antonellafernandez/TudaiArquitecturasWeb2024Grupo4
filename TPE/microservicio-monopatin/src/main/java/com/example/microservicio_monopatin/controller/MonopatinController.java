@@ -98,8 +98,8 @@ public class MonopatinController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/reservarMonopatin/parada{idParada}/monopatin/{idMonopatin}")
-    public ResponseEntity<?> reservarMonopatin(@RequestParam("idParada") Long idParada, @RequestParam("idMonopatin") Long idMonopatin) {
+    @PutMapping("/reservarMonopatin/parada/{idParada}/monopatin/{idMonopatin}/reservar")
+    public ResponseEntity<?> reservarMonopatin(@PathVariable("idParada") Long idParada, @PathVariable("idMonopatin") Long idMonopatin) {
         MonopatinDTO monopatin = monopatinService.iniciarViaje(idParada, idMonopatin);
         if (monopatin != null) {
             return ResponseEntity.ok(monopatin);

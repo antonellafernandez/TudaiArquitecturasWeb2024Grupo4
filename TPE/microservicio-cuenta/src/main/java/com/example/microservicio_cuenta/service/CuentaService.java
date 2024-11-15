@@ -141,9 +141,10 @@ public class CuentaService {
             viaje.setValorTotal(viaje.getValorTotal() + tiempoNormal * tarifaNormal.getPrecioTarifa());
 
             cuenta.setMontoCreditos(cuenta.getMontoCreditos() - viaje.getValorTotal());
+            cuentaRepository.save(cuenta);
 
         }catch (Exception e){
-            e.printStackTrace();
+            throw new RuntimeException("Error en cobrar viaje: " + e);
         }
 
     }

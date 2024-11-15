@@ -88,10 +88,9 @@ public class ViajeController {
 
     // Iniciar viaje
     @PostMapping("/iniciar")
-    public ResponseEntity<Void> iniciarViaje(@RequestParam Long monopatinId,
+    public Viaje iniciarViaje(@RequestParam Long monopatinId,
                                              @RequestParam LocalDateTime fechaHoraInicio) {
-        viajeService.iniciarViaje(monopatinId, fechaHoraInicio);
-        return ResponseEntity.ok().build();
+        return viajeService.iniciarViaje(monopatinId, fechaHoraInicio);
     }
 
     @GetMapping("/totalPausas")

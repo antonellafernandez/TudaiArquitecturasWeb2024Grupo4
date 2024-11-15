@@ -10,12 +10,9 @@ public interface CuentaAppFeignClient {
     @GetMapping("/{id}")
     CuentaApp getCuentaById(@PathVariable("id") Long id);
 
-    @GetMapping("/creditos/{id}")
-    CuentaApp getMontoCreditos(@PathVariable("id") Long id);
-
     @PostMapping("")
     CuentaApp save(@RequestBody CuentaApp cuenta);
 
-    @PutMapping("/cobrar")
-    ResponseEntity<?> cobrarViaje(@RequestBody Long idCuenta, Long idViaje);
+    @PutMapping("/cobrarViaje")
+    ResponseEntity<?> cobrarViaje(@RequestParam Long idCuenta, @RequestParam Long idViaje);
 }
