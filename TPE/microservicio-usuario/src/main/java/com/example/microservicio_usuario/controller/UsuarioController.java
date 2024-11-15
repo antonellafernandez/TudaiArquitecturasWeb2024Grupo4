@@ -95,8 +95,8 @@ public class UsuarioController {
         return ResponseEntity.ok().build();
     }
     @PutMapping("/pausar")
-    public ResponseEntity<Void> pausar(@RequestParam("idMonopatin"){
-        usuarioService.pausar(idMonopatin);
+    public ResponseEntity<Void> pausar(@RequestParam("idMonopatin") Long idMonopatin){
+        usuarioService.pausarMonopatin(idMonopatin);
         return ResponseEntity.ok().build();
     }
     @PutMapping("/finalizarViaje")

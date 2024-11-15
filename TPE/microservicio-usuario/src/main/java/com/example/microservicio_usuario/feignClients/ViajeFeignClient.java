@@ -2,6 +2,7 @@ package com.example.microservicio_usuario.feignClients;
 
 import com.example.microservicio_usuario.models.Viaje;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -19,4 +20,8 @@ public interface ViajeFeignClient {
 
     @GetMapping("/{idViaje}")
     Long getViaje(@PathVariable Long idViaje);
+
+    @PostMapping("/registrarPausa")
+    public ResponseEntity<Void> registrarPausa(@RequestParam("id") Long idViaje,
+                                               @RequestParam("fechaHora") LocalDateTime fechaHora);
 }

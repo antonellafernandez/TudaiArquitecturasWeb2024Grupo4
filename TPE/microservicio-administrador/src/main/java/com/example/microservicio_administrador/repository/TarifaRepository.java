@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface TarifaRepository extends JpaRepository<Tarifa, Long> {
 
-    @Query("SELECT t FROM Tarifa t WHERE t.tipoTarifa = :tipo")
+    @Query("SELECT t FROM Tarifa t WHERE t.tipoTarifa ILIKE :tipo")
     public Optional<Tarifa> getTarifaByTipo(String tipo);
 
     @Query("SELECT t FROM Tarifa t ORDER BY t.fechaInicio DESC")

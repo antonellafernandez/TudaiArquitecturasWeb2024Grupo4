@@ -17,7 +17,7 @@ public class CuentaApp {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate fechaAlta;
-    private Long montoCreditos;
+    private Double montoCreditos;
     private Long idCuentaMp;
 
     @ElementCollection

@@ -95,5 +95,6 @@ public class CuentaController {
     @PutMapping("/cobrarViaje")
     public ResponseEntity<Void> cobrarViaje(@RequestBody Long idCuenta, @RequestBody Long idViaje) {
         cuentaService.cobrarViaje(idCuenta, idViaje);
+        return ResponseEntity.ok().build();
     }
 }

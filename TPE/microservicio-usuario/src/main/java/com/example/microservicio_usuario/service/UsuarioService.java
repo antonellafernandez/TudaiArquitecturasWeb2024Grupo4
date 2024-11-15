@@ -106,6 +106,12 @@ public class UsuarioService {
             throw new IllegalStateException("No hay suficiente saldo en la cuenta.");
         }
     }
+
+    @Transactional
+    public void pausarMonopatin(Long idMonopatin){
+        viajeFeignClient.registrarPausa(idMonopatin, LocalDateTime.now());
+    }
+
     @Transactional
     public void finalizarViaje(Long idCuenta, Long monopatinId) {
         Monopatin monopatin = monopatinFeignClient.getMonopatinById(monopatinId);

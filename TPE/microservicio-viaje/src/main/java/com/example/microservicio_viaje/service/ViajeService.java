@@ -104,8 +104,6 @@ public class ViajeService {
         return viaje;
     }
 
-    @Transactional
-    public void setPrecioTotal(){}
 
     @Transactional(readOnly = true)
     public Map<Long, Long> getDuracionPausas() {
