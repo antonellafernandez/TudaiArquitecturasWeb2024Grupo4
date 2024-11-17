@@ -25,20 +25,16 @@ public class ViajeService {
 
     @Autowired
     private ViajeRepository viajeRepository;
-
-    @Transactional(readOnly = true)
-    public List<Viaje> getAll() {
-        return viajeRepository.findAll();
-    }
-
+    // Create
     @Transactional
     public Viaje save(Viaje viaje) {
         return viajeRepository.save(viaje);
     }
 
-    @Transactional
-    public void delete(Viaje viaje) {
-        viajeRepository.delete(viaje);
+    // Read
+    @Transactional(readOnly = true)
+    public List<Viaje> getAll() {
+        return viajeRepository.findAll();
     }
 
     @Transactional(readOnly = true)
@@ -46,11 +42,18 @@ public class ViajeService {
         return viajeRepository.findById(id).orElse(null);
     }
 
+    // Update
     public Viaje update(Viaje viaje) {
         return viajeRepository.save(viaje);
     }
 
+    // Delete
+    @Transactional
+    public void delete(Viaje viaje) {
+        viajeRepository.delete(viaje);
+    }
 
+    // Otros
     @Transactional
     public void registrarPausa(Long idViaje, LocalDateTime fechaHoraInicio) {
         // Lógica para registrar el inicio de una pausa
@@ -103,7 +106,6 @@ public class ViajeService {
         viajeRepository.save(viaje);
         return viaje;
     }
-
 
     @Transactional(readOnly = true)
     public Map<Long, Long> getDuracionPausas() {
