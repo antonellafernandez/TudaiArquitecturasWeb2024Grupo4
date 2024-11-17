@@ -125,4 +125,27 @@ class MicroservicioViajeApplicationTests {
         // Verify the save operation
         verify(viajeRepository, times(1)).save(existingViaje);
     }
+
+    // Test para getReporteTotalFacturadoEntreMesesDeAnio
+    @Test
+    void getReporteTotalFacturadoEntreMesesDeAnio_shouldReturnReporte() {
+        // Arrange
+        Long mesInicio = 1L;
+        Long mesFin = 3L;
+        Long anio = 2024L;
+
+        ReporteTotalFacturadoEntreMesesDeAnio reporte = new ReporteTotalFacturadoEntreMesesDeAnio();
+        reporte.setMesInicio(mesInicio);
+        reporte.setMesFin(mesFin);
+        reporte.setAnio(anio);
+        reporte.setTotalFacturado(1500.50);
+
+        when(viajeService.getReporteTotalFacturadoEntreMesesDeAnio(mesInicio, mesFin, anio)).thenReturn(reporte);
+
+        // Act & Assert
+        ResponseEntity<ReporteTotalFacturadoEntreMesesDeAnio> response = viajeController.getReporteTotalFacturadoEntreMesesDeAnio(mesInicio, mesFin, anio);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(1500.50, response.getBody().getTotalFacturado());
+    }
 }
