@@ -108,7 +108,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public void pausarMonopatin(Long idMonopatin){
+    public void pausarMonopatin(Long idMonopatin) {
         viajeFeignClient.registrarPausa(idMonopatin, LocalDateTime.now());
     }
 
@@ -121,8 +121,6 @@ public class UsuarioService {
 
         monopatinFeignClient.finalizarRecorrido(monopatinId);
     }
-
-
 
     // Read Monopatin
     @Transactional(readOnly = true)

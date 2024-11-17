@@ -22,9 +22,9 @@
         <module>microservicio-monopatin</module>
         <module>microservicio-viaje</module>
         <module>microservicio-parada</module>
-        <module>config-service</module>
-        <module>gateway</module>
-        <!--<module>eureka</module>-->
+        <!-- <module>config-service</module>
+         <module>gateway</module>
+         <module>eureka</module>-->
     </modules>
     <url/>
     <licenses>
@@ -52,7 +52,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
+       
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
