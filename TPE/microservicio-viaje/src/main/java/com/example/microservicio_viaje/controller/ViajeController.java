@@ -61,7 +61,6 @@ public class ViajeController {
         return ResponseEntity.noContent().build();
     }
 
-
     // Registrar inicio de pausa
     @PostMapping("/registrarPausa")
     public ResponseEntity<Void> registrarPausa(@RequestParam("id") Long idViaje,
