@@ -1,4 +1,4 @@
-package com.example.microservicio_usuario.service;
+package com.example.microservicio_usuario;
 
 import com.example.microservicio_usuario.controller.UsuarioController;
 import com.example.microservicio_usuario.entity.Usuario;
@@ -102,5 +102,5 @@ public class UsuarioControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-    
+
 }

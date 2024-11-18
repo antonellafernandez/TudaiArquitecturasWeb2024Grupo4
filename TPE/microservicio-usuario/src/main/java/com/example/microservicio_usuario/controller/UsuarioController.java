@@ -1,7 +1,7 @@
 package com.example.microservicio_usuario.controller;
 
+import com.example.microservicio_usuario.UsuarioService;
 import com.example.microservicio_usuario.entity.Usuario;
-import com.example.microservicio_usuario.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -55,7 +55,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarios);
     }
 
-    @Operation(summary = "Obtener todos los usuarios habilitados")
+    @Operation(summary = "Obtener todos los usuarios deshabilitados")
     @GetMapping("/deshabilitados")
     public ResponseEntity<List<Usuario>> getAllUsuariosDeshabilitados() {
         List<Usuario> usuarios = usuarioService.getAllDeshabilitados();

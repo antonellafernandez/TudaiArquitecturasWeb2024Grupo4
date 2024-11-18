@@ -1,4 +1,4 @@
-package com.example.microservicio_usuario.service;
+package com.example.microservicio_usuario;
 
 import com.example.microservicio_usuario.entity.Usuario;
 import com.example.microservicio_usuario.repository.UsuarioRepository;
@@ -81,5 +81,5 @@ public class UsuarioServiceTest {
         verify(usuarioRepository, times(1)).delete(usuario);
     }
 
-   
+
 }

@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.antlr.v4.runtime.misc.NotNull;
+
 
 @Getter
 @ToString
@@ -32,5 +32,10 @@ public class MonopatinDTO {
         this.longitud = monopatin.getLongitud();
         this.latitud = monopatin.getLatitud();
         this.viajeActivo = monopatin.getIdViajeActivo();
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
