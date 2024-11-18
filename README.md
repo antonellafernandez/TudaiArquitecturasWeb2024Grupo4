@@ -2,13 +2,10 @@
 
 <h2>3. Implementar los siguientes servicios/reportes:</h2>
 
-### a. Como encargado de mantenimiento quiero poder generar un reporte de uso de monopatines por
-kilómetros para establecer si un monopatín requiere de mantenimiento. Este reporte debe poder
-configurarse para incluir (o no) los tiempos de pausa.
+### a. Como encargado de mantenimiento quiero poder generar un reporte de uso de monopatines por kilómetros para establecer si un monopatín requiere de mantenimiento. Este reporte debe poder configurarse para incluir (o no) los tiempos de pausa.
 --> Implementado en microservicio_monopatin
 
-### b. Como administrador quiero poder anular cuentas para inhabilitar el uso momentáneo de la
-misma.
+### b. Como administrador quiero poder anular cuentas para inhabilitar el uso momentáneo de la misma.
 --> Implementado en microservicio_administrador CuentaController
 
 ### c. Como administrador quiero consultar los monopatines con más de X viajes en un cierto año.
@@ -17,16 +14,13 @@ misma.
 ### d. Como administrador quiero consultar el total facturado en un rango de meses de cierto año.
 --> Implementado en microservicio_administrador y en microservicio_viaje
 
-### e. Como administrador quiero consultar la cantidad de monopatines actualmente en operación,
-versus la cantidad de monopatines actualmente en mantenimiento.
+### e. Como administrador quiero consultar la cantidad de monopatines actualmente en operación, versus la cantidad de monopatines actualmente en mantenimiento.
 --> Implementado en microservicio_administrador MonopatinController
 
-### f. Como administrador quiero hacer un ajuste de precios, y que a partir de cierta fecha el sistema
-habilite los nuevos precios.
+### f. Como administrador quiero hacer un ajuste de precios, y que a partir de cierta fecha el sistema habilite los nuevos precios.
 --> Implementado en microservicio_administrador TarifaService
 
-### g. Como usuario quiero un listado de los monopatines cercanos a mi zona, para poder encontrar
-un monopatín cerca de mi ubicación.
+### g. Como usuario quiero un listado de los monopatines cercanos a mi zona, para poder encontrar un monopatín cerca de mi ubicación.
 --> Implementado en microservicio_parada ParadaController
 
 <h1>Trabajo Práctico Especial - 2da Entrega</h1>
