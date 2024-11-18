@@ -37,7 +37,7 @@ src/main/java/com.example.microservicio_name/MicroservicioNameApplication.java
 
 ### **Paso 3**: Acceder a Swagger UI en el navegador
 Abrir el navegador y pegar la siguiente URL:
-http://localhost:_puerto_/swagger-ui/index.html
+http://localhost:puerto/swagger-ui/index.html
 
 #### _Posibles puertos_:
 - **microservicio-administrador**: 8088
