@@ -29,7 +29,8 @@ Implementado en microservicio_parada ParadaController
 Swagger (OpenAPI).</h2>
 
 ### **Paso 1**: Levantar las bases de datos
-Correr Docker/docker-compose.yml
+- **Por primera vez**: Correr Docker/docker-compose.yml
+- **Si no es la primera vez y se ha pausado el container**: Start en Docker container
 
 ### **Paso 2**: Correr la aplicación del microservicio
 Navegar al directorio del microservicio y correr la aplicación principal:
