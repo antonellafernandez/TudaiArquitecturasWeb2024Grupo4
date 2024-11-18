@@ -12,15 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
 
-
     private final UserService userService;
 
-
-    @PostMapping
+    @PostMapping("/sign-in")
     public ResponseEntity<?> saveUser(@RequestBody @Valid UserDto userDTO) {
         final var id = userService.saveUser( userDTO );
         return new ResponseEntity<>( id, HttpStatus.CREATED );
