@@ -90,28 +90,36 @@ public class MonopatinServiceTest {
 
     @Test
     public void testHabilitarMonopatin() {
-        Monopatin monopatin = new Monopatin();
-        monopatin.setId(1L);
+        Long monopatinId = 1L;
 
-        when(monopatinRepository.findById(1L)).thenReturn(Optional.of(monopatin));
-        when(monopatinRepository.save(any(Monopatin.class))).thenReturn(monopatin);
+        // Simula que el método habilitar devuelve 1 (una fila afectada).
+        when(monopatinRepository.habilitar(monopatinId)).thenReturn(1);
 
-        boolean result = monopatinService.habilitar(1L);
+        // Llama al método habilitar del servicio.
+        boolean result = monopatinService.habilitar(monopatinId);
 
+        // Verifica el resultado.
         assertTrue(result);
+
+        // Verifica que el método habilitar fue llamado una vez con el ID correcto.
+        verify(monopatinRepository, times(1)).habilitar(monopatinId);
     }
 
     @Test
     public void testDeshabilitarMonopatin() {
-        Monopatin monopatin = new Monopatin();
-        monopatin.setId(1L);
+        Long monopatinId = 1L;
 
-        when(monopatinRepository.findById(1L)).thenReturn(Optional.of(monopatin));
-        when(monopatinRepository.save(any(Monopatin.class))).thenReturn(monopatin);
+        // Simula que el método deshabilitar devuelve 1 (una fila afectada).
+        when(monopatinRepository.deshabilitar(monopatinId)).thenReturn(1);
 
-        boolean result = monopatinService.deshabilitar(1L);
+        // Llama al método deshabilitar del servicio.
+        boolean result = monopatinService.deshabilitar(monopatinId);
 
+        // Verifica el resultado.
         assertTrue(result);
+
+        // Verifica que el método deshabilitar fue llamado una vez con el ID correcto.
+        verify(monopatinRepository, times(1)).deshabilitar(monopatinId);
     }
 
     @Test

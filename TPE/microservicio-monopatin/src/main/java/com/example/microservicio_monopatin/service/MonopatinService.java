@@ -150,9 +150,7 @@ public class MonopatinService {
         return false;
     }
 
-
     // Método para verificar si el monopatín está en el rango de la parada
-
     private boolean esParadaPermitida(Monopatin monopatin, Parada parada) {
         double rangoPermitido = 0.0005; // Aproximadamente 50 m, ajustable
         return Math.abs(monopatin.getLatitud() - parada.getLatitud()) < rangoPermitido &&
@@ -190,6 +188,7 @@ public class MonopatinService {
             throw new RuntimeException("Error al generar el reporte de uso de monopatines completo", e);
         }
     }
+
     @Transactional(readOnly = true)
     public List<ReporteUsoDto> getReporteUsoMonopatinesCompletoSinPausa(){
         try {
@@ -210,7 +209,6 @@ public class MonopatinService {
             throw new RuntimeException("Error al generar el reporte de uso de monopatines completo sin pausa", e);
         }
     }
-
 
     @Transactional(readOnly = true)
     public List<ReporteUsoDto> getReporteUsoMonopatinesPorKilometro(){

@@ -7,6 +7,7 @@ import com.example.microservicio_viaje.entity.Viaje;
 import com.example.microservicio_viaje.service.ViajeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,12 +18,16 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @WebMvcTest(ViajeController.class)
 public class MicroservicioViajeTest {
@@ -40,6 +45,7 @@ public class MicroservicioViajeTest {
     public void testSaveViaje() throws Exception {
         // Arrange
         Viaje viaje = new Viaje();
+        viaje.setId(1L);
         viaje.setIdMonopatin(10L);
         viaje.setIdCuenta(20L);
         viaje.setFechaHoraInicio(LocalDateTime.now());
@@ -54,7 +60,7 @@ public class MicroservicioViajeTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(viaje)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").isNotEmpty())
+                .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.idMonopatin").value(10L))
                 .andExpect(jsonPath("$.idCuenta").value(20L))
                 .andExpect(jsonPath("$.fechaHoraInicio").isNotEmpty())
@@ -65,26 +71,43 @@ public class MicroservicioViajeTest {
     @Test
     public void testGetAllViajes() throws Exception {
         // Arrange
-        Viaje viaje = new Viaje();
-        viaje.setIdMonopatin(10L);
-        viaje.setIdCuenta(20L);
-        viaje.setFechaHoraInicio(LocalDateTime.now());
-        viaje.setFechaHoraFin(LocalDateTime.now().plusHours(1));
-        viaje.setKmRecorridos(5L);
-        viaje.setValorTotal(150.0);
-        List<Viaje> viajes = Collections.singletonList(viaje);
+        Viaje viaje1 = new Viaje();
+        viaje1.setId(1L);
+        viaje1.setIdMonopatin(10L);
+        viaje1.setIdCuenta(20L);
+        viaje1.setFechaHoraInicio(LocalDateTime.now());
+        viaje1.setFechaHoraFin(LocalDateTime.now().plusHours(1));
+        viaje1.setKmRecorridos(5L);
+        viaje1.setValorTotal(150.0);
+
+        Viaje viaje2 = new Viaje();
+        viaje2.setId(2L);
+        viaje2.setIdMonopatin(15L);
+        viaje2.setIdCuenta(25L);
+        viaje2.setFechaHoraInicio(LocalDateTime.now().minusDays(1));
+        viaje2.setFechaHoraFin(LocalDateTime.now().minusDays(1).plusHours(2));
+        viaje2.setKmRecorridos(10L);
+        viaje2.setValorTotal(300.0);
+
+        List<Viaje> viajes = Arrays.asList(viaje1, viaje2);
 
         when(viajeService.getAll()).thenReturn(viajes);
 
         // Act & Assert
         mockMvc.perform(get("/viajes"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").isNotEmpty())
+                .andExpect(jsonPath("$[0].id").value(1L))
                 .andExpect(jsonPath("$[0].idMonopatin").value(10L))
                 .andExpect(jsonPath("$[0].idCuenta").value(20L))
                 .andExpect(jsonPath("$[0].fechaHoraInicio").isNotEmpty())
                 .andExpect(jsonPath("$[0].kmRecorridos").value(5L))
-                .andExpect(jsonPath("$[0].valorTotal").value(150.0));
+                .andExpect(jsonPath("$[0].valorTotal").value(150.0))
+                .andExpect(jsonPath("$[1].id").value(2L))
+                .andExpect(jsonPath("$[1].idMonopatin").value(15L))
+                .andExpect(jsonPath("$[1].idCuenta").value(25L))
+                .andExpect(jsonPath("$[1].fechaHoraInicio").isNotEmpty())
+                .andExpect(jsonPath("$[1].kmRecorridos").value(10L))
+                .andExpect(jsonPath("$[1].valorTotal").value(300.0));
     }
 
     @Test
@@ -93,7 +116,7 @@ public class MicroservicioViajeTest {
         Long id = 1L;
         Long idMonopatin = 10L;
         Long idCuenta = 20L;
-        LocalDateTime fechaHoraInicio = LocalDateTime.now();
+        LocalDateTime fechaHoraInicio = LocalDateTime.now().withNano(0); // Truncar nanos
         LocalDateTime fechaHoraFin = fechaHoraInicio.plusHours(1);
         Long kmRecorridos = 5L;
         Double valorTotal = 150.0;
@@ -149,14 +172,31 @@ public class MicroservicioViajeTest {
         Long idViaje = 1L;
         Long idCuenta = 2L;
 
-        // Simulamos el comportamiento del servicio
-        doNothing().when(viajeService).asociarCuenta(idViaje, idCuenta);
+        // Crear un objeto viaje
+        Viaje viaje = new Viaje();
+        viaje.setId(idViaje);
+
+        // Simulamos la respuesta del repositorio cuando buscamos el viaje
+        when(viajeService.findById(idViaje)).thenReturn(viaje);
+
+        // Simulamos que el servicio de asociar cuenta se ejecuta y actualiza el idCuenta
+        doAnswer(invocation -> {
+            // Aquí actualizamos el objeto viaje con el idCuenta
+            viaje.setIdCuenta(idCuenta);
+            return null;
+        }).when(viajeService).asociarCuenta(idViaje, idCuenta);
 
         // Act & Assert
-        mockMvc.perform(put("/asociarCuenta")
+        mockMvc.perform(put("/viajes/asociarCuenta")
                         .param("idViaje", String.valueOf(idViaje))
                         .param("idCuenta", String.valueOf(idCuenta)))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk());  // Esperamos que la respuesta sea 200 OK
+
+        // Verificar que el método asociarCuenta fue llamado
+        verify(viajeService, times(1)).asociarCuenta(idViaje, idCuenta);
+
+        // Verificar que el idCuenta ha sido correctamente asociado al viaje
+        assertEquals(idCuenta, viaje.getIdCuenta());
     }
 
     @Test
@@ -169,7 +209,7 @@ public class MicroservicioViajeTest {
         doNothing().when(viajeService).registrarPausa(idViaje, fechaHora);
 
         // Act & Assert
-        mockMvc.perform(post("/registrarPausa")
+        mockMvc.perform(post("/viajes/registrarPausa")
                         .param("id", String.valueOf(idViaje))
                         .param("fechaHora", fechaHora.toString()))
                 .andExpect(status().isOk());
@@ -179,13 +219,13 @@ public class MicroservicioViajeTest {
     public void testObtenerInicioUltimaPausa() throws Exception {
         // Arrange
         Long monopatinId = 1L;
-        LocalDateTime ultimaPausa = LocalDateTime.now().minusMinutes(30);  // Supongamos que la última pausa ocurrió hace 30 minutos
+        LocalDateTime ultimaPausa = LocalDateTime.now().minusMinutes(30).withNano(0);  // Truncamos los nanosegundos
 
         // Simulamos el comportamiento del servicio
         when(viajeService.obtenerInicioUltimaPausa(monopatinId)).thenReturn(ultimaPausa);
 
         // Act & Assert
-        mockMvc.perform(get("/obtenerInicioUltimaPausa")
+        mockMvc.perform(get("/viajes/obtenerInicioUltimaPausa")
                         .param("monopatinId", String.valueOf(monopatinId)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(ultimaPausa.toString()));  // Verificamos que la respuesta sea la fecha y hora de la última pausa
@@ -195,14 +235,14 @@ public class MicroservicioViajeTest {
     public void testFinalizarViaje() throws Exception {
         // Arrange
         Long viajeId = 1L;
-        LocalDateTime fechaHoraFin = LocalDateTime.now();
+        LocalDateTime fechaHoraFin = LocalDateTime.now().withNano(0);  // Truncamos los nanosegundos
         Long kmRecorridos = 10L;
 
         // Simulamos el comportamiento del servicio
         doNothing().when(viajeService).finalizarViaje(viajeId, fechaHoraFin, kmRecorridos);
 
         // Act & Assert
-        mockMvc.perform(put("/finalizar")
+        mockMvc.perform(put("/viajes/finalizar")
                         .param("viajeId", String.valueOf(viajeId))
                         .param("fechaHoraFin", fechaHoraFin.toString())
                         .param("kmRecorridos", String.valueOf(kmRecorridos)))
@@ -213,7 +253,7 @@ public class MicroservicioViajeTest {
     public void testIniciarViaje() throws Exception {
         // Arrange
         Long monopatinId = 1L;
-        LocalDateTime fechaHoraInicio = LocalDateTime.now();
+        LocalDateTime fechaHoraInicio = LocalDateTime.now().withNano(0);  // Truncamos los nanosegundos
         Viaje viajeEsperado = new Viaje();
         viajeEsperado.setId(1L);
         viajeEsperado.setIdMonopatin(monopatinId);
@@ -223,7 +263,7 @@ public class MicroservicioViajeTest {
         when(viajeService.iniciarViaje(monopatinId, fechaHoraInicio)).thenReturn(viajeEsperado);
 
         // Act & Assert
-        mockMvc.perform(post("/iniciar")
+        mockMvc.perform(post("/viajes/iniciar")
                         .param("monopatinId", String.valueOf(monopatinId))
                         .param("fechaHoraInicio", fechaHoraInicio.toString()))
                 .andExpect(status().isOk())
@@ -243,7 +283,7 @@ public class MicroservicioViajeTest {
         when(viajeService.getDuracionPausas()).thenReturn(tiempoPausas);
 
         // Act & Assert
-        mockMvc.perform(get("/totalPausas"))
+        mockMvc.perform(get("/viajes/totalPausas"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$['1']").value(120))  // Verificamos el monopatín 1
                 .andExpect(jsonPath("$['2']").value(90));  // Verificamos el monopatín 2
@@ -262,7 +302,7 @@ public class MicroservicioViajeTest {
         when(viajeService.getReportePorViajeYAnio(cantViajes, anio)).thenReturn(reporte);
 
         // Act & Assert
-        mockMvc.perform(get("/monopatines/anio/{anio}/cantViajes/{cantViajes}", anio, cantViajes))
+        mockMvc.perform(get("/viajes/monopatines/anio/{anio}/cantViajes/{cantViajes}", anio, cantViajes))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].idMonopatin").value(1L))  // Verificamos que el monopatín 1 tiene 10 viajes
                 .andExpect(jsonPath("$[0].cantViajes").value(10L))
@@ -284,7 +324,7 @@ public class MicroservicioViajeTest {
         when(viajeService.getReporteTotalFacturadoEntreMesesDeAnio(mesInicio, mesFin, anio)).thenReturn(reporte);
 
         // Act & Assert
-        mockMvc.perform(get("/facturado")
+        mockMvc.perform(get("/viajes/facturado")
                         .param("mesInicio", String.valueOf(mesInicio))
                         .param("mesFin", String.valueOf(mesFin))
                         .param("anio", String.valueOf(anio)))

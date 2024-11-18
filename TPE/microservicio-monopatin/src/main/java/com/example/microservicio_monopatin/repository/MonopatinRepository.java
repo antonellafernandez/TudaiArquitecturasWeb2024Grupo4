@@ -33,7 +33,4 @@ public interface MonopatinRepository extends JpaRepository<Monopatin, Long> {
             "FROM Monopatin m " +
             "WHERE m.disponible OR (m.disponible = false AND m.idViajeActivo != null)")
     List<ReporteUsoDto>reporteUsoCompleto();
-
-
-
 }

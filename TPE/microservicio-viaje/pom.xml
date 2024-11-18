@@ -59,6 +59,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+
+        <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
             <version>2.2</version>
@@ -89,6 +95,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Swagger -->
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
@@ -102,6 +109,8 @@
             <version>2.2.8</version>
             <scope>compile</scope>
         </dependency>
+
+
     </dependencies>
 
     <dependencyManagement>
