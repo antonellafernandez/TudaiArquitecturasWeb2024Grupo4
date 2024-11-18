@@ -2,6 +2,7 @@ package com.example.microservicio_monopatin;
 
 import com.example.microservicio_monopatin.controller.MonopatinController;
 import com.example.microservicio_monopatin.dtos.MonopatinDTO;
+import com.example.microservicio_monopatin.dtos.ReporteUsoDto;
 import com.example.microservicio_monopatin.entity.Monopatin;
 import com.example.microservicio_monopatin.service.MonopatinService;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Collections;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -112,4 +114,77 @@ public class MonopatinControllerTest {
         // Verifica que el método delete fue llamado exactamente una vez
         verify(monopatinService, times(1)).delete(monopatin);
     }
+
+    @Test
+    public void testHabilitarMonopatin() throws Exception {
+        when(monopatinService.habilitar(1L)).thenReturn(true);
+
+        mockMvc.perform(put("/monopatines/habilitar/1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeshabilitarMonopatin() throws Exception {
+        when(monopatinService.deshabilitar(1L)).thenReturn(true);
+
+        mockMvc.perform(put("/monopatines/deshabilitar/1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testReservarMonopatin() throws Exception {
+        MonopatinDTO monopatinDTO = new MonopatinDTO();
+        monopatinDTO.setId(1L);
+
+        when(monopatinService.iniciarViaje(1L, 1L)).thenReturn(monopatinDTO);
+
+        mockMvc.perform(put("/monopatines/reservarMonopatin/parada/1/monopatin/1/reservar"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1));
+    }
+
+    @Test
+    public void testPausarMonopatin() throws Exception {
+        doNothing().when(monopatinService).pausarMonopatin(1L);
+
+        mockMvc.perform(put("/monopatines/pausa/1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testGetReporteUsoPorKilometro() throws Exception {
+        List<ReporteUsoDto> reporte = List.of(new ReporteUsoDto(/* parámetros según tu DTO */));
+
+        when(monopatinService.getReporteUsoMonopatinesPorKilometro()).thenReturn(reporte);
+
+        mockMvc.perform(get("/monopatines/reporte/kilometros")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(reporte.size()));
+    }
+
+    @Test
+    public void testGetReporteUsoCompleto() throws Exception {
+        List<ReporteUsoDto> reporte = List.of(new ReporteUsoDto(/* parámetros según tu DTO */));
+
+        when(monopatinService.getReporteUsoMonopatinesCompleto()).thenReturn(reporte);
+
+        mockMvc.perform(get("/monopatines/reporte/completo")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(reporte.size()));
+    }
+
+    @Test
+    public void testGetReporteUsoCompletoSinPausa() throws Exception {
+        List<ReporteUsoDto> reporte = List.of(new ReporteUsoDto(/* parámetros según tu DTO */));
+
+        when(monopatinService.getReporteUsoMonopatinesCompletoSinPausa()).thenReturn(reporte);
+
+        mockMvc.perform(get("/monopatines/reporte/completo/sinpausa")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(reporte.size()));
+    }
+    
 }

@@ -21,7 +21,6 @@ public class MonopatinController {
     @Autowired
     MonopatinService monopatinService;
 
-
     @Operation(summary = "Obtener todos los monopatines")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de monopatines"),
