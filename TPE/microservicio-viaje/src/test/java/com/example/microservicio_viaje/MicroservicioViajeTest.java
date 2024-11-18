@@ -37,6 +37,32 @@ public class MicroservicioViajeTest {
     private ObjectMapper objectMapper;
 
     @Test
+    public void testSaveViaje() throws Exception {
+        // Arrange
+        Viaje viaje = new Viaje();
+        viaje.setIdMonopatin(10L);
+        viaje.setIdCuenta(20L);
+        viaje.setFechaHoraInicio(LocalDateTime.now());
+        viaje.setFechaHoraFin(LocalDateTime.now().plusHours(1));
+        viaje.setKmRecorridos(5L);
+        viaje.setValorTotal(150.0);
+
+        when(viajeService.save(any(Viaje.class))).thenReturn(viaje);
+
+        // Act & Assert
+        mockMvc.perform(post("/viajes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(viaje)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isNotEmpty())
+                .andExpect(jsonPath("$.idMonopatin").value(10L))
+                .andExpect(jsonPath("$.idCuenta").value(20L))
+                .andExpect(jsonPath("$.fechaHoraInicio").isNotEmpty())
+                .andExpect(jsonPath("$.kmRecorridos").value(5L))
+                .andExpect(jsonPath("$.valorTotal").value(150.0));
+    }
+
+    @Test
     public void testGetAllViajes() throws Exception {
         // Arrange
         Viaje viaje = new Viaje();
@@ -104,29 +130,17 @@ public class MicroservicioViajeTest {
     }
 
     @Test
-    public void testSaveViaje() throws Exception {
+    public void testDeleteViaje() throws Exception {
         // Arrange
         Viaje viaje = new Viaje();
-        viaje.setIdMonopatin(10L);
-        viaje.setIdCuenta(20L);
-        viaje.setFechaHoraInicio(LocalDateTime.now());
-        viaje.setFechaHoraFin(LocalDateTime.now().plusHours(1));
-        viaje.setKmRecorridos(5L);
-        viaje.setValorTotal(150.0);
+        viaje.setId(1L);
 
-        when(viajeService.save(any(Viaje.class))).thenReturn(viaje);
+        when(viajeService.findById(1L)).thenReturn(viaje);
+        doNothing().when(viajeService).delete(viaje);
 
         // Act & Assert
-        mockMvc.perform(post("/viajes")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(viaje)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").isNotEmpty())
-                .andExpect(jsonPath("$.idMonopatin").value(10L))
-                .andExpect(jsonPath("$.idCuenta").value(20L))
-                .andExpect(jsonPath("$.fechaHoraInicio").isNotEmpty())
-                .andExpect(jsonPath("$.kmRecorridos").value(5L))
-                .andExpect(jsonPath("$.valorTotal").value(150.0));
+        mockMvc.perform(delete("/viajes/1"))
+                .andExpect(status().isNoContent());
     }
 
     @Test
@@ -143,20 +157,6 @@ public class MicroservicioViajeTest {
                         .param("idViaje", String.valueOf(idViaje))
                         .param("idCuenta", String.valueOf(idCuenta)))
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    public void testDeleteViaje() throws Exception {
-        // Arrange
-        Viaje viaje = new Viaje();
-        viaje.setId(1L);
-
-        when(viajeService.findById(1L)).thenReturn(viaje);
-        doNothing().when(viajeService).delete(viaje);
-
-        // Act & Assert
-        mockMvc.perform(delete("/viajes/1"))
-                .andExpect(status().isNoContent());
     }
 
     @Test
