@@ -34,14 +34,15 @@ un monopatín cerca de mi ubicación.</h3>
 <h2>6. Incorporar tests de unidad e integración (Junit o Mockito). Documentar los endpoints REST con
 Swagger (OpenAPI).</h2>
 
-### **Paso 1**: Levantar las bases de datos, correr Docker/docker-compose.yml
+### **Paso 1**: Levantar las bases de datos
+Correr Docker/docker-compose.yml
 
 ### **Paso 2**: Correr la aplicación del microservicio
-Navega al directorio del microservicio y corre la aplicación principal:
+Navegar al directorio del microservicio y correr la aplicación principal:
 src/main/java/com.example.microservicio_name/MicroservicioNameApplication.java
 
 ### **Paso 3**: Acceder a Swagger UI en el navegador
-Abre tu navegador y pega la siguiente URL:
+Abrir el navegador y pegar la siguiente URL:
 http://localhost:<puerto>/swagger-ui/index.html
 
 #### _Posibles puertos_:
