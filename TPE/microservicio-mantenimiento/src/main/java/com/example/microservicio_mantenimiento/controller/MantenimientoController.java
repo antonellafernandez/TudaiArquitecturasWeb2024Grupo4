@@ -13,7 +13,7 @@ public class MantenimientoController {
     @Autowired
     private MantenimientoService mantenimientoService;
 
-    @PutMapping("/registrar/{id}")
+    @PostMapping("/registrar/{id}")
     public ResponseEntity<?> registrarMantenimiento(@PathVariable Long id, @RequestBody Long umbralKm, @RequestBody Long umbralTiempo) {
 
         try {

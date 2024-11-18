@@ -1,5 +1,8 @@
 package com.example.gateway.security;
 
+import com.example.gateway.entity.Authority;
+import com.example.gateway.entity.User;
+import com.example.gateway.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
