@@ -28,3 +28,27 @@ habilite los nuevos precios.</h3>
 <h3>g. Como usuario quiero un listado de los monopatines cercanos a mi zona, para poder encontrar
 un monopatín cerca de mi ubicación.</h3>
 --> Implementado en microservicio_parada ParadaController
+
+<h1>Trabajo Práctico Especial - 2da Entrega</h1>
+
+<h2>6. Incorporar tests de unidad e integración (Junit o Mockito). Documentar los endpoints REST con
+Swagger (OpenAPI).</h2>
+
+### **Paso 1**: Levantar las bases de datos, correr Docker/docker-compose.yml
+
+### **Paso 2**: Correr la aplicación del microservicio
+Navega al directorio del microservicio y corre la aplicación principal:
+src/main/java/com.example.microservicio_name/MicroservicioNameApplication.java
+
+### **Paso 3**: Acceder a Swagger UI en el navegador
+Abre tu navegador y pega la siguiente URL:
+http://localhost:<puerto>/swagger-ui/index.html
+
+#### _Posibles puertos_:
+- **microservicio-administrador**: 8088
+- **microservicio-cuenta**: 8082
+- **microservicio-mantenimiento**: 8083
+- **microservicio-monopatin**: 8084
+- **microservicio-parada**: 8085
+- **microservicio-usuario**: 8086
+- **microservicio-viaje**: 8087
