@@ -32,19 +32,18 @@ Swagger (OpenAPI).</h2>
 - **Por primera vez**: Correr Docker/docker-compose.yml
 - **Si no es la primera vez y se ha pausado el container**: Start en Docker container
 
-### **Paso 2**: Correr la aplicación del microservicio
+### **Paso 2**: Correr ConfigServiceApplication
+
+### **Paso 3**: Correr EurekaServiceApplication
+
+### **Paso 4**: Correr GatewayApplication
+
+### **Paso 5**: Correr la aplicación del microservicio
 Navegar al directorio del microservicio y correr la aplicación principal:
 src/main/java/com.example.microservicio_name/MicroservicioNameApplication.java
 
-### **Paso 3**: Acceder a Swagger UI en el navegador
+### **Paso 6**: Acceder a Swagger UI en el navegador
 Abrir el navegador y pegar la siguiente URL:
 http://localhost:puerto/swagger-ui/index.html
 
-#### _Posibles puertos_:
-- **microservicio-administrador**: 8088
-- **microservicio-cuenta**: 8082
-- **microservicio-mantenimiento**: 8083
-- **microservicio-monopatin**: 8084
-- **microservicio-parada**: 8085
-- **microservicio-usuario**: 8086
-- **microservicio-viaje**: 8087
+_Cambiar puerto por puerto dinámico asignado por Eureka_
