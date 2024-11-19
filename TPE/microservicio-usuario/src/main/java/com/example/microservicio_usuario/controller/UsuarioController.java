@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -28,8 +29,8 @@ public class UsuarioController {
             @ApiResponse(responseCode = "400", description = "Solicitud inválida", content = @Content)
     })
     @PostMapping("")
-    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) {
-        Usuario usuarioNew = usuarioService.save(usuario);
+    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario, Authentication auth) {
+        Usuario usuarioNew = usuarioService.save(usuario, auth.getName());
         return ResponseEntity.ok(usuarioNew);
     }
 

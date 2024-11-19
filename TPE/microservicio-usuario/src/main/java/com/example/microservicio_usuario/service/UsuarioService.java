@@ -33,7 +33,8 @@ public class UsuarioService {
 
     // Create
     @Transactional
-    public Usuario save(Usuario usuario) {
+    public Usuario save(Usuario usuario, String username) {
+        usuario.setUsername(username);
         return usuarioRepository.save(usuario);
     }
 
