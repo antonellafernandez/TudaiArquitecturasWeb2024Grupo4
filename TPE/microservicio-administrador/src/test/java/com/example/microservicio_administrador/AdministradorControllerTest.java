@@ -49,7 +49,7 @@ public class AdministradorControllerTest {
     public void testGetAllAdministradores() throws Exception {
         when(administradorService.getAllAdministradores()).thenReturn(Collections.emptyList());
 
-        mockMvc.perform(get("/administradores")
+        mockMvc.perform(get("/api/administradores")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
@@ -62,7 +62,7 @@ public class AdministradorControllerTest {
 
         when(administradorService.getAdministradorById(1L)).thenReturn(adminDto);
 
-        mockMvc.perform(get("/administradores/1")
+        mockMvc.perform(get("/api/administradores/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
@@ -76,7 +76,7 @@ public class AdministradorControllerTest {
 
         when(administradorService.save(any(AdministradorDto.class))).thenReturn(adminDto);
 
-        mockMvc.perform(post("/administradores")
+        mockMvc.perform(post("/api/administradores")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"nombre\": \"Admin1\"}"))
                 .andExpect(status().isOk())
@@ -93,7 +93,7 @@ public class AdministradorControllerTest {
         // Simular el comportamiento del método delete para devolver un AdministradorDto
         when(administradorService.delete(1L)).thenReturn(adminDto);
 
-        mockMvc.perform(delete("/administradores/1"))
+        mockMvc.perform(delete("/api/administradores/1"))
                 .andExpect(status().isNoContent());
 
         // Verificar que el método delete del servicio fue llamado
@@ -107,7 +107,7 @@ public class AdministradorControllerTest {
 
         when(administradorService.getReporteTotalFacturadoEntreMesesDeAnio(1L, 12L, 2023L)).thenReturn(reporte);
 
-        mockMvc.perform(get("/administradores/reporteTotalFacturadoEntreMesesDeAnio")
+        mockMvc.perform(get("/api/administradores/reporteTotalFacturadoEntreMesesDeAnio")
                         .param("mesInicio", "1")
                         .param("mesFin", "12")
                         .param("anio", "2023")

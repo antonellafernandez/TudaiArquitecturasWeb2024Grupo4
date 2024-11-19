@@ -40,7 +40,7 @@ public class TarifaControllerTest {
 
         when(tarifaService.save(newTarifa)).thenReturn(newTarifa);
 
-        mockMvc.perform(post("/administradores/tarifas")
+        mockMvc.perform(post("/api/administradores/tarifas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"id\":1," +
                                 "\"nombreTarifa\":\"Tarifa Básica\"," +
@@ -64,7 +64,7 @@ public class TarifaControllerTest {
 
         when(tarifaService.update(1L, updatedTarifa)).thenReturn(updatedTarifa);
 
-        mockMvc.perform(put("/administradores/tarifas/1")
+        mockMvc.perform(put("/api/administradores/tarifas/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"id\":1}"))
                 .andExpect(status().isOk())
@@ -79,7 +79,7 @@ public class TarifaControllerTest {
 
         when(tarifaService.getTarifaByTipo("Estándar")).thenReturn(tarifa);
 
-        mockMvc.perform(get("/administradores/tarifas/tipo/Estándar"))
+        mockMvc.perform(get("/api/administradores/tarifas/tipo/Estándar"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.tipoTarifa").value("Estándar"));
@@ -90,7 +90,7 @@ public class TarifaControllerTest {
     public void testDeleteTarifa() throws Exception {
         when(tarifaService.delete(1L)).thenReturn(true);
 
-        mockMvc.perform(delete("/administradores/tarifas/1"))
+        mockMvc.perform(delete("/api/administradores/tarifas/1"))
                 .andExpect(status().isNoContent());
     }
 
@@ -98,7 +98,7 @@ public class TarifaControllerTest {
     public void testDeleteTarifaNotFound() throws Exception {
         when(tarifaService.delete(1L)).thenReturn(false);
 
-        mockMvc.perform(delete("/administradores/tarifas/1"))
+        mockMvc.perform(delete("/api/administradores/tarifas/1"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("{\"error\":\"Tarifa no encontrada.\"}"));
     }
@@ -118,7 +118,7 @@ public class TarifaControllerTest {
 
         when(tarifaService.getTarifas()).thenReturn(tarifas);
 
-        mockMvc.perform(get("/administradores/tarifas/normales"))
+        mockMvc.perform(get("/api/administradores/tarifas/normales"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(1L))
                 .andExpect(jsonPath("$[0].tipoTarifa").value("Normal"))

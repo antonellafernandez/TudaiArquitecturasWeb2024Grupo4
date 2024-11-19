@@ -1,13 +1,12 @@
 package com.example.microservicio_administrador.feignClient;
 
 import com.example.microservicio_administrador.model.Monopatin;
-import com.example.microservicio_administrador.model.Parada;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name="microservicio-monopatin", url="http://localhost:8084/monopatines")
+@FeignClient(name = "microservicio-monopatin", url = "http://localhost:8084/monopatines")
 public interface MonopatinFeignClient {
 
     @GetMapping("")
@@ -25,6 +24,6 @@ public interface MonopatinFeignClient {
     @PostMapping("/deshabilitar/{id}")
     Monopatin habilitarMonopatin(@PathVariable("id") Long id);
 
-    @PutMapping("/deshabilitar/{id}")
+    @PutMapping("/{id}")
     Monopatin updateMonopatin(@PathVariable("id") Long id, @RequestBody Monopatin Monopatin);
 }

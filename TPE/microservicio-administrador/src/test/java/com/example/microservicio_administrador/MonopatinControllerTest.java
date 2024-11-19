@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -40,7 +41,7 @@ public class MonopatinControllerTest {
 
         when(monopatinFeignClient.getAll()).thenReturn(monopatines);
 
-        mockMvc.perform(get("/administradores/monopatines/enOperacion"))
+        mockMvc.perform(get("/api/administradores/monopatines/enOperacion"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Monopatines en operación: 1, Monopatines en mantenimiento: 1"));
     }
@@ -49,19 +50,20 @@ public class MonopatinControllerTest {
     public void testConsultarEnOperacionNoMonopatines() throws Exception {
         when(monopatinFeignClient.getAll()).thenReturn(Collections.emptyList());
 
-        mockMvc.perform(get("/administradores/monopatines/enOperacion"))
+        mockMvc.perform(get("/api/administradores/monopatines/enOperacion"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("No hay monopatines disponibles."));
     }
+
 
     @Test
     public void testAddMonopatin() throws Exception {
         Monopatin newMonopatin = new Monopatin();
         newMonopatin.setId(1L);
 
-        when(monopatinFeignClient.save(newMonopatin)).thenReturn(newMonopatin);
+        when(monopatinFeignClient.save(any(Monopatin.class))).thenReturn(newMonopatin);
 
-        mockMvc.perform(post("/administradores/monopatines")
+        mockMvc.perform(post("/api/administradores/monopatines")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"id\":1}"))
                 .andExpect(status().isOk())
@@ -75,7 +77,7 @@ public class MonopatinControllerTest {
 
         when(monopatinFeignClient.habilitarMonopatin(1L)).thenReturn(monopatin);
 
-        mockMvc.perform(put("/administradores/monopatines/habilitar/1"))
+        mockMvc.perform(put("/api/administradores/monopatines/habilitar/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }
@@ -87,7 +89,7 @@ public class MonopatinControllerTest {
 
         when(monopatinFeignClient.deshabilitarMonopatin(1L)).thenReturn(monopatin);
 
-        mockMvc.perform(put("/administradores/monopatines/deshabilitar/1"))
+        mockMvc.perform(put("/api/administradores/monopatines/deshabilitar/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }
@@ -99,10 +101,11 @@ public class MonopatinControllerTest {
 
         when(monopatinFeignClient.updateMonopatin(1L, updatedMonopatin)).thenReturn(updatedMonopatin);
 
-        mockMvc.perform(put("/administradores/monopatines/1")
+        mockMvc.perform(put("/api/administradores/monopatines/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":1}")) // Ajusta el JSON según los campos de Monopatin
+                        .content("{\"id\":1}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }
+    
 }

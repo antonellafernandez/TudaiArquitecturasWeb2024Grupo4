@@ -32,7 +32,7 @@ public class CuentaControllerTest {
         // Simula una respuesta exitosa del cliente Feign
         when(cuentaFeignClient.habilitarCuenta(cuentaId)).thenReturn(ResponseEntity.ok().build());
 
-        mockMvc.perform(put("/administradores/cuentas/habilitar/" + cuentaId)
+        mockMvc.perform(put("/api/administradores/cuentas/habilitar/" + cuentaId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(cuentaId.toString()))
                 .andExpect(status().isOk());
@@ -45,7 +45,7 @@ public class CuentaControllerTest {
         // Simula una respuesta exitosa del cliente Feign
         when(cuentaFeignClient.deshabilitarCuenta(cuentaId)).thenReturn(ResponseEntity.ok().build());
 
-        mockMvc.perform(put("/administradores/cuentas/deshabilitar/" + cuentaId)
+        mockMvc.perform(put("/api/administradores/cuentas/deshabilitar/" + cuentaId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(cuentaId.toString()))
                 .andExpect(status().isOk());
@@ -58,7 +58,7 @@ public class CuentaControllerTest {
         // Simula una excepción Feign
         doThrow(FeignException.class).when(cuentaFeignClient).habilitarCuenta(cuentaId);
 
-        mockMvc.perform(put("/administradores/cuentas/habilitar/" + cuentaId)
+        mockMvc.perform(put("/api/administradores/cuentas/habilitar/" + cuentaId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(cuentaId.toString()))
                 .andExpect(status().isBadRequest());
@@ -71,7 +71,7 @@ public class CuentaControllerTest {
         // Simula una excepción Feign
         doThrow(FeignException.class).when(cuentaFeignClient).deshabilitarCuenta(cuentaId);
 
-        mockMvc.perform(put("/administradores/cuentas/deshabilitar/" + cuentaId)
+        mockMvc.perform(put("/api/administradores/cuentas/deshabilitar/" + cuentaId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(cuentaId.toString()))
                 .andExpect(status().isBadRequest());
