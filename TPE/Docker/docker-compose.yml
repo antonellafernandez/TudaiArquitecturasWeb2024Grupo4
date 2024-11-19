@@ -49,12 +49,13 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
   microservicio-parada:
-    image: mysql
+    image: mongo
     ports:
-      - "3312:3306"  # Mapea el puerto 3312 en el host al 3306 en el contenedor
+      - "27017:27017"
     environment:
-      - MYSQL_DATABASE=db_parada
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      MONGO_INITDB_DATABASE: db_parada
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD:
 
   microservicio-viaje:
     image: mysql

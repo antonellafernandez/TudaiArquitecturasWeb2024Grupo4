@@ -43,7 +43,7 @@ public class ParadaControllerTest {
     public void testGetAllParadas() throws Exception {
         when(paradaService.getAll()).thenReturn(Collections.emptyList());
 
-        mockMvc.perform(get("/paradas")
+        mockMvc.perform(get("/api/paradas")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
@@ -51,12 +51,12 @@ public class ParadaControllerTest {
     @Test
     public void testSaveParada() throws Exception {
         Parada parada = new Parada();
-        parada.setId(1L);
+        parada.setId("1");
         parada.setNombre("Parada Test");
 
         when(paradaService.save(any(Parada.class))).thenReturn(parada);
 
-        mockMvc.perform(post("/paradas")
+        mockMvc.perform(post("/api/paradas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"nombre\": \"Parada Test\"}"))
                 .andExpect(status().isOk())
@@ -65,22 +65,21 @@ public class ParadaControllerTest {
 
     @Test
     public void testGetParadaByIdNotFound() throws Exception {
-        when(paradaService.findById(1L)).thenReturn(null);
+        when(paradaService.findById("1")).thenReturn(null);
 
-        mockMvc.perform(get("/paradas/1"))
+        mockMvc.perform(get("/api/paradas/1"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void testDeleteParada() throws Exception {
-        Parada parada = new Parada();
-        parada.setId(1L);
+        when(paradaService.findById("1")).thenReturn(new Parada());
 
-        when(paradaService.findById(1L)).thenReturn(parada);
+        doNothing().when(paradaService).delete("1");
 
-        mockMvc.perform(delete("/paradas/1"))
+        mockMvc.perform(delete("/api/paradas/1"))
                 .andExpect(status().isNoContent());
 
-        verify(paradaService, times(1)).delete(parada);
+        verify(paradaService, times(1)).delete("1");
     }
 }

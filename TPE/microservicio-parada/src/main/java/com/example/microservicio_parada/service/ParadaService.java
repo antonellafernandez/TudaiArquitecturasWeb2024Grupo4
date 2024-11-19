@@ -4,100 +4,98 @@ import com.example.microservicio_parada.entity.Parada;
 import com.example.microservicio_parada.feignClients.MonopatinFeignClient;
 import com.example.microservicio_parada.models.Monopatin;
 import com.example.microservicio_parada.repository.ParadaRepository;
+import com.example.microservicio_parada.repository.ParadaRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class ParadaService {
 
     @Autowired
-    ParadaRepository paradaRepository;
+    private ParadaRepository paradaRepository;
 
     @Autowired
-    MonopatinFeignClient monopatinFeignClient;
+    private ParadaRepositoryCustom paradaRepositoryCustom;
+
+    @Autowired
+    private MonopatinFeignClient monopatinFeignClient;
 
     // Create
-    @Transactional
     public Parada save(Parada parada) {
         return paradaRepository.save(parada);
     }
 
     // Read
-    @Transactional(readOnly = true)
     public List<Parada> getAll() {
         return paradaRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public List<Parada> getAllHabilitadas() {
-        return paradaRepository.findAllHabilitadas();
+        return paradaRepository.findByHabilitadoTrue();
     }
 
-    @Transactional(readOnly = true)
     public List<Parada> getAllDeshabilitadas() {
-        return paradaRepository.findAllDeshabilitadas();
+        return paradaRepository.findByHabilitadoFalse();
     }
 
-    @Transactional(readOnly = true)
-    public Parada findById(Long id) {
+    public Parada findById(String id) {
         return paradaRepository.findById(id).orElse(null);
     }
 
     // Update
-    @Transactional
     public Parada update(Parada parada) {
         return paradaRepository.save(parada);
     }
 
     // Delete
-    @Transactional
-    public void delete(Parada parada) {
-        paradaRepository.delete(parada);
+    public void delete(String id) {
+        paradaRepository.deleteById(id);
     }
 
     // Habilitar Parada
-    @Transactional
-    public void habilitar(Long id) {
-        paradaRepository.habilitar(id);
+    public void habilitar(String id) {
+        paradaRepositoryCustom.habilitar(id);
     }
 
-    // Habilitar Parada
-    @Transactional
-    public void deshabilitar(Long id) {
-        paradaRepository.deshabilitar(id);
+    // Deshabilitar Parada
+    public void deshabilitar(String id) {
+        paradaRepositoryCustom.deshabilitar(id);
     }
 
-    // Read Monopatines
-    @Transactional(readOnly = true)
-    public List<Monopatin> getMonopatinesById(Long id) {
-        List<Monopatin> salida = new ArrayList<Monopatin>();
-        List<Long> idMonopatines = paradaRepository.getIdMonopatines(id);
+    // Obtener Monopatines por ID de Parada
+    public List<Monopatin> getMonopatinesById(String id) {
+        List<Monopatin> salida = new ArrayList<>();
+        Optional<Parada> paradaOptional = paradaRepository.findById(id);
 
-        for (Long idMonopatin : idMonopatines) {
-            salida.add(monopatinFeignClient.getMonopatinById(idMonopatin));
+        if (paradaOptional.isPresent()) {
+            Parada parada = paradaOptional.get();
+            if (parada.getIdMonopatines() != null) {
+                for (Long idMonopatin : parada.getIdMonopatines()) {
+                    salida.add(monopatinFeignClient.getMonopatinById(idMonopatin));
+                }
+            }
         }
-
         return salida;
     }
 
-    // Obtener monopatines cercanos.
-    @Transactional(readOnly = true)
+    // Obtener Monopatines Cercanos
     public List<Monopatin> getMonopatinesCercanos(double latitud, double longitud, double radio) {
-        List<Parada> paradas = paradaRepository.findAllHabilitadas();
+        List<Parada> paradas = getAllHabilitadas();
         List<Parada> paradasCercanas = paradas.stream()
                 .filter(parada -> calcularDistancia(latitud, longitud, parada.getLatitud(), parada.getLongitud()) <= radio)
                 .collect(Collectors.toList());
 
         List<Monopatin> monopatinesCercanos = new ArrayList<>();
         for (Parada parada : paradasCercanas) {
-            List<Long> idMonopatines = parada.getIdMonopatines();
-            for (Long idMonopatin : idMonopatines) {
-                monopatinesCercanos.add(monopatinFeignClient.getMonopatinById(idMonopatin));
+            if (parada.getIdMonopatines() != null) {
+                for (Long idMonopatin : parada.getIdMonopatines()) {
+                    monopatinesCercanos.add(monopatinFeignClient.getMonopatinById(idMonopatin));
+                }
             }
         }
         return monopatinesCercanos;
@@ -114,14 +112,15 @@ public class ParadaService {
         return RADIO_TIERRA * c;
     }
 
-    @Transactional
-    public Parada quitarMonopatin(Long idParada, Long idMonopatin) {
-        try{
+    public Parada quitarMonopatin(String idParada, Long idMonopatin) {
+        try {
             Parada parada = findById(idParada);
-            parada.quitarMonopatin(idMonopatin);
-            paradaRepository.save(parada);
-            return parada;
-        }catch (Exception e){
+            if (parada != null) {
+                parada.quitarMonopatin(idMonopatin);
+                return paradaRepository.save(parada);
+            }
+            return null;
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

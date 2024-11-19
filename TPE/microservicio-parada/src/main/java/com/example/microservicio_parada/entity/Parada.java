@@ -1,28 +1,27 @@
 package com.example.microservicio_parada.entity;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Entity
+@Document(collection = "paradas")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Parada {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
+
     private String ubicacion;
     private String nombre;
     private Long longitud;
     private Long latitud;
 
-    @ElementCollection
-    @CollectionTable(name = "paradaMonopatines", joinColumns = @JoinColumn(name = "paradaId"))
-    @Column(name = "idMonopatin")
     private List<Long> idMonopatines;
 
     private Boolean habilitado;

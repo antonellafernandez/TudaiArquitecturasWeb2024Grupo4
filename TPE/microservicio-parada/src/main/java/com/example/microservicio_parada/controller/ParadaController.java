@@ -18,27 +18,24 @@ import java.util.List;
 public class ParadaController {
 
     @Autowired
-    ParadaService paradaService;
-    
+    private ParadaService paradaService;
+
     @Operation(summary = "Crear una nueva parada")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Parada creada exitosamente"),
             @ApiResponse(responseCode = "400", description = "Solicitud inválida")
     })
-    // Create
     @PostMapping("")
     public ResponseEntity<Parada> save(@RequestBody Parada parada) {
         Parada paradaNew = paradaService.save(parada);
         return ResponseEntity.ok(paradaNew);
     }
 
-
     @Operation(summary = "Obtener todas las paradas")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de paradas obtenida exitosamente"),
             @ApiResponse(responseCode = "204", description = "No se encontraron paradas")
     })
-    // Read
     @GetMapping("")
     public ResponseEntity<List<Parada>> getAllParadas() {
         List<Parada> paradas = paradaService.getAll();
@@ -82,7 +79,7 @@ public class ParadaController {
             @ApiResponse(responseCode = "404", description = "Parada no encontrada")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Parada> getParadaById(@PathVariable("id") Long id) {
+    public ResponseEntity<Parada> getParadaById(@PathVariable("id") String id) {
         Parada parada = paradaService.findById(id);
         if (parada == null) {
             return ResponseEntity.notFound().build();
@@ -90,20 +87,18 @@ public class ParadaController {
         return ResponseEntity.ok(parada);
     }
 
-
     @Operation(summary = "Eliminar una parada por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Parada eliminada exitosamente"),
             @ApiResponse(responseCode = "404", description = "Parada no encontrada", content = @Content)
     })
-    // Delete
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") String id) {
         Parada parada = paradaService.findById(id);
         if (parada == null) {
             return ResponseEntity.notFound().build();
         }
-        paradaService.delete(parada);
+        paradaService.delete(id); // Usa el método adecuado de MongoDB para eliminar por ID.
         return ResponseEntity.noContent().build();
     }
 
@@ -112,9 +107,8 @@ public class ParadaController {
             @ApiResponse(responseCode = "204", description = "Parada habilitada exitosamente"),
             @ApiResponse(responseCode = "404", description = "Parada no encontrada", content = @Content)
     })
-    // Habilitar
     @PutMapping("/habilitar/{id}")
-    public ResponseEntity<Void> habilitar(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> habilitar(@PathVariable("id") String id) {
         Parada parada = paradaService.findById(id);
         if (parada == null) {
             return ResponseEntity.notFound().build();
@@ -128,9 +122,8 @@ public class ParadaController {
             @ApiResponse(responseCode = "204", description = "Parada deshabilitada exitosamente"),
             @ApiResponse(responseCode = "404", description = "Parada no encontrada", content = @Content)
     })
-    // Deshabilitar
     @PutMapping("/deshabilitar/{id}")
-    public ResponseEntity<Void> deshabilitar(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deshabilitar(@PathVariable("id") String id) {
         Parada parada = paradaService.findById(id);
         if (parada == null) {
             return ResponseEntity.notFound().build();
@@ -139,10 +132,6 @@ public class ParadaController {
         return ResponseEntity.noContent().build();
     }
 
-    /*
-    3g. Como usuario quiero un listado de los monopatines cercanos a mi zona, para poder encontrar
-    un monopatín cerca de mi ubicación.
-    */
     @Operation(summary = "Obtener monopatines cercanos a una ubicación")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de monopatines cercanos obtenida exitosamente"),
@@ -166,7 +155,7 @@ public class ParadaController {
             @ApiResponse(responseCode = "204", description = "Parada no encontrada o no hay monopatín para quitar")
     })
     @PutMapping("/{idParada}/monopatin/{idMonopatin}/quitarMonopatin")
-    public ResponseEntity<?> quitarMonopatin(@PathVariable("idParada") Long idParada, @PathVariable Long idMonopatin) {
+    public ResponseEntity<?> quitarMonopatin(@PathVariable("idParada") String idParada, @PathVariable Long idMonopatin) {
         Parada parada = paradaService.quitarMonopatin(idParada, idMonopatin);
         if (parada == null) {
             return ResponseEntity.noContent().build();

@@ -49,24 +49,21 @@ public class ParadaServiceTest {
     @Test
     public void testFindById() {
         Parada parada = new Parada();
-        parada.setId(1L);
+        parada.setId("1");
 
-        when(paradaRepository.findById(1L)).thenReturn(Optional.of(parada));
+        when(paradaRepository.findById("1")).thenReturn(Optional.of(parada));
 
-        Parada result = paradaService.findById(1L);
+        Parada result = paradaService.findById("1");
         assertNotNull(result);
-        assertEquals(1L, result.getId());
+        assertEquals("1", result.getId());
     }
 
     @Test
     public void testDeleteParada() {
-        Parada parada = new Parada();
-        parada.setId(1L);
+        doNothing().when(paradaRepository).deleteById("1");
 
-        doNothing().when(paradaRepository).delete(parada);
+        paradaService.delete("1");
 
-        paradaService.delete(parada);
-
-        verify(paradaRepository, times(1)).delete(parada);
+        verify(paradaRepository, times(1)).deleteById("1");
     }
 }
