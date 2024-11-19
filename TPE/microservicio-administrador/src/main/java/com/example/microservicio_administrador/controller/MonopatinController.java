@@ -2,6 +2,7 @@ package com.example.microservicio_administrador.controller;
 
 import com.example.microservicio_administrador.feignClient.MonopatinFeignClient;
 import com.example.microservicio_administrador.model.Monopatin;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ public class MonopatinController {
     3e. Como administrador quiero consultar la cantidad de monopatines actualmente en operación,
     versus la cantidad de monopatines actualmente en mantenimiento.
     */
+
+    @Operation(summary = "Permite al adm consultar monopatines en operación", description = "Consulta la cantidad de monopatines en operación y mantenimiento")
     @GetMapping("/enOperacion")
     public ResponseEntity<String> consultarEnOperacion() {
         List<Monopatin> monopatines = monopatinFeignClient.getAll();
@@ -38,6 +41,8 @@ public class MonopatinController {
         return ResponseEntity.ok(resultado);
     }
 
+
+    @Operation(summary = "Permite al adm añadir monopatín", description = "Añade un nuevo monopatín")
     @PostMapping("")
     public ResponseEntity<Monopatin> addMonopatin(@RequestBody Monopatin newMonopatin) {
         Monopatin monopatin = monopatinFeignClient.save(newMonopatin);
@@ -47,8 +52,9 @@ public class MonopatinController {
         return ResponseEntity.ok(monopatin);
     }
 
+    @Operation(summary = "Permite al adm habilitar monopatín", description = "Habilita un monopatín por su ID")
     @PutMapping("/habilitar/{id}")
-    public ResponseEntity<Monopatin> habilitarMonopatin(@PathVariable Long id){
+    public ResponseEntity<Monopatin> habilitarMonopatin(@PathVariable Long id) {
         Monopatin monopatin = monopatinFeignClient.habilitarMonopatin(id);
         if (monopatin == null)
             return ResponseEntity.notFound().build();
@@ -56,8 +62,9 @@ public class MonopatinController {
         return ResponseEntity.ok(monopatin);
     }
 
+    @Operation(summary = "Permite al adm deshabilitar monopatín", description = "Deshabilita un monopatín por su ID")
     @PutMapping("/deshabilitar/{id}")
-    public ResponseEntity<Monopatin>deshabilitarMonopatin(@PathVariable Long id){
+    public ResponseEntity<Monopatin> deshabilitarMonopatin(@PathVariable Long id) {
         Monopatin monopatin = monopatinFeignClient.deshabilitarMonopatin(id);
         if (monopatin == null)
             return ResponseEntity.notFound().build();
@@ -65,8 +72,9 @@ public class MonopatinController {
         return ResponseEntity.ok(monopatin);
     }
 
+    @Operation(summary = "Permite al adm actualizar monopatín", description = "Actualiza un monopatín por su ID")
     @PutMapping("/{id}")
-    public ResponseEntity<Monopatin>updateMonopatin(@PathVariable Long id, @RequestBody Monopatin newMonopatin) {
+    public ResponseEntity<Monopatin> updateMonopatin(@PathVariable Long id, @RequestBody Monopatin newMonopatin) {
         Monopatin monopatin = monopatinFeignClient.updateMonopatin(id, newMonopatin);
         if (monopatin == null)
             return ResponseEntity.notFound().build();

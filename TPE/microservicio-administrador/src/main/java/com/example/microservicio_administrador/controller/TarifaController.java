@@ -2,6 +2,7 @@ package com.example.microservicio_administrador.controller;
 
 import com.example.microservicio_administrador.dto.TarifaDto;
 import com.example.microservicio_administrador.service.TarifaService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ public class TarifaController {
     @Autowired
     TarifaService tarifaService;
 
+    @Operation(summary = "Obtener tarifa por tipo", description = "Obtiene una tarifa específica por su tipo")
     @GetMapping("/tipo/{tipo}")
     public ResponseEntity<?> getTarifaByTipo(@PathVariable String tipo) {
         try {
@@ -27,6 +29,7 @@ public class TarifaController {
         }
     }
 
+    @Operation(summary = "Obtener todas las tarifas", description = "Devuelve una lista de todas las tarifas disponibles")
     @GetMapping("")
     public ResponseEntity<?> getTarifas() {
         try {
@@ -38,6 +41,7 @@ public class TarifaController {
         }
     }
 
+    @Operation(summary = "Guardar nueva tarifa", description = "Guarda una nueva tarifa en el sistema")
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody TarifaDto tarifaDto) {
         try {
@@ -49,6 +53,7 @@ public class TarifaController {
         }
     }
 
+    @Operation(summary = "Actualizar tarifa", description = "Actualiza una tarifa existente por su ID")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody TarifaDto tarifaDto) {
         try {
@@ -60,6 +65,7 @@ public class TarifaController {
         }
     }
 
+    @Operation(summary = "Eliminar tarifa", description = "Elimina una tarifa por su ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
@@ -74,6 +80,8 @@ public class TarifaController {
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
+
+    @Operation(summary = "Obtener tarifas normales", description = "Devuelve una lista de tarifas normales")
     @GetMapping("/normales")
     public ResponseEntity<?> getTarifasNormales() {
         try {
