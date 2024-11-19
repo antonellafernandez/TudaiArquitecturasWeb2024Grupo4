@@ -49,13 +49,13 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
   microservicio-parada:
-    image: mongo
+    image: mongo:6.0
+    container_name: mongo-service
     ports:
       - "27017:27017"
+    command: mongod --noauth
     environment:
       MONGO_INITDB_DATABASE: db_parada
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD:
 
   microservicio-viaje:
     image: mysql
