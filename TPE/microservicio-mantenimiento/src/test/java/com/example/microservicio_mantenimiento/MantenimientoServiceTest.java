@@ -65,10 +65,8 @@ public class MantenimientoServiceTest {
         when(mantenimientoRepository.findById(idMantenimiento)).thenReturn(Optional.of(mantenimiento));
         when(mantenimientoRepository.monopatinEnMantenimiento(idMantenimiento)).thenReturn(false); // Simula que no está en mantenimiento
         when(mantenimientoRepository.finalizarMantenimiento(eq(idMantenimiento), any(LocalDateTime.class))).thenReturn(mantenimiento);
-
         Mantenimiento result = mantenimientoService.finalizarMantenimiento(idMantenimiento);
-
         assertNotNull(result);
-        // Añadir más aserciones según sea necesario
+
     }
 }

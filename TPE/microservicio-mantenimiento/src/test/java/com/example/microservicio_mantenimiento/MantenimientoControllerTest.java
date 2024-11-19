@@ -53,7 +53,7 @@ public class MantenimientoControllerTest {
         request.setUmbralKm(umbralKm);
         request.setUmbralTiempo(umbralTiempo);
 
-        mockMvc.perform(post("/mantenimientos/registrar/{id}", id)
+        mockMvc.perform(post("/api/mantenimientos/registrar/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))) // Envía el objeto como contenido
                 .andExpect(status().isOk())
@@ -70,7 +70,7 @@ public class MantenimientoControllerTest {
 
         when(mantenimientoService.finalizarMantenimiento(idMantenimiento)).thenReturn(mantenimiento);
 
-        mockMvc.perform(put("/mantenimientos/finalizar/{idMantenimiento}", idMantenimiento))
+        mockMvc.perform(put("/api/mantenimientos/finalizar/{idMantenimiento}", idMantenimiento))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(idMantenimiento)) // Asegúrate de que el ID se verifique
