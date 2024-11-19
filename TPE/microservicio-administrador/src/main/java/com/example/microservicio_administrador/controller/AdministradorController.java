@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/administradores")
+@RequestMapping("/api/administradores")
 public class AdministradorController {
 
     @Autowired

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("administradores/cuentas")
+@RequestMapping("/api/administradores/cuentas")
 public class CuentaController {
     @Autowired
     private CuentaFeignClient cuentaFeignClient;

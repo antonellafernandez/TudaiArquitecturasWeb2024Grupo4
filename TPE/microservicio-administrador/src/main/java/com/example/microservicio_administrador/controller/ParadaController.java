@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/administradores/paradas")
+@RequestMapping("/api/administradores/paradas")
 public class ParadaController {
     @Autowired
     private ParadaFeignClient paradaFeignClient;

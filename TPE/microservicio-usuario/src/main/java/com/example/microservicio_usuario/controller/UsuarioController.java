@@ -1,6 +1,6 @@
 package com.example.microservicio_usuario.controller;
 
-import com.example.microservicio_usuario.UsuarioService;
+import com.example.microservicio_usuario.service.UsuarioService;
 import com.example.microservicio_usuario.entity.Usuario;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
 
     @Autowired

@@ -10,8 +10,8 @@
     <groupId>com.example</groupId>
     <artifactId>microservicio-administrador</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>microservicio_administrador</name>
-    <description>microservicio_administrador</description>
+    <name>microservicio-administrador</name>
+    <description>microservicio-administrador</description>
     <url/>
     <licenses>
         <license/>
@@ -59,6 +59,18 @@
             <artifactId>swagger-models</artifactId>
             <version>2.2.20</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
     </dependencies>
 

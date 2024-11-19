@@ -2,6 +2,7 @@ package com.example.microservicio_usuario;
 
 import com.example.microservicio_usuario.controller.UsuarioController;
 import com.example.microservicio_usuario.entity.Usuario;
+import com.example.microservicio_usuario.service.UsuarioService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

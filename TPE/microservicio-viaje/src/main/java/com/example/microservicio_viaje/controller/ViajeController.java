@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/viajes")
+@RequestMapping("/api/viajes")
 public class ViajeController {
 
     @Autowired

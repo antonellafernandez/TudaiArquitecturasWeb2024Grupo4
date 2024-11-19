@@ -1,14 +1,14 @@
 server:
   port: 8080
 
-#eureka:
-#  client:
-#    fetch-registry: true
-#    register-with-eureka: true
-#    service-url:
-#      default-zone: http://localhost:8761/eureka
-#  instance:
-#    hostname: localhost
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
 
 spring:
   cloud:
@@ -16,44 +16,31 @@ spring:
       mvc:
         routes:
           - id: microservicio-administrador
-            #uri: lb://microservicio-administrador
-            uri: http://localhost:8082
+            uri: lb://microservicio-administrador
             predicates:
               - Path=/api/administradores/**
-
           - id: microservicio-cuenta
-            #uri: lb://microservicio-cuenta
-            uri: http://localhost:8083
+            uri: lb://microservicio-cuenta
             predicates:
               - Path=/api/cuentas/**
-
           - id: microservicio-mantenimiento
-            #uri: lb://microservicio-mantenimiento
-            uri: http://localhost:8084
+            uri: lb://microservicio-mantenimiento
             predicates:
               - Path=/api/mantenimientos/**
-
           - id: microservicio-monopatin
-            #uri: lb://microservicio-monopatin
-            uri: http://localhost:8085
+            uri: lb://microservicio-monopatin
             predicates:
               - Path=/api/monopatines/**
-
           - id: microservicio-parada
-            #uri: lb://microservicio-parada
-            uri: http://localhost:8086
+            uri: lb://microservicio-parada
             predicates:
               - Path=/api/paradas/**
-
           - id: microservicio-ususario
-            #uri: lb://microservicio-ususario
-            uri: http://localhost:8087
+            uri: lb://microservicio-ususario
             predicates:
               - Path=/api/ususarios/**
-
           - id: microservicio-viaje
-            #uri: lb://microservicio-viaje
-            uri: http://localhost:8088
+            uri: lb://microservicio-viaje
             predicates:
               - Path=/api/viajes/**
 logging:

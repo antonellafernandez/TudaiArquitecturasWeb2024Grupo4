@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/administradores/monopatines")
+@RequestMapping("/api/administradores/monopatines")
 public class MonopatinController {
 
     @Autowired

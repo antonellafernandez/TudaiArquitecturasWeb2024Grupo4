@@ -11,8 +11,8 @@
     <groupId>com.example</groupId>
     <artifactId>microservicio-viaje</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>microservicio_viaje</name>
-    <description>microservicio_viaje</description>
+    <name>microservicio-viaje</name>
+    <description>microservicio-viaje</description>
     <url/>
 
     <licenses>
@@ -94,7 +94,6 @@
             <version>5.12.0</version>
             <scope>test</scope>
         </dependency>
-
         <!-- Swagger -->
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
@@ -109,8 +108,18 @@
             <version>2.2.8</version>
             <scope>compile</scope>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
