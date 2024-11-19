@@ -1,6 +1,9 @@
 package com.example.microservicio_administrador.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -10,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Parada {
     private String nombre;
+    private Long id;
     private Long longitud;
     private Long latitud;
     private List<Long> idMonopatines;

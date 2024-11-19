@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class TarifaDto {
     private String nombreTarifa;
+    private Long id;
     private String tipoTarifa;
     private Double precioTarifa;
     private Double descuentoTarifa;
