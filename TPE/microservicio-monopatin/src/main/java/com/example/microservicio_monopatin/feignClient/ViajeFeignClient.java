@@ -37,5 +37,6 @@ public interface ViajeFeignClient {
     void iniciarViaje(@RequestParam Long monopatinId, @RequestParam LocalDateTime fechaHoraInicio);
 
     @GetMapping("/totalPausas")
-    ResponseEntity<?> getPausasMonopatines();
+    ResponseEntity<Map<Long, Long>> getPausasMonopatines();
+
 }

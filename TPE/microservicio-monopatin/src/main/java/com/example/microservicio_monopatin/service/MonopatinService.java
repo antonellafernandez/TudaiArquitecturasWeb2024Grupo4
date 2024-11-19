@@ -1,14 +1,15 @@
 package com.example.microservicio_monopatin.service;
 
 import com.example.microservicio_monopatin.dtos.MonopatinDTO;
+import com.example.microservicio_monopatin.dtos.ReporteUsoDto;
 import com.example.microservicio_monopatin.entity.Monopatin;
 import com.example.microservicio_monopatin.feignClient.AdministradorFeignClient;
 import com.example.microservicio_monopatin.feignClient.ParadaFeignClient;
 import com.example.microservicio_monopatin.feignClient.ViajeFeignClient;
 import com.example.microservicio_monopatin.models.Parada;
 import com.example.microservicio_monopatin.repository.MonopatinRepository;
-import com.example.microservicio_monopatin.dtos.ReporteUsoDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -176,7 +177,7 @@ public class MonopatinService {
     }
 
     @Transactional(readOnly = true)
-    public List<ReporteUsoDto> getReporteUsoMonopatinesCompleto(){
+    public List<ReporteUsoDto> getReporteUsoMonopatinesCompleto() {
         try {
             List<ReporteUsoDto> reporte = monopatinRepository.reporteUsoCompleto();
 
@@ -190,19 +191,28 @@ public class MonopatinService {
     }
 
     @Transactional(readOnly = true)
-    public List<ReporteUsoDto> getReporteUsoMonopatinesCompletoSinPausa(){
+    public List<ReporteUsoDto> getReporteUsoMonopatinesCompletoSinPausa() {
         try {
-            Map<Long, Long> pausasMonopatines = (Map<Long, Long>) viajeFeignClient.getPausasMonopatines().getBody();
+            ResponseEntity<Map<Long, Long>> response = viajeFeignClient.getPausasMonopatines();
+            Map<Long, Long> pausasMonopatines = (response != null && response.getBody() != null) ? response.getBody() : Collections.emptyMap();
+
             List<ReporteUsoDto> reportes = this.getReporteUsoMonopatinesCompleto();
 
-            if(pausasMonopatines == null || pausasMonopatines.isEmpty())
+            if (pausasMonopatines.isEmpty()) {
                 return reportes;
+            }
 
-            for(ReporteUsoDto reporte : reportes){
-                reporte.setTiempoTotal(
-                        reporte.getTiempoTotal()
-                                -
-                                pausasMonopatines.get(reporte.getIdMonopatin()));
+            for (ReporteUsoDto reporte : reportes) {
+                Long tiempoTotal = reporte.getTiempoTotal();
+                if (tiempoTotal != null) {
+                    Long pausa = pausasMonopatines.get(reporte.getIdMonopatin());
+                    if (pausa != null) {
+                        reporte.setTiempoTotal(tiempoTotal - pausa);  // Restar si el valor existe
+                    }
+                } else {
+                    // En caso de que tiempoTotal sea null, asigna un valor por defecto
+                    reporte.setTiempoTotal(0L);
+                }
             }
             return reportes;
         } catch (Exception e) {
@@ -210,8 +220,31 @@ public class MonopatinService {
         }
     }
 
+
+    /*
+         @Transactional(readOnly = true)
+        public List<ReporteUsoDto> getReporteUsoMonopatinesCompletoSinPausa(){
+            try {
+                Map<Long, Long> pausasMonopatines = (Map<Long, Long>) viajeFeignClient.getPausasMonopatines().getBody();
+                List<ReporteUsoDto> reportes = this.getReporteUsoMonopatinesCompleto();
+
+                if(pausasMonopatines == null || pausasMonopatines.isEmpty())
+                    return reportes;
+
+                for(ReporteUsoDto reporte : reportes){
+                    reporte.setTiempoTotal(
+                            reporte.getTiempoTotal()
+                                    -
+                                    pausasMonopatines.get(reporte.getIdMonopatin()));
+                }
+                return reportes;
+            } catch (Exception e) {
+                throw new RuntimeException("Error al generar el reporte de uso de monopatines completo sin pausa", e);
+            }
+        }
+    */
     @Transactional(readOnly = true)
-    public List<ReporteUsoDto> getReporteUsoMonopatinesPorKilometro(){
+    public List<ReporteUsoDto> getReporteUsoMonopatinesPorKilometro() {
         try {
             List<ReporteUsoDto> reporte = monopatinRepository.reporteUsoPorKilometro();
 
@@ -225,7 +258,7 @@ public class MonopatinService {
     }
 
     @Transactional(readOnly = true)
-    public List<ReporteUsoDto> getReporteMonopatinesPorTiempoConPausas(){
+    public List<ReporteUsoDto> getReporteMonopatinesPorTiempoConPausas() {
 
         try {
             List<ReporteUsoDto> reportes = monopatinRepository.reporteUsoPorTiempo();
@@ -239,7 +272,7 @@ public class MonopatinService {
     }
 
     @Transactional(readOnly = true)
-    public List<ReporteUsoDto> getReporteMonopatinesPorTiempoSinPausas(){
+    public List<ReporteUsoDto> getReporteMonopatinesPorTiempoSinPausas() {
 
         try {
             Map<Long, Long> pausasMonopatines = (Map<Long, Long>) viajeFeignClient.getPausasMonopatines().getBody();
@@ -247,14 +280,14 @@ public class MonopatinService {
             if (reportes == null || reportes.isEmpty())
                 return Collections.emptyList();
 
-            if(pausasMonopatines == null || pausasMonopatines.isEmpty())
+            if (pausasMonopatines == null || pausasMonopatines.isEmpty())
                 return reportes;
 
-            for(ReporteUsoDto reporte : reportes){
+            for (ReporteUsoDto reporte : reportes) {
                 reporte.setTiempoTotal(
                         reporte.getTiempoTotal()
-                        -
-                        pausasMonopatines.get(reporte.getIdMonopatin()));
+                                -
+                                pausasMonopatines.get(reporte.getIdMonopatin()));
             }
 
             return reportes;

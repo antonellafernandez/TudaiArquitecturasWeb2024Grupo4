@@ -169,10 +169,10 @@ public class MonopatinControllerTest {
 
     @Test
     public void testReservarMonopatin() throws Exception {
-        MonopatinDTO monopatinDTO = new MonopatinDTO();
-        monopatinDTO.setId(1L);
+        MonopatinDTO monopatinDto = new MonopatinDTO();
+        monopatinDto.setId(1L);
 
-        when(monopatinService.iniciarViaje(1L, 1L)).thenReturn(monopatinDTO);
+        when(monopatinService.iniciarViaje(1L, 1L)).thenReturn(monopatinDto);
 
         mockMvc.perform(put("/monopatines/reservarMonopatin/parada/1/monopatin/1/reservar"))
                 .andExpect(status().isOk())

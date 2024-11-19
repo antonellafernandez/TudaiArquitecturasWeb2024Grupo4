@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "microservicio-viaje", url="http://localhost:8087/viajes")
+@FeignClient(name = "microservicio-viaje", url = "http://localhost:8087/viajes")
 public interface ViajeFeignClient {
 
     @GetMapping("")
@@ -23,7 +23,8 @@ public interface ViajeFeignClient {
     List<Viaje> getMonopatinesByCantidadViajesYAnio(@PathVariable Long cantViajes, @PathVariable Long anio);
 
     @GetMapping("/viajes/facturado")
-    ReporteTotalFacturadoEntreMesesDeAnio getReporteTotalFacturadoEntreMesesDeAnio(@RequestParam Long mesInicio,
-                                                                                   @RequestParam Long mesFin,
-                                                                                   @RequestParam Long anio);
+    ReporteTotalFacturadoEntreMesesDeAnio getReporteTotalFacturadoEntreMesesDeAnio(
+            @RequestParam Long mesInicio,
+            @RequestParam Long mesFin,
+            @RequestParam Long anio);
 }
