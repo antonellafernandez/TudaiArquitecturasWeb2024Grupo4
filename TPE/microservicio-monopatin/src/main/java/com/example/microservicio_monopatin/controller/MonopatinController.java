@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/monopatines")
+@RequestMapping("/api/monopatines")
 
 public class MonopatinController {
 

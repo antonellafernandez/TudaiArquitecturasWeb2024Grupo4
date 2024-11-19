@@ -1,4 +1,4 @@
-package com.example.microservicio_usuario;
+package com.example.microservicio_usuario.service;
 
 import com.example.microservicio_usuario.entity.Usuario;
 import com.example.microservicio_usuario.feignClients.CuentaAppFeignClient;

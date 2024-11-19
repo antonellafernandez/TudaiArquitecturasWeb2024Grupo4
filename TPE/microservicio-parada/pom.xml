@@ -10,8 +10,8 @@
     <groupId>com.example</groupId>
     <artifactId>microservicio-parada</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>microservicio_parada</name>
-    <description>microservicio_parada</description>
+    <name>microservicio-parada</name>
+    <description>microservicio-parada</description>
     <url/>
     <licenses>
         <license/>
@@ -77,10 +77,16 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>microservicio-monopatin</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>test</scope>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
     </dependencies>
 

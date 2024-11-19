@@ -10,8 +10,8 @@
     <groupId>com.example</groupId>
     <artifactId>microservicio-mantenimiento</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>microservicio_mantenimiento</name>
-    <description>microservicio_mantenimiento</description>
+    <name>microservicio-mantenimiento</name>
+    <description>microservicio-mantenimiento</description>
     <url/>
     <licenses>
         <license/>
@@ -48,6 +48,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
     </dependencies>
 

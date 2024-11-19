@@ -22,9 +22,9 @@
         <module>microservicio-monopatin</module>
         <module>microservicio-viaje</module>
         <module>microservicio-parada</module>
-        <!-- <module>config-service</module>
-         <module>gateway</module>
-         <module>eureka</module>-->
+        <module>config-service</module>
+        <module>gateway</module>
+        <module>eureka-service</module>
     </modules>
     <url/>
     <licenses>

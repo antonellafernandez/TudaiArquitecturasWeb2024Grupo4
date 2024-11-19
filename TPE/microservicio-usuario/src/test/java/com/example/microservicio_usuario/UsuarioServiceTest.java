@@ -2,6 +2,7 @@ package com.example.microservicio_usuario;
 
 import com.example.microservicio_usuario.entity.Usuario;
 import com.example.microservicio_usuario.repository.UsuarioRepository;
+import com.example.microservicio_usuario.service.UsuarioService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

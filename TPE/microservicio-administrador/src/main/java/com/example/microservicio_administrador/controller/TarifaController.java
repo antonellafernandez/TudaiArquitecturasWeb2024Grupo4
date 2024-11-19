@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/administradores/tarifas")
+@RequestMapping("/api/administradores/tarifas")
 public class TarifaController {
 
     @Autowired
