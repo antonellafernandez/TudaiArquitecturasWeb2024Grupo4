@@ -81,4 +81,5 @@ public class MonopatinController {
 
         return ResponseEntity.ok(monopatin);
     }
+
 }

@@ -47,7 +47,7 @@ public class MonopatinControllerTest {
     public void testGetAllMonopatines() throws Exception {
         when(monopatinService.getAll()).thenReturn(Collections.emptyList());
 
-        mockMvc.perform(get("/monopatines")
+        mockMvc.perform(get("/api/monopatines")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
@@ -65,7 +65,7 @@ public class MonopatinControllerTest {
         when(monopatinService.findById(1L)).thenReturn(monopatin);
 
         // Realiza la solicitud GET y verifica la respuesta
-        mockMvc.perform(get("/monopatines/1")
+        mockMvc.perform(get("/api/monopatines/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1));
@@ -75,7 +75,7 @@ public class MonopatinControllerTest {
     public void testGetMonopatinByIdNotFound() throws Exception {
         when(monopatinService.findById(1L)).thenReturn(null);
 
-        mockMvc.perform(get("/monopatines/1"))
+        mockMvc.perform(get("/api/monopatines/1"))
                 .andExpect(status().isNotFound());
     }
 
@@ -87,7 +87,7 @@ public class MonopatinControllerTest {
 
         when(monopatinService.save(any(MonopatinDTO.class))).thenReturn(monopatin);
 
-        mockMvc.perform(post("/monopatines")
+        mockMvc.perform(post("/api/monopatines")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"kmRecorridosTotales\": 100, \"tiempoRecorridosTotales\": 120, \"disponible\": true, \"longitud\": 123.456, \"latitud\": 78.910, \"viajeActivo\": 2}"))
                 .andExpect(status().isOk())
@@ -108,7 +108,7 @@ public class MonopatinControllerTest {
         doNothing().when(monopatinService).delete(monopatin);
 
         // Realiza la solicitud DELETE y espera un estado 204 No Content
-        mockMvc.perform(delete("/monopatines/1"))
+        mockMvc.perform(delete("/api/monopatines/1"))
                 .andExpect(status().isNoContent());
 
         // Verifica que el método delete fue llamado exactamente una vez
@@ -119,7 +119,7 @@ public class MonopatinControllerTest {
     public void testHabilitarMonopatin() throws Exception {
         when(monopatinService.habilitar(1L)).thenReturn(true);
 
-        mockMvc.perform(put("/monopatines/habilitar/1"))
+        mockMvc.perform(put("/api/monopatines/habilitar/1"))
                 .andExpect(status().isOk());
     }
 
@@ -127,7 +127,7 @@ public class MonopatinControllerTest {
     public void testDeshabilitarMonopatin() throws Exception {
         when(monopatinService.deshabilitar(1L)).thenReturn(true);
 
-        mockMvc.perform(put("/monopatines/deshabilitar/1"))
+        mockMvc.perform(put("/api/monopatines/deshabilitar/1"))
                 .andExpect(status().isOk());
     }
 
@@ -137,7 +137,7 @@ public class MonopatinControllerTest {
 
         when(monopatinService.getReporteUsoMonopatinesPorKilometro()).thenReturn(reporte);
 
-        mockMvc.perform(get("/monopatines/reportePorKilometros")
+        mockMvc.perform(get("/api/monopatines/reportePorKilometros")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(reporte.size()));
@@ -149,7 +149,7 @@ public class MonopatinControllerTest {
 
         when(monopatinService.getReporteUsoMonopatinesCompleto()).thenReturn(reporte);
 
-        mockMvc.perform(get("/monopatines/reportePorTiempoTotal")
+        mockMvc.perform(get("/api/monopatines/reportePorTiempoTotal")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(reporte.size()));
@@ -161,7 +161,7 @@ public class MonopatinControllerTest {
 
         when(monopatinService.getReporteUsoMonopatinesCompletoSinPausa()).thenReturn(reporte);
 
-        mockMvc.perform(get("/monopatines/reportePorTiempoSinPausa")
+        mockMvc.perform(get("/api/monopatines/reportePorTiempoSinPausa")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(reporte.size()));
@@ -174,7 +174,7 @@ public class MonopatinControllerTest {
 
         when(monopatinService.iniciarViaje(1L, 1L)).thenReturn(monopatinDto);
 
-        mockMvc.perform(put("/monopatines/reservarMonopatin/parada/1/monopatin/1/reservar"))
+        mockMvc.perform(put("/api/monopatines/reservarMonopatin/parada/1/monopatin/1/reservar"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1));
     }
@@ -183,7 +183,7 @@ public class MonopatinControllerTest {
     public void testPausarMonopatin() throws Exception {
         doNothing().when(monopatinService).pausarMonopatin(1L);
 
-        mockMvc.perform(put("/monopatines/pausa/1"))
+        mockMvc.perform(put("/api/monopatines/pausa/1"))
                 .andExpect(status().isOk());
     }
 
@@ -197,7 +197,7 @@ public class MonopatinControllerTest {
         // Simulación del método
         doAnswer(invocation -> null).when(monopatinService).pararMonopatin(idMonopatin, paradaId, viajeId, kmRecorridos);
 
-        mockMvc.perform(put("/monopatines/1/finalizarRecorrido")
+        mockMvc.perform(put("/api/monopatines/1/finalizarRecorrido")
                         .param("paradaId", paradaId.toString())
                         .param("viajeId", viajeId.toString())
                         .param("kmRecorridos", kmRecorridos.toString()))

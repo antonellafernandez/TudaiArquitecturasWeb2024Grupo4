@@ -28,13 +28,13 @@ public class ParadaControllerTest {
     @Test
     public void testAddParada() throws Exception {
         Parada newParada = new Parada();
-        newParada.setId(1L); // Configura otros campos según sea necesario
+        newParada.setId(1L);
 
         when(paradaFeignClient.save(newParada)).thenReturn(newParada);
 
-        mockMvc.perform(post("/administradores/paradas")
+        mockMvc.perform(post("/api/administradores/paradas")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":1}")) // Ajusta el JSON según los campos de Parada
+                        .content("{\"id\":1}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }
@@ -46,7 +46,7 @@ public class ParadaControllerTest {
 
         when(paradaFeignClient.habilitarParada(1L)).thenReturn(parada);
 
-        mockMvc.perform(put("/administradores/paradas/habilitar/1"))
+        mockMvc.perform(put("/api/administradores/paradas/habilitar/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }
@@ -58,7 +58,7 @@ public class ParadaControllerTest {
 
         when(paradaFeignClient.deshabilitarParada(1L)).thenReturn(parada);
 
-        mockMvc.perform(put("/administradores/paradas/deshabilitar/1"))
+        mockMvc.perform(put("/api/administradores/paradas/deshabilitar/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }
@@ -70,9 +70,9 @@ public class ParadaControllerTest {
 
         when(paradaFeignClient.updateParada(1L, updatedParada)).thenReturn(updatedParada);
 
-        mockMvc.perform(put("/administradores/paradas/1")
+        mockMvc.perform(put("/api/administradores/paradas/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":1}")) // Ajusta el JSON según los campos de Parada
+                        .content("{\"id\":1}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }

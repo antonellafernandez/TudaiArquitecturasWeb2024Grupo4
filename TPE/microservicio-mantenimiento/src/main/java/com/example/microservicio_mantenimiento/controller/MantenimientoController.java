@@ -1,5 +1,6 @@
 package com.example.microservicio_mantenimiento.controller;
 
+import com.example.microservicio_mantenimiento.dto.MantenimientoDto;
 import com.example.microservicio_mantenimiento.entity.Mantenimiento;
 import com.example.microservicio_mantenimiento.service.MantenimientoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +16,7 @@ public class MantenimientoController {
     private MantenimientoService mantenimientoService;
 
     @Operation(summary = "Registrar mantenimiento", description = "Registra un mantenimiento para un monopatín por su ID")
+    /*
     @PostMapping("/registrar/{id}")
     public ResponseEntity<?> registrarMantenimiento(@PathVariable Long id, @RequestBody Long umbralKm, @RequestBody Long umbralTiempo) {
 
@@ -26,17 +28,29 @@ public class MantenimientoController {
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
-
-    @Operation(summary = "Finalizar mantenimiento", description = "Finaliza un mantenimiento por su ID")
-    @PutMapping("/finalizar/{id}")
-    public ResponseEntity<?> finalizarMantenimiento(@PathVariable Long idMantenimiento) {
-
+*/
+    @PostMapping("/registrar/{id}")
+    public ResponseEntity<?> registrarMantenimiento(@PathVariable Long id, @RequestBody MantenimientoDto request) {
         try {
-            Mantenimiento mantenimiento = mantenimientoService.finalizarMantenimiento(idMantenimiento);
+            Mantenimiento mantenimiento = mantenimientoService.registrarMonopatinEnMantenimiento(id, request.getUmbralKm(), request.getUmbralTiempo());
             return ResponseEntity.status(HttpStatus.OK).body(mantenimiento);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"error\":\"" + e.getMessage() + "\"}");
         }
     }
+
+    @Operation(summary = "Finalizar mantenimiento", description = "Finaliza un mantenimiento por su ID")
+
+    @PutMapping("/finalizar/{id}")
+    public ResponseEntity<?> finalizarMantenimiento(@PathVariable Long id) {
+        try {
+            Mantenimiento mantenimiento = mantenimientoService.finalizarMantenimiento(id);
+            return ResponseEntity.status(HttpStatus.OK).body(mantenimiento);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"error\":\"" + e.getMessage() + "\"}");
+        }
+    }
+   
 }
