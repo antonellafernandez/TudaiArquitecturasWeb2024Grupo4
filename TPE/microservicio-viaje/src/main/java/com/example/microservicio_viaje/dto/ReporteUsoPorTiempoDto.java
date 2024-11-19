@@ -15,4 +15,9 @@ import java.util.List;
 public class ReporteUsoPorTiempoDto {
     private Long idMonopatin;
     private LocalDateTime pausa;
+
+    public ReporteUsoPorTiempoDto(Long idMonopatin, Pausa pausa) {
+        this.idMonopatin = idMonopatin;
+        this.pausa = pausa.getPausa();
+    }
 }
