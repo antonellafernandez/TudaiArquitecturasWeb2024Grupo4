@@ -19,6 +19,7 @@ public class Usuario {
     private String apellido;
     private String nroCelular;
     private String email;
+    private String username;
 
     private Long idMonopatinActual;
 

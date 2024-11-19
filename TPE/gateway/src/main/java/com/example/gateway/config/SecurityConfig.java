@@ -46,6 +46,7 @@ public class SecurityConfig {
                         .requestMatchers( HttpMethod.POST, "/api/authenticate").permitAll()
                         .requestMatchers( HttpMethod.POST, "/api/users/sign-in").permitAll() // es usuarios pero del gateway(para autenticacion)
                         //Administrador
+                        .requestMatchers(HttpMethod.GET, "/api/administradores").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.GET, "/api/administradores/**").hasAuthority(AuthorityConstant._ADMIN)
 
                         .requestMatchers(HttpMethod.PUT, "/api/administradores/**").hasAuthority(AuthorityConstant._ADMIN)
