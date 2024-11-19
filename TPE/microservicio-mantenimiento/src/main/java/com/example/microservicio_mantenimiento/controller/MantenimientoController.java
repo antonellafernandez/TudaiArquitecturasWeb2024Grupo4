@@ -2,6 +2,7 @@ package com.example.microservicio_mantenimiento.controller;
 
 import com.example.microservicio_mantenimiento.entity.Mantenimiento;
 import com.example.microservicio_mantenimiento.service.MantenimientoService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ public class MantenimientoController {
     @Autowired
     private MantenimientoService mantenimientoService;
 
+    @Operation(summary = "Registrar mantenimiento", description = "Registra un mantenimiento para un monopatín por su ID")
     @PostMapping("/registrar/{id}")
     public ResponseEntity<?> registrarMantenimiento(@PathVariable Long id, @RequestBody Long umbralKm, @RequestBody Long umbralTiempo) {
 
@@ -25,6 +27,7 @@ public class MantenimientoController {
         }
     }
 
+    @Operation(summary = "Finalizar mantenimiento", description = "Finaliza un mantenimiento por su ID")
     @PutMapping("/finalizar/{id}")
     public ResponseEntity<?> finalizarMantenimiento(@PathVariable Long idMantenimiento) {
 

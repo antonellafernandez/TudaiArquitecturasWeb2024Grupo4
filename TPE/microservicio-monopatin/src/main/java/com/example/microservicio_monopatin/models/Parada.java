@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Parada {
     private String nombre;
+    private Long id;
     private Long longitud;
     private Long latitud;
     private List<Long> idMonopatines;

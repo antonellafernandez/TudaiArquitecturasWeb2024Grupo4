@@ -50,7 +50,6 @@ public class MonopatinController {
         return ResponseEntity.ok(monopatinDTO);
     }
 
-
     @Operation(summary = "Crear un nuevo monopatín")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Monopatín creado exitosamente"),
@@ -116,7 +115,6 @@ public class MonopatinController {
         }
         return ResponseEntity.notFound().build();
     }
-
 
     @Operation(summary = "Obtener reporte de monopatines por tiempo total")
     @ApiResponses(value = {

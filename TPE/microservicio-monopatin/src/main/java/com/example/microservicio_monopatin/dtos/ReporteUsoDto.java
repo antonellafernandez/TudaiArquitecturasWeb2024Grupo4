@@ -10,5 +10,5 @@ import lombok.*;
 public class ReporteUsoDto {
     private Long idMonopatin;
     private Long kmRecorridos;
-    private Long tiempoTotal;
+    private Long tiempoTotal = 0L;
 }

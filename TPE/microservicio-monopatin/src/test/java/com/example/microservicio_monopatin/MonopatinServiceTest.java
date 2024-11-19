@@ -3,6 +3,9 @@ package com.example.microservicio_monopatin;
 import com.example.microservicio_monopatin.dtos.MonopatinDTO;
 import com.example.microservicio_monopatin.dtos.ReporteUsoDto;
 import com.example.microservicio_monopatin.entity.Monopatin;
+import com.example.microservicio_monopatin.feignClient.ParadaFeignClient;
+import com.example.microservicio_monopatin.feignClient.ViajeFeignClient;
+import com.example.microservicio_monopatin.models.Parada;
 import com.example.microservicio_monopatin.repository.MonopatinRepository;
 import com.example.microservicio_monopatin.service.MonopatinService;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,10 +13,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -25,6 +28,11 @@ public class MonopatinServiceTest {
 
     @InjectMocks
     private MonopatinService monopatinService;
+
+    @Mock
+    private ViajeFeignClient viajeFeignClient;
+    @Mock
+    private ParadaFeignClient paradaFeignClient;
 
     @BeforeEach
     public void setup() {
@@ -90,42 +98,63 @@ public class MonopatinServiceTest {
 
     @Test
     public void testHabilitarMonopatin() {
-        Monopatin monopatin = new Monopatin();
-        monopatin.setId(1L);
+        Long monopatinId = 1L;
 
-        when(monopatinRepository.findById(1L)).thenReturn(Optional.of(monopatin));
-        when(monopatinRepository.save(any(Monopatin.class))).thenReturn(monopatin);
+        // Simula que el método habilitar devuelve 1 (una fila afectada).
+        when(monopatinRepository.habilitar(monopatinId)).thenReturn(1);
 
-        boolean result = monopatinService.habilitar(1L);
+        // Llama al método habilitar del servicio.
+        boolean result = monopatinService.habilitar(monopatinId);
 
+        // Verifica el resultado.
         assertTrue(result);
+
+        // Verifica que el método habilitar fue llamado una vez con el ID correcto.
+        verify(monopatinRepository, times(1)).habilitar(monopatinId);
     }
 
     @Test
     public void testDeshabilitarMonopatin() {
-        Monopatin monopatin = new Monopatin();
-        monopatin.setId(1L);
+        Long monopatinId = 1L;
 
-        when(monopatinRepository.findById(1L)).thenReturn(Optional.of(monopatin));
-        when(monopatinRepository.save(any(Monopatin.class))).thenReturn(monopatin);
+        // Simula que el método deshabilitar devuelve 1 (una fila afectada).
+        when(monopatinRepository.deshabilitar(monopatinId)).thenReturn(1);
 
-        boolean result = monopatinService.deshabilitar(1L);
+        // Llama al método deshabilitar del servicio.
+        boolean result = monopatinService.deshabilitar(monopatinId);
 
+        // Verifica el resultado.
         assertTrue(result);
+
+        // Verifica que el método deshabilitar fue llamado una vez con el ID correcto.
+        verify(monopatinRepository, times(1)).deshabilitar(monopatinId);
     }
 
     @Test
     public void testIniciarViaje() {
         Monopatin monopatin = new Monopatin();
         monopatin.setId(1L);
+        monopatin.setDisponible(true);
 
+        // Crear una Parada simulada
+        Parada paradaSimulada = new Parada();
+        paradaSimulada.setId(1L);
+        paradaSimulada.setNombre("Parada Central");
+
+        // Mockear repositorio y feign clients
         when(monopatinRepository.findById(1L)).thenReturn(Optional.of(monopatin));
         when(monopatinRepository.save(any(Monopatin.class))).thenReturn(monopatin);
+        when(paradaFeignClient.quitarMonopatin(eq(1L), eq(1L))).thenReturn(paradaSimulada);
+
+        // Mock de viajeFeignClient
+        doNothing().when(viajeFeignClient).iniciarViaje(eq(1L), any(LocalDateTime.class));
 
         MonopatinDTO result = monopatinService.iniciarViaje(1L, 1L);
 
+        // Verificaciones
         assertNotNull(result);
         assertEquals(1L, result.getId());
+
     }
 
     @Test
@@ -142,15 +171,34 @@ public class MonopatinServiceTest {
 
     @Test
     public void testPararMonopatin() {
+        // Crear y configurar el monopatín
         Monopatin monopatin = new Monopatin();
         monopatin.setId(1L);
+        monopatin.setLatitud(1050L); // Asignar un valor no nulo
+        monopatin.setLongitud(2050L); // Asignar un valor no nulo
+        monopatin.setDisponible(false);
+        monopatin.setIdViajeActivo(1L);
 
+        // Crear y configurar la parada
+        Parada parada = new Parada();
+        parada.setId(1L);
+        parada.setLatitud(1050L);
+        parada.setLongitud(2050L);
+        parada.setIdMonopatines(new ArrayList<>());
+
+        // Mockear el repositorio y FeignClient
         when(monopatinRepository.findById(1L)).thenReturn(Optional.of(monopatin));
+        when(paradaFeignClient.getParadaById(1L)).thenReturn(parada);
 
-        monopatinService.pararMonopatin(1L, 1L, 1L, 10L);
+        // Ejecutar el método
+        boolean resultado = monopatinService.pararMonopatin(1L, 1L, 1L, 10L);
 
+        // Validar el resultado
+        assertTrue(resultado);
         verify(monopatinRepository, times(1)).save(monopatin);
+        verify(paradaFeignClient, times(1)).save(parada);
     }
+
 
     @Test
     public void testGetReporteUsoMonopatinesPorKilometro() {
@@ -180,14 +228,22 @@ public class MonopatinServiceTest {
 
     @Test
     public void testGetReporteUsoMonopatinesCompletoSinPausa() {
-        // Configura un resultado esperado
-        List<ReporteUsoDto> expectedReport = List.of(new ReporteUsoDto(/* parámetros según tu DTO */));
+        // Crear el reporte esperado
+        List<ReporteUsoDto> expectedReport = List.of(new ReporteUsoDto(/* parámetros */));
 
-        when(monopatinService.getReporteUsoMonopatinesCompletoSinPausa()).thenReturn(expectedReport);
+        // Simular la respuesta del FeignClient con un mapa de pausas
+        Map<Long, Long> pausasMonopatinesMock = new HashMap<>();
+        pausasMonopatinesMock.put(1L, 5L);  // Por ejemplo, monopatín 1 tiene 5 segundos de pausa
 
+        when(viajeFeignClient.getPausasMonopatines()).thenReturn(ResponseEntity.ok(pausasMonopatinesMock));
+        when(monopatinService.getReporteUsoMonopatinesCompleto()).thenReturn(expectedReport);
+
+        // Ejecutar el método
         List<ReporteUsoDto> result = monopatinService.getReporteUsoMonopatinesCompletoSinPausa();
 
+        // Verificar que el resultado no sea nulo y que los tamaños coincidan
         assertNotNull(result);
         assertEquals(expectedReport.size(), result.size());
     }
+
 }

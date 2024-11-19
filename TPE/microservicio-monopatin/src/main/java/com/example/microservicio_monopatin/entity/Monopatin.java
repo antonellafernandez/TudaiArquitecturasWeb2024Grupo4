@@ -1,12 +1,13 @@
 package com.example.microservicio_monopatin.entity;
 
 import com.example.microservicio_monopatin.dtos.MonopatinDTO;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Data
@@ -18,7 +19,7 @@ public class Monopatin {
     private Long id;
     private Long kmRecorridosTotales;
     private Long tiempoRecorridosTotales;
-    private Boolean disponible;
+    private Boolean disponible = true;
     private Long longitud;
     private Long latitud;
     private Long idViajeActivo;
