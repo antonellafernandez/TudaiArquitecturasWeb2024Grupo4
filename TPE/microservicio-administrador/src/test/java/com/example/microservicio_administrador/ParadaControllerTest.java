@@ -28,13 +28,13 @@ public class ParadaControllerTest {
     @Test
     public void testAddParada() throws Exception {
         Parada newParada = new Parada();
-        newParada.setId(1L); // Configura otros campos según sea necesario
+        newParada.setId(1L);
 
         when(paradaFeignClient.save(newParada)).thenReturn(newParada);
 
         mockMvc.perform(post("/administradores/paradas")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":1}")) // Ajusta el JSON según los campos de Parada
+                        .content("{\"id\":1}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }
@@ -72,7 +72,7 @@ public class ParadaControllerTest {
 
         mockMvc.perform(put("/administradores/paradas/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":1}")) // Ajusta el JSON según los campos de Parada
+                        .content("{\"id\":1}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }

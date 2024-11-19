@@ -93,7 +93,6 @@ public class AdministradorServiceTest {
     public void testGetReporteTotalFacturadoEntreMesesDeAnio() {
         // Configura el objeto esperado que el cliente Feign debe devolver
         ReporteTotalFacturadoEntreMesesDeAnio expectedReporte = new ReporteTotalFacturadoEntreMesesDeAnio();
-        // Configura los valores del objeto esperado según sea necesario
 
         // Simula la llamada al cliente Feign
         when(viajeFeignClient.getReporteTotalFacturadoEntreMesesDeAnio(1L, 12L, 2023L)).thenReturn(expectedReporte);
@@ -103,6 +102,6 @@ public class AdministradorServiceTest {
 
         // Verifica que el resultado sea el esperado
         assertEquals(expectedReporte, actualReporte);
-        // Puedes agregar más aserciones aquí para verificar el contenido del reporte si es necesario
+
     }
 }

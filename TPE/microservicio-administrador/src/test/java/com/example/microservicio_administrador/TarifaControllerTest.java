@@ -66,7 +66,7 @@ public class TarifaControllerTest {
 
         mockMvc.perform(put("/administradores/tarifas/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":1}")) // Ajusta el JSON según los campos de Tarifa
+                        .content("{\"id\":1}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }

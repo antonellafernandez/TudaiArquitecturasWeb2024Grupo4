@@ -54,7 +54,7 @@ public class MantenimientoServiceTest {
         Mantenimiento result = mantenimientoService.registrarMonopatinEnMantenimiento(id, umbralKm, umbralTiempo);
 
         assertNotNull(result);
-        // Puedes agregar más aserciones para verificar el estado de `result`
+        
     }
 
     @Test

@@ -57,13 +57,13 @@ public class MonopatinControllerTest {
     @Test
     public void testAddMonopatin() throws Exception {
         Monopatin newMonopatin = new Monopatin();
-        newMonopatin.setId(1L); // Configura otros campos según sea necesario
+        newMonopatin.setId(1L);
 
         when(monopatinFeignClient.save(newMonopatin)).thenReturn(newMonopatin);
 
         mockMvc.perform(post("/administradores/monopatines")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":1}")) // Ajusta el JSON según los campos de Monopatin
+                        .content("{\"id\":1}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L));
     }

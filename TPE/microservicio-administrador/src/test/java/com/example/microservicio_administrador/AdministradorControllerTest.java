@@ -58,7 +58,7 @@ public class AdministradorControllerTest {
     public void testGetAdministradorById() throws Exception {
         AdministradorDto adminDto = new AdministradorDto();
         adminDto.setId(1L);
-        adminDto.setNombre("Admin1");  // Asegúrate de establecer el nombre aquí
+        adminDto.setNombre("Admin1");
 
         when(administradorService.getAdministradorById(1L)).thenReturn(adminDto);
 
@@ -103,7 +103,7 @@ public class AdministradorControllerTest {
     @Test
     public void testGetReporteTotalFacturadoEntreMesesDeAnio() throws Exception {
         ReporteTotalFacturadoEntreMesesDeAnio reporte = new ReporteTotalFacturadoEntreMesesDeAnio();
-        // Configura los valores de reporte según sea necesario
+
 
         when(administradorService.getReporteTotalFacturadoEntreMesesDeAnio(1L, 12L, 2023L)).thenReturn(reporte);
 

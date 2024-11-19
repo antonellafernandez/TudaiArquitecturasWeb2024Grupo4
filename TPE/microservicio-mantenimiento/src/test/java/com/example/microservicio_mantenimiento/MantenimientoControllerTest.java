@@ -42,7 +42,7 @@ public class MantenimientoControllerTest {
         Long umbralKm = 1000L;
         Long umbralTiempo = 30L;
         Mantenimiento mantenimiento = new Mantenimiento();
-        mantenimiento.setId(id); // Asegúrate de que el mantenimiento tenga un ID
+        mantenimiento.setId(id);
 
         // Simula el comportamiento del servicio
         when(mantenimientoService.registrarMonopatinEnMantenimiento(eq(id), eq(umbralKm), eq(umbralTiempo)))
@@ -55,10 +55,10 @@ public class MantenimientoControllerTest {
 
         mockMvc.perform(post("/api/mantenimientos/registrar/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request))) // Envía el objeto como contenido
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(id)) // Ejemplo de asertación adicional
+                .andExpect(jsonPath("$.id").value(id))
                 .andDo(print());
     }
 
@@ -66,14 +66,14 @@ public class MantenimientoControllerTest {
     public void testFinalizarMantenimiento() throws Exception {
         Long idMantenimiento = 1L;
         Mantenimiento mantenimiento = new Mantenimiento();
-        mantenimiento.setId(idMantenimiento); // Asegúrate de que el mantenimiento tenga un ID
+        mantenimiento.setId(idMantenimiento);
 
         when(mantenimientoService.finalizarMantenimiento(idMantenimiento)).thenReturn(mantenimiento);
 
         mockMvc.perform(put("/api/mantenimientos/finalizar/{idMantenimiento}", idMantenimiento))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(idMantenimiento)) // Asegúrate de que el ID se verifique
+                .andExpect(jsonPath("$.id").value(idMantenimiento))
                 .andDo(print());
     }
 }
