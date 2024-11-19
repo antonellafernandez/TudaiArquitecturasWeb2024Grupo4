@@ -3,7 +3,7 @@ services:
   gateway:
     image: mysql
     ports:
-      - "3314:3306"  # Mapea el puerto 3307 en el host al 3306 en el contenedor
+      - "3314:3306"  # Mapea el puerto 3314 en el host al 3306 en el contenedor
     environment:
       - MYSQL_DATABASE=auth
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes

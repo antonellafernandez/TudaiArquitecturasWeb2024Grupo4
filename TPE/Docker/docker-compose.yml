@@ -1,4 +1,13 @@
 services:
+
+  gateway:
+    image: mysql
+    ports:
+      - "3314:3306"  # Mapea el puerto 3314 en el host al 3306 en el contenedor
+    environment:
+      - MYSQL_DATABASE=auth
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
   microservicio-administrador:
     image: mysql
     ports:
@@ -54,3 +63,8 @@ services:
     environment:
       - MYSQL_DATABASE=db_viaje
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
+
+networks:
+  my-network:
+    driver: bridge
