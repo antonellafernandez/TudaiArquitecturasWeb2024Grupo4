@@ -40,7 +40,7 @@ public class UsuarioServiceTest {
 
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuario);
 
-        Usuario savedUsuario = usuarioService.save(usuario);
+        Usuario savedUsuario = usuarioService.save(usuario, "username");
 
         assertNotNull(savedUsuario);
         assertEquals("Juan", savedUsuario.getNombre());

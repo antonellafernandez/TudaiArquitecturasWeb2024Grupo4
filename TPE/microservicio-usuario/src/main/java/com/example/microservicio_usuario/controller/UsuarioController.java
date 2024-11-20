@@ -82,6 +82,15 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
+    @GetMapping("/getByUsername/{username}")
+    public ResponseEntity<Usuario> getUsuarioByUsername(@PathVariable("username") String username) {
+        Usuario usuario = usuarioService.findByUsername(username);
+        if (usuario == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(usuario);
+    }
+
     @Operation(summary = "Eliminar un usuario por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Usuario eliminado exitosamente"),

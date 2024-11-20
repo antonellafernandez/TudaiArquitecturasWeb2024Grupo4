@@ -41,4 +41,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     // Obtener Monopatin
     @Query("SELECT u.idMonopatinActual FROM Usuario u WHERE u.id = :id")
     Monopatin getIdMonopatin(Long id);
+
+    @Query("SELECT u.username FROM Usuario u WHERE u.username = :username")
+    Usuario findByUsername(String username);
 }
