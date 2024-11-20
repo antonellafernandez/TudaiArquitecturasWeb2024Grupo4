@@ -245,5 +245,4 @@ public class MonopatinServiceTest {
         assertNotNull(result);
         assertEquals(expectedReport.size(), result.size());
     }
-
 }
