@@ -56,10 +56,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/administradores/**").hasAuthority(AuthorityConstant._ADMIN)
 
                         //Cuenta
+                        .requestMatchers(HttpMethod.GET, "/api/cuentas").hasAuthority(AuthorityConstant._ADMIN) //Lista de cuentas
                         .requestMatchers(HttpMethod.GET, "/api/cuentas/habilitadas").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.GET, "/api/cuentas/deshabilitadas").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers( HttpMethod.GET, "/api/cuentas/**").permitAll() //cada uno puede acceder a su cuenta
-                        .requestMatchers(HttpMethod.GET, "/api/cuentas").hasAuthority(AuthorityConstant._ADMIN) //Lista de cuentas
 
                         .requestMatchers(HttpMethod.PUT, "/api/cuentas/cobrarViaje").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.PUT, "/api/cuentas/habilitar/**").hasAuthority(AuthorityConstant._ADMIN)
@@ -71,6 +71,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/cuentas/**").hasAuthority(AuthorityConstant._ADMIN)
 
                         //Mantenimiento
+                        .requestMatchers(HttpMethod.GET, "/api/mantenimientos").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
                         .requestMatchers(HttpMethod.GET, "/api/mantenimientos/**").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
 
                         .requestMatchers(HttpMethod.PUT, "/api/mantenimientos/**").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
@@ -96,11 +97,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/monopatines/**").hasAuthority(AuthorityConstant._ADMIN)
 
                         //Parada
+                        .requestMatchers(HttpMethod.GET, "/api/paradas").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.GET, "/api/paradas/habilitadas").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/paradas/deshabilitadas").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.GET, "/api/paradas/cercanos").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/paradas/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/paradas").hasAuthority(AuthorityConstant._ADMIN)
 
                         //.requestMatchers(HttpMethod.PUT, "/{idParada}/monopatin/{idMonopatin}/quitarMonopatin").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.PUT, "/api/paradas/habilitar/**").hasAuthority(AuthorityConstant._ADMIN)
@@ -112,10 +113,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/paradas/**").hasAuthority(AuthorityConstant._ADMIN)
 
                         //Usuario
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.GET, "/api/usuarios/habilitados").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.GET, "/api/usuarios/deshabilitados").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.GET, "/api/usuarios/**").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._CLIENTE)
-                        .requestMatchers(HttpMethod.GET, "/api/usuarios").hasAuthority(AuthorityConstant._ADMIN)
 
                         .requestMatchers(HttpMethod.PUT, "/api/usuarios/reservarMonopatin").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/usuarios/pausar").permitAll()
