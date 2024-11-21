@@ -71,25 +71,25 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/cuentas/**").hasAuthority(AuthorityConstant._ADMIN)
 
                         //Mantenimiento
-                        .requestMatchers(HttpMethod.GET, "/api/mantenimientos").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
-                        .requestMatchers(HttpMethod.GET, "/api/mantenimientos/**").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
+                        .requestMatchers(HttpMethod.GET, "/api/mantenimientos").hasAnyAuthority(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
+                        .requestMatchers(HttpMethod.GET, "/api/mantenimientos/**").hasAnyAuthority(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
 
-                        .requestMatchers(HttpMethod.PUT, "/api/mantenimientos/**").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
+                        .requestMatchers(HttpMethod.PUT, "/api/mantenimientos/**").hasAnyAuthority(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
 
-                        .requestMatchers(HttpMethod.POST, "/api/mantenimientos/**").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
+                        .requestMatchers(HttpMethod.POST, "/api/mantenimientos/**").hasAnyAuthority(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
 
-                        .requestMatchers(HttpMethod.DELETE, "/api/mantenimientos/**").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
+                        .requestMatchers(HttpMethod.DELETE, "/api/mantenimientos/**").hasAnyAuthority(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
 
                         //Monopatin
                         .requestMatchers(HttpMethod.GET, "/api/monopatines").hasAuthority(AuthorityConstant._ADMIN)
-                        .requestMatchers(HttpMethod.GET, "/api/monopatines/reportePorTiempoTotal").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
-                        .requestMatchers(HttpMethod.GET, "/api/monopatines/reportePorTiempoSinPausa").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
-                        .requestMatchers(HttpMethod.GET, "/api/monopatines/**").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
+                        .requestMatchers(HttpMethod.GET, "/api/monopatines/reportePorTiempoTotal").hasAnyAuthority(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
+                        .requestMatchers(HttpMethod.GET, "/api/monopatines/reportePorTiempoSinPausa").hasAnyAuthority(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
+                        .requestMatchers(HttpMethod.GET, "/api/monopatines/**").hasAnyAuthority(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
 
-                        //.requestMatchers(HttpMethod.PUT, "/monopatines/reservarMonopatin/parada/{idParada}/monopatin/{idMonopatin}/reservar").hasAuthority(AuthorityConstant._ADMIN)
-                        //.requestMatchers(HttpMethod.PUT, "/monopatines/{idMonopatin}/finalizarRecorrido").hasAuthority(AuthorityConstant._ADMIN)
-                        .requestMatchers(HttpMethod.PUT, "/api/monopatines/habilitar").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
-                        .requestMatchers(HttpMethod.PUT, "/api/monopatines/deshabilitar").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
+                        .requestMatchers(HttpMethod.PUT, "/api/monopatines/reservarMonopatin/parada/**/monopatin/**/reservar").hasAuthority(AuthorityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.PUT, "/api/monopatines/**/finalizarRecorrido").hasAuthority(AuthorityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.PUT, "/api/monopatines/habilitar").hasAnyAuthority(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
+                        .requestMatchers(HttpMethod.PUT, "/api/monopatines/deshabilitar").hasAnyAuthority(AuthorityConstant._ADMIN, AuthorityConstant._MANTENIMIENTO)
                         .requestMatchers(HttpMethod.PUT, "/api/monopatines/pausa/**").hasAuthority(AuthorityConstant._ADMIN)
 
                         .requestMatchers(HttpMethod.POST, "/api/monopatines/**").hasAuthority(AuthorityConstant._ADMIN)
@@ -103,7 +103,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/paradas/cercanos").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/paradas/**").permitAll()
 
-                        //.requestMatchers(HttpMethod.PUT, "/{idParada}/monopatin/{idMonopatin}/quitarMonopatin").hasAuthority(AuthorityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.PUT, "/api/paradas/**/monopatin/**/quitarMonopatin").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.PUT, "/api/paradas/habilitar/**").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.PUT, "/api/paradas/deshabilitar/**").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.PUT, "/api/paradas/**").hasAuthority(AuthorityConstant._ADMIN)
@@ -113,10 +113,20 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/paradas/**").hasAuthority(AuthorityConstant._ADMIN)
 
                         //Usuario
-                        .requestMatchers(HttpMethod.GET, "/api/usuarios").hasAuthority(AuthorityConstant._ADMIN)
+                        //.requestMatchers(HttpMethod.GET, "/api/usuarios").permitAll()
+                        //.requestMatchers(HttpMethod.GET, "/api/usuarios/**").permitAll()
+                        //.requestMatchers(HttpMethod.PUT, "/api/usuarios").permitAll()
+                        //.requestMatchers(HttpMethod.PUT, "/api/usuarios/**").permitAll()
+                        //.requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll() //save
+                        //.requestMatchers(HttpMethod.POST, "/api/usuarios/**").permitAll() //save
+                        //.requestMatchers(HttpMethod.DELETE, "/api/usuarios").permitAll()
+                        //.requestMatchers(HttpMethod.DELETE, "/api/usuarios/**").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/api/usuarios/habilitados").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.GET, "/api/usuarios/deshabilitados").hasAuthority(AuthorityConstant._ADMIN)
-                        .requestMatchers(HttpMethod.GET, "/api/usuarios/**").hasAnyRole(AuthorityConstant._ADMIN, AuthorityConstant._CLIENTE)
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios/getByUsername/**").hasAuthority(AuthorityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios").hasAuthority(AuthorityConstant._ADMIN)
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios/**").hasAnyAuthority(AuthorityConstant._ADMIN, AuthorityConstant._CLIENTE)
 
                         .requestMatchers(HttpMethod.PUT, "/api/usuarios/reservarMonopatin").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/usuarios/pausar").permitAll()
@@ -125,7 +135,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/usuarios/deshabilitar/**").hasAuthority(AuthorityConstant._ADMIN)
                         .requestMatchers(HttpMethod.PUT, "/api/usuarios/**").hasAuthority(AuthorityConstant._ADMIN)
 
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios").hasAuthority(AuthorityConstant._ADMIN) //save
+                        .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll() //save
 
                         .requestMatchers(HttpMethod.DELETE, "/api/usuarios/**").hasAuthority(AuthorityConstant._ADMIN)
 

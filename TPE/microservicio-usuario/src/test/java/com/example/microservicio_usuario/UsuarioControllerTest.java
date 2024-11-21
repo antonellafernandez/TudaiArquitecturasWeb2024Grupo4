@@ -50,7 +50,7 @@ public class UsuarioControllerTest {
         String secret = "j7ZookpUTYxclaULynjypGQVKMYXqOXMI+/1sQ2gOV1BF6VOHw6OzYj9RNZY4GcHAE3Igrah3MZ26oLrY/3y4Q==";
         int validity = 1000 * 60 * 60; // 1 hora
         TokenGenerator tokenGenerator = new TokenGenerator(secret, validity);
-        token = tokenGenerator.generateArtificialToken("USERNAME", Map.of("auth", "ROLE_ADMIN"));
+        token = tokenGenerator.generateArtificialToken("USERNAME", Map.of("auth", "ADMIN"));
     }
 
     @Test
@@ -122,7 +122,8 @@ public class UsuarioControllerTest {
         when(usuarioService.findById(1L)).thenReturn(usuario);
         doNothing().when(usuarioService).habilitar(1L);
 
-        mockMvc.perform(put("/usuarios/habilitar/1"))
+        mockMvc.perform(put("/usuarios/habilitar/1")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
                 .andExpect(status().isNoContent());
     }
 

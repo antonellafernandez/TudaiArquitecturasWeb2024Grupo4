@@ -35,10 +35,10 @@ spring:
             uri: lb://microservicio-parada
             predicates:
               - Path=/api/paradas/**
-          - id: microservicio-ususario
-            uri: lb://microservicio-ususario
+          - id: microservicio-usuario
+            uri: lb://microservicio-usuario
             predicates:
-              - Path=/api/ususarios/**
+              - Path=/api/usuarios/**
           - id: microservicio-viaje
             uri: lb://microservicio-viaje
             predicates:
@@ -46,4 +46,5 @@ spring:
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
-
+    org.springframework.security: DEBUG
+    org.springframework.web.filter: DEBUG

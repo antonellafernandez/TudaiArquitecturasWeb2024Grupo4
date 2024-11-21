@@ -30,6 +30,7 @@ public class UsuarioController {
     })
     @PostMapping("")
     public ResponseEntity<Usuario> save(@RequestBody Usuario usuario, Authentication auth) {
+        System.out.println("AAAAAAAAAAA");
         Usuario usuarioNew = usuarioService.save(usuario, auth.getName());
         return ResponseEntity.ok(usuarioNew);
     }
