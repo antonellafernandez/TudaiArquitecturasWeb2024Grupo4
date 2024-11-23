@@ -20,8 +20,8 @@ public class UsuarioController {
 
     @Autowired
     UsuarioService usuarioService;
-    // Create
 
+    // Create
     @Operation(summary = "Crear un nuevo usuario")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Usuario creado exitosamente",
@@ -36,7 +36,6 @@ public class UsuarioController {
     }
 
     // Read
-
     @Operation(summary = "Obtener todos los usuarios")
     @GetMapping("")
     public ResponseEntity<List<Usuario>> getAllUsuarios() {
@@ -66,7 +65,6 @@ public class UsuarioController {
         }
         return ResponseEntity.ok(usuarios);
     }
-
 
     @Operation(summary = "Obtener un usuario por ID")
     @ApiResponses(value = {
@@ -175,5 +173,4 @@ public class UsuarioController {
         usuarioService.finalizarViaje(idCuenta, idMonopatin);
         return ResponseEntity.ok().build();
     }
-
 }
