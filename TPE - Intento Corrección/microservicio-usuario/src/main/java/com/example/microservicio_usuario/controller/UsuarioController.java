@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -20,8 +19,8 @@ public class UsuarioController {
 
     @Autowired
     UsuarioService usuarioService;
-
     // Create
+
     @Operation(summary = "Crear un nuevo usuario")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Usuario creado exitosamente",
@@ -29,13 +28,13 @@ public class UsuarioController {
             @ApiResponse(responseCode = "400", description = "Solicitud inválida", content = @Content)
     })
     @PostMapping("")
-    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario, Authentication auth) {
-        System.out.println("AAAAAAAAAAA");
-        Usuario usuarioNew = usuarioService.save(usuario, auth.getName());
+    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) {
+        Usuario usuarioNew = usuarioService.save(usuario, " ");
         return ResponseEntity.ok(usuarioNew);
     }
 
     // Read
+
     @Operation(summary = "Obtener todos los usuarios")
     @GetMapping("")
     public ResponseEntity<List<Usuario>> getAllUsuarios() {
@@ -65,6 +64,7 @@ public class UsuarioController {
         }
         return ResponseEntity.ok(usuarios);
     }
+
 
     @Operation(summary = "Obtener un usuario por ID")
     @ApiResponses(value = {
@@ -173,4 +173,5 @@ public class UsuarioController {
         usuarioService.finalizarViaje(idCuenta, idMonopatin);
         return ResponseEntity.ok().build();
     }
+
 }
